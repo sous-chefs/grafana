@@ -1,0 +1,63 @@
+server {
+  listen                <%= @listen_address %>:<%= @listen_port %>;
+
+  server_name           <%= @server_name %> <%= @server_aliases.join(" ") %>;
+  access_log            /var/log/nginx/<%= @server_name %>.access.log;
+
+  location / {
+    root  <%= @grafana_dir %>;
+    index  index.html  index.htm;
+  }
+
+  location ~ ^/_graphite {
+    rewrite ^/_graphite/(.*)$ /$1 break;
+    proxy_pass <%= @graphite_scheme %><%= @graphite_server %>:<%= @graphite_port %>;
+    proxy_read_timeout 90;
+<% unless @graphite_basic_auth.empty? -%>
+    proxy_set_header Authorization "Basic <%= @graphite_basic_auth %>";
+<% end -%>
+  }
+
+  location ~ ^/_aliases$ {
+    proxy_pass <%= @es_scheme %><%= @es_server %>:<%= @es_port %>;
+    proxy_read_timeout 90;
+<% unless @es_basic_auth.empty? -%>
+    proxy_set_header Authorization "Basic <%= @es_basic_auth %>";
+<% end -%>
+  }
+  location ~ ^/_nodes$ {
+    proxy_pass <%= @es_scheme %><%= @es_server %>:<%= @es_port %>;
+    proxy_read_timeout 90;
+<% unless @es_basic_auth.empty? -%>
+    proxy_set_header Authorization "Basic <%= @es_basic_auth %>";
+<% end -%>
+  }
+  location ~ ^/.*/_search$ {
+    proxy_pass <%= @es_scheme %><%= @es_server %>:<%= @es_port %>;
+    proxy_read_timeout 90;
+<% unless @es_basic_auth.empty? -%>
+    proxy_set_header Authorization "Basic <%= @es_basic_auth %>";
+<% end -%>
+  }
+  location ~ ^/.*/_mapping$ {
+    proxy_pass <%= @es_scheme %><%= @es_server %>:<%= @es_port %>;
+    proxy_read_timeout 90;
+<% unless @es_basic_auth.empty? -%>
+    proxy_set_header Authorization "Basic <%= @es_basic_auth %>";
+<% end -%>
+  }
+  location ~ ^/grafana-dash/dashboard/.*$ {
+    proxy_pass <%= @es_scheme %><%= @es_server %>:<%= @es_port %>;
+    proxy_read_timeout 90;
+<% unless @es_basic_auth.empty? -%>
+    proxy_set_header Authorization "Basic <%= @es_basic_auth %>";
+<% end -%>
+  }
+  location ~ ^/grafana-dash/temp.*$ {
+    proxy_pass <%= @es_scheme %><%= @es_server %>:<%= @es_port %>;
+    proxy_read_timeout 90;
+<% unless @es_basic_auth.empty? -%>
+    proxy_set_header Authorization "Basic <%= @es_basic_auth %>";
+<% end -%>
+  }
+}

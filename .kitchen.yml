@@ -1,0 +1,27 @@
+---
+driver:
+  name: vagrant
+  require_chef_omnibus: "latest"
+  customize:
+    memory: 1024
+    cpus: 2
+    cpuexecutioncap: 80
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-12.04
+
+suites:
+  - name: grafana
+    attributes:
+      grafana:
+        install_type: file
+        webserver_port: 8080
+    run_list:
+      - recipe[apt::default]
+      - recipe[java::default]
+      - recipe[elasticsearch::default]
+      - recipe[graphite::default]
+      - recipe[grafana::default]

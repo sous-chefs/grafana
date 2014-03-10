@@ -33,9 +33,9 @@ end
 if node['grafana']['user'].empty?
   unless node['grafana']['webserver'].empty?
     webserver = node['grafana']['webserver']
-    kibana_user = node[webserver]['user']
+    grafana_user = node[webserver]['user']
   else
-    kibana_user = "nobody"
+    grafana_user = "nobody"
   end
 else
   grafana_user = node['grafana']['user']

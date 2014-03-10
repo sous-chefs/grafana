@@ -72,7 +72,7 @@ If you would like to modify the `nginx` parameters, you should:
 
 Testing
 -------
-#### Vagrant
+#### kitchen-test
 
 Requires Vagrant >= 1.2 with the following plugins :
 
@@ -80,26 +80,8 @@ Requires Vagrant >= 1.2 with the following plugins :
 * vagrant-omnibus
 
 ```
-$ vagrant up ubuntu1204
-```
-
-If you get the following error then run `vagrant provision ubuntu1204`.  For some reason on my box it's occasionally failing to launch the shell provisioner.
-
-```
-[ubuntu1204] Running: inline script
-stdin: is not a tty
-The following SSH command responded with a non-zero exit status.
-Vagrant assumes that this means the command failed!
-
-chmod +x /tmp/vagrant-shell && /tmp/vagrant-shell
-```
-
-#### Strainer
-
-```
 $ bundle install
-$ bundle exec berks install
-$ bundle exec strainer test
+$ kitchen test
 ```
 
 Contributing

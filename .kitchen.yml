@@ -19,6 +19,8 @@ suites:
       grafana:
         install_type: file
         webserver_port: 8080
+        nginx:
+          webserver_aliases: "grafana.dev"
     run_list:
       - recipe[apt::default]
       - recipe[java::default]

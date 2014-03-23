@@ -5,7 +5,6 @@
  */
 define(['settings'],
 function (Settings) {
-  "use strict";
 
   return new Settings({
 
@@ -22,7 +21,7 @@ function (Settings) {
      * in nginx or apache for cross origin domain sharing to work (CORS).
      * Check install documentation on github
      */
-    graphiteUrl: window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/_graphite",
+    graphiteUrl: "http://<%= node['grafana']['graphite_server'] %>:80", 
 
     /**
      * Multiple graphite servers? Comment out graphiteUrl and replace with

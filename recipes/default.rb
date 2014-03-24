@@ -16,14 +16,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-unless Chef::Config[:solo]
+
+unless Chef::Config[:solo] || node['grafana']['es_server']
   es_server_results = search(:node, "roles:#{node['grafana']['es_role']} AND chef_environment:#{node.chef_environment}")
   unless es_server_results.empty?
-    node.set['grafana']['es_server'] = es_server_results[0]['ipaddress']
+    node.set['grafana']['es_server'] = es_server_results.first['ipaddress']
   end
+end
+
+unless Chef::Config[:solo] || node['grafana']['graphite_server']
   graphite_server_results = search(:node, "roles:#{node['grafana']['graphite_role']} AND chef_environment:#{node.chef_environment}")
   unless graphite_server_results.empty?
-    node.set['grafana']['graphite_server'] = graphite_server_results[0]['ipaddress']
+    node.set['grafana']['graphite_server'] = graphite_server_results.first['ipaddress']
   end
 end
 

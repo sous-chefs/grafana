@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## DEV:
 
+* Update grafana to 1.5.2 (Grégoire Seux) [#7](https://github.com/JonathanTron/chef-grafana/pull/7)
+
 * Don't set normal attribute `node['nginx']['default_site_enabled']` (Grégoire Seux) [#5](https://github.com/JonathanTron/chef-grafana/pull/5)
 
 * Remove `"use strict";` from `config.js` as it seems to not be present in

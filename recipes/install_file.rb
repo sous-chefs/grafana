@@ -9,5 +9,4 @@ when "zip"
     strip_leading_dir false
     action :put
   end
-  node.set['grafana']['web_dir'] = node['grafana']['install_dir']
 end

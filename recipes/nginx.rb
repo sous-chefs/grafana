@@ -19,8 +19,6 @@
 
 require "base64"
 
-node.set['nginx']['default_site_enabled'] = node['grafana']['nginx']['enable_default_site']
-
 include_recipe "nginx"
 
 es_basic_auth = if !node['grafana']['es_user'].empty? && !node['grafana']['es_password'].empty?

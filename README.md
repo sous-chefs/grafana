@@ -44,7 +44,10 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 
 - `node['grafana']['nginx']['template']` - The template file to use for the nginx site configuration
 - `node['grafana']['nginx']['template_cookbook']` - The cookbook containing said template
-- `node['grafana']['nginx']['enable_default_site']` - Should we disable the nginx default site (default: true)
+
+Removed:
+
+- `node['grafana']['nginx']['enable_default_site']` - use `node['nginx']['enable_default_site']`
 
 Usage
 -----

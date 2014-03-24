@@ -25,7 +25,7 @@ when "zip"
     url node['grafana']['file']['url']
     path node['grafana']['install_path']
     checksum  node['grafana']['file']['checksum']
-    owner grafana_user
+    owner node['grafana']['user']
     strip_leading_dir false
     action :put
   end

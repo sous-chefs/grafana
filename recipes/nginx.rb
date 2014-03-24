@@ -49,4 +49,11 @@ template "/etc/nginx/sites-available/grafana" do
   )
 end
 
+
+log 'restarting nginx because of grafana update' do
+  action :nothing
+  subscribes :write, 'ark[grafana]' if node['grafana']['file']['type'].eql? 'file'
+  notifies :restart, 'service[nginx]'
+end
+
 nginx_site "grafana"

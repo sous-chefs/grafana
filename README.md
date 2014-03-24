@@ -102,7 +102,7 @@ Primary author:
 
 Contributors:
 
-- You...
+- Grégoire Seux (@kamaradclimber)
 
 Based on `chef-kibana` cookbook by:
 

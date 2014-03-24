@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of grafana.
 
+## DEV:
+
+* Refactor and separate install in two recipes: `install_git` and `install_file`
+   (Grégoire Seux) [#2](https://github.com/JonathanTron/chef-grafana/pull/2)
+
 ## 1.0.2:
 
 * Update file release to 1.5.1

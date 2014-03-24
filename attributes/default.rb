@@ -6,14 +6,14 @@ default['grafana']['file']['type'] = "zip" # zip
 default['grafana']['file']['url'] = "https://github.com/torkelo/grafana/releases/download/v1.5.1/grafana-1.5.1.zip"
 default['grafana']['file']['checksum'] = "0497f22cf4d3be819997f527a4ec55897c1941ebb035bf943e1b98a4dc6fec27" # sha256 ( shasum -a 256 FILENAME )
 default['grafana']['webserver'] = "nginx"
+default['grafana']['install_path'] = "/opt"
+default['grafana']['install_dir'] = "#{node['grafana']['install_path']}/grafana"
 case node['grafana']['install_type']
 when 'git'
   default['grafana']['web_dir'] = "#{node['grafana']['install_dir']}/current/src"
 when 'file'
   default['grafana']['web_dir'] = node['grafana']['install_dir']
 end
-default['grafana']['install_path'] = "/opt"
-default['grafana']['install_dir'] = "#{node['grafana']['install_path']}/grafana"
 default['grafana']['es_server'] = "127.0.0.1"
 default['grafana']['es_port'] = "9200"
 default['grafana']['es_role'] = "elasticsearch_server"

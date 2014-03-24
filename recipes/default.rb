@@ -16,9 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-include_recipe "git"
-
 unless Chef::Config[:solo]
   es_server_results = search(:node, "roles:#{node['grafana']['es_role']} AND chef_environment:#{node.chef_environment}")
   unless es_server_results.empty?
@@ -48,35 +45,9 @@ end
 
 case  node['grafana']['install_type']
   when "git"
-    git "#{node['grafana']['install_dir']}/#{node['grafana']['git']['branch']}" do
-      repository node['grafana']['git']['url']
-      reference node['grafana']['git']['branch']
-      case  node['grafana']['git']['type']
-        when "checkout"
-          action :checkout
-        when "sync"
-          action :sync
-      end
-      user grafana_user
-    end
-    link "#{node['grafana']['install_dir']}/current" do
-      to "#{node['grafana']['install_dir']}/#{node['grafana']['git']['branch']}"
-    end
-    node.set['grafana']['web_dir'] = "#{node['grafana']['install_dir']}/current/src"
+    include_recipe 'grafana::install_git'
   when "file"
-    case node['grafana']['file']['type']
-      when "zip"
-        include_recipe 'ark::default'
-        ark 'grafana' do
-          url node['grafana']['file']['url']
-          path node['grafana']['install_path']
-          checksum  node['grafana']['file']['checksum']
-          owner grafana_user
-          strip_leading_dir false
-          action :put
-        end
-        node.set['grafana']['web_dir'] = node['grafana']['install_dir']
-    end
+    include_recipe 'grafana::install_file'
 end
 
 template "#{node['grafana']['web_dir']}/config.js" do

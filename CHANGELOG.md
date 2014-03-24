@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## DEV:
 
+* Don't set normal attribute `node['nginx']['default_site_enabled']` (Grégoire Seux) [#5](https://github.com/JonathanTron/chef-grafana/pull/5)
+
 * Remove `"use strict";` from `config.js` as it seems to not be present in
   grafana releases, thanks to @iiro for proposing it in [#1](https://github.com/JonathanTron/chef-grafana/pull/1)
 

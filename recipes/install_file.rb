@@ -26,7 +26,7 @@ when "zip"
     path node['grafana']['install_path']
     checksum  node['grafana']['file']['checksum']
     owner node['grafana']['user']
-    strip_leading_dir false
+    strip_leading_dir (node['grafana']['file']['version'] > '1.5.1')
     action :put
   end
 end

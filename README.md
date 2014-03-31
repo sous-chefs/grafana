@@ -106,6 +106,7 @@ Primary author:
 Contributors:
 
 - Grégoire Seux (@kamaradclimber)
+- Anatoliy D. (@anatolijd)
 
 Based on `chef-kibana` cookbook by:
 

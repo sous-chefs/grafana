@@ -1,5 +1,8 @@
+[![Build Status](https://travis-ci.org/JonathanTron/chef-grafana.svg?branch=master)](https://travis-ci.org/JonathanTron/chef-grafana)
+
 grafana Cookbook
 ===============
+
 A stand-alone cookbook for Grafana
 
 Requirements

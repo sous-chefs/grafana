@@ -4,6 +4,10 @@ This file is used to list changes made in each version of grafana.
 
 ## DEV:
 
+* Add some basic specs, foodcritic, knife test and enable TravisCI
+
+* Fix error with undefined grafana_user variable [Thanks to @klamontagne](https://github.com/JonathanTron/chef-grafana/commit/50fa3836dcf410e37b96533e25d952e8bc6c2472#commitcomment-5857007)
+
 * Fix timezone value quoting in config.js (Anatoliy D.) [#9](https://github.com/JonathanTron/chef-grafana/pull/9)
 
 * Update grafana to 1.5.2 (Grégoire Seux) [#7](https://github.com/JonathanTron/chef-grafana/pull/7)

@@ -1,0 +1,4 @@
+knife:        bundle exec knife cookbook test $COOKBOOK
+foodcritic:   bundle exec foodcritic -f any $SANDBOX/$COOKBOOK
+chefspec:     bundle exec rspec --color --format progress
+kitchen:      bundle exec kitchen test

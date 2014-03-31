@@ -31,17 +31,6 @@ unless Chef::Config[:solo] || node['grafana']['graphite_server']
   end
 end
 
-if node['grafana']['user'].empty?
-  unless node['grafana']['webserver'].empty?
-    webserver = node['grafana']['webserver']
-    grafana_user = node[webserver]['user']
-  else
-    grafana_user = "nobody"
-  end
-else
-  grafana_user = node['grafana']['user']
-end
-
 directory node['grafana']['install_dir'] do
   owner grafana_user
   mode "0755"

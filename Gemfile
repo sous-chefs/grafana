@@ -4,7 +4,7 @@ gem 'berkshelf', '~> 2.0'
 
 group :test do
   gem 'chefspec'
-  gem 'foodcritic'
+  gem 'foodcritic', '~> 2.1'
   gem 'strainer'
 end
 

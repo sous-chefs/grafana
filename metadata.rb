@@ -6,10 +6,9 @@ description 'Installs/Configures grafana'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '1.1.1'
 
-%w{git nginx}.each do |cb|
-  depends cb
-end
+depends 'git'
 depends 'ark', '>= 0.7.2'
+depends 'nginx', '>= 2.5.0'
 
 supports 'ubuntu'
 supports 'debian'

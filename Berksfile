@@ -3,7 +3,7 @@ source "https://api.berkshelf.com"
 metadata
 
 cookbook 'apt'
-cookbook 'nginx'
+cookbook 'nginx', '>= 2.5'
 cookbook 'git'
 cookbook 'java'
 cookbook 'ark', '>= 0.7.2'

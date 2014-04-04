@@ -24,6 +24,6 @@ ark 'grafana' do
   path node['grafana']['install_path']
   checksum node['grafana']['file']['checksum']
   owner grafana_user
-  strip_leading_dir node['grafana']['file']['version'] > '1.5.1'
+  strip_components (node['grafana']['file']['version'] > '1.5.1' ? 1 : 0)
   action :put
 end

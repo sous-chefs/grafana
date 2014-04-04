@@ -6,7 +6,7 @@ cookbook 'apt'
 cookbook 'nginx'
 cookbook 'git'
 cookbook 'java'
-cookbook 'ark'
+cookbook 'ark', '>= 0.7.2'
 cookbook 'graphite'
 cookbook 'build-essential'
 

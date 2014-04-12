@@ -2,7 +2,9 @@
 
 This file is used to list changes made in each version of grafana.
 
-## DEV:
+## Dev:
+
+## 1.0.3:
 
 * Add some basic specs, foodcritic, knife test and enable TravisCI
 

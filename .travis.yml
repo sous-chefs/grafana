@@ -5,6 +5,6 @@ rvm:
   - 2.0.0
   - 2.1.0
 before_script:
-  - bundle exec berks install --path vendor/cookbooks
+  - bundle exec berks vendor --path vendor/cookbooks
 script:
   - bundle exec "strainer test --except kitchen"

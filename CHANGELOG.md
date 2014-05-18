@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## Dev:
+## 1.0.4:
 
 * Update config.js based on the one in 1.5.4
 * Update to grafana 1.5.4

@@ -3,6 +3,7 @@ require "spec_helper"
 describe "grafana::default" do
 
   before do
+    stub_command "which nginx"
     Chef::Config[:config_file] = '/dev/null'
   end
 

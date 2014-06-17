@@ -17,3 +17,6 @@ Berksfile.lock
 Gemfile.lock
 bin/*
 .bundle/*
+vendor/bundle
+
+.ruby-version

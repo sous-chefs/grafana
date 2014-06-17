@@ -19,5 +19,6 @@ bin/*
 .bundle/*
 vendor/bundle
 
+.chef
 .ruby-version
 .chef/*

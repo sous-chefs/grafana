@@ -42,6 +42,10 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 - `node['grafana']['webserver_listen']` - The ip address the web server will listen on
 - `node['grafana']['webserver_port']` - The port the webserver will listen on
 - `node['grafana']['webserver_scheme']` - Scheme helper if webserver is outside of this cookbook `http://` or `https://`
+- `node['grafana']['timezone_offset']` - Timezone offset config, example: "-0500" (for UTC - 5 hours) (default: "null")
+- `node['grafana']['grafana_index']` - Elasticsearch index to use for Grafana (default: 'grafana-index')
+- `node['grafana']['unsaved_changes_warning']` - Enable disable unsaved changes warning in UI (default: 'true')
+- `node['grafana']['playlist_timespan']` - Playlist timespan config (default: '1m')
 
 #### kibana::nginx
 
@@ -110,6 +114,7 @@ Contributors:
 
 - Grégoire Seux (@kamaradclimber)
 - Anatoliy D. (@anatolijd)
+- Greg Fitzgerald (@gregf)
 
 Based on `chef-kibana` cookbook by:
 

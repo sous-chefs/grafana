@@ -36,12 +36,7 @@ directory node['grafana']['install_dir'] do
   mode "0755"
 end
 
-case  node['grafana']['install_type']
-  when "git"
-    include_recipe 'grafana::install_git'
-  when "file"
-    include_recipe 'grafana::install_file'
-end
+include_recipe "grafana::_install_#{node['grafana']['install_type']}"
 
 template "#{node['grafana']['web_dir']}/config.js" do
   source node['grafana']['config_template']
@@ -51,5 +46,5 @@ template "#{node['grafana']['web_dir']}/config.js" do
 end
 
 unless node['grafana']['webserver'].empty?
-  include_recipe "grafana::#{node['grafana']['webserver']}"
+  include_recipe "grafana::_#{node['grafana']['webserver']}"
 end

@@ -1,4 +1,4 @@
-default['grafana']['install_type'] = "git" # git | file
+default['grafana']['install_type'] = "file" # file | git
 default['grafana']['git']['url'] = "https://github.com/grafana/grafana"
 default['grafana']['git']['branch'] = "master"
 default['grafana']['git']['type'] = "sync" # checkout | sync

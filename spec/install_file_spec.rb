@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'spec_helper'
 
 module ChefSpecArkMatchers
   def put_ark(resource_name)
@@ -6,7 +6,7 @@ module ChefSpecArkMatchers
   end
 end
 
-describe "grafana::install_file" do
+describe 'grafana::_install_file' do
 
   include ChefSpecArkMatchers
 
@@ -15,7 +15,7 @@ describe "grafana::install_file" do
   end
 
   it 'install grafana from remote url using ark' do
-    expect(chef_run).to put_ark("grafana").with(
+    expect(chef_run).to put_ark('grafana').with(
       url: chef_run.node['grafana']['file']['url'],
       path: chef_run.node['grafana']['install_path'],
       checksum: chef_run.node['grafana']['file']['checksum'],

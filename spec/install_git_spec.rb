@@ -1,19 +1,18 @@
-require "spec_helper"
+require 'spec_helper'
 
-describe "grafana::install_git" do
+describe 'grafana::_install_git' do
 
   let(:chef_run) do
     ChefSpec::Runner.new.converge described_recipe
   end
   let(:grafana) { chef_run.node['grafana'] }
 
-
   it 'loads git recipe' do
-    expect(chef_run).to include_recipe "git"
+    expect(chef_run).to include_recipe 'git'
   end
 
   it 'clones grafana from git repository' do
-    expect(chef_run).to sync_git("/opt/grafana/master").with(
+    expect(chef_run).to sync_git('/srv/apps/grafana/master').with(
       repository: grafana['git']['url'],
       reference: grafana['git']['branch'],
       user: chef_run.node['nginx']['user']

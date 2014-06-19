@@ -32,6 +32,9 @@ template "/etc/nginx/sites-available/grafana" do
   source node['grafana']['nginx']['template']
   cookbook node['grafana']['nginx']['template_cookbook']
   notifies :reload, "service[nginx]"
+  mode '0644'
+  owner 'root'
+  group 'root'
   variables(
     :es_scheme        => node['grafana']['es_scheme'],
     :es_server        => node['grafana']['es_server'],

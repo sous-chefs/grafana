@@ -2,6 +2,14 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 1.0.6:
+
+* Releasing to opscode community site [Thanks to @gregf in #12](https://github.com/JonathanTron/chef-grafana/pull/12)
+
+## 1.0.5:
+
+* Update grafana to 1.6.0 (Greg Fitzgerald) [#11](https://github.com/JonathanTron/chef-grafana/pull/11)
+
 ## 1.0.4:
 
 * Update config.js based on the one in 1.5.4

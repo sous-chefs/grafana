@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'berkshelf', '~> 3.1'
+gem 'rake'
+gem 'emeril'
 
 group :test do
   gem 'chefspec', '~> 4.0'

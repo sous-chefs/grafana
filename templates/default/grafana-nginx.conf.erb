@@ -9,6 +9,10 @@ server {
     index  index.html  index.htm;
   }
 
+  location ~ ^/config.js {
+    deny all;
+  }
+
   location ~ ^/_graphite {
     rewrite ^/_graphite/(.*)$ /$1 break;
     proxy_pass <%= @graphite_scheme %><%= @graphite_server %>:<%= @graphite_port %>;

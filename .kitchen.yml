@@ -12,12 +12,25 @@ provisioner:
 
 platforms:
   - name: ubuntu-12.04
+  - name: debian-7.0
 
 suites:
-  - name: grafana
+  - name: default
     attributes:
       grafana:
-        install_type: file
+        webserver_port: 8080
+        nginx:
+          webserver_aliases: "grafana.dev"
+    run_list:
+      - recipe[apt::default]
+      - recipe[java::default]
+      - recipe[elasticsearch::default]
+      - recipe[graphite::default]
+      - recipe[grafana::default]
+  - name: git
+    attributes:
+      grafana:
+        install_type: git
         webserver_port: 8080
         nginx:
           webserver_aliases: "grafana.dev"

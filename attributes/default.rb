@@ -8,7 +8,7 @@ f = node['grafana']['file']
 default['grafana']['file']['url'] = "http://grafanarel.s3.amazonaws.com/grafana-#{f['version']}.#{f['type']}"
 default['grafana']['file']['checksum'] = "603156ca2f051e5e42ec5c72d750f577b8f558a347ed504af62699e2b7a0647c" # sha256 ( shasum -a 256 FILENAME )
 default['grafana']['webserver'] = "nginx"
-default['grafana']['install_path'] = "/srv/apps/"
+default['grafana']['install_path'] = "/srv/apps"
 default['grafana']['install_dir'] = "#{node['grafana']['install_path']}/grafana"
 
 case node['grafana']['install_type']

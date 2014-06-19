@@ -1,0 +1,19 @@
+AllCops:
+  Exclude:
+    - vendor/**/*
+    - test/**/*
+
+AlignParameters:
+  Enabled: false
+
+Encoding:
+  Enabled: false
+
+LineLength:
+  Max: 200
+
+Documentation:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false

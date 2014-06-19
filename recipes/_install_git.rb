@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-include_recipe "git"
+include_recipe 'git'
 
 git "#{node['grafana']['install_dir']}/#{node['grafana']['git']['branch']}" do
   repository node['grafana']['git']['url']

@@ -41,7 +41,7 @@ include_recipe "grafana::_install_#{node['grafana']['install_type']}"
 template "#{node['grafana']['web_dir']}/config.js" do
   source node['grafana']['config_template']
   cookbook node['grafana']['config_cookbook']
-  mode "0750"
+  mode "0640"
   user grafana_user
 end
 

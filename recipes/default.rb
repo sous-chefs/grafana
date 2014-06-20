@@ -33,23 +33,19 @@ end
 
 directory node['grafana']['install_dir'] do
   owner grafana_user
-  mode "0755"
+  mode '0755'
+  recursive true
 end
 
-case  node['grafana']['install_type']
-  when "git"
-    include_recipe 'grafana::install_git'
-  when "file"
-    include_recipe 'grafana::install_file'
-end
+include_recipe "grafana::_install_#{node['grafana']['install_type']}"
 
 template "#{node['grafana']['web_dir']}/config.js" do
   source node['grafana']['config_template']
   cookbook node['grafana']['config_cookbook']
-  mode "0750"
+  mode '0644'
   user grafana_user
 end
 
 unless node['grafana']['webserver'].empty?
-  include_recipe "grafana::#{node['grafana']['webserver']}"
+  include_recipe "grafana::_#{node['grafana']['webserver']}"
 end

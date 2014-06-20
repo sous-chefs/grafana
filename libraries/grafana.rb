@@ -1,11 +1,11 @@
 module GrafanaExtensions
   def grafana_user
     if node['grafana']['user'].empty?
-      unless node['grafana']['webserver'].empty?
+      if !node['grafana']['webserver'].empty?
         webserver = node['grafana']['webserver']
         node[webserver]['user']
       else
-        "nobody"
+        'nobody'
       end
     else
       node['grafana']['user']

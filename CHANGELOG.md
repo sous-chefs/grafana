@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## dev:
+## 1.1.0:
 
 __breaking changes__
 

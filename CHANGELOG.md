@@ -2,6 +2,17 @@
 
 This file is used to list changes made in each version of grafana.
 
+## dev:
+
+__breaking changes__
+
+* Value for `default['grafana']['install_path']` changed from `/opt` to `/srv/apps` [#13](https://github.com/JonathanTron/chef-grafana/pull/13)
+* Default installation uses zip file instead of git [#13](https://github.com/JonathanTron/chef-grafana/pull/13)
+
+__minor changes__
+
+* Major cleanup and additional tests (Greg Fitzgerald) [#13](https://github.com/JonathanTron/chef-grafana/pull/13)
+
 ## 1.0.6:
 
 * Releasing to opscode community site [Thanks to @gregf in #12](https://github.com/JonathanTron/chef-grafana/pull/12)

@@ -6,8 +6,8 @@ This file is used to list changes made in each version of grafana.
 
 __breaking changes__
 
-* Value for `default['grafana']['install_path']` changed from `/opt` to `/srv/apps` [#13](https://github.com/JonathanTron/chef-grafana/pull/13)
-* Default installation uses zip file instead of git [#13](https://github.com/JonathanTron/chef-grafana/pull/13)
+* Value for `default['grafana']['install_path']` changed from `/opt` to `/srv/apps` (Greg Fitzgerald) [#13](https://github.com/JonathanTron/chef-grafana/pull/13)
+* Default installation uses zip file instead of git (Greg Fitzgerald) [#13](https://github.com/JonathanTron/chef-grafana/pull/13)
 
 __minor changes__
 

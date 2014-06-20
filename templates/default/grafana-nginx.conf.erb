@@ -46,14 +46,14 @@ server {
     proxy_set_header Authorization "Basic <%= @es_basic_auth %>";
 <% end -%>
   }
-  location ~ ^/grafana-dash/dashboard/.*$ {
+  location ~ ^/<%= node['grafana']['grafana_index'] %>/dashboard/.*$ {
     proxy_pass <%= @es_scheme %><%= @es_server %>:<%= @es_port %>;
     proxy_read_timeout 90;
 <% unless @es_basic_auth.empty? -%>
     proxy_set_header Authorization "Basic <%= @es_basic_auth %>";
 <% end -%>
   }
-  location ~ ^/grafana-dash/temp.*$ {
+  location ~ ^/<%= node['grafana']['grafana_index'] %>/temp.*$ {
     proxy_pass <%= @es_scheme %><%= @es_server %>:<%= @es_port %>;
     proxy_read_timeout 90;
 <% unless @es_basic_auth.empty? -%>

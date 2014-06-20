@@ -36,7 +36,7 @@ function (Settings) {
     datasources: {
       graphite: {
         type: 'graphite',
-        url: "http://127.0.0.1:80",
+        url: window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/_graphite",
         default: true
       }
     },
@@ -44,7 +44,7 @@ function (Settings) {
     // elasticsearch url
     // used for storing and loading dashboards, optional
     // For Basic authentication use: http://username:password@domain.com:9200
-    elasticsearch: "http://127.0.0.1:9200",
+    elasticsearch: window.location.protocol+"//"+window.location.hostname+":"+window.location.port,
 
     // default start dashboard
     default_route: '/dashboard/file/default.json',

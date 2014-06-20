@@ -6,6 +6,13 @@ This file is used to list changes made in each version of grafana.
 
 __breaking changes__
 
+* `config.js` data for `graphite` and `elasticsearch` changed back to use:
+
+  - `window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/_graphite"`
+  - `window.location.protocol+"//"+window.location.hostname+":"+window.location.port`
+
+  The idea is to allow external access without `CORS` problems or credential leaks in `config.js`.
+
 * Value for `default['grafana']['install_path']` changed from `/opt` to `/srv/apps` (Greg Fitzgerald) [#13](https://github.com/JonathanTron/chef-grafana/pull/13)
 * Default installation uses zip file instead of git (Greg Fitzgerald) [#13](https://github.com/JonathanTron/chef-grafana/pull/13)
 
@@ -19,6 +26,10 @@ __minor changes__
 
 ## 1.0.5:
 
+__breaking changes__
+
+* `config.js` was unintentionally changed to use node info to configure graphite and elasticsearch index.
+* Value for `default['grafana']['grafana_index']` changed from `grafana-dash` to `grafana-index` (Greg Fitzgerald) [#11](https://github.com/JonathanTron/chef-grafana/pull/11)
 * Update grafana to 1.6.0 (Greg Fitzgerald) [#11](https://github.com/JonathanTron/chef-grafana/pull/11)
 
 ## 1.0.4:

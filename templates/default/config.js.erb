@@ -13,7 +13,7 @@ function (Settings) {
     datasources: {
       graphite: {
         type: 'graphite',
-        url: "<%= node['grafana']['graphite_scheme'] %><%= node['grafana']['graphite_server'] %>:<%= node['grafana']['graphite_port'] %>",
+        url: window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/_graphite",
         default: true
       }
     },
@@ -21,7 +21,7 @@ function (Settings) {
     // elasticsearch url
     // used for storing and loading dashboards, optional
     // For Basic authentication use: http://username:password@domain.com:9200
-    elasticsearch: "<%= node['grafana']['es_scheme'] %><%= node['grafana']['es_server'] %>:<%= node['grafana']['es_port'] %>",
+    elasticsearch: window.location.protocol+"//"+window.location.hostname+":"+window.location.port,
 
     // default start dashboard
     default_route: '/dashboard/file/default.json',

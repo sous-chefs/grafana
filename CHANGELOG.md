@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 1.1.1:
+
+* Update default attributes to install Grafana 1.6.1 (Greg Fitzgerald) [#14](https://github.com/JonathanTron/chef-grafana/pull/14)
+
 ## 1.1.0:
 
 __breaking changes__

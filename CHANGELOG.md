@@ -2,6 +2,16 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 1.2.0:
+
+__breaking changes__
+
+* Update `ark` dependency to `>= 0.7.2` and deprecation warning by using `strip_component` (Grégoire Seux) [#15](https://github.com/JonathanTron/chef-grafana/pull/14)
+
+__minor changes__
+
+* Support newer `nginx` cookbook by specifying `template: false` when enabling the `grafana` site (Grégoire Seux) [#15](https://github.com/JonathanTron/chef-grafana/pull/14)
+
 ## 1.1.1:
 
 * Update default attributes to install Grafana 1.6.1 (Greg Fitzgerald) [#14](https://github.com/JonathanTron/chef-grafana/pull/14)

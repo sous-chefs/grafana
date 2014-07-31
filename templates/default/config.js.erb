@@ -3,25 +3,14 @@
  // config.js is where you will find the core Grafana configuration. This file contains parameter that
  // must be set before Grafana is run for the first time.
  ///
+<% require 'json' %>
 define(['settings'],
 function (Settings) {
-
 
   return new Settings({
 
     // datasources, you can add multiple
-    datasources: {
-      graphite: {
-        type: 'graphite',
-        url: window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/_graphite",
-        default: true
-      }
-    },
-
-    // elasticsearch url
-    // used for storing and loading dashboards, optional
-    // For Basic authentication use: http://username:password@domain.com:9200
-    elasticsearch: window.location.protocol+"//"+window.location.hostname+":"+window.location.port,
+    datasources: <%= pprint(@datasources,3) %>,
 
     // default start dashboard
     default_route: '/dashboard/file/default.json',
@@ -38,16 +27,12 @@ function (Settings) {
     //
     timezoneOffset: <%= node['grafana']['timezone_offset'] %>,
 
-    // Elasticsearch index for storing dashboards
-    grafana_index: "<%= node['grafana']['grafana_index'] %>",
-
     // set to false to disable unsaved changes warning
     unsaved_changes_warning: <%= node['grafana']['unsaved_changes_warning'] %>,
 
     // set the default timespan for the playlist feature
     // Example: "1m", "1h"
     playlist_timespan: "<%= node['grafana']['playlist_timespan'] %>",
-
 
     // Add your own custom pannels
     plugins: {

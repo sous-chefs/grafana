@@ -49,3 +49,16 @@ default['grafana']['timezone_offset'] = 'null' # Example: "-0500" (for UTC - 5 h
 default['grafana']['grafana_index'] = 'grafana-index'
 default['grafana']['unsaved_changes_warning'] = 'true'
 default['grafana']['playlist_timespan'] = '1m'
+default['grafana']['datasources'] = {
+  'graphite' => {
+    'type' => "'graphite'",
+    'url'  => 'window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/_graphite"',
+    'default' => true
+  },
+  'elasticsearch' => {
+    'type' => "'elasticsearch'",
+    'url'  => 'window.location.protocol+"//"+window.location.hostname+":"+window.location.port',
+    'index' => "'#{node['grafana']['grafana_index']}'",
+    'grafanaDB' => true
+  }
+}

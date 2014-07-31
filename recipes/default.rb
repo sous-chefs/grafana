@@ -42,8 +42,12 @@ include_recipe "grafana::_install_#{node['grafana']['install_type']}"
 template "#{node['grafana']['web_dir']}/config.js" do
   source node['grafana']['config_template']
   cookbook node['grafana']['config_cookbook']
+  variables({
+    'datasources' => node['grafana']['datasources'],
+  })
   mode '0644'
   user grafana_user
+  helpers(::JavascriptPP)
 end
 
 unless node['grafana']['webserver'].empty?

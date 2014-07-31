@@ -2,6 +2,7 @@ AllCops:
   Exclude:
     - vendor/**/*
     - test/**/*
+    - bin/**/*
 
 AlignParameters:
   Enabled: false
@@ -16,4 +17,16 @@ Documentation:
   Enabled: false
 
 Style/AsciiComments:
+  Enabled: false
+
+Style/MethodLength:
+  Enabled: false
+
+Style/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: no_space
+
+Style/SpaceAfterComma:
+  Enabled: false
+
+Style/SpaceAroundOperators:
   Enabled: false

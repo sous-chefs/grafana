@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 1.3.1:
+
+* Update `Grafana` to `1.7.1-rc1`. It fixes a regression introduced when merging
+  [#16](https://github.com/JonathanTron/chef-grafana/pull/16). Thanks to
+  Greg Fitzgerald for reporting it.
+
 ## 1.3.0:
 
 * Allow attribute configuration for datasources (Grégoire Seux) [#16](https://github.com/JonathanTron/chef-grafana/pull/16)

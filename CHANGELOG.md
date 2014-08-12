@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 1.3.3 (dev):
+
 ## 1.3.2:
 
 * Update default `Grafana` to `1.7.0`. (Greg Fitzgerald) [#18](https://github.com/JonathanTron/chef-grafana/pull/18).

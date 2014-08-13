@@ -6,6 +6,8 @@ This file is used to list changes made in each version of grafana.
 
 ## 1.3.2:
 
+* Fix `default['grafana']['webserver']` documentation not to include `apache` as
+  possible value. (osigida) [#19](https://github.com/JonathanTron/chef-grafana/pull/19)
 * Update default `Grafana` to `1.7.0`. (Greg Fitzgerald) [#18](https://github.com/JonathanTron/chef-grafana/pull/18).
 
 ## 1.3.1:

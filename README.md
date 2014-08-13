@@ -36,7 +36,7 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 - `node['grafana']['user']` - The user who will own the files from the git checkout. (default: the web server user)
 - `node['grafana']['config_template']` - The template to use for Grafana's `config.js`
 - `node['grafana']['config_cookbook']` - The cookbook that contains said config template
-- `node['grafana']['webserver']` - Which webserver to use: apache, nginx or ''
+- `node['grafana']['webserver']` - Which webserver to use: nginx or ''
 - `node['grafana']['webserver_hostname']` - The primary vhost the web server will use for Grafana
 - `node['grafana']['webserver_aliases']` - Array of any secondary hostnames that are valid vhosts
 - `node['grafana']['webserver_listen']` - The ip address the web server will listen on

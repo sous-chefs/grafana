@@ -4,6 +4,9 @@ This file is used to list changes made in each version of grafana.
 
 ## 1.3.3 (dev):
 
+* Remove mention of `zipfile` in README and attributes (Thanks to Gref Fitzgerald)
+* Fix `default['grafana']['install_type']` documentation to have the correct
+  possible values: `git` and `file` (Fred Hatfull) [#20](https://github.com/JonathanTron/chef-grafana/pull/20)
 * Fix `default['grafana']['webserver']` documentation not to include `apache` as
   possible value. (osigida) [#19](https://github.com/JonathanTron/chef-grafana/pull/19)
 

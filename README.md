@@ -20,9 +20,9 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 - `node['grafana']['install_type']` - The type of install we are going to use either `git` or `file`
 - `node['grafana']['git']['url']` - The url for the git repo to use for Grafana
 - `node['grafana']['git']['branch']` - The sha or branch name to use
-- `node['grafana']['file']['type']` - the type of archive file.  `zip` only at this stage
-- `node['grafana']['file']['url']` - The zipfile URL for the latest Grafana build
-- `node['grafana']['file']['checksum']` - The sha256 of the Grafana zipfile
+- `node['grafana']['file']['type']` - the type of archive file. `zip` or `tar.gz`.
+- `node['grafana']['file']['url']` - The file URL for the latest Grafana build
+- `node['grafana']['file']['checksum']` - The sha256 of the Grafana file
 - `node['grafana']['install_path']` - The root directory where Grafana will be installed
 - `node['grafana']['install_dir']` - The directory to checkout into. A `current` symlink will be created in this directory as well.
 - `node['grafana']['es_server']` - The ipaddress or hostname of your elasticsearch server
@@ -64,7 +64,7 @@ The default recipe will:
 - install Grafana from `master` into `/opt/grafana/master` and create a symlink called `current` in the same directory to `master`
 - install `nginx` and serve the grafana application
 
-If you want to use the zipfile distribution of Grafana update `node['grafana']['install_type']` attribute to `file`.  Set `node['grafana']['zipfile_checksum']` to appropriate sha256 value of latest zipfile.
+If you want to use the file distribution of Grafana update `node['grafana']['install_type']` attribute to `file`.  Set `node['grafana']['checksum']` to appropriate sha256 value of latest archive file.
 
 If you don't want this cookbook to handle the webserver config simply set `node['grafana']['webserver']` to `''` in a role/environment/node somewhere.
 Please note that in this case you have to set `node['grafana']['user']`.
@@ -115,6 +115,7 @@ Contributors:
 - Grégoire Seux (@kamaradclimber)
 - Anatoliy D. (@anatolijd)
 - Greg Fitzgerald (@gregf)
+- Fred Hatfull (@fhats)
 
 Based on `chef-kibana` cookbook by:
 

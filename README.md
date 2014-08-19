@@ -17,40 +17,49 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 
 #### grafana::default
 
-- `node['grafana']['install_type']` - The type of install we are going to use either `git` or `file`
-- `node['grafana']['git']['url']` - The url for the git repo to use for Grafana
-- `node['grafana']['git']['branch']` - The sha or branch name to use
-- `node['grafana']['file']['type']` - the type of archive file. `zip` or `tar.gz`.
-- `node['grafana']['file']['url']` - The file URL for the latest Grafana build
-- `node['grafana']['file']['checksum']` - The sha256 of the Grafana file
-- `node['grafana']['install_path']` - The root directory where Grafana will be installed
-- `node['grafana']['install_dir']` - The directory to checkout into. A `current` symlink will be created in this directory as well.
-- `node['grafana']['es_server']` - The ipaddress or hostname of your elasticsearch server
-- `node['grafana']['es_port']` - The port of your elasticsearch server's http interface
-- `node['grafana']['es_role']` - eventually for wiring up discovery of your elasticsearch server
-- `node['grafana']['es_scheme']` - Scheme helper if elasticsearch is outside of this cookbook `http://` or `https://`
-- `node['grafana']['graphite_server']` - The ipaddress or hostname of your graphite server
-- `node['grafana']['graphite_port']` - The port of your graphite server's http interface
-- `node['grafana']['graphite_role']` - eventually for wiring up discovery of your graphite server
-- `node['grafana']['graphite_scheme']` - Scheme helper if graphite is outside of this cookbook `http://` or `https://`
-- `node['grafana']['user']` - The user who will own the files from the git checkout. (default: the web server user)
-- `node['grafana']['config_template']` - The template to use for Grafana's `config.js`
-- `node['grafana']['config_cookbook']` - The cookbook that contains said config template
-- `node['grafana']['webserver']` - Which webserver to use: nginx or ''
-- `node['grafana']['webserver_hostname']` - The primary vhost the web server will use for Grafana
-- `node['grafana']['webserver_aliases']` - Array of any secondary hostnames that are valid vhosts
-- `node['grafana']['webserver_listen']` - The ip address the web server will listen on
-- `node['grafana']['webserver_port']` - The port the webserver will listen on
-- `node['grafana']['webserver_scheme']` - Scheme helper if webserver is outside of this cookbook `http://` or `https://`
-- `node['grafana']['timezone_offset']` - Timezone offset config, example: "-0500" (for UTC - 5 hours) (default: "null")
-- `node['grafana']['grafana_index']` - Elasticsearch index to use for Grafana (default: 'grafana-index')
-- `node['grafana']['unsaved_changes_warning']` - Enable disable unsaved changes warning in UI (default: 'true')
-- `node['grafana']['playlist_timespan']` - Playlist timespan config (default: '1m')
+| Attribute                                    | Default                                | Description                       |
+|----------------------------------------------|:--------------------------------------:|-----------------------------------|
+| `node['grafana']['install_type']`            | `'file'`                               | The type of install we are going to use either `git` or `file` |
+| `node['grafana']['git']['url']`              | `'https://github.com/grafana/grafana'` | The url for the git repo to use for Grafana |
+| `node['grafana']['git']['branch']`           | `'master'`                             | The sha or branch name to use |
+| `node['grafana']['file']['type']`            | `'tar.gz'`                             | the type of archive file. `zip` or `tar.gz`. |
+| `node['grafana']['file']['url']`             | `'http://grafanarel.s3.amazonaws.com/grafana-1.7.0.tar.gz'` | The file URL for the latest Grafana build |
+| `node['grafana']['file']['checksum']`        | `'6da4c234677ffe7ebb1268fa46a9c03921478c789eb600774575b1629793ef57'`| The sha256 of the Grafana file |
+| `node['grafana']['install_path']`            | `'/srv/apps'`                          | The root directory where Grafana will be installed |
+| `node['grafana']['install_dir']`             | `'/srv/apps/grafana'`                  | The directory to checkout into. A `current` symlink will be created in this directory as well. |
+| `node['grafana']['es_server']`               | `'127.0.0.1'`                          | The ipaddress or hostname of your elasticsearch server |
+| `node['grafana']['es_port']`                 | `'9200'`                               | The port of your elasticsearch server's http interface |
+| `node['grafana']['es_role']`                 | `'elasticsearch_server'`               | eventually for wiring up discovery of your elasticsearch server |
+| `node['grafana']['es_scheme']`               | `'http://'`                            | Scheme helper if elasticsearch is outside of this cookbook `http://` or `https://` |
+| `node['grafana']['es_user']`                 | `''`                                   | Elasticsearch authentication user |
+| `node['grafana']['es_password']`             | `''`                                   | Elasticsearch authentication password |
+| `node['grafana']['graphite_server']`         | `'127.0.0.1'`                          | The ipaddress or hostname of your graphite server |
+| `node['grafana']['graphite_port']`           | `'80'`                                 | The port of your graphite server's http interface |
+| `node['grafana']['graphite_role']`           | `'graphite_server'`                    | eventually for wiring up discovery of your graphite server |
+| `node['grafana']['graphite_scheme']`         | `'http://'`                            | Scheme helper if graphite is outside of this cookbook `http://` or `https://` |
+| `node['grafana']['graphite_user']`           | `''`                                   | Graphite authentication user |
+| `node['grafana']['graphite_password']`       | `''`                                   | Graphite authentication password |
+| `node['grafana']['user']`                    | `''`                                   | The user who will own the files from the git checkout. |
+| `node['grafana']['config_template']`         | `'config.js.erb'`                      | The template to use for Grafana's `config.js` |
+| `node['grafana']['config_cookbook']`         | `'grafana'`                            | The cookbook that contains said config template |
+| `node['grafana']['webserver']`               | `'nginx'`                              | Which webserver to use: nginx or '' |
+| `node['grafana']['webserver_hostname']`      | `node.name`                            | The primary vhost the web server will use for Grafana |
+| `node['grafana']['webserver_aliases']`       | `[node['ipaddress']]`                  | Array of any secondary hostnames that are valid vhosts |
+| `node['grafana']['webserver_listen']`        | `node['ipaddress']`                    | The ip address the web server will listen on |
+| `node['grafana']['webserver_port']`          | `80`                                   | The port the webserver will listen on |
+| `node['grafana']['webserver_scheme']`        | `'http://'`                            | Scheme helper if webserver is outside of this cookbook `http://` or `https://` |
+| `node['grafana']['timezone_offset']`         | `'null'`                               | Timezone offset config, example: "-0500" (for UTC-5 hours) |
+| `node['grafana']['grafana_index']`           | `'grafana-index'`                      | Elasticsearch index to use for Grafana |
+| `node['grafana']['unsaved_changes_warning']` | `'true'`                               | Enable disable unsaved changes warning in UI |
+| `node['grafana']['playlist_timespan']`       | `'1m'`                                 | Playlist timespan config |
+| `node['grafana']['datasources']`             | `{'graphite' => {'type' => "'graphite'",'url'  => 'window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/_graphite"','default' => true},'elasticsearch' => {'type' => "'elasticsearch'",'url'  => 'window.location.protocol+"//"+window.location.hostname+":"+window.location.port','index' => "'#{node['grafana']['grafana_index']}'",'grafanaDB' => true}}` | Grafana (`> 1.7.0`) data sources configuration |
 
 #### kibana::nginx
 
-- `node['grafana']['nginx']['template']` - The template file to use for the nginx site configuration
-- `node['grafana']['nginx']['template_cookbook']` - The cookbook containing said template
+| Attribute                                       | Default                    | Description                       |
+|-------------------------------------------------|:--------------------------:|-----------------------------------|
+| `node['grafana']['nginx']['template']`          | `'grafana-nginx.conf.erb'` | The template file to use for the nginx site configuration |
+| `node['grafana']['nginx']['template_cookbook']` | `'grafana'`                | The cookbook containing said template |
 
 Removed:
 

@@ -52,7 +52,28 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 | `node['grafana']['grafana_index']`           | `'grafana-index'`                      | Elasticsearch index to use for Grafana |
 | `node['grafana']['unsaved_changes_warning']` | `'true'`                               | Enable disable unsaved changes warning in UI |
 | `node['grafana']['playlist_timespan']`       | `'1m'`                                 | Playlist timespan config |
-| `node['grafana']['datasources']`             | `{'graphite' => {'type' => "'graphite'",'url'  => 'window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/_graphite"','default' => true},'elasticsearch' => {'type' => "'elasticsearch'",'url'  => 'window.location.protocol+"//"+window.location.hostname+":"+window.location.port','index' => "'#{node['grafana']['grafana_index']}'",'grafanaDB' => true}}` | Grafana (`> 1.7.0`) data sources configuration |
+| `node['grafana']['datasources']`             | see below                              | Grafana (`> 1.7.0`) data sources configuration |
+
+Starting with `1.7.0`, Grafana uses `datasources` array in its configuration file
+to know about the multiple databases it should read data from (`elasticsearch`,
+`graphite`, `InfluxDB`, ...), we're generating this array from
+`node['grafana']['datasources']`, the defaults are:
+
+```ruby
+{
+  'graphite' => {
+    'type' => "'graphite'",
+    'url'  => 'window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/_graphite"',
+    'default' => true
+  },
+  'elasticsearch' => {
+    'type' => "'elasticsearch'",
+    'url'  => 'window.location.protocol+"//"+window.location.hostname+":"+window.location.port',
+    'index' => "'#{node['grafana']['grafana_index']}'",
+    'grafanaDB' => true
+  }
+}
+```
 
 #### kibana::nginx
 

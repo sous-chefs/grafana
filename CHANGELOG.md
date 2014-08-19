@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## 1.3.3 (dev):
+## 1.3.4:
 
 * Update attributes in README for better Supermarket display
 * Update `foodcritic` and `rubocop` (Tim Smith) [#21](https://github.com/JonathanTron/chef-grafana/pull/21)

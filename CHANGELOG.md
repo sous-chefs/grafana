@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 1.3.5 (dev):
+
 ## 1.3.4:
 
 * Update attributes in README for better Supermarket display

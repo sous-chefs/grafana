@@ -116,6 +116,7 @@ Contributors:
 - Anatoliy D. (@anatolijd)
 - Greg Fitzgerald (@gregf)
 - Fred Hatfull (@fhats)
+- Tim Smith (@tas50)
 
 Based on `chef-kibana` cookbook by:
 

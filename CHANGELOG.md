@@ -2,7 +2,15 @@
 
 This file is used to list changes made in each version of grafana.
 
-## 1.3.5 (dev):
+## 1.4.0:
+
+* Update `Grafana` to `1.8.0-rc1`
+* Add `default['grafana']['window_title_prefix']` and
+  `default['grafana']['search_max_results']` config attributes.
+
+__warnings__
+
+* `Grafana 1.8.0-rc1` upgraded to `JQuery` to `2.1.1` and thus dropped support for `Internet Explorer 7 and 8`
 
 ## 1.3.4:
 

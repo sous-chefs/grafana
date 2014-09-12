@@ -34,6 +34,14 @@ function (Settings) {
     // Example: "1m", "1h"
     playlist_timespan: "<%= node['grafana']['playlist_timespan'] %>",
 
+    // Change window title prefix from 'Grafana - <dashboard title>'
+    window_title_prefix: "<%= node['grafana']['window_title_prefix'] %>",
+
+    // specify the limit for dashboard search results
+    search: {
+      max_results: <%= node['grafana']['search_max_results'] %>
+    },
+
     // Add your own custom pannels
     plugins: {
       panels: []

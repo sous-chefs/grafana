@@ -52,6 +52,8 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 | `node['grafana']['grafana_index']`           | `'grafana-index'`                      | Elasticsearch index to use for Grafana |
 | `node['grafana']['unsaved_changes_warning']` | `'true'`                               | Enable disable unsaved changes warning in UI |
 | `node['grafana']['playlist_timespan']`       | `'1m'`                                 | Playlist timespan config |
+| `node['grafana']['window_title_prefix']`     | `'Grafana - '`                         | Window title prefix config |
+| `node['grafana']['search_max_results']`      | `20`                                   | Search maximuyum result config  |
 | `node['grafana']['datasources']`             | see below                              | Grafana (`> 1.7.0`) data sources configuration |
 
 Starting with `1.7.0`, Grafana uses `datasources` array in its configuration file

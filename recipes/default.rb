@@ -45,7 +45,6 @@ template "#{node['grafana']['web_dir']}/config.js" do
   variables 'datasources' => node['grafana']['datasources']
   mode '0644'
   user grafana_user
-  helpers(::JavascriptPP)
 end
 
 unless node['grafana']['webserver'].empty?

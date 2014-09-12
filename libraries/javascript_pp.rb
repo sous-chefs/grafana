@@ -1,5 +1,5 @@
 module JavascriptPP
-  def pprint(obj, indent=1)
+  def self.pprint(obj, indent=1)
     case obj
     when Hash
       res = "{\n"

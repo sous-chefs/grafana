@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 1.4.1:
+
+* Do not use `template` resource's `helpers` method to bring back older `Chef`
+  compatibility.
+
 ## 1.4.0:
 
 * Update `Grafana` to `1.8.0-rc1`

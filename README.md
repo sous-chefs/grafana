@@ -23,8 +23,9 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 | `node['grafana']['git']['url']`              | `'https://github.com/grafana/grafana'` | The url for the git repo to use for Grafana |
 | `node['grafana']['git']['branch']`           | `'master'`                             | The sha or branch name to use |
 | `node['grafana']['file']['type']`            | `'tar.gz'`                             | the type of archive file. `zip` or `tar.gz`. |
-| `node['grafana']['file']['url']`             | `'http://grafanarel.s3.amazonaws.com/grafana-1.7.0.tar.gz'` | The file URL for the latest Grafana build |
-| `node['grafana']['file']['checksum']`        | `'6da4c234677ffe7ebb1268fa46a9c03921478c789eb600774575b1629793ef57'`| The sha256 of the Grafana file |
+| `node['grafana']['file']['version']`         | `'1.8.0-rc1'`                          | the version to install. |
+| `node['grafana']['file']['url']`             | `'http://grafanarel.s3.amazonaws.com/grafana-1.8.0-rc1.tar.gz'` | The file URL for the latest Grafana build |
+| `node['grafana']['file']['checksum']`        | `'984a6f79a930b87d9132ab1f77be5d6efb8d91181c8b29c1e45383cb04e05650'`| The sha256 of the Grafana file |
 | `node['grafana']['install_path']`            | `'/srv/apps'`                          | The root directory where Grafana will be installed |
 | `node['grafana']['install_dir']`             | `'/srv/apps/grafana'`                  | The directory to checkout into. A `current` symlink will be created in this directory as well. |
 | `node['grafana']['es_server']`               | `'127.0.0.1'`                          | The ipaddress or hostname of your elasticsearch server |

@@ -30,13 +30,13 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 | `node['grafana']['install_dir']`             | `'/srv/apps/grafana'`                  | The directory to checkout into. A `current` symlink will be created in this directory as well. |
 | `node['grafana']['es_server']`               | `'127.0.0.1'`                          | The ipaddress or hostname of your elasticsearch server |
 | `node['grafana']['es_port']`                 | `'9200'`                               | The port of your elasticsearch server's http interface |
-| `node['grafana']['es_role']`                 | `'elasticsearch_server'`               | eventually for wiring up discovery of your elasticsearch server |
+| `node['grafana']['es_role']`                 | `'elasticsearch_server'`               | eventually for wiring up discovery of your elasticsearch server, set to `nil` to prevent any search |
 | `node['grafana']['es_scheme']`               | `'http://'`                            | Scheme helper if elasticsearch is outside of this cookbook `http://` or `https://` |
 | `node['grafana']['es_user']`                 | `''`                                   | Elasticsearch authentication user |
 | `node['grafana']['es_password']`             | `''`                                   | Elasticsearch authentication password |
 | `node['grafana']['graphite_server']`         | `'127.0.0.1'`                          | The ipaddress or hostname of your graphite server |
 | `node['grafana']['graphite_port']`           | `'80'`                                 | The port of your graphite server's http interface |
-| `node['grafana']['graphite_role']`           | `'graphite_server'`                    | eventually for wiring up discovery of your graphite server |
+| `node['grafana']['graphite_role']`           | `'graphite_server'`                    | eventually for wiring up discovery of your graphite server, set to `nil` to prevent any search |
 | `node['grafana']['graphite_scheme']`         | `'http://'`                            | Scheme helper if graphite is outside of this cookbook `http://` or `https://` |
 | `node['grafana']['graphite_user']`           | `''`                                   | Graphite authentication user |
 | `node['grafana']['graphite_password']`       | `''`                                   | Graphite authentication password |
@@ -150,6 +150,7 @@ Contributors:
 - Greg Fitzgerald (@gregf)
 - Fred Hatfull (@fhats)
 - Tim Smith (@tas50)
+- Jonathon W. Marshall (@jwmarshall)
 
 Based on `chef-kibana` cookbook by:
 

@@ -2,6 +2,17 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 1.5.0 - Dev:
+
+__warning__
+
+* Check for the presence of `node['grafana']['es_role']` and
+  `node['grafana']['graphite_role']` instead of `node['grafana']['es_server']`
+  and `node['grafana']['graphite_server']` to know if we should search and
+  replace `default['grafana']['es_server']` and
+  `default['grafana']['graphite_server']` (Jonathon W. Marshall) [#22](https://github.com/JonathanTron/chef-grafana/pull/22)
+
+
 ## 1.4.2:
 
 * Fix attributes doc in README

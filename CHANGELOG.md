@@ -2,7 +2,9 @@
 
 This file is used to list changes made in each version of grafana.
 
-## 1.5.0 - Dev:
+## 1.5.0:
+
+* Update `Grafana` to `1.8.0`
 
 __warning__
 

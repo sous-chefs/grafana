@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 1.5.1:
+
+* Update `Grafana` to `1.8.1`
+
 ## 1.5.0:
 
 * Update `Grafana` to `1.8.0`

@@ -34,6 +34,12 @@ function (Settings) {
     // Example: "1m", "1h"
     playlist_timespan: "<%= node['grafana']['playlist_timespan'] %>",
 
+    // If you want to specify password before saving, please specify it bellow
+    // The purpose of this password is not security, but to stop some users from accidentally changing dashboards
+    admin: {
+      password: '<%= node['grafana']['admin_password'] %>'
+    },
+
     // Change window title prefix from 'Grafana - <dashboard title>'
     window_title_prefix: "<%= node['grafana']['window_title_prefix'] %>",
 

@@ -10,6 +10,7 @@ default['grafana']['file']['checksum'] = '08a923508d1a0ef2af4c23827e715e438240d3
 default['grafana']['webserver'] = 'nginx'
 default['grafana']['install_path'] = '/srv/apps'
 default['grafana']['install_dir'] = "#{node['grafana']['install_path']}/grafana"
+default['grafana']['admin_password'] = ''
 
 case node['grafana']['install_type']
 when 'git'

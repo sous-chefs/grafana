@@ -28,6 +28,7 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 | `node['grafana']['file']['checksum']`        | `'08a923508d1a0ef2af4c23827e715e438240d3e348f85f9ffd968709a91370d4'`| The sha256 of the Grafana file |
 | `node['grafana']['install_path']`            | `'/srv/apps'`                          | The root directory where Grafana will be installed |
 | `node['grafana']['install_dir']`             | `'/srv/apps/grafana'`                  | The directory to checkout into. A `current` symlink will be created in this directory as well. |
+| `node['grafana']['admin_password']`          | `''`                                   | This is a password used when saving dashboard |
 | `node['grafana']['es_server']`               | `'127.0.0.1'`                          | The ipaddress or hostname of your elasticsearch server |
 | `node['grafana']['es_port']`                 | `'9200'`                               | The port of your elasticsearch server's http interface |
 | `node['grafana']['es_role']`                 | `'elasticsearch_server'`               | eventually for wiring up discovery of your elasticsearch server, set to `nil` to prevent any search |
@@ -151,6 +152,7 @@ Contributors:
 - Fred Hatfull (@fhats)
 - Tim Smith (@tas50)
 - Jonathon W. Marshall (@jwmarshall)
+- Andrew Goktepe (@andrewgoktepe)
 
 Based on `chef-kibana` cookbook by:
 

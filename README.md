@@ -50,6 +50,7 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 | `node['grafana']['webserver_listen']`        | `node['ipaddress']`                    | The ip address the web server will listen on |
 | `node['grafana']['webserver_port']`          | `80`                                   | The port the webserver will listen on |
 | `node['grafana']['webserver_scheme']`        | `'http://'`                            | Scheme helper if webserver is outside of this cookbook `http://` or `https://` |
+| `node['grafana']['default_route']`           | `'/dashboard/file/default.json'`       | Default route config, set start dashboard |
 | `node['grafana']['timezone_offset']`         | `'null'`                               | Timezone offset config, example: "-0500" (for UTC-5 hours) |
 | `node['grafana']['grafana_index']`           | `'grafana-index'`                      | Elasticsearch index to use for Grafana |
 | `node['grafana']['unsaved_changes_warning']` | `'true'`                               | Enable disable unsaved changes warning in UI |
@@ -153,6 +154,7 @@ Contributors:
 - Tim Smith (@tas50)
 - Jonathon W. Marshall (@jwmarshall)
 - Andrew Goktepe (@andrewgoktepe)
+- Miguel Landaeta (@nomadium)
 
 Based on `chef-kibana` cookbook by:
 

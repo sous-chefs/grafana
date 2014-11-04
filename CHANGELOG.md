@@ -4,6 +4,7 @@ This file is used to list changes made in each version of grafana.
 
 ## Dev:
 
+* Allow configuration of `default_route` via attributes (Miguel Landaeta) [#26](https://github.com/JonathanTron/chef-grafana/pull/26)
 * Add support for grafana admin password option (Andrew Goktepe) [#23](https://github.com/JonathanTron/chef-grafana/pull/23)
 
 ## 1.5.1:

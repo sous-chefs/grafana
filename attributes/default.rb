@@ -46,6 +46,7 @@ default['grafana']['webserver_port'] = 80
 default['grafana']['webserver_scheme'] = 'http://'
 
 # config.js
+default['grafana']['default_route'] = '/dashboard/file/default.json'
 default['grafana']['timezone_offset'] = 'null' # Example: "-0500" (for UTC - 5 hours)
 default['grafana']['grafana_index'] = 'grafana-index'
 default['grafana']['unsaved_changes_warning'] = 'true'

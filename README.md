@@ -80,38 +80,6 @@ to know about the multiple databases it should read data from (`elasticsearch`,
 }
 ```
 
-If you're trying to set values via roles, beware of chef's attributes merging.
-To get rid of `graphite` you would have to set the value to `nil` (or `null`
-if using json's role).
-
-As `ruby`:
-
-```ruby
-name "myrole"
-override_attributes({
-  "grafana" => {
-    "datasources" => {
-      "graphite" => nil
-    }
-  }
-})
-```
-
-as `json`:
-
-```json
-{
-  "name": "myrole",
-  "override_attributes": {
-    "grafana": {
-      "datasources": {
-        "graphite": null
-      }
-    }
-  }
-}
-```
-
 #### kibana::nginx
 
 | Attribute                                       | Default                    | Description                       |

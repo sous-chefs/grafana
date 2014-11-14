@@ -4,7 +4,6 @@ module JavascriptPP
     when Hash
       res = "{\n"
       obj.each do |k,v|
-        next if v.nil?
         res += '  ' * indent
         res += k.to_s + ': '
         res += pprint(v, indent+1)

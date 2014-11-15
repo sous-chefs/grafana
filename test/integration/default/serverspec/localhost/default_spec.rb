@@ -1,17 +1,30 @@
-
 require 'spec_helper'
 
 describe file('/srv/apps/grafana') do
+  let :owner do
+    if os[:family]=="redhat"
+      "nginx"
+    else
+      "www-data"
+    end
+  end
   it { should be_directory }
   it { should be_mode 755 }
-  it { should be_owned_by 'www-data' }
+  it { should be_owned_by owner }
   it { should be_grouped_into 'root' }
 end
 
 describe file('/srv/apps/grafana/config.js') do
+  let :owner do
+    if os[:family]=="redhat"
+      "nginx"
+    else
+      "www-data"
+    end
+  end
   it { should be_file }
   it { should be_mode 644 }
-  it { should be_owned_by 'www-data' }
+  it { should be_owned_by owner }
   it { should be_grouped_into 'root' }
   it { should contain %Q{///// @scratch /configuration/config.js/1
  // == Configuration
@@ -31,13 +44,14 @@ function (Settings) {
         type: 'graphite',
         url: window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/_graphite",
         default: true
+      },
+      elasticsearch: {
+        type: 'elasticsearch',
+        url: window.location.protocol+"//"+window.location.hostname+":"+window.location.port,
+        index: 'grafana-index',
+        grafanaDB: true
       }
     },
-
-    // elasticsearch url
-    // used for storing and loading dashboards, optional
-    // For Basic authentication use: http://username:password@domain.com:9200
-    elasticsearch: window.location.protocol+"//"+window.location.hostname+":"+window.location.port,
 
     // default start dashboard
     default_route: '/dashboard/file/default.json',
@@ -64,6 +78,19 @@ function (Settings) {
     // Example: "1m", "1h"
     playlist_timespan: "1m",
 
+    // If you want to specify password before saving, please specify it bellow
+    // The purpose of this password is not security, but to stop some users from accidentally changing dashboards
+    admin: {
+      password: ''
+    },
+
+    // Change window title prefix from 'Grafana - <dashboard title>'
+    window_title_prefix: "Grafana - ",
+
+    // specify the limit for dashboard search results
+    search: {
+      max_results: 20
+    },
 
     // Add your own custom pannels
     plugins: {

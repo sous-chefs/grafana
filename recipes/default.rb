@@ -31,6 +31,10 @@ unless Chef::Config[:solo] || node['grafana']['graphite_role'].nil?
   end
 end
 
+unless node['grafana']['webserver'].empty?
+  include_recipe "grafana::_#{node['grafana']['webserver']}"
+end
+
 directory node['grafana']['install_dir'] do
   owner grafana_user
   mode '0755'
@@ -45,8 +49,4 @@ template "#{node['grafana']['web_dir']}/config.js" do
   variables 'datasources' => node['grafana']['datasources']
   mode '0644'
   user grafana_user
-end
-
-unless node['grafana']['webserver'].empty?
-  include_recipe "grafana::_#{node['grafana']['webserver']}"
 end

@@ -28,7 +28,7 @@ describe 'grafana::default' do
       expect(chef_run).to include_recipe 'grafana::_install_file'
     end
 
-    it 'generate grafana config file with use set to nginx user' do
+    it 'generate grafana config file with user set to nginx user' do
       config_path = "#{chef_run.node['grafana']['web_dir']}/config.js"
       expect(chef_run).to create_template(config_path).with(
         mode: '0644',

@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 1.5.3:
+
+* Add support for Centos[#28](https://github.com/JonathanTron/chef-grafana/issues/28)
+
 ## 1.5.2:
 
 * Allow configuration of `default_route` via attributes (Miguel Landaeta) [#26](https://github.com/JonathanTron/chef-grafana/pull/26)

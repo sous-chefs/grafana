@@ -12,31 +12,67 @@ provisioner:
 
 platforms:
   - name: ubuntu-12.04
+    run_list:
+      - recipe[apt::default]
+    attributes:
+      java:
+        jdk_version: "7"
+      graphite:
+        listen_port: 8081
+        uwsgi:
+          listen_http: true
+      grafana:
+        graphite_port: 8081
+        webserver_aliases:
+          - grafana.dev
   - name: debian-7.0
+    run_list:
+      - recipe[apt::default]
+    attributes:
+      java:
+        jdk_version: "7"
+      graphite:
+        listen_port: 8081
+        uwsgi:
+          listen_http: true
+      grafana:
+        graphite_port: 8081
+        webserver_aliases:
+          - grafana.dev
+  - name: centos-6.4
+    attributes:
+      java:
+        jdk_version: "7"
+      graphite:
+        listen_port: 8081
+        uwsgi:
+          listen_http: true
+      grafana:
+        graphite_port: 8081
+        webserver_aliases:
+          - grafana.dev
+      yum:
+        epel:
+          gpgkey: 'http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6'
+          mirrorlist: 'http://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=$basearch'
 
 suites:
   - name: default
-    attributes:
-      grafana:
-        webserver_port: 8080
-        nginx:
-          webserver_aliases: "grafana.dev"
     run_list:
-      - recipe[apt::default]
       - recipe[java::default]
       - recipe[elasticsearch::default]
-      - recipe[graphite::default]
+      - recipe[graphite::carbon]
+      - recipe[graphite::web]
+      - recipe[graphite::uwsgi]
       - recipe[grafana::default]
   - name: git
     attributes:
       grafana:
         install_type: git
-        webserver_port: 8080
-        nginx:
-          webserver_aliases: "grafana.dev"
     run_list:
-      - recipe[apt::default]
       - recipe[java::default]
       - recipe[elasticsearch::default]
-      - recipe[graphite::default]
+      - recipe[graphite::carbon]
+      - recipe[graphite::web]
+      - recipe[graphite::uwsgi]
       - recipe[grafana::default]

@@ -12,6 +12,8 @@ module JavascriptPP
       res.gsub!(/,\n$/, "\n")
       res += '  ' * (indent - 1)
       res += '}'
+    when Proc
+      res = obj.call.to_s
     else
       res = obj.to_s
     end

@@ -62,7 +62,7 @@ default['grafana']['datasources'] = {
   'elasticsearch' => {
     'type' => "'elasticsearch'",
     'url'  => 'window.location.protocol+"//"+window.location.hostname+":"+window.location.port',
-    'index' => "'#{node['grafana']['grafana_index']}'",
+    'index' => lambda { "'#{node['grafana']['grafana_index']}'" },
     'grafanaDB' => true
   }
 }

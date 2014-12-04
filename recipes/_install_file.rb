@@ -20,7 +20,10 @@
 
 include_recipe 'ark::default'
 ark 'grafana' do
-  url node['grafana']['file']['url']
+  url node['grafana']['file']['url'] % {
+    version: node['grafana']['file']['version'],
+    type: node['grafana']['file']['type']
+  }
   path node['grafana']['install_path']
   checksum node['grafana']['file']['checksum']
   owner grafana_user

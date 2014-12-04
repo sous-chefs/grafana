@@ -74,11 +74,15 @@ to know about the multiple databases it should read data from (`elasticsearch`,
   'elasticsearch' => {
     'type' => "'elasticsearch'",
     'url'  => 'window.location.protocol+"//"+window.location.hostname+":"+window.location.port',
-    'index' => "'#{node['grafana']['grafana_index']}'",
+    'index' => lambda { "'#{node['grafana']['grafana_index']}'" },
     'grafanaDB' => true
   }
 }
 ```
+
+**NOTE**
+Any derived attributes should be wrapped in a lambda if you expect to change
+the value of the root attribute (see example above).
 
 #### kibana::nginx
 

@@ -30,3 +30,6 @@ Style/SpaceAfterComma:
 
 Style/SpaceAroundOperators:
   Enabled: false
+
+Style/Lambda:
+  Enabled: false

@@ -160,6 +160,7 @@ Contributors:
 - Andrew Goktepe (@andrewgoktepe)
 - Miguel Landaeta (@nomadium)
 - Bernhard Köhler (@drywheat)
+- Olivier Bazoud (@obazoud)
 
 Based on `chef-kibana` cookbook by:
 

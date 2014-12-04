@@ -14,9 +14,14 @@ describe 'grafana::_install_file' do
     ChefSpec::Runner.new.converge described_recipe
   end
 
+  def derived_file_url
+    f = chef_run.node['grafana']['file']
+    f['url'] % { version: f['version'], type: f['type'] }
+  end
+
   it 'install grafana from remote url using ark' do
     expect(chef_run).to put_ark('grafana').with(
-      url: chef_run.node['grafana']['file']['url'],
+      url: derived_file_url,
       path: chef_run.node['grafana']['install_path'],
       checksum: chef_run.node['grafana']['file']['checksum'],
       owner: chef_run.node['nginx']['user'],
@@ -33,7 +38,7 @@ describe 'grafana::_install_file' do
 
     it 'install grafana from remote url using ark' do
       expect(chef_run).to put_ark('grafana').with(
-        url: chef_run.node['grafana']['file']['url'],
+        url: derived_file_url,
         path: chef_run.node['grafana']['install_path'],
         checksum: chef_run.node['grafana']['file']['checksum'],
         owner: chef_run.node['nginx']['user'],

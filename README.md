@@ -159,6 +159,7 @@ Contributors:
 - Jonathon W. Marshall (@jwmarshall)
 - Andrew Goktepe (@andrewgoktepe)
 - Miguel Landaeta (@nomadium)
+- Bernhard Köhler (@drywheat)
 
 Based on `chef-kibana` cookbook by:
 

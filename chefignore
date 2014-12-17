@@ -90,3 +90,9 @@ Vagrantfile
 # Travis #
 ##########
 .travis.yml
+
+# Bundler #
+###########
+Gemfile
+Gemfile.lock
+vendor/bundle/*

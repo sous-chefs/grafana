@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'grafana::_install_git' do
 
   let(:chef_run) do
-    ChefSpec::Runner.new.converge described_recipe
+    ChefSpec::SoloRunner.new.converge described_recipe
   end
   let(:grafana) { chef_run.node['grafana'] }
 

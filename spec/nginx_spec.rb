@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'grafana::_nginx' do
 
   let(:chef_run) do
-    ChefSpec::Runner.new.converge described_recipe
+    ChefSpec::SoloRunner.new.converge described_recipe
   end
 
   it 'creates a template with attributes' do

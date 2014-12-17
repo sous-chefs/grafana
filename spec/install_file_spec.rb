@@ -11,7 +11,7 @@ describe 'grafana::_install_file' do
   include ChefSpecArkMatchers
 
   let(:chef_run) do
-    ChefSpec::Runner.new.converge described_recipe
+    ChefSpec::SoloRunner.new.converge described_recipe
   end
 
   def derived_file_url
@@ -31,7 +31,7 @@ describe 'grafana::_install_file' do
 
   context 'with grafana version older than 1.5.1' do
     let(:chef_run) do
-      ChefSpec::Runner.new do |runner|
+      ChefSpec::SoloRunner.new do |runner|
         runner.node.set['grafana']['file']['version'] = '1.5.0'
       end.converge described_recipe
     end

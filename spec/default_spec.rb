@@ -10,7 +10,7 @@ describe 'grafana::default' do
   context 'with default attributes' do
 
     let(:chef_run) do
-      ChefSpec::Runner.new.converge described_recipe
+      ChefSpec::SoloRunner.new.converge described_recipe
     end
 
     it 'creates base directory for grafana' do
@@ -41,7 +41,7 @@ describe 'grafana::default' do
   context 'with no webserver' do
 
     let(:chef_run) do
-      ChefSpec::Runner.new do |runner|
+      ChefSpec::SoloRunner.new do |runner|
         runner.node.set['grafana']['webserver'] = ''
       end.converge described_recipe
     end

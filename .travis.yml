@@ -2,6 +2,7 @@ language: ruby
 cache:
   bundler: true
   directories:
+  - $HOME/vendor/bundle
   - vendor/cookbooks
 sudo: false
 bundler_args: --without integration --path=$HOME/bundle

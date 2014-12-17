@@ -1,4 +1,9 @@
 language: ruby
+cache:
+  bundler: true
+  directories:
+  - vendor/cookbooks
+sudo: false
 bundler_args: --without integration
 rvm:
   - 1.9.3

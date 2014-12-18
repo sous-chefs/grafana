@@ -2,10 +2,10 @@ language: ruby
 cache:
   bundler: true
   directories:
-  - $HOME/vendor/bundle
+  - ../vendor/bundle
   - vendor/cookbooks
 sudo: false
-bundler_args: --without integration --path=$HOME/bundle
+bundler_args: --without integration --path=$PWD/vendor/bundle
 rvm:
   - 1.9.3
   - 2.0.0

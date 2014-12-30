@@ -161,6 +161,7 @@ Contributors:
 - Miguel Landaeta (@nomadium)
 - Bernhard Köhler (@drywheat)
 - Olivier Bazoud (@obazoud)
+- @osigida
 
 Based on `chef-kibana` cookbook by:
 

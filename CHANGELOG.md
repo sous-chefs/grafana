@@ -4,12 +4,12 @@ This file is used to list changes made in each version of grafana.
 
 ## 1.5.4 (dev):
 
-* Interpolate "version" and "type" attributes to build grafana file url (Bernhard Köhler) [#31](https://github.com/JonathanTron/chef-grafana/pull/30) and (Olivier Bazoud)
+* Update `Grafana` to `1.9.1` (@osigida) [#32](https://github.com/JonathanTron/chef-grafana/pull/32)
+* Interpolate "version" and "type" attributes to build grafana file url (Bernhard Köhler) [#31](https://github.com/JonathanTron/chef-grafana/pull/31) and (Olivier Bazoud)
   [#29](https://github.com/JonathanTron/chef-grafana/issues/29)
 * Add support for lambdas in datasources. This change makes it possible to
   evaluate derived attributes correctly. (Bernhard Köhler) [#30](https://github.com/JonathanTron/chef-grafana/pull/30)
   and [#25](https://github.com/JonathanTron/chef-grafana/issues/25)
-* Update `Grafana` to `1.9.1`
 
 ## 1.5.3:
 

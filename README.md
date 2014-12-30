@@ -23,9 +23,9 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 | `node['grafana']['git']['url']`              | `'https://github.com/grafana/grafana'` | The url for the git repo to use for Grafana |
 | `node['grafana']['git']['branch']`           | `'master'`                             | The sha or branch name to use |
 | `node['grafana']['file']['type']`            | `'tar.gz'`                             | the type of archive file. `zip` or `tar.gz`. |
-| `node['grafana']['file']['version']`         | `'1.8.1'`                              | the version to install. |
-| `node['grafana']['file']['url']`             | `'http://grafanarel.s3.amazonaws.com/grafana-1.8.1.tar.gz'` | The file URL for the latest Grafana build |
-| `node['grafana']['file']['checksum']`        | `'08a923508d1a0ef2af4c23827e715e438240d3e348f85f9ffd968709a91370d4'`| The sha256 of the Grafana file |
+| `node['grafana']['file']['version']`         | `'1.9.1'`                              | the version to install. |
+| `node['grafana']['file']['url']`             | `'http://grafanarel.s3.amazonaws.com/grafana-1.9.1.tar.gz'` | The file URL for the latest Grafana build |
+| `node['grafana']['file']['checksum']`        | `'c328c7a002622f672affbcaabd5e64ae279be1051ee27c62ba22bfed63680508'`| The sha256 of the Grafana file |
 | `node['grafana']['install_path']`            | `'/srv/apps'`                          | The root directory where Grafana will be installed |
 | `node['grafana']['install_dir']`             | `'/srv/apps/grafana'`                  | The directory to checkout into. A `current` symlink will be created in this directory as well. |
 | `node['grafana']['admin_password']`          | `''`                                   | This is a password used when saving dashboard |

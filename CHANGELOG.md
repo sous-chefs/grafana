@@ -9,6 +9,7 @@ This file is used to list changes made in each version of grafana.
 * Add support for lambdas in datasources. This change makes it possible to
   evaluate derived attributes correctly. (Bernhard Köhler) [#30](https://github.com/JonathanTron/chef-grafana/pull/30)
   and [#25](https://github.com/JonathanTron/chef-grafana/issues/25)
+* Update `Grafana` to `1.9.1`
 
 ## 1.5.3:
 

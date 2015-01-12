@@ -25,6 +25,20 @@ platforms:
         graphite_port: 8081
         webserver_aliases:
           - grafana.dev
+  - name: ubuntu-14.04
+    run_list:
+      - recipe[apt::default]
+    attributes:
+      java:
+        jdk_version: "7"
+      graphite:
+        listen_port: 8081
+        uwsgi:
+          listen_http: true
+      grafana:
+        graphite_port: 8081
+        webserver_aliases:
+          - grafana.dev
   - name: debian-7.0
     run_list:
       - recipe[apt::default]

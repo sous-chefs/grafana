@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## 1.5.4 (dev):
+## 1.5.4:
 
 * Update `Grafana` to `1.9.1` (@osigida) [#32](https://github.com/JonathanTron/chef-grafana/pull/32)
 * Interpolate "version" and "type" attributes to build grafana file url (Bernhard Köhler) [#31](https://github.com/JonathanTron/chef-grafana/pull/31) and (Olivier Bazoud)

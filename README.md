@@ -162,6 +162,7 @@ Contributors:
 - Bernhard Köhler (@drywheat)
 - Olivier Bazoud (@obazoud)
 - @osigida
+- @BackSlasher
 
 Based on `chef-kibana` cookbook by:
 

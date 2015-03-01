@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of grafana.
 
+## dev:
+
+* Allow nginx to listen on all interface when `node['grafana']['webserver_listen']` is `nil` or `false` (@BackSlasher) [#37](https://github.com/JonathanTron/chef-grafana/pull/37)
+* Fix base64 encoding appending a newline in nginx config for basic auth (@BackSlasher) [#36](https://github.com/JonathanTron/chef-grafana/pull/36)
+
 ## 1.5.4:
 
 * Update `Grafana` to `1.9.1` (@osigida) [#32](https://github.com/JonathanTron/chef-grafana/pull/32)

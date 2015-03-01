@@ -22,10 +22,10 @@ require 'base64'
 include_recipe 'nginx'
 
 es_basic_auth = if !node['grafana']['es_user'].empty? && !node['grafana']['es_password'].empty?
-                  Base64.encode64 "#{node['grafana']['es_user']}:#{node['grafana']['es_password']}"
+                  Base64.strict_encode64 "#{node['grafana']['es_user']}:#{node['grafana']['es_password']}"
                 end
 graphite_basic_auth = if !node['grafana']['graphite_user'].empty? && !node['grafana']['graphite_password'].empty?
-                        Base64.encode64 "#{node['grafana']['graphite_user']}:#{node['grafana']['graphite_password']}"
+                        Base64.strict_encode64 "#{node['grafana']['graphite_user']}:#{node['grafana']['graphite_password']}"
                       end
 
 template '/etc/nginx/sites-available/grafana' do

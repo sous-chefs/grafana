@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## dev:
+## 1.5.5 (2015-03-29):
 
 * Update `elasticsearch` git url in `Berksfile` for elasticsearch to elastic rename (@lanyonm) [#38](https://github.com/JonathanTron/chef-grafana/pull/38)
 * Allow nginx to listen on all interface when `node['grafana']['webserver_listen']` is `nil` or `false` (@BackSlasher) [#37](https://github.com/JonathanTron/chef-grafana/pull/37)

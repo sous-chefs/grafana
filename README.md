@@ -163,6 +163,7 @@ Contributors:
 - Olivier Bazoud (@obazoud)
 - @osigida
 - @BackSlasher
+- Michael Lanyon (@lanyonm)
 
 Based on `chef-kibana` cookbook by:
 

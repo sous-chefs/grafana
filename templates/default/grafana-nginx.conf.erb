@@ -1,5 +1,5 @@
 server {
-  listen                <%= "#{@listen_address}:" if @listen_address %><%= @listen_port %>;
+  listen                <%= "#{@listen_address}:" if !@listen_address.nil? && !@listen_address.empty? %><%= @listen_port %>;
 
   server_name           <%= @server_name %> <%= @server_aliases.join(" ") %>;
   access_log            /var/log/nginx/<%= @server_name %>.access.log;

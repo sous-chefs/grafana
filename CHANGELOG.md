@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## dev:
 
+* Ensure setting `node['grafana']['listen_address']` to `nil` render a valid nginx config file (@lanyonm) [#39](https://github.com/JonathanTron/chef-grafana/pull/39)
+
 ## 1.5.5 (2015-03-29):
 
 * Update `elasticsearch` git url in `Berksfile` for elasticsearch to elastic rename (@lanyonm) [#38](https://github.com/JonathanTron/chef-grafana/pull/38)

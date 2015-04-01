@@ -1,4 +1,4 @@
-require 'spec_helper'
+require ::File.expand_path('../../spec_helper', __FILE__)
 
 describe file('/srv/apps/grafana') do
   let :owner do
@@ -106,4 +106,8 @@ describe file('/etc/nginx/sites-enabled/grafana') do
   it { should be_linked_to '/etc/nginx/sites-available/grafana' }
   it { should be_owned_by 'root' }
   it { should be_grouped_into 'root' }
+end
+
+describe command("curl http://#{$ohaidata[:ipaddress]}/#/dashboard/file/default.json") do
+  its(:stdout) { should match /GrafanaCtrl/ }
 end

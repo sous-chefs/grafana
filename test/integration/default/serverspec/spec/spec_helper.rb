@@ -1,4 +1,5 @@
 require 'serverspec'
+require 'ohai'
 
 set :backend, :exec
 
@@ -10,3 +11,7 @@ RSpec.configure do |c|
     c.sudo_password = ENV['SUDO_PASSWORD']
   end
 end
+
+ohai = Ohai::System.new
+ohai.all_plugins
+$ohaidata = ohai.data

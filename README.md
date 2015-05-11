@@ -1,9 +1,9 @@
-[![Build Status](https://travis-ci.org/JonathanTron/chef-grafana.svg?branch=master)](https://travis-ci.org/JonathanTron/chef-grafana)
-
-grafana Cookbook
+Grafana Cookbook [![Build Status](https://travis-ci.org/JonathanTron/chef-grafana.svg?branch=master)](https://travis-ci.org/JonathanTron/chef-grafana)
 ===============
 
-A stand-alone cookbook for Grafana
+A stand-alone cookbook for Grafana.
+
+***Please Note***: We are working on a cookbook overhaul to support Grafana 2. This work is currently being done in the [grafana-2](https://github.com/JonathanTron/chef-grafana/tree/grafana-2) branch. Pull requests are welcome although the code is very much a work-in-progress. Thanks!
 
 Requirements
 ------------

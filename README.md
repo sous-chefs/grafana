@@ -1,13 +1,16 @@
-[![Build Status](https://travis-ci.org/JonathanTron/chef-grafana.svg?branch=master)](https://travis-ci.org/JonathanTron/chef-grafana)
+## This is an unstable, pre-release, work-in-progress version of the grafana cookbook for Grafana 2.0. Please feel free to contribute, but note that this is very much a work in progress.
 
-grafana Cookbook
+There are attributes and recipes that will be deprecated and new features that will certainly be added. Please be patient as the work proceeds. Thanks!
+
+Grafana Cookbook [![Build Status](https://travis-ci.org/JonathanTron/chef-grafana.svg?branch=master)](https://travis-ci.org/JonathanTron/chef-grafana)
 ===============
 
-A stand-alone cookbook for Grafana
+A stand-alone cookbook for Grafana. The 2.x versions of this cookbook work with the 2.x versions of Grafana. There is no backward compatibility for pre-2.0 versions of Grafana in the 2.x versions of this cookbook.
 
 Requirements
 ------------
 - apt
+- yum
 - nginx
 - git
 
@@ -137,7 +140,7 @@ Contributing
 ------------
 - Fork the repository on Github
 - Create a named feature branch (like `add_component_x`)
-- Write you change
+- Write your change
 - Write tests for your change (if applicable)
 - Run the tests, ensuring they all pass
 -- `bundle exec strainer test`

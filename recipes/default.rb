@@ -35,18 +35,27 @@ unless node['grafana']['webserver'].empty?
   include_recipe "grafana::_#{node['grafana']['webserver']}"
 end
 
-directory node['grafana']['install_dir'] do
-  owner grafana_user
-  mode '0755'
-  recursive true
-end
-
 include_recipe "grafana::_install_#{node['grafana']['install_type']}"
 
-template "#{node['grafana']['web_dir']}/config.js" do
-  source node['grafana']['config_template']
-  cookbook node['grafana']['config_cookbook']
-  variables 'datasources' => node['grafana']['datasources']
+template '/etc/default/grafana-server' do
+  source 'grafana-env.erb'
+  variables {}
+  owner 'root'
+  group 'root'
   mode '0644'
-  user grafana_user
+  notifies :restart, 'service[grafana-server]', :delayed
+end
+
+template '/etc/grafana/grafana.ini' do
+  source 'grafana.ini.erb'
+  variables {}
+  owner 'root'
+  group 'root'
+  mode '0644'
+  notifies :restart, 'service[grafana-server]', :delayed
+end
+
+service 'grafana-server' do
+  supports :start => true, :stop => true, :restart => true, :status => true, :reload => false
+  action [:enable, :start]
 end

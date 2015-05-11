@@ -1,19 +1,20 @@
 ---
 driver:
   name: vagrant
-  require_chef_omnibus: "latest"
+  require_chef_omnibus: '12.3.0'
   customize:
     memory: 1024
     cpus: 2
     cpuexecutioncap: 80
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
 
 platforms:
   - name: ubuntu-12.04
     run_list:
       - recipe[apt::default]
+      - recipe[curl::default]
     attributes:
       java:
         jdk_version: "7"
@@ -28,6 +29,7 @@ platforms:
   - name: ubuntu-14.04
     run_list:
       - recipe[apt::default]
+      - recipe[curl::default]
     attributes:
       java:
         jdk_version: "7"
@@ -36,12 +38,17 @@ platforms:
         uwsgi:
           listen_http: true
       grafana:
+        webserver_listen: ''
         graphite_port: 8081
         webserver_aliases:
           - grafana.dev
-  - name: debian-7.0
+  - name: debian-7.4
+    driver:
+      box: debian-7.4.0
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-7.4_chef-provisionerless.box
     run_list:
       - recipe[apt::default]
+      - recipe[curl::default]
     attributes:
       java:
         jdk_version: "7"
@@ -54,6 +61,11 @@ platforms:
         webserver_aliases:
           - grafana.dev
   - name: centos-6.4
+    driver:
+      box: centos-6.4
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.4_chef-provisionerless.box
+    run_list:
+      # - recipe[curl::default]
     attributes:
       java:
         jdk_version: "7"
@@ -79,6 +91,12 @@ suites:
       - recipe[graphite::web]
       - recipe[graphite::uwsgi]
       - recipe[grafana::default]
+  - name: package
+    run_list:
+      - recipe[grafana::default]
+    attributes:
+      grafana:
+        install_type: package
   - name: git
     attributes:
       grafana:

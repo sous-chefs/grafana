@@ -1,6 +1,8 @@
 #
 # Cookbook Name:: grafana
-# Attributes:: nginx
+# Recipe:: _install_source
+#
+# Copyright 2015, Michael Lanyon
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,9 +17,5 @@
 # limitations under the License.
 #
 
-default['grafana']['nginx']['template'] = 'grafana-nginx.conf.erb'
-default['grafana']['nginx']['template_cookbook'] = 'grafana'
-
-include_attribute 'nginx'
-
-default['nginx']['default_site_enabled'] = false
+# Need to follow these instructions:
+# http://docs.grafana.org/project/building_from_source/

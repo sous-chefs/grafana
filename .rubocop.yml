@@ -7,9 +7,6 @@ AllCops:
 AlignParameters:
   Enabled: false
 
-Encoding:
-  Enabled: false
-
 LineLength:
   Max: 200
 
@@ -19,17 +16,5 @@ Documentation:
 Style/AsciiComments:
   Enabled: false
 
-Style/MethodLength:
-  Enabled: false
-
 Style/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
-
-Style/SpaceAfterComma:
-  Enabled: false
-
-Style/SpaceAroundOperators:
-  Enabled: false
-
-Style/Lambda:
-  Enabled: false

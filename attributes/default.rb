@@ -16,33 +16,27 @@
 #
 
 default['grafana']['install_type'] = 'file' # file | package | source
+default['grafana']['version'] = '2.0.2'
 
-# default['grafana']['git']['url'] = 'https://github.com/grafana/grafana'
-# default['grafana']['git']['branch'] = 'master'
-# default['grafana']['git']['type'] = 'sync' # checkout | sync
-
-# default['grafana']['file']['type'] = 'tar.gz' # tar.gz | zip
-default['grafana']['file']['version'] = '2.0.2'
-# default['grafana']['file']['url'] = 'http://grafanarel.s3.amazonaws.com/grafana-%{version}.%{type}'
-# default['grafana']['file']['checksum'] = 'c328c7a002622f672affbcaabd5e64ae279be1051ee27c62ba22bfed63680508' # sha256 ( shasum -a 256 FILENAME )
+default['grafana']['file']['url'] = 'http://grafanarel.s3.amazonaws.com/grafana-%{version}.%{type}'
+default['grafana']['file']['checksum'] = 'c328c7a002622f672affbcaabd5e64ae279be1051ee27c62ba22bfed63680508' # sha256 ( shasum -a 256 FILENAME )
 
 default['grafana']['package']['repo'] = 'https://packagecloud.io/grafana/stable/'
 default['grafana']['package']['key'] = 'https://packagecloud.io/gpg.key'
 default['grafana']['package']['components'] = ['main']
 
 default['grafana']['webserver'] = 'nginx'
-default['grafana']['install_path'] = '/srv/apps'
-default['grafana']['install_dir'] = "#{node['grafana']['install_path']}/grafana"
-default['grafana']['admin_password'] = ''
-
-case node['grafana']['install_type']
-when 'file'
-  default['grafana']['web_dir'] = node['grafana']['install_dir']
-when 'package'
-  default['grafana']['web_dir'] = node['grafana']['install_dir']
-when 'source'
-  default['grafana']['web_dir'] = node['grafana']['install_dir']
-end
+default['grafana']['user'] = 'grafana'
+default['grafana']['group'] = 'grafana'
+default['grafana']['home'] = '/usr/share/grafana'
+default['grafana']['log_dir'] = '/var/log/grafana'
+default['grafana']['database']['type'] = 'sqlite3'
+default['grafana']['database']['host'] = '127.0.0.1:3306'
+default['grafana']['database']['name'] = 'grafana'
+default['grafana']['database']['user'] = 'root'
+default['grafana']['database']['password'] = ''
+# This value can be overridden with an encrypted data bag
+default['grafana']['admin_password'] = 'admin'
 
 # elastic search
 default['grafana']['es_server'] = '127.0.0.1'
@@ -61,33 +55,8 @@ default['grafana']['graphite_user'] = ''
 default['grafana']['graphite_password'] = ''
 
 # webserver
-default['grafana']['user'] = ''
-default['grafana']['config_template'] = 'config.js.erb'
-default['grafana']['config_cookbook'] = 'grafana'
 default['grafana']['webserver_hostname'] = node.name
 default['grafana']['webserver_aliases'] = [node['ipaddress']]
 default['grafana']['webserver_listen'] = node['ipaddress']
 default['grafana']['webserver_port'] = 80
 default['grafana']['webserver_scheme'] = 'http://'
-
-# config.js
-# default['grafana']['default_route'] = '/dashboard/file/default.json'
-# default['grafana']['timezone_offset'] = 'null' # Example: "-0500" (for UTC - 5 hours)
-# default['grafana']['grafana_index'] = 'grafana-index'
-# default['grafana']['unsaved_changes_warning'] = 'true'
-# default['grafana']['playlist_timespan'] = '1m'
-# default['grafana']['window_title_prefix'] = 'Grafana - '
-# default['grafana']['search_max_results'] = 20
-# default['grafana']['datasources'] = {
-#   'graphite' => {
-#     'type' => "'graphite'",
-#     'url'  => 'window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/_graphite"',
-#     'default' => true
-#   },
-#   'elasticsearch' => {
-#     'type' => "'elasticsearch'",
-#     'url'  => 'window.location.protocol+"//"+window.location.hostname+":"+window.location.port',
-#     'index' => lambda { "'#{node['grafana']['grafana_index']}'" },
-#     'grafanaDB' => true
-#   }
-# }

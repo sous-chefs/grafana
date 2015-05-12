@@ -17,7 +17,7 @@
 #
 # Directory where grafana can store logs
 #
-;logs = /var/log/grafana
+logs = <%= @log_dir %>
 
 #################################### Server ####################################
 [server]
@@ -52,11 +52,11 @@
 #################################### Database ####################################
 [database]
 # Either "mysql", "postgres" or "sqlite3", it's your choice
-;type = sqlite3
-;host = 127.0.0.1:3306
-;name = grafana
-;user = root
-;password =
+type = <%= @database_type %>
+host = <%= @database_host %>
+name = <%= @database_name %>
+user = <%= @database_user %>
+password = <%= @database_password %>
 
 # For "postgres" only, either "disable", "require" or "verify-full"
 ;ssl_mode = disable
@@ -102,7 +102,7 @@
 ;admin_user = admin
 
 # default admin password, can be changed before first start of grafana,  or in profile settings
-;admin_password = admin
+admin_password = <%= @admin_password %>
 
 # used for signing
 ;secret_key = SW2YcwTIb9zpOOhoPsMm

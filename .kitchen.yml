@@ -65,7 +65,7 @@ platforms:
       box: centos-6.4
       box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.4_chef-provisionerless.box
     run_list:
-      # - recipe[curl::default]
+      - recipe[yum-epel::default]
     attributes:
       java:
         jdk_version: "7"
@@ -85,11 +85,11 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[java::default]
-      - recipe[elasticsearch::default]
-      - recipe[graphite::carbon]
-      - recipe[graphite::web]
-      - recipe[graphite::uwsgi]
+      # - recipe[java::default]
+      # - recipe[elasticsearch::default]
+      # - recipe[graphite::carbon]
+      # - recipe[graphite::web]
+      # - recipe[graphite::uwsgi]
       - recipe[grafana::default]
   - name: package
     run_list:
@@ -97,14 +97,14 @@ suites:
     attributes:
       grafana:
         install_type: package
-  - name: git
-    attributes:
-      grafana:
-        install_type: git
-    run_list:
-      - recipe[java::default]
-      - recipe[elasticsearch::default]
-      - recipe[graphite::carbon]
-      - recipe[graphite::web]
-      - recipe[graphite::uwsgi]
-      - recipe[grafana::default]
+  # - name: source
+  #   run_list:
+  #     - recipe[java::default]
+  #     - recipe[elasticsearch::default]
+  #     - recipe[graphite::carbon]
+  #     - recipe[graphite::web]
+  #     - recipe[graphite::uwsgi]
+  #     - recipe[grafana::default]
+  #   attributes:
+  #     grafana:
+  #       install_type: source

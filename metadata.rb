@@ -12,8 +12,6 @@ supports 'centos', '>= 6.4'
 
 recipe 'grafana::default', 'Installs and configures Grafana with a web server proxy'
 
-depends 'git'
-depends 'ark', '>= 0.7.2'
-depends 'nginx'
 depends 'apt'
 depends 'yum'
+depends 'nginx'

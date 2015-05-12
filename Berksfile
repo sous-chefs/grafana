@@ -8,5 +8,6 @@ cookbook 'java'
 cookbook 'graphite', '~> 1.0.2'
 cookbook 'build-essential'
 cookbook 'curl'
+cookbook 'yum-epel'
 
 cookbook 'elasticsearch', git: 'git://github.com/elastic/cookbook-elasticsearch.git'

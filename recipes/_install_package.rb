@@ -19,7 +19,6 @@
 
 case node['platform_family']
 when 'debian'
-  include_recipe 'apt'
   package 'apt-transport-https'
 
   apt_repository 'grafana' do
@@ -30,11 +29,13 @@ when 'debian'
   end
 when 'rhel'
   yum_repository 'grafana' do
-    description "Grafana Stable Repo"
+    description 'Grafana Stable Repo'
     baseurl "#{node['grafana']['package']['repo']}el/6/$basearch"
     gpgkey 'https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana'
     action :create
   end
 end
 
-package 'grafana'
+package 'grafana' do
+  version node['grafana']['version']
+end

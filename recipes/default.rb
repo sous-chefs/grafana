@@ -39,7 +39,12 @@ include_recipe "grafana::_install_#{node['grafana']['install_type']}"
 
 template '/etc/default/grafana-server' do
   source 'grafana-env.erb'
-  variables {}
+  variables(
+    grafana_user: node['grafana']['user'],
+    grafana_group: node['grafana']['group'],
+    grafana_home: node['grafana']['home'],
+    log_dir: node['grafana']['log_dir']
+  )
   owner 'root'
   group 'root'
   mode '0644'
@@ -48,7 +53,14 @@ end
 
 template '/etc/grafana/grafana.ini' do
   source 'grafana.ini.erb'
-  variables {}
+  variables(
+    database_type: node['grafana']['database']['type'],
+    database_host: node['grafana']['database']['host'],
+    database_name: node['grafana']['database']['name'],
+    database_user: node['grafana']['database']['user'],
+    database_password: node['grafana']['database']['password'],
+    admin_password: node['grafana']['admin_password']
+  )
   owner 'root'
   group 'root'
   mode '0644'
@@ -56,6 +68,6 @@ template '/etc/grafana/grafana.ini' do
 end
 
 service 'grafana-server' do
-  supports :start => true, :stop => true, :restart => true, :status => true, :reload => false
+  supports start: true, stop: true, restart: true, status: true, reload: false
   action [:enable, :start]
 end

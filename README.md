@@ -12,7 +12,6 @@ Requirements
 - apt
 - yum
 - nginx
-- git
 
 Attributes
 ----------
@@ -23,15 +22,10 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 | Attribute                                    | Default                                | Description                       |
 |----------------------------------------------|:--------------------------------------:|-----------------------------------|
 | `node['grafana']['install_type']`            | `'file'`                               | The type of install we are going to use either `git` or `file` |
-| `node['grafana']['git']['url']`              | `'https://github.com/grafana/grafana'` | The url for the git repo to use for Grafana |
-| `node['grafana']['git']['branch']`           | `'master'`                             | The sha or branch name to use |
-| `node['grafana']['file']['type']`            | `'tar.gz'`                             | the type of archive file. `zip` or `tar.gz`. |
-| `node['grafana']['file']['version']`         | `'1.9.1'`                              | the version to install. |
+| `node['grafana']['version']`                 | `'2.0.2'`                              | the version to install. |
 | `node['grafana']['file']['url']`             | `'http://grafanarel.s3.amazonaws.com/grafana-1.9.1.tar.gz'` | The file URL for the latest Grafana build |
 | `node['grafana']['file']['checksum']`        | `'c328c7a002622f672affbcaabd5e64ae279be1051ee27c62ba22bfed63680508'`| The sha256 of the Grafana file |
-| `node['grafana']['install_path']`            | `'/srv/apps'`                          | The root directory where Grafana will be installed |
-| `node['grafana']['install_dir']`             | `'/srv/apps/grafana'`                  | The directory to checkout into. A `current` symlink will be created in this directory as well. |
-| `node['grafana']['admin_password']`          | `''`                                   | This is a password used when saving dashboard |
+| `node['grafana']['admin_password']`          | `'admin'`                              | This is a password used when saving dashboard |
 | `node['grafana']['es_server']`               | `'127.0.0.1'`                          | The ipaddress or hostname of your elasticsearch server |
 | `node['grafana']['es_port']`                 | `'9200'`                               | The port of your elasticsearch server's http interface |
 | `node['grafana']['es_role']`                 | `'elasticsearch_server'`               | eventually for wiring up discovery of your elasticsearch server, set to `nil` to prevent any search |
@@ -46,7 +40,6 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 | `node['grafana']['graphite_password']`       | `''`                                   | Graphite authentication password |
 | `node['grafana']['user']`                    | `''`                                   | The user who will own the files from the git checkout. |
 | `node['grafana']['config_template']`         | `'config.js.erb'`                      | The template to use for Grafana's `config.js` |
-| `node['grafana']['config_cookbook']`         | `'grafana'`                            | The cookbook that contains said config template |
 | `node['grafana']['webserver']`               | `'nginx'`                              | Which webserver to use: nginx or '' |
 | `node['grafana']['webserver_hostname']`      | `node.name`                            | The primary vhost the web server will use for Grafana |
 | `node['grafana']['webserver_aliases']`       | `[node['ipaddress']]`                  | Array of any secondary hostnames that are valid vhosts |
@@ -60,34 +53,13 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 | `node['grafana']['playlist_timespan']`       | `'1m'`                                 | Playlist timespan config |
 | `node['grafana']['window_title_prefix']`     | `'Grafana - '`                         | Window title prefix config |
 | `node['grafana']['search_max_results']`      | `20`                                   | Search maximuyum result config  |
-| `node['grafana']['datasources']`             | see below                              | Grafana (`> 1.7.0`) data sources configuration |
 
-Starting with `1.7.0`, Grafana uses `datasources` array in its configuration file
-to know about the multiple databases it should read data from (`elasticsearch`,
-`graphite`, `InfluxDB`, ...), we're generating this array from
-`node['grafana']['datasources']`, the defaults are:
-
-```ruby
-{
-  'graphite' => {
-    'type' => "'graphite'",
-    'url'  => 'window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/_graphite"',
-    'default' => true
-  },
-  'elasticsearch' => {
-    'type' => "'elasticsearch'",
-    'url'  => 'window.location.protocol+"//"+window.location.hostname+":"+window.location.port',
-    'index' => lambda { "'#{node['grafana']['grafana_index']}'" },
-    'grafanaDB' => true
-  }
-}
-```
 
 **NOTE**
 Any derived attributes should be wrapped in a lambda if you expect to change
 the value of the root attribute (see example above).
 
-#### kibana::nginx
+#### grafana::nginx
 
 | Attribute                                       | Default                    | Description                       |
 |-------------------------------------------------|:--------------------------:|-----------------------------------|

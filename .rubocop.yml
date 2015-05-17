@@ -13,7 +13,16 @@ LineLength:
 Documentation:
   Enabled: false
 
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/MethodLength:
+  Max: 30
+
 Style/AsciiComments:
+  Enabled: false
+
+Style/FileName:
   Enabled: false
 
 Style/SpaceAroundEqualsInParameterDefault:

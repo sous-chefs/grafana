@@ -75,15 +75,13 @@ Usage
 #### grafana::default
 The default recipe will:
 
-- install Grafana from `master` into `/opt/grafana/master` and create a symlink called `current` in the same directory to `master`
-- install `nginx` and serve the grafana application
+- install Grafana via downloaded system package
+- install `nginx` to proxy the grafana application
 
-If you want to use the file distribution of Grafana update `node['grafana']['install_type']` attribute to `file`.  Set `node['grafana']['checksum']` to appropriate sha256 value of latest archive file.
+If you want to install the Grafana package repository, update `node['grafana']['install_type']` attribute to `package`.  Set `node['grafana']['checksum']` to appropriate sha256 value of latest archive file.
 
-If you don't want this cookbook to handle the webserver config simply set `node['grafana']['webserver']` to `''` in a role/environment/node somewhere.
-Please note that in this case you have to set `node['grafana']['user']`.
+Nginx is used to proxy Grafana to run on port 80 as well other proxying for Elaticsearch. If you don't want this cookbook to handle the webserver config simply set `node['grafana']['webserver']` to `''` in a role/environment/node somewhere.
 
-Nginx recipe, by default, will configure the appropriate proxy to your ElasticSearch server such that you don't have to expose it to the world.
 
 **NOTE**
 There is **NO** security enabled by default on any of the content being served.
@@ -94,18 +92,55 @@ If you would like to modify the `nginx` parameters, you should:
 - modify the template as you see fit (add auth, setup ssl)
 - use the appropriate webserver template attributes to point to your cookbook and template
 
+Resources
+-----
+### grafana_datasource
+You can control Grafana DataSources via the `grafana_datasource` LWRP. Due to the varying nature of the potental data sources, the information used to create the datasource is consumed by the resource as a Hash. The examples should be able to illustrate the flexibility.
+
+#### Attributes
+| Attribute      | Type     | Default           | Description                       |
+|----------------|:--------:|:-----------------:|-----------------------------------|
+| `host`         | `String` | `'localhost'`     | The host grafana is running on    |
+| `port`         | `String` | `'3000'`          | The port grafana is running on    |
+| `user`         | `String` | `'admin'`         | A grafana user with admin privileges |
+| `password`     | `String` | `'admin'`         | An the grafana user's password    |
+| `source_name`  | `String` |                   | The Data Source name as it will appear in Grafana. |
+| `source`       | `Hash  ` |                   | A Hash of the values to create the datasource. Examples below. |
+| `action`       | `String` | `create`          | Valid actions are `create`, `create_if_missing`, and `delete`. |
+
+#### Example
+```ruby
+grafana_datasource 'influxdb-test' do
+  source(
+    type: 'influxdb_08',
+    url: 'http://10.0.0.6:8086',
+    access: 'direct',
+    database: 'grafana',
+    user: 'root',
+    password: 'root'
+  )
+  action :create_if_missing
+end
+```
+
+### grafana_dashboard
+_TBD..._
+
 Testing
 -------
+#### ChefSpec
+
+```
+$ bundle exec rspec
+```
+
 #### kitchen-test
 
-Requires Vagrant >= 1.2 with the following plugins :
-
-* vagrant-berkshef
-* vagrant-omnibus
+Requires Vagrant >= 1.7.
 
 ```
 $ bundle install
-$ kitchen test
+$ bundle exec kitchen test
 ```
 
 Contributing

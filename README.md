@@ -95,29 +95,30 @@ If you would like to modify the `nginx` parameters, you should:
 Resources
 -----
 ### grafana_datasource
-You can control Grafana DataSources via the `grafana_datasource` LWRP. Due to the varying nature of the potental data sources, the information used to create the datasource is consumed by the resource as a Hash. The examples should be able to illustrate the flexibility.
+You can control Grafana DataSources via the `grafana_datasource` LWRP. Due to the varying nature of the potental data sources, the information used to create the datasource is consumed by the resource as a Hash (the `source` attribute). The examples should be able to illustrate the flexibility.
 
 #### Attributes
-| Attribute      | Type     | Default           | Description                       |
+| Attribute      | Type     | Default Value     | Description                       |
 |----------------|:--------:|:-----------------:|-----------------------------------|
 | `host`         | `String` | `'localhost'`     | The host grafana is running on    |
 | `port`         | `String` | `'3000'`          | The port grafana is running on    |
 | `user`         | `String` | `'admin'`         | A grafana user with admin privileges |
-| `password`     | `String` | `'admin'`         | An the grafana user's password    |
+| `password`     | `String` | `'admin'`         | The grafana user's password    |
 | `source_name`  | `String` |                   | The Data Source name as it will appear in Grafana. |
 | `source`       | `Hash  ` |                   | A Hash of the values to create the datasource. Examples below. |
 | `action`       | `String` | `create`          | Valid actions are `create`, `create_if_missing`, and `delete`. |
+
 
 #### Example
 ```ruby
 grafana_datasource 'influxdb-test' do
   source(
     type: 'influxdb_08',
-    url: 'http://10.0.0.6:8086',
+    url: 'http://10.0.0.10:8086',
     access: 'direct',
-    database: 'grafana',
-    user: 'root',
-    password: 'root'
+    database: 'metrics',
+    user: 'dashboard',
+    password: 'dashpass'
   )
   action :create_if_missing
 end
@@ -152,6 +153,17 @@ Contributing
 - Run the tests, ensuring they all pass
 -- `bundle exec strainer test`
 - Submit a Pull Request using Github
+
+TODO
+----
+- Finish implementation of the dashboard resource
+- Implement user resource via the API
+- Continue to template out the `grafana.ini.erb` and `grafana-env.erb` templates
+- Test with Graphie datasource
+- Remove Elasticsearch references
+- Complete the `source` recipe
+- Allow SSL to be enabled on Nginx
+- Implement organization reource via the API
 
 License and Authors
 -------------------

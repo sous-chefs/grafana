@@ -19,10 +19,16 @@ Metrics/AbcSize:
 Metrics/MethodLength:
   Max: 30
 
+Metrics/ModuleLength:
+  Max: 120
+
 Style/AsciiComments:
   Enabled: false
 
 Style/FileName:
+  Enabled: false
+
+Style/Next:
   Enabled: false
 
 Style/SpaceAroundEqualsInParameterDefault:

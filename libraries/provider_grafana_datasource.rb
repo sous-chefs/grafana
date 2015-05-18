@@ -14,7 +14,30 @@ class Chef
 
       action :create do
         new_resource.source[:name] = new_resource.source_name
-        # do something
+        grafana_options = {
+          host: new_resource.host,
+          port: new_resource.port,
+          user: new_resource.user,
+          password: new_resource.password
+        }
+        datasources = get_data_source_list(grafana_options)
+
+        exists = false
+        datasources.each do |src|
+          if src['name'] == new_resource.source_name
+            exists = true
+            new_resource.source[:id] = src['id']
+            new_resource.source[:orgId] = src['orgId']
+          end
+        end
+
+        if exists
+          update_data_source(new_resource.source, grafana_options)
+        else
+          add_data_source(new_resource.source, grafana_options)
+          Chef::Log.info "Added #{new_resource.source_name} as a datasource to Grafana"
+        end
+        new_resource.updated_by_last_action(true)
       end
 
       action :create_if_missing do
@@ -34,7 +57,7 @@ class Chef
 
         if !exists
           add_data_source(new_resource.source, grafana_options)
-          Chef::Log.info "Added #{new_resource.source_name} as a datasource to grafana"
+          Chef::Log.info "Added #{new_resource.source_name} as a datasource to Grafana"
           new_resource.updated_by_last_action(true)
         else
           Chef::Log.info "#{new_resource.source_name} exists, nothing to update!"
@@ -42,7 +65,29 @@ class Chef
       end
 
       action :delete do
-        # do something
+        grafana_options = {
+          host: new_resource.host,
+          port: new_resource.port,
+          user: new_resource.user,
+          password: new_resource.password
+        }
+        datasources = get_data_source_list(grafana_options)
+
+        exists = false
+        datasources.each do |src|
+          if src['name'] == new_resource.source_name
+            exists = true
+            new_resource.source[:id] = src['id']
+          end
+        end
+
+        if exists
+          delete_data_source(new_resource.source[:id], grafana_options)
+          Chef::Log.info "Deleted datasource #{new_resource.source_name} (id: #{new_resource.source[:id]}) from Grafana"
+          new_resource.updated_by_last_action(true)
+        else
+          Chef::Log.info "#{new_resource.source_name} did not exist, nothing deleted!"
+        end
       end
     end
   end

@@ -10,4 +10,16 @@ if defined?(ChefSpec)
   def delete_grafana_datasource(name)
     ChefSpec::Matchers::ResourceMatcher.new(:grafana_datasource, :delete, name)
   end
+
+  def create_grafana_dashboard(name)
+    ChefSpec::Matchers::ResourceMatcher.new(:grafana_dashboard, :create, name)
+  end
+
+  def create_grafana_dashboard_if_missing(name)
+    ChefSpec::Matchers::ResourceMatcher.new(:grafana_dashboard, :create_if_missing, name)
+  end
+
+  def delete_grafana_dashboard(name)
+    ChefSpec::Matchers::ResourceMatcher.new(:grafana_dashboard, :delete, name)
+  end
 end

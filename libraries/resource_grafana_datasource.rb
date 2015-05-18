@@ -15,13 +15,13 @@ class Chef
       # Something like this:
       # source(
       #   type: 'influxdb_08',
-      #   url: 'http://10.0.0.6:8086',
+      #   url: 'http://10.0.0.10:8086',
       #   access: 'direct',
-      #   database: 'grafana',
-      #   user: 'root',
-      #   password: 'root'
+      #   database: 'metrics',
+      #   user: 'dashboard',
+      #   password: 'dashpass'
       # )
-      attribute :source, kind_of: Hash, required: true
+      attribute :source, kind_of: Hash, default: {}
     end
   end
 end

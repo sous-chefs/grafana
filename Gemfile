@@ -15,3 +15,11 @@ group :integration do
   gem 'test-kitchen'
   gem 'kitchen-vagrant'
 end
+
+group :development do
+  gem 'rb-readline'
+  gem 'guard', '~> 2.4'
+  gem 'guard-foodcritic'
+  gem 'guard-rspec'
+  gem 'guard-rubocop'
+end

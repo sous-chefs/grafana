@@ -33,3 +33,6 @@ Style/Next:
 
 Style/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
+
+Style/SignalException:
+  Enabled: false

@@ -25,10 +25,11 @@ module GrafanaCookbook
 
       handle_response(
         response,
-        success: "Datasource addition was successful.",
-        unknown_code: "DataSourceAPI::add_data_source unchecked response code: %{code}"
+        success: 'Datasource addition was successful.',
+        unknown_code: 'DataSourceAPI::add_data_source unchecked response code: %{code}'
       )
     rescue BackendError
+      nil
     end
 
     # Uses the HTTP API and session-based authentication to update a Grafana datasource
@@ -49,10 +50,11 @@ module GrafanaCookbook
 
       handle_response(
         response,
-        success: "Datasource update was successful.",
-        unknown_code: "DataSourceAPI::update_data_source unchecked response code: %{code}"
+        success: 'Datasource update was successful.',
+        unknown_code: 'DataSourceAPI::update_data_source unchecked response code: %{code}'
       )
     rescue BackendError
+      nil
     end
 
     # Uses the HTTP API and session-based authentication to delete a Grafana datasource
@@ -72,10 +74,11 @@ module GrafanaCookbook
 
       handle_response(
         response,
-        success: "Datasource deletion was successful.",
-        unknown_code: "DataSourceAPI::add_data_source unchecked response code: %{code}"
+        success: 'Datasource deletion was successful.',
+        unknown_code: 'DataSourceAPI::add_data_source unchecked response code: %{code}'
       )
     rescue BackendError
+      nil
     end
 
     # Get a list of all the existing datasources within Grafana
@@ -94,12 +97,13 @@ module GrafanaCookbook
 
       handle_response(
         response,
-        success: "List of databases have been successfully retrieved.",
-        unknown_code: "Error retrieving list of databases."
+        success: 'List of databases have been successfully retrieved.',
+        unknown_code: 'Error retrieving list of databases.'
       )
 
       JSON.parse(response.body)
     rescue BackendError
+      nil
     end
 
     # Login to Grafana to obtain a authenticated session id.
@@ -115,21 +119,20 @@ module GrafanaCookbook
       request.add_field('Content-Type', 'application/json;charset=utf-8')
       request.body = { 'User' => user, 'email' => '', 'Password' => password }.to_json
 
-      begin
-        response = http.request(request)
-      rescue Errno::ECONNREFUSED
-        retry # backs up to just after the "begin"
+      response = with_limited_retry tries: 10, exceptions: Errno::ECONNREFUSED do
+        http.request(request)
       end
 
       handle_response(
         response,
-        success: "Login was successful.",
-        unknown_code: "DataSourceAPI::login unchecked response code: %{code}"
+        success: 'Login was successful.',
+        unknown_code: 'DataSourceAPI::login unchecked response code: %{code}'
       )
 
       # sorry for the fancy hackery - rubists are welcome to make this better
       response['set-cookie'][/grafana_sess=(\w+);/, 1]
     rescue BackendError
+      nil
     end
 
     private
@@ -154,15 +157,15 @@ module GrafanaCookbook
     def handle_response(response, messages)
       case response
       when Net::HTTPSuccess
-        Chef::Log.info message[:success]
+        Chef::Log.info messages[:success]
       when Net::HTTPUnauthorized
-        Chef::Log.error "Invalid grafana_user and grafana_sess."
+        Chef::Log.error 'Invalid grafana_user and grafana_sess.'
         raise BackendError
       when nil
-        Chef::Log.error "Connection refused."
+        Chef::Log.error 'Connection refused.'
         raise BackendError
       else
-        Chef::Log.error(message[:unknown_code] % {code: response.code})
+        Chef::Log.error(messages[:unknown_code] % { code: response.code })
         raise BackendError
       end
     end

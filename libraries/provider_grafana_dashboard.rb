@@ -1,5 +1,5 @@
 require 'chef/provider/lwrp_base'
-require_relative 'DashboardApi'
+require_relative 'dashboard_api'
 
 class Chef
   class Provider

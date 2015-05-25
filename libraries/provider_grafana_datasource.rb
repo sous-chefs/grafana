@@ -1,5 +1,5 @@
 require 'chef/provider/lwrp_base'
-require_relative 'DatasourceApi'
+require_relative 'datasource_api'
 
 class Chef
   class Provider

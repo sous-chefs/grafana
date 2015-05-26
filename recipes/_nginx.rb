@@ -28,6 +28,8 @@ graphite_basic_auth = if !node['grafana']['graphite_user'].empty? && !node['graf
                         Base64.strict_encode64 "#{node['grafana']['graphite_user']}:#{node['grafana']['graphite_password']}"
                       end
 
+resolver = current_nameservers()[0]
+
 template '/etc/nginx/sites-available/grafana' do
   source node['grafana']['nginx']['template']
   cookbook node['grafana']['nginx']['template_cookbook']
@@ -48,7 +50,8 @@ template '/etc/nginx/sites-available/grafana' do
     listen_address: node['grafana']['webserver_listen'],
     listen_port: node['grafana']['webserver_port'],
     es_basic_auth: es_basic_auth.to_s,
-    graphite_basic_auth: graphite_basic_auth.to_s
+    graphite_basic_auth: graphite_basic_auth.to_s,
+    resolver: resolver
   )
 end
 

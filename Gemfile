@@ -18,8 +18,8 @@ end
 
 group :development do
   gem 'rb-readline'
-  gem 'guard', '~> 2.4'
+  gem 'guard', '2.4'
   gem 'guard-foodcritic'
-  gem 'guard-rspec'
+  gem 'guard-rspec', '~> 4.2.6'
   gem 'guard-rubocop'
 end

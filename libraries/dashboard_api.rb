@@ -1,7 +1,8 @@
 module GrafanaCookbook
   module DashboardApi
     include GrafanaCookbook::ApiHelper
-    BackendError = Class.new StandardError
+    class BackendError < StandardError
+    end
 
     # Fetch the json representation of the dashboard
     # curl -G --cookie "grafana_user=admin; grafana_sess=997bcbbf1c60fcf0;" http://localhost:3000/api/dashboards/db/sample-dashboard

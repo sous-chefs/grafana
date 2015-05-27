@@ -30,13 +30,28 @@ end
 
 include_recipe "grafana::_install_#{node['grafana']['install_type']}"
 
+directory node['grafana']['data_dir'] do
+  owner node['grafana']['user']
+  group node['grafana']['group']
+  mode '0755'
+  action :create
+end
+
+directory node['grafana']['log_dir'] do
+  owner node['grafana']['user']
+  group node['grafana']['group']
+  mode '0755'
+  action :create
+end
+
 template '/etc/default/grafana-server' do
   source 'grafana-env.erb'
   variables(
     grafana_user: node['grafana']['user'],
     grafana_group: node['grafana']['group'],
     grafana_home: node['grafana']['home'],
-    log_dir: node['grafana']['log_dir']
+    log_dir: node['grafana']['log_dir'],
+    data_dir: node['grafana']['data_dir']
   )
   owner 'root'
   group 'root'
@@ -52,7 +67,9 @@ template '/etc/grafana/grafana.ini' do
     database_name: node['grafana']['database']['name'],
     database_user: node['grafana']['database']['user'],
     database_password: node['grafana']['database']['password'],
-    admin_password: node['grafana']['admin_password']
+    admin_password: node['grafana']['admin_password'],
+    log_dir: node['grafana']['log_dir'],
+    data_dir: node['grafana']['data_dir']
   )
   owner 'root'
   group 'root'

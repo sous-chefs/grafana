@@ -16,8 +16,6 @@ platforms:
       - recipe[apt::default]
       - recipe[curl::default]
     attributes:
-      java:
-        jdk_version: "7"
       graphite:
         listen_port: 8081
         uwsgi:
@@ -31,8 +29,6 @@ platforms:
       - recipe[apt::default]
       - recipe[curl::default]
     attributes:
-      java:
-        jdk_version: "7"
       graphite:
         listen_port: 8081
         uwsgi:
@@ -50,8 +46,6 @@ platforms:
       - recipe[apt::default]
       - recipe[curl::default]
     attributes:
-      java:
-        jdk_version: "7"
       graphite:
         listen_port: 8081
         uwsgi:
@@ -67,8 +61,6 @@ platforms:
     run_list:
       - recipe[yum-epel::default]
     attributes:
-      java:
-        jdk_version: "7"
       graphite:
         listen_port: 8081
         uwsgi:
@@ -85,8 +77,6 @@ platforms:
 suites:
   - name: default
     run_list:
-      # - recipe[java::default]
-      # - recipe[elasticsearch::default]
       # - recipe[graphite::carbon]
       # - recipe[graphite::web]
       # - recipe[graphite::uwsgi]
@@ -99,8 +89,6 @@ suites:
         install_type: package
   # - name: source
   #   run_list:
-  #     - recipe[java::default]
-  #     - recipe[elasticsearch::default]
   #     - recipe[graphite::carbon]
   #     - recipe[graphite::web]
   #     - recipe[graphite::uwsgi]

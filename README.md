@@ -26,12 +26,6 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 | `node['grafana']['file']['url']`             | `'http://grafanarel.s3.amazonaws.com/grafana-1.9.1.tar.gz'` | The file URL for the latest Grafana build |
 | `node['grafana']['file']['checksum']`        | `'c328c7a002622f672affbcaabd5e64ae279be1051ee27c62ba22bfed63680508'`| The sha256 of the Grafana file |
 | `node['grafana']['admin_password']`          | `'admin'`                              | This is a password used when saving dashboard |
-| `node['grafana']['es_server']`               | `'127.0.0.1'`                          | The ipaddress or hostname of your elasticsearch server |
-| `node['grafana']['es_port']`                 | `'9200'`                               | The port of your elasticsearch server's http interface |
-| `node['grafana']['es_role']`                 | `'elasticsearch_server'`               | eventually for wiring up discovery of your elasticsearch server, set to `nil` to prevent any search |
-| `node['grafana']['es_scheme']`               | `'http://'`                            | Scheme helper if elasticsearch is outside of this cookbook `http://` or `https://` |
-| `node['grafana']['es_user']`                 | `''`                                   | Elasticsearch authentication user |
-| `node['grafana']['es_password']`             | `''`                                   | Elasticsearch authentication password |
 | `node['grafana']['graphite_server']`         | `'127.0.0.1'`                          | The ipaddress or hostname of your graphite server |
 | `node['grafana']['graphite_port']`           | `'80'`                                 | The port of your graphite server's http interface |
 | `node['grafana']['graphite_role']`           | `'graphite_server'`                    | eventually for wiring up discovery of your graphite server, set to `nil` to prevent any search |

@@ -25,47 +25,4 @@ server {
     proxy_set_header Authorization "Basic <%= @graphite_basic_auth %>";
 <% end -%>
   }
-
-  location ~ ^/_aliases$ {
-    proxy_pass <%= @es_scheme %><%= @es_server %>:<%= @es_port %>;
-    proxy_read_timeout 90;
-<% unless @es_basic_auth.empty? -%>
-    proxy_set_header Authorization "Basic <%= @es_basic_auth %>";
-<% end -%>
-  }
-  location ~ ^/_nodes$ {
-    proxy_pass <%= @es_scheme %><%= @es_server %>:<%= @es_port %>;
-    proxy_read_timeout 90;
-<% unless @es_basic_auth.empty? -%>
-    proxy_set_header Authorization "Basic <%= @es_basic_auth %>";
-<% end -%>
-  }
-  location ~ ^/.*/_search$ {
-    proxy_pass <%= @es_scheme %><%= @es_server %>:<%= @es_port %>;
-    proxy_read_timeout 90;
-<% unless @es_basic_auth.empty? -%>
-    proxy_set_header Authorization "Basic <%= @es_basic_auth %>";
-<% end -%>
-  }
-  location ~ ^/.*/_mapping$ {
-    proxy_pass <%= @es_scheme %><%= @es_server %>:<%= @es_port %>;
-    proxy_read_timeout 90;
-<% unless @es_basic_auth.empty? -%>
-    proxy_set_header Authorization "Basic <%= @es_basic_auth %>";
-<% end -%>
-  }
-  location ~ ^/<%= node['grafana']['grafana_index'] %>/dashboard/.*$ {
-    proxy_pass <%= @es_scheme %><%= @es_server %>:<%= @es_port %>;
-    proxy_read_timeout 90;
-<% unless @es_basic_auth.empty? -%>
-    proxy_set_header Authorization "Basic <%= @es_basic_auth %>";
-<% end -%>
-  }
-  location ~ ^/<%= node['grafana']['grafana_index'] %>/temp.*$ {
-    proxy_pass <%= @es_scheme %><%= @es_server %>:<%= @es_port %>;
-    proxy_read_timeout 90;
-<% unless @es_basic_auth.empty? -%>
-    proxy_set_header Authorization "Basic <%= @es_basic_auth %>";
-<% end -%>
-  }
 }

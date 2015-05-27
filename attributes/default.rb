@@ -38,14 +38,6 @@ default['grafana']['database']['password'] = ''
 # This value can be overridden with an encrypted data bag
 default['grafana']['admin_password'] = 'admin'
 
-# elastic search
-default['grafana']['es_server'] = '127.0.0.1'
-default['grafana']['es_port'] = '9200'
-default['grafana']['es_role'] = 'elasticsearch_server'
-default['grafana']['es_scheme'] = 'http://'
-default['grafana']['es_user'] = ''
-default['grafana']['es_password'] = ''
-
 # graphite
 default['grafana']['graphite_server'] = '127.0.0.1'
 default['grafana']['graphite_port'] = '80'

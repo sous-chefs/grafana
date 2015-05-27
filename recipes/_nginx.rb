@@ -21,9 +21,6 @@ require 'base64'
 
 include_recipe 'nginx'
 
-es_basic_auth = if !node['grafana']['es_user'].empty? && !node['grafana']['es_password'].empty?
-                  Base64.strict_encode64 "#{node['grafana']['es_user']}:#{node['grafana']['es_password']}"
-                end
 graphite_basic_auth = if !node['grafana']['graphite_user'].empty? && !node['grafana']['graphite_password'].empty?
                         Base64.strict_encode64 "#{node['grafana']['graphite_user']}:#{node['grafana']['graphite_password']}"
                       end
@@ -36,9 +33,6 @@ template '/etc/nginx/sites-available/grafana' do
   owner 'root'
   group 'root'
   variables(
-    es_scheme: node['grafana']['es_scheme'],
-    es_server: node['grafana']['es_server'],
-    es_port: node['grafana']['es_port'],
     graphite_scheme: node['grafana']['graphite_scheme'],
     graphite_server: node['grafana']['graphite_server'],
     graphite_port: node['grafana']['graphite_port'],
@@ -46,7 +40,6 @@ template '/etc/nginx/sites-available/grafana' do
     server_aliases: node['grafana']['webserver_aliases'],
     listen_address: node['grafana']['webserver_listen'],
     listen_port: node['grafana']['webserver_port'],
-    es_basic_auth: es_basic_auth.to_s,
     graphite_basic_auth: graphite_basic_auth.to_s
   )
 end

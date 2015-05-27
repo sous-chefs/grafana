@@ -69,7 +69,8 @@ template '/etc/grafana/grafana.ini' do
     database_password: node['grafana']['database']['password'],
     admin_password: node['grafana']['admin_password'],
     log_dir: node['grafana']['log_dir'],
-    data_dir: node['grafana']['data_dir']
+    data_dir: node['grafana']['data_dir'],
+    http_port: node['grafana']['http_port']
   )
   owner 'root'
   group 'root'

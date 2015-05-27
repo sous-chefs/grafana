@@ -1,5 +1,6 @@
 module GrafanaCookbook
   module DataSourceApi
+    include GrafanaCookbook::ApiHelper
     BackendError = Class.new StandardError
 
     # Uses the HTTP API and session-based authentication to add a Grafana datasource
@@ -75,7 +76,7 @@ module GrafanaCookbook
       handle_response(
         response,
         success: 'Datasource deletion was successful.',
-        unknown_code: 'DataSourceAPI::add_data_source unchecked response code: %{code}'
+        unknown_code: 'DataSourceAPI::delete_data_source unchecked response code: %{code}'
       )
     rescue BackendError
       nil
@@ -97,77 +98,13 @@ module GrafanaCookbook
 
       handle_response(
         response,
-        success: 'List of databases have been successfully retrieved.',
-        unknown_code: 'Error retrieving list of databases.'
+        success: 'List of datasources have been successfully retrieved.',
+        unknown_code: 'Error retrieving list of datasources.'
       )
 
       JSON.parse(response.body)
     rescue BackendError
       nil
-    end
-
-    # Login to Grafana to obtain a authenticated session id.
-    # curl -D- -d '{"User":"admin","email":"","Password":"admin"}' -H "Content-Type: application/json;charset=utf-8" http://localhost:3000/login
-    # Params:
-    # +host+:: The host grafana is running on
-    # +port+:: The port grafana is running on
-    # +user+:: A grafana user with admin privileges
-    # +password+:: The grafana user's password
-    def login(host, port, user, password)
-      http = Net::HTTP.new(host, port)
-      request = Net::HTTP::Post.new('/login')
-      request.add_field('Content-Type', 'application/json;charset=utf-8')
-      request.body = { 'User' => user, 'email' => '', 'Password' => password }.to_json
-
-      response = with_limited_retry tries: 10, exceptions: Errno::ECONNREFUSED do
-        http.request(request)
-      end
-
-      handle_response(
-        response,
-        success: 'Login was successful.',
-        unknown_code: 'DataSourceAPI::login unchecked response code: %{code}'
-      )
-
-      # sorry for the fancy hackery - rubists are welcome to make this better
-      response['set-cookie'][/grafana_sess=(\w+);/, 1]
-    rescue BackendError
-      nil
-    end
-
-    private
-
-    # Retry limited number of time a block catching only specific exceptions
-    # opts:
-    #   :tries - Integer - number of time to retry the block (required)
-    #   :exceptions - Exception or Array of Exception - exceptions to catch (required)
-    def with_limited_retry(opts, &block)
-      tries = opts.fetch :tries
-      exceptions = Array(opts.fetch :exceptions)
-
-      return if tries == 0
-
-      begin
-        block.call
-      rescue *exceptions
-        retry if (tries -= 1) > 0
-      end
-    end
-
-    def handle_response(response, messages)
-      case response
-      when Net::HTTPSuccess
-        Chef::Log.info messages[:success]
-      when Net::HTTPUnauthorized
-        Chef::Log.error 'Invalid grafana_user and grafana_sess.'
-        raise BackendError
-      when nil
-        Chef::Log.error 'Connection refused.'
-        raise BackendError
-      else
-        Chef::Log.error(messages[:unknown_code] % { code: response.code })
-        raise BackendError
-      end
     end
   end
 end

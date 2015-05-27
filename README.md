@@ -87,7 +87,9 @@ If you would like to modify the `nginx` parameters, you should:
 - use the appropriate webserver template attributes to point to your cookbook and template
 
 Resources
------
+---------
+It's important to note that Grafana must be running for these resources to be used because they utilitze Grafana's HTTP API. In your recipe, you'll simply need to make sure that you include the default recipe that starts Grafana before using these.
+
 ### grafana_datasource
 You can control Grafana DataSources via the `grafana_datasource` LWRP. Due to the varying nature of the potental data sources, the information used to create the datasource is consumed by the resource as a Hash (the `source` attribute). The examples should be able to illustrate the flexibility.
 
@@ -98,12 +100,14 @@ You can control Grafana DataSources via the `grafana_datasource` LWRP. Due to th
 | `port`         | `String` | `'3000'`          | The port grafana is running on    |
 | `user`         | `String` | `'admin'`         | A grafana user with admin privileges |
 | `password`     | `String` | `'admin'`         | The grafana user's password    |
-| `source_name`  | `String` |                   | The Data Source name as it will appear in Grafana. |
-| `source`       | `Hash  ` |                   | A Hash of the values to create the datasource. Examples below. |
-| `action`       | `String` | `create`          | Valid actions are `create`, `create_if_missing`, and `delete`. |
+| `source_name`  | `String` |                   | The Data Source name as it will appear in Grafana. Defaults to the name unsed in the resource invocation. |
+| `source`       | `Hash  ` | `{}`              | A Hash of the values to create the datasource. Examples below. |
+| `action`       | `String` | `create`          | Valid actions are `create`, `create_if_missing`, and `delete`. Create will update the datasource if it already exists. |
 
 
 #### Example
+You can create a data source for InfluxDB 0.8.x as follows:
+
 ```ruby
 grafana_datasource 'influxdb-test' do
   source(
@@ -119,10 +123,47 @@ end
 ```
 
 ### grafana_dashboard
-_TBD..._
+Dashboards in Grafana are always going to be incredibly specific to the application, but you may want to be able to create a new dashboard along with a newly provisioned stack. This resource assumes you have a static json file that displays the information that will be flowing from the newly created stack.
+
+This resource currently makes an assumption that the name used in invocation matches the name of the dashboard. This will obviously have limitations, and can change in the future.
+
+#### Attributes
+| Attribute      | Type     | Default Value       | Description                       |
+|----------------|:--------:|:-------------------:|-----------------------------------|
+| `host`         | `String` | `'localhost'`       | The host grafana is running on    |
+| `port`         | `String` | `'3000'`            | The port grafana is running on    |
+| `user`         | `String` | `'admin'`           | A grafana user with admin privileges |
+| `password`     | `String` | `'admin'`           | The grafana user's password       |
+| `source_name`  | `String` |                     | The extensionless name of the dashboard json file, and should match the dashboard title in the json (lower-cased and with hyphens for spaces) if `source` is not provided. Defaults to the name used in the resource invocation. |
+| `source`       | `String` | `nil`               | If you would like to override the name of the json file, use this attribute. |
+| `overwrite`    | `boolean`| `true`              | Whether you want to overwrite existing dashboard with newer version or with same dashboard title |
+| `action`       | `String` | `create_if_missing` | Valid actions are `create`, `create_if_missing`, and `delete`. Create will update the dashboard, so be careful! |
+
+#### Example
+Assuming you have a `files/default/simple-dashboard.json`:
+
+```ruby
+grafana_dashboard 'sample-dashboard'
+```
+
+If you'd like to use a `my-dashboard.json` with the title `"title": "Test Dash"`:
+
+```ruby
+grafana_dashboard 'test-dash' do
+  source 'my-dashboard'
+  overwrite false
+end
+```
 
 Testing
 -------
+#### Foodcritic & Rubocop
+
+```
+$ bundle exec foodcritic -X spec -f any ./
+$ bundle exec rubocop
+```
+
 #### ChefSpec
 
 ```
@@ -144,8 +185,7 @@ Contributing
 - Create a named feature branch (like `add_component_x`)
 - Write your change
 - Write tests for your change (if applicable)
-- Run the tests, ensuring they all pass
--- `bundle exec strainer test`
+- Run the tests, ensuring they all pass -- `bundle exec strainer test`
 - Submit a Pull Request using Github
 
 TODO

@@ -4,6 +4,7 @@ require_relative 'datasource_api'
 class Chef
   class Provider
     class GrafanaDatasource < Chef::Provider::LWRPBase
+      provides :grafana_datasource
       include GrafanaCookbook::DataSourceApi
 
       use_inline_resources if defined?(use_inline_resources)

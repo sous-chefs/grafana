@@ -1,4 +1,4 @@
-## This is an unstable, pre-release, work-in-progress version of the grafana cookbook for Grafana 2.0. Please feel free to contribute, but note that this is very much a work in progress.
+## This is a pre-release, work-in-progress version of the grafana cookbook for Grafana 2.0. We are working toward the [chef-grafana 2.0 milestone](https://github.com/JonathanTron/chef-grafana/milestones/chef-grafana%202.0). Please feel free to contribute, but note that this is very much a work in progress.
 
 There are attributes and recipes that will be deprecated and new features that will certainly be added. Please be patient as the work proceeds. Thanks!
 

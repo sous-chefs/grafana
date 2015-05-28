@@ -1,7 +1,6 @@
 module GrafanaCookbook
   module DataSourceApi
     include GrafanaCookbook::ApiHelper
-    BackendError = Class.new StandardError
 
     # Uses the HTTP API and session-based authentication to add a Grafana datasource
     # Here's a sample curl statement: curl 'http://localhost/api/datasources' -X PUT -H 'Content-Type: application/json;charset=utf-8' -H 'Cookie: grafana_sess=807f6bf34a80787e; grafana_user=admin;'

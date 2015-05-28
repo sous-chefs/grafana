@@ -1,6 +1,7 @@
 module GrafanaCookbook
   module ApiHelper
-    BackendError = Class.new StandardError
+    class BackendError < StandardError
+    end
 
     # Login to Grafana to obtain a authenticated session id.
     # curl -D- -d '{"User":"admin","email":"","Password":"admin"}' -H "Content-Type: application/json;charset=utf-8" http://localhost:3000/login

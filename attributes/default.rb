@@ -31,6 +31,13 @@ default['grafana']['group'] = 'grafana'
 default['grafana']['home'] = '/usr/share/grafana'
 default['grafana']['data_dir'] = '/var/lib/grafana'
 default['grafana']['log_dir'] = '/var/log/grafana'
+case node['platform_family']
+when 'debian'
+  default['grafana']['env_dir'] = '/etc/default'
+when 'rhel', 'fedora'
+  default['grafana']['env_dir'] = '/etc/sysconfig'
+end
+default['grafana']['conf_dir'] = '/etc/grafana'
 default['grafana']['http_port'] = 3000
 default['grafana']['database']['type'] = 'sqlite3'
 default['grafana']['database']['host'] = '127.0.0.1:3306'

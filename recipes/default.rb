@@ -51,7 +51,8 @@ template '/etc/default/grafana-server' do
     grafana_group: node['grafana']['group'],
     grafana_home: node['grafana']['home'],
     log_dir: node['grafana']['log_dir'],
-    data_dir: node['grafana']['data_dir']
+    data_dir: node['grafana']['data_dir'],
+    conf_dir: node['grafana']['conf_dir']
   )
   owner 'root'
   group 'root'
@@ -59,7 +60,7 @@ template '/etc/default/grafana-server' do
   notifies :restart, 'service[grafana-server]', :delayed
 end
 
-template '/etc/grafana/grafana.ini' do
+template "#{node['grafana']['conf_dir']}/grafana.ini" do
   source 'grafana.ini.erb'
   variables(
     database_type: node['grafana']['database']['type'],

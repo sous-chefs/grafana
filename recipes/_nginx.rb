@@ -33,6 +33,7 @@ template '/etc/nginx/sites-available/grafana' do
   owner 'root'
   group 'root'
   variables(
+    grafana_port: node['grafana']['http_port'],
     graphite_scheme: node['grafana']['graphite_scheme'],
     graphite_server: node['grafana']['graphite_server'],
     graphite_port: node['grafana']['graphite_port'],

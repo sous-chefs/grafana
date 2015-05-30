@@ -4,7 +4,7 @@
 #
 
 upstream grafana {
-  server 127.0.0.1:3000;
+  server 127.0.0.1:<%= @grafana_port %>;
 }
 
 server {

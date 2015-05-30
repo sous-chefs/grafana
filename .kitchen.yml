@@ -15,29 +15,11 @@ platforms:
     run_list:
       - recipe[apt::default]
       - recipe[curl::default]
-    attributes:
-      graphite:
-        listen_port: 8081
-        uwsgi:
-          listen_http: true
-      grafana:
-        graphite_port: 8081
-        webserver_aliases:
-          - grafana.dev
   - name: ubuntu-14.04
     run_list:
       - recipe[apt::default]
       - recipe[curl::default]
     attributes:
-      graphite:
-        listen_port: 8081
-        uwsgi:
-          listen_http: true
-      grafana:
-        webserver_listen: ''
-        graphite_port: 8081
-        webserver_aliases:
-          - grafana.dev
   - name: debian-7.4
     driver:
       box: debian-7.4.0
@@ -45,41 +27,14 @@ platforms:
     run_list:
       - recipe[apt::default]
       - recipe[curl::default]
-    attributes:
-      graphite:
-        listen_port: 8081
-        uwsgi:
-          listen_http: true
-      grafana:
-        graphite_port: 8081
-        webserver_aliases:
-          - grafana.dev
   - name: centos-6.4
     driver:
       box: centos-6.4
       box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.4_chef-provisionerless.box
-    run_list:
-      - recipe[yum-epel::default]
-    attributes:
-      graphite:
-        listen_port: 8081
-        uwsgi:
-          listen_http: true
-      grafana:
-        graphite_port: 8081
-        webserver_aliases:
-          - grafana.dev
-      yum:
-        epel:
-          gpgkey: 'http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6'
-          mirrorlist: 'http://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=$basearch'
 
 suites:
   - name: default
     run_list:
-      # - recipe[graphite::carbon]
-      # - recipe[graphite::web]
-      # - recipe[graphite::uwsgi]
       - recipe[grafana::default]
   - name: package
     run_list:
@@ -89,9 +44,6 @@ suites:
         install_type: package
   # - name: source
   #   run_list:
-  #     - recipe[graphite::carbon]
-  #     - recipe[graphite::web]
-  #     - recipe[graphite::uwsgi]
   #     - recipe[grafana::default]
   #   attributes:
   #     grafana:

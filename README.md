@@ -97,7 +97,7 @@ You can control Grafana DataSources via the `grafana_datasource` LWRP. Due to th
 | Attribute      | Type     | Default Value     | Description                       |
 |----------------|:--------:|:-----------------:|-----------------------------------|
 | `host`         | `String` | `'localhost'`     | The host grafana is running on    |
-| `port`         | `String` | `'3000'`          | The port grafana is running on    |
+| `port`         | `Integer`| `3000`            | The port grafana is running on    |
 | `user`         | `String` | `'admin'`         | A grafana user with admin privileges |
 | `password`     | `String` | `'admin'`         | The grafana user's password    |
 | `source_name`  | `String` |                   | The Data Source name as it will appear in Grafana. Defaults to the name unsed in the resource invocation. |
@@ -106,6 +106,18 @@ You can control Grafana DataSources via the `grafana_datasource` LWRP. Due to th
 
 
 #### Example
+You can create a data source for Graphite as follows:
+
+```ruby
+grafana_datasource 'graphite-test' do
+  source(
+    type: 'graphite',
+    url: 'http://10.0.0.15:8080',
+    access: 'direct'
+  )
+end
+```
+
 You can create a data source for InfluxDB 0.8.x as follows:
 
 ```ruby
@@ -131,7 +143,7 @@ This resource currently makes an assumption that the name used in invocation mat
 | Attribute      | Type     | Default Value       | Description                       |
 |----------------|:--------:|:-------------------:|-----------------------------------|
 | `host`         | `String` | `'localhost'`       | The host grafana is running on    |
-| `port`         | `String` | `'3000'`            | The port grafana is running on    |
+| `port`         | `Integer`| `3000`              | The port grafana is running on    |
 | `user`         | `String` | `'admin'`           | A grafana user with admin privileges |
 | `password`     | `String` | `'admin'`           | The grafana user's password       |
 | `source_name`  | `String` |                     | The extensionless name of the dashboard json file, and should match the dashboard title in the json (lower-cased and with hyphens for spaces) if `source` is not provided. Defaults to the name used in the resource invocation. |

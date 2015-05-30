@@ -143,7 +143,7 @@ This resource currently makes an assumption that the name used in invocation mat
 Assuming you have a `files/default/simple-dashboard.json`:
 
 ```ruby
-grafana_dashboard 'sample-dashboard'
+grafana_dashboard 'simple-dashboard'
 ```
 
 If you'd like to use a `my-dashboard.json` with the title `"title": "Test Dash"`:

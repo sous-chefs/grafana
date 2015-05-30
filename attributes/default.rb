@@ -39,15 +39,22 @@ when 'rhel', 'fedora'
 end
 default['grafana']['conf_dir'] = '/etc/grafana'
 default['grafana']['http_addr'] = nil
+default['grafana']['http_protocol'] = 'http'
 default['grafana']['http_port'] = 3000
+default['grafana']['http_domain'] = 'localhost'
 default['grafana']['database']['type'] = 'sqlite3'
 default['grafana']['database']['host'] = '127.0.0.1:3306'
 default['grafana']['database']['name'] = 'grafana'
 default['grafana']['database']['user'] = 'root'
 default['grafana']['database']['password'] = ''
-# This value can be overridden with an encrypted data bag
 default['grafana']['admin_password'] = 'admin'
+default['grafana']['allow_sign_up'] = true
 default['grafana']['allow_org_create'] = true
+default['grafana']['auto_assign_org'] = true
+default['grafana']['auto_assign_org_role'] = 'Viewer'
+default['grafana']['anon_auth_enabled'] = false
+default['grafana']['anon_auth_org_name'] = 'Main Org.'
+default['grafana']['anon_auth_org_role'] = 'Viewer'
 
 # graphite
 default['grafana']['graphite_server'] = '127.0.0.1'

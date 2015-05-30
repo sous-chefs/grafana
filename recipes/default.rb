@@ -71,9 +71,17 @@ template "#{node['grafana']['conf_dir']}/grafana.ini" do
     admin_password: node['grafana']['admin_password'],
     log_dir: node['grafana']['log_dir'],
     data_dir: node['grafana']['data_dir'],
+    http_protocol: node['grafana']['http_protocol'],
     http_port: node['grafana']['http_port'],
     http_addr: node['grafana']['http_addr'],
-    allow_org_create: node['grafana']['allow_org_create']
+    http_domain: node['grafana']['http_domain'],
+    allow_sign_up: node['grafana']['allow_sign_up'],
+    allow_org_create: node['grafana']['allow_org_create'],
+    auto_assign_org: node['grafana']['auto_assign_org'],
+    auto_assign_org_role: node['grafana']['auto_assign_org_role'],
+    anon_auth_enabled: node['grafana']['anon_auth_enabled'],
+    anon_auth_org_name: node['grafana']['anon_auth_org_name'],
+    anon_auth_org_role: node['grafana']['anon_auth_org_role']
   )
   owner 'root'
   group 'root'

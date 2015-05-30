@@ -22,7 +22,7 @@ logs = <%= @log_dir %>
 #################################### Server ####################################
 [server]
 # Protocol (http or https)
-;protocol = http
+protocol = <%= @http_protocol %>
 
 # The ip address to bind to, empty will bind to all interfaces
 http_addr = <%= @http_addr %>
@@ -31,7 +31,7 @@ http_addr = <%= @http_addr %>
 http_port = <%= @http_port %>
 
 # The public facing domain name used to access grafana from a browser
-;domain = localhost
+domain = <%= @http_domain %>
 
 # The full public facing url
 ;root_url = %(protocol)s://%(domain)s:%(http_port)s/
@@ -115,27 +115,27 @@ admin_password = <%= @admin_password %>
 #################################### Users ####################################
 [users]
 # disable user signup / registration
-;allow_sign_up = true
+allow_sign_up = <%= @allow_sign_up %>
 
 # Allow non admin users to create organizations
 allow_org_create = <%= @allow_org_create %>
 
 # Set to true to automatically assign new users to the default organization (id 1)
-;auto_assign_org = true
+auto_assign_org = <%= @auto_assign_org %>
 
 # Default role new users will be automatically assigned (if disabled above is set to true)
-;auto_assign_org_role = Viewer
+auto_assign_org_role = <%= @auto_assign_org_role %>
 
 #################################### Anonymous Auth ##########################
 [auth.anonymous]
 # enable anonymous access
-;enabled = false
+enabled = <%= @anon_auth_enabled %>
 
 # specify organization name that should be used for unauthenticated users
-;org_name = Main Org.
+org_name = <%= @anon_auth_org_name %>
 
 # specify role for unauthenticated users
-;org_role = Viewer
+org_role = <%= @anon_auth_org_role %>
 
 #################################### Github Auth ##########################
 [auth.github]

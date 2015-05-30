@@ -20,6 +20,8 @@ platforms:
       - recipe[apt::default]
       - recipe[curl::default]
     attributes:
+      grafana:
+        webserver_listen: ''
   - name: debian-7.4
     driver:
       box: debian-7.4.0
@@ -36,12 +38,16 @@ suites:
   - name: default
     run_list:
       - recipe[grafana::default]
+    attributes:
+      grafana:
+        http_addr: '127.0.0.1'
   - name: package
     run_list:
       - recipe[grafana::default]
     attributes:
       grafana:
         install_type: package
+        http_port: 3015
   # - name: source
   #   run_list:
   #     - recipe[grafana::default]

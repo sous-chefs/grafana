@@ -71,7 +71,9 @@ template "#{node['grafana']['conf_dir']}/grafana.ini" do
     admin_password: node['grafana']['admin_password'],
     log_dir: node['grafana']['log_dir'],
     data_dir: node['grafana']['data_dir'],
-    http_port: node['grafana']['http_port']
+    http_port: node['grafana']['http_port'],
+    http_addr: node['grafana']['http_addr'],
+    allow_org_create: node['grafana']['allow_org_create']
   )
   owner 'root'
   group 'root'

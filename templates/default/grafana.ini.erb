@@ -25,7 +25,7 @@ logs = <%= @log_dir %>
 ;protocol = http
 
 # The ip address to bind to, empty will bind to all interfaces
-;http_addr =
+http_addr = <%= @http_addr %>
 
 # The http port  to use
 http_port = <%= @http_port %>
@@ -118,7 +118,7 @@ admin_password = <%= @admin_password %>
 ;allow_sign_up = true
 
 # Allow non admin users to create organizations
-;allow_org_create = true
+allow_org_create = <%= @allow_org_create %>
 
 # Set to true to automatically assign new users to the default organization (id 1)
 ;auto_assign_org = true

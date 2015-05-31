@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+pkg_version = node['grafana']['version']
+
 case node['platform_family']
 when 'debian'
   package 'apt-transport-https'
@@ -34,8 +36,9 @@ when 'rhel'
     gpgkey 'https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana'
     action :create
   end
+  pkg_version = "#{pkg_version}-1"
 end
 
 package 'grafana' do
-  version node['grafana']['version']
+  version pkg_version
 end

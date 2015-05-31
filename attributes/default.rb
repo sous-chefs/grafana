@@ -47,7 +47,12 @@ default['grafana']['database']['host'] = '127.0.0.1:3306'
 default['grafana']['database']['name'] = 'grafana'
 default['grafana']['database']['user'] = 'root'
 default['grafana']['database']['password'] = ''
+default['grafana']['admin_user'] = 'admin'
 default['grafana']['admin_password'] = 'admin'
+default['grafana']['session_provider'] = 'memory'
+default['grafana']['session_provider_config'] = 'sessions'
+default['grafana']['session_life_time'] = 86400
+default['grafana']['reporting_enabled'] = true
 default['grafana']['allow_sign_up'] = true
 default['grafana']['allow_org_create'] = true
 default['grafana']['auto_assign_org'] = true
@@ -55,6 +60,9 @@ default['grafana']['auto_assign_org_role'] = 'Viewer'
 default['grafana']['anon_auth_enabled'] = false
 default['grafana']['anon_auth_org_name'] = 'Main Org.'
 default['grafana']['anon_auth_org_role'] = 'Viewer'
+default['grafana']['log_level'] = 'Info'
+default['grafana']['log_daily_rotate'] = true
+default['grafana']['log_max_days'] = 7
 
 # graphite
 default['grafana']['graphite_server'] = '127.0.0.1'

@@ -67,14 +67,14 @@ password = <%= @database_password %>
 #################################### Session ####################################
 [session]
 # Either "memory", "file", "redis", "mysql", default is "memory"
-;provider = file
+provider = <%= @session_provider %>
 
 # Provider config options
 # memory: not have any config yet
 # file: session dir path, is relative to grafana data_path
 # redis: config like redis server addr, poolSize, password, e.g. `127.0.0.1:6379,100,grafana`
 # mysql: go-sql-driver/mysql dsn config string, e.g. `user:password@tcp(127.0.0.1)/database_name`
-;provider_config = sessions
+provider_config = <%= @session_provider_config %>
 
 # Session cookie name
 ;cookie_name = grafana_sess
@@ -83,7 +83,7 @@ password = <%= @database_password %>
 ;cookie_secure = false
 
 # Session life time, default is 86400
-;session_life_time = 86400
+session_life_time = <%= @session_life_time %>
 
 #################################### Analytics ####################################
 [analytics]
@@ -91,7 +91,7 @@ password = <%= @database_password %>
 # No ip addresses are being tracked, only simple counters to track
 # running instances, dashboard and error counts. It is very helpful to us.
 # Change this option to false to disable reporting.
-;reporting_enabled = true
+reporting_enabled = <%= @reporting_enabled %>
 
 # Google Analytics universal tracking code, only enabled if you specify an id here
 ;google_analytics_ua_id =
@@ -99,7 +99,7 @@ password = <%= @database_password %>
 #################################### Security ####################################
 [security]
 # default admin user, created on startup
-;admin_user = admin
+admin_user = <%= @admin_user %>
 
 # default admin password, can be changed before first start of grafana,  or in profile settings
 admin_password = <%= @admin_password %>
@@ -171,7 +171,7 @@ org_role = <%= @anon_auth_org_role %>
 ;buffer_len = 10000
 
 # Either "Trace", "Debug", "Info", "Warn", "Error", "Critical", default is "Trace"
-;level = Info
+level = <%= @log_level %>
 
 # For "console" mode only
 [log.console]
@@ -190,10 +190,10 @@ org_role = <%= @anon_auth_org_role %>
 ;max_lines_shift = 28
 
 # Segment log daily, default is true
-;daily_rotate = true
+daily_rotate = <%= @log_daily_rotate %>
 
 # Expired days of log file(delete after max days), default is 7
-;max_days = 7
+max_days = <%= @log_max_days %>
 
 #################################### AMPQ Event Publisher ##########################
 [event_publisher]

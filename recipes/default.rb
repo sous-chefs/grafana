@@ -68,7 +68,12 @@ template "#{node['grafana']['conf_dir']}/grafana.ini" do
     database_name: node['grafana']['database']['name'],
     database_user: node['grafana']['database']['user'],
     database_password: node['grafana']['database']['password'],
+    admin_user: node['grafana']['admin_user'],
     admin_password: node['grafana']['admin_password'],
+    session_provider: node['grafana']['session_provider'],
+    session_provider_config: node['grafana']['session_provider_config'],
+    session_life_time: node['grafana']['session_life_time'],
+    reporting_enabled: node['grafana']['reporting_enabled'],
     log_dir: node['grafana']['log_dir'],
     data_dir: node['grafana']['data_dir'],
     http_protocol: node['grafana']['http_protocol'],
@@ -81,7 +86,10 @@ template "#{node['grafana']['conf_dir']}/grafana.ini" do
     auto_assign_org_role: node['grafana']['auto_assign_org_role'],
     anon_auth_enabled: node['grafana']['anon_auth_enabled'],
     anon_auth_org_name: node['grafana']['anon_auth_org_name'],
-    anon_auth_org_role: node['grafana']['anon_auth_org_role']
+    anon_auth_org_role: node['grafana']['anon_auth_org_role'],
+    log_level: node['grafana']['log_level'],
+    log_daily_rotate: node['grafana']['log_daily_rotate'],
+    log_max_days: node['grafana']['log_max_days']
   )
   owner 'root'
   group 'root'

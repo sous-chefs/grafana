@@ -57,7 +57,7 @@ template '/etc/default/grafana-server' do
   owner 'root'
   group 'root'
   mode '0644'
-  notifies :restart, 'service[grafana-server]', :delayed
+  notifies :restart, 'service[grafana-server]', :immediate
 end
 
 template "#{node['grafana']['conf_dir']}/grafana.ini" do
@@ -97,7 +97,7 @@ template "#{node['grafana']['conf_dir']}/grafana.ini" do
   owner 'root'
   group 'root'
   mode '0644'
-  notifies :restart, 'service[grafana-server]', :delayed
+  notifies :restart, 'service[grafana-server]', :immediate
 end
 
 service 'grafana-server' do

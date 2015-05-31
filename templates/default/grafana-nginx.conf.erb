@@ -16,13 +16,4 @@ server {
   location / {
     proxy_pass http://grafana;
   }
-
-  location ~ ^/_graphite {
-    rewrite ^/_graphite/(.*)$ /$1 break;
-    proxy_pass <%= @graphite_scheme %><%= @graphite_server %>:<%= @graphite_port %>;
-    proxy_read_timeout 90;
-<% unless @graphite_basic_auth.empty? -%>
-    proxy_set_header Authorization "Basic <%= @graphite_basic_auth %>";
-<% end -%>
-  }
 }

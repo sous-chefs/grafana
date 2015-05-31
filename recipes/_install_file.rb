@@ -27,7 +27,7 @@ when 'debian'
   end
 
   remote_file "#{Chef::Config[:file_cache_path]}/grafana-#{node['grafana']['version']}.deb" do
-    source "https://grafanarel.s3.amazonaws.com/builds/grafana_#{node['grafana']['version']}_amd64.deb"
+    source "#{node['grafana']['file']['url']}_#{node['grafana']['version']}_amd64.deb"
     action :create
     not_if "dpkg -l | grep '^ii' | grep grafana | grep #{node['grafana']['version']}"
   end
@@ -43,7 +43,7 @@ when 'rhel'
   end
 
   remote_file "#{Chef::Config[:file_cache_path]}/grafana-#{node['grafana']['version']}.rpm" do
-    source "https://grafanarel.s3.amazonaws.com/builds/grafana-#{node['grafana']['version']}-1.x86_64.rpm"
+    source "#{node['grafana']['file']['url']}-#{node['grafana']['version']}-1.x86_64.rpm"
     action :create
     not_if "yum list installed | grep grafana | grep #{node['grafana']['version']}"
   end

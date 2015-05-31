@@ -17,13 +17,7 @@
 # limitations under the License.
 #
 
-require 'base64'
-
 include_recipe 'nginx'
-
-graphite_basic_auth = if !node['grafana']['graphite_user'].empty? && !node['grafana']['graphite_password'].empty?
-                        Base64.strict_encode64 "#{node['grafana']['graphite_user']}:#{node['grafana']['graphite_password']}"
-                      end
 
 template '/etc/nginx/sites-available/grafana' do
   source node['grafana']['nginx']['template']
@@ -34,14 +28,10 @@ template '/etc/nginx/sites-available/grafana' do
   group 'root'
   variables(
     grafana_port: node['grafana']['http_port'],
-    graphite_scheme: node['grafana']['graphite_scheme'],
-    graphite_server: node['grafana']['graphite_server'],
-    graphite_port: node['grafana']['graphite_port'],
     server_name: node['grafana']['webserver_hostname'],
     server_aliases: node['grafana']['webserver_aliases'],
     listen_address: node['grafana']['webserver_listen'],
-    listen_port: node['grafana']['webserver_port'],
-    graphite_basic_auth: graphite_basic_auth.to_s
+    listen_port: node['grafana']['webserver_port']
   )
 end
 

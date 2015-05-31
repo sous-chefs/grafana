@@ -34,7 +34,7 @@ http_port = <%= @http_port %>
 domain = <%= @http_domain %>
 
 # The full public facing url
-;root_url = %(protocol)s://%(domain)s:%(http_port)s/
+;root_url = <%= @http_root_url %>
 
 # Log web requests
 ;router_logging = false
@@ -94,7 +94,7 @@ session_life_time = <%= @session_life_time %>
 reporting_enabled = <%= @reporting_enabled %>
 
 # Google Analytics universal tracking code, only enabled if you specify an id here
-;google_analytics_ua_id =
+google_analytics_ua_id = <%= @google_analytics_ua_id %>
 
 #################################### Security ####################################
 [security]
@@ -105,7 +105,7 @@ admin_user = <%= @admin_user %>
 admin_password = <%= @admin_password %>
 
 # used for signing
-;secret_key = SW2YcwTIb9zpOOhoPsMm
+;secret_key = <%= @sec_secret_key %>
 
 # Auto-login remember days
 ;login_remember_days = 7

@@ -21,33 +21,52 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 
 | Attribute                                    | Default                                | Description                       |
 |----------------------------------------------|:--------------------------------------:|-----------------------------------|
-| `node['grafana']['install_type']`            | `'file'`                               | The type of install we are going to use either `git` or `file` |
-| `node['grafana']['version']`                 | `'2.0.2'`                              | the version to install. |
-| `node['grafana']['file']['url']`             | `'http://grafanarel.s3.amazonaws.com/grafana-1.9.1.tar.gz'` | The file URL for the latest Grafana build |
-| `node['grafana']['file']['checksum']`        | `'c328c7a002622f672affbcaabd5e64ae279be1051ee27c62ba22bfed63680508'`| The sha256 of the Grafana file |
-| `node['grafana']['admin_password']`          | `'admin'`                              | This is a password used when saving dashboard |
-| `node['grafana']['graphite_server']`         | `'127.0.0.1'`                          | The ipaddress or hostname of your graphite server |
-| `node['grafana']['graphite_port']`           | `'80'`                                 | The port of your graphite server's http interface |
-| `node['grafana']['graphite_role']`           | `'graphite_server'`                    | eventually for wiring up discovery of your graphite server, set to `nil` to prevent any search |
-| `node['grafana']['graphite_scheme']`         | `'http://'`                            | Scheme helper if graphite is outside of this cookbook `http://` or `https://` |
-| `node['grafana']['graphite_user']`           | `''`                                   | Graphite authentication user |
-| `node['grafana']['graphite_password']`       | `''`                                   | Graphite authentication password |
-| `node['grafana']['user']`                    | `''`                                   | The user who will own the files from the git checkout. |
-| `node['grafana']['config_template']`         | `'config.js.erb'`                      | The template to use for Grafana's `config.js` |
-| `node['grafana']['webserver']`               | `'nginx'`                              | Which webserver to use: nginx or '' |
-| `node['grafana']['webserver_hostname']`      | `node.name`                            | The primary vhost the web server will use for Grafana |
+| `node['grafana']['install_type']`            | `'file'`                               | The type of install: `file`, `package` or `source` |
+| `node['grafana']['version']`                 | `'2.0.2'`                              | The version to install |
+| `node['grafana']['file']['url']`             | `'https://grafanarel.s3.amazonaws.com/builds/grafana'` | The file URL for Grafana builds |
+| `node['grafana']['package']['repo']`         | `'https://packagecloud.io/grafana/stable/'` | The grafana package repo |
+| `node['grafana']['package']['key']`          | `'https://packagecloud.io/gpg.key'`    | The package repo GPG key |
+| `node['grafana']['package']['components']`   | `['main']`                             | The package repo components |
+| `node['grafana']['user']`                    | `'grafana'`                            | The grafana user |
+| `node['grafana']['group']`                   | `'grafana'`                            | The grafana group |
+| `node['grafana']['home']`                    | `'/usr/share/grafana'`                 | The value set to GRAFANA_HOME |
+| `node['grafana']['data_dir']`                | `'/var/lib/grafana'`                   | The path grafana can use to store temp files, sessions, and the sqlite3 db |
+| `node['grafana']['log_dir']`                 | `'/var/log/grafana'`                   | Grafana's log directory |
+| `node['grafana']['env_dir']`                 | `'/etc/default'` or `'/etc/sysconfig'` | The location for environment variables - autoconfigured for rhel and debian systems |
+| `node['grafana']['conf_dir']`                | `'/etc/grafana'`                       | The location to store the `grafana.ini` file |
+| `node['grafana']['http_addr']`               | `nil`                                  | The ip address to bind to, empty will bind to all interfaces |
+| `node['grafana']['http_protocol']`           | `'http'`                               | The http protocol: `'http'` or `'https'` |
+| `node['grafana']['http_port']`               | `3000`                                 | The http port grafana binds to |
+| `node['grafana']['http_domain']`             | `'localhost'`                          | The public-facing domain name used to access grafana |
+| `node['grafana']['http_root_url']`           | `'%(protocol)s://%(domain)s:%(http_port)s/'`| Full url used for auth callbacks or with reverse proxies |
+| `node['grafana']['database']['type']`        | `'sqlite3'`                            | The database type: `'mysql'`, `'postgres'`, `'sqlite3'` |
+| `node['grafana']['database']['host']`        | `'127.0.0.1:3306'`                     | The database host and port |
+| `node['grafana']['database']['name']`        | `'grafana'`                            | The database name |
+| `node['grafana']['database']['user']`        | `'root'`                               | The database user |
+| `node['grafana']['database']['password']`    | `''`                                   | The database user's password |
+| `node['grafana']['admin_user']`              | `'admin'`                              | The username used to administer Grafana |
+| `node['grafana']['admin_password']`          | `'admin'`                              | The password for the `admin_user` |
+| `node['grafana']['sec_secret_key']`          | `'SW2YcwTIb9zpOOhoPsMm'`               | CHANGE THIS! Used for signing remember me cookies |
+| `node['grafana']['session_provider']`        | `'memory'`                             | Session provider: `'memory'`, `'file'`, `'redis'`, `'mysql'` |
+| `node['grafana']['session_provider_config']` | `'sessions'`                           | See [Grafana documentation](http://docs.grafana.org/installation/configuration/) for further details. |
+| `node['grafana']['session_life_time']`       | `86400`                                | The session life time in seconds |
+| `node['grafana']['reporting_enabled']`       | `true`                                 | Enable Grafana to send anonymous usage statistics to `stats.grafana.org` |
+| `node['grafana']['google_analytics_ua_id']`  | `nil`                                  | Google Analytics universal tracking code |
+| `node['grafana']['allow_sign_up']`           | `true`                                 | Allow user signup / registration |
+| `node['grafana']['allow_org_create']`        | `true`                                 | Allow non-admin users to create organizations |
+| `node['grafana']['auto_assign_org']`         | `true`                                 | Automatically assign new users to the default organization (id 1) |
+| `node['grafana']['auto_assign_org_role']`    | `'Viewer'`                             | The role new users will be given if `allow_sign_up` is `true` |
+| `node['grafana']['anon_auth_enabled']`       | `false`                                | Enable anonymous access |
+| `node['grafana']['anon_auth_org_name']`      | `'Main Org.'`                          | The organization used by unauthenticated users |
+| `node['grafana']['anon_auth_org_role']`      | `'Viewer'`                             | The role used by unauthenticated users |
+| `node['grafana']['log_level']`               | `'Info'`                               | Log level: `'Trace'`, `'Debug'`, `'Info'`, `'Warn'`, `'Error'`, `'Critical'` |
+| `node['grafana']['log_daily_rotate']`        | `true`                                 | Rotate the logs daily |
+| `node['grafana']['log_max_days']`            | `7`                                    | Number of days to keep the logs |
+| `node['grafana']['webserver']`               | `'nginx'`                              | Which webserver to use: `'nginx'` or `''` |
+| `node['grafana']['webserver_hostname']`      | `node.name`                            | The server_name used in the webserver config |
 | `node['grafana']['webserver_aliases']`       | `[node['ipaddress']]`                  | Array of any secondary hostnames that are valid vhosts |
 | `node['grafana']['webserver_listen']`        | `node['ipaddress']`                    | The ip address the web server will listen on |
 | `node['grafana']['webserver_port']`          | `80`                                   | The port the webserver will listen on |
-| `node['grafana']['webserver_scheme']`        | `'http://'`                            | Scheme helper if webserver is outside of this cookbook `http://` or `https://` |
-| `node['grafana']['default_route']`           | `'/dashboard/file/default.json'`       | Default route config, set start dashboard |
-| `node['grafana']['timezone_offset']`         | `'null'`                               | Timezone offset config, example: "-0500" (for UTC-5 hours) |
-| `node['grafana']['grafana_index']`           | `'grafana-index'`                      | Elasticsearch index to use for Grafana |
-| `node['grafana']['unsaved_changes_warning']` | `'true'`                               | Enable disable unsaved changes warning in UI |
-| `node['grafana']['playlist_timespan']`       | `'1m'`                                 | Playlist timespan config |
-| `node['grafana']['window_title_prefix']`     | `'Grafana - '`                         | Window title prefix config |
-| `node['grafana']['search_max_results']`      | `20`                                   | Search maximuyum result config  |
-
 
 **NOTE**
 Any derived attributes should be wrapped in a lambda if you expect to change
@@ -202,14 +221,7 @@ Contributing
 
 TODO
 ----
-- Finish implementation of the dashboard resource
-- Implement user resource via the API
-- Continue to template out the `grafana.ini.erb` and `grafana-env.erb` templates
-- Test with Graphie datasource
-- Remove Elasticsearch references
-- Complete the `source` recipe
-- Allow SSL to be enabled on Nginx
-- Implement organization reource via the API
+To see the current todos, please view the open issues for the [chef-grafana 2.0 milestone](https://github.com/JonathanTron/chef-grafana/milestones/chef-grafana%202.0).
 
 License and Authors
 -------------------

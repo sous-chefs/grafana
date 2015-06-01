@@ -17,13 +17,6 @@
 # limitations under the License.
 #
 
-unless Chef::Config[:solo] || node['grafana']['graphite_role'].nil?
-  graphite_server_results = search(:node, "roles:#{node['grafana']['graphite_role']} AND chef_environment:#{node.chef_environment}")
-  unless graphite_server_results.empty?
-    node.default['grafana']['graphite_server'] = graphite_server_results.first['ipaddress']
-  end
-end
-
 unless node['grafana']['webserver'].empty?
   include_recipe "grafana::_#{node['grafana']['webserver']}"
 end

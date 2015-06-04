@@ -96,7 +96,7 @@ module GrafanaCookbook
       end
       dash_json = JSON.parse(File.read(dashboard_source_file))
 
-      fail "#{dashboard_options[:name]} did not match the name (#{dash_json['title']}) in the json" if dash_json['title'].gsub(' ', '-').downcase != dashboard_options[:name]
+      fail "#{dashboard_options[:name]} did not match the name (#{dash_json['title']}) in the json" if dash_json['title'].gsub('.', '-').gsub(' ', '-').downcase != dashboard_options[:name]
     rescue BackendError
       nil
     end

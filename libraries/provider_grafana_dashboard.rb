@@ -25,6 +25,7 @@ class Chef
         dash_hash = {
           name: new_resource.source_name,
           source: source,
+          path: new_resource.path,
           overwrite: new_resource.overwrite
         }
         dashboard_sanity(dash_hash)
@@ -44,6 +45,7 @@ class Chef
         dash_hash = {
           name: new_resource.source_name,
           source: source,
+          path: new_resource.path,
           overwrite: new_resource.overwrite
         }
         dashboard_sanity(dash_hash)

@@ -34,14 +34,18 @@ module GrafanaCookbook
       request = Net::HTTP::Post.new('/api/dashboards/db')
       request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
       request.add_field('Content-Type', 'application/json;charset=utf-8;')
-      dashboard_source_file = File.expand_path("../files/default/#{dashboard_options[:source]}.json", File.dirname(__FILE__))
+      if !dashboard_options[:path].nil?
+        dashboard_source_file = dashboard_options[:path]
+      else
+        dashboard_source_file = File.expand_path("../files/default/#{dashboard_options[:source]}.json", File.dirname(__FILE__))
+      end
       dash_hash = {
         'dashboard' => JSON.parse(File.read(dashboard_source_file)),
         'overwrite' => dashboard_options[:overwrite]
       }
       request.body = dash_hash.to_json
 
-      http.set_debug_output $stdout
+      # http.set_debug_output $stdout
 
       response = with_limited_retry tries: 10, exceptions: Errno::ECONNREFUSED do
         http.request(request)
@@ -82,7 +86,11 @@ module GrafanaCookbook
     # Params:
     # +dashboard_options+:: A hash of the dashboard options
     def dashboard_sanity(dashboard_options)
-      dashboard_source_file = File.expand_path("../files/default/#{dashboard_options[:source]}.json", File.dirname(__FILE__))
+      if !dashboard_options[:path].nil?
+        dashboard_source_file = dashboard_options[:path]
+      else
+        dashboard_source_file = File.expand_path("../files/default/#{dashboard_options[:source]}.json", File.dirname(__FILE__))
+      end
       unless File.exist?(dashboard_source_file)
         fail "#{dashboard_options[:source]} was specified, but #{dashboard_source_file} does not exist!"
       end

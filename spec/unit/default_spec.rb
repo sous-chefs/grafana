@@ -45,6 +45,11 @@ describe 'grafana::default' do
             expect(chef_run).to include_recipe 'grafana::_install_file'
           end
 
+          it 'create log and data directories' do
+            expect(chef_run).to create_directory('/var/lib/grafana').with(mode: '0755')
+            expect(chef_run).to create_directory('/var/log/grafana').with(mode: '0755')
+          end
+
           it 'generate grafana.ini' do
             expect(chef_run).to create_template('/etc/grafana/grafana.ini').with(
               mode: '0644',

@@ -7,20 +7,13 @@ class Chef
       actions :create, :create_if_missing, :delete
       default_action :create
 
+      state_attrs :source_name
+
       attribute :host, kind_of: String, default: 'localhost'
       attribute :port, kind_of: Integer, default: 3000
       attribute :user, kind_of: String, default: 'admin'
       attribute :password, kind_of: String, default: 'admin'
       attribute :source_name, kind_of: String, name_attribute: true, required: true
-      # Something like this:
-      # source(
-      #   type: 'influxdb_08',
-      #   url: 'http://10.0.0.10:8086',
-      #   access: 'direct',
-      #   database: 'metrics',
-      #   user: 'dashboard',
-      #   password: 'dashpass'
-      # )
       attribute :source, kind_of: Hash, default: {}
     end
   end

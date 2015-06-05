@@ -37,7 +37,7 @@ module GrafanaCookbook
       if !dashboard_options[:path].nil?
         dashboard_source_file = dashboard_options[:path]
       else
-        dashboard_source_file = File.expand_path("../files/default/#{dashboard_options[:source]}.json", File.dirname(__FILE__))
+        dashboard_source_file = File.expand_path("#{Chef::Config[:file_cache_path]}/cookbooks/#{dashboard_options[:cookbook]}/files/default/#{dashboard_options[:source]}.json", File.dirname(__FILE__))
       end
       dash_hash = {
         'dashboard' => JSON.parse(File.read(dashboard_source_file)),
@@ -89,7 +89,7 @@ module GrafanaCookbook
       if !dashboard_options[:path].nil?
         dashboard_source_file = dashboard_options[:path]
       else
-        dashboard_source_file = File.expand_path("../files/default/#{dashboard_options[:source]}.json", File.dirname(__FILE__))
+        dashboard_source_file = File.expand_path("#{Chef::Config[:file_cache_path]}/cookbooks/#{dashboard_options[:cookbook]}/files/default/#{dashboard_options[:source]}.json", File.dirname(__FILE__))
       end
       unless File.exist?(dashboard_source_file)
         fail "#{dashboard_options[:source]} was specified, but #{dashboard_source_file} does not exist!"

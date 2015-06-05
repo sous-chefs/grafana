@@ -25,6 +25,7 @@ class Chef
         dash_hash = {
           name: new_resource.source_name,
           source: source,
+          cookbook: new_resource.cookbook.nil? ? cookbook_name : new_resource.cookbook,
           path: new_resource.path,
           overwrite: new_resource.overwrite
         }
@@ -45,6 +46,7 @@ class Chef
         dash_hash = {
           name: new_resource.source_name,
           source: source,
+          cookbook: new_resource.cookbook.nil? ? cookbook_name : new_resource.cookbook,
           path: new_resource.path,
           overwrite: new_resource.overwrite
         }

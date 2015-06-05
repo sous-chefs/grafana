@@ -167,6 +167,8 @@ This resource currently makes an assumption that the name used in invocation mat
 | `password`     | `String` | `'admin'`           | The grafana user's password       |
 | `source_name`  | `String` |                     | The extensionless name of the dashboard json file, and should match the dashboard title in the json (lower-cased and with hyphens for spaces) if `source` is not provided. Defaults to the name used in the resource invocation. |
 | `source`       | `String` | `nil`               | If you would like to override the name of the json file, use this attribute. |
+| `cookbook`     | `String` | `nil`               | The cookbook name to pull the file from if not this one |
+| `path`         | `String` | `nil`               | _Overrides `cookbook` and `source`_. The absolute path to the json file on disk. |
 | `overwrite`    | `boolean`| `true`              | Whether you want to overwrite existing dashboard with newer version or with same dashboard title |
 | `action`       | `String` | `create_if_missing` | Valid actions are `create`, `create_if_missing`, and `delete`. Create will update the dashboard, so be careful! |
 
@@ -183,6 +185,14 @@ If you'd like to use a `my-dashboard.json` with the title `"title": "Test Dash"`
 grafana_dashboard 'test-dash' do
   source 'my-dashboard'
   overwrite false
+end
+```
+
+If the dashboard you would like to import is already on disk with the title `"title": "On Disk Dash"`:
+
+```ruby
+grafana_dashboard 'on-disk-dash' do
+  path '/opt/grafana/dashboards/local-dash.json'
 end
 ```
 

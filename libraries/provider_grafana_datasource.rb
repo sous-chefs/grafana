@@ -43,6 +43,10 @@ class Chef
           end
         end
 
+        do_create exists, allow_update, should_update, grafana_options
+      end
+
+      def do_create(exists, allow_update, should_update, grafana_options)
         if exists
           if allow_update
             if should_update

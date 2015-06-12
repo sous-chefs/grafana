@@ -36,42 +36,43 @@ when 'rhel', 'fedora'
   default['grafana']['env_dir'] = '/etc/sysconfig'
 end
 default['grafana']['conf_dir'] = '/etc/grafana'
+
+## ini file configuration
+# format is the following [section][key] = value
+# with value being either
+# - the real value
+# - a hash { comment: 'a comment', disable: true|false, value: 'the real value' } with disable: true to add the ; prefix
+#
+# Grafana has pretty good default value, the following default attributes are only here to show how to configure grafana via attributes
+
+# no section parameters
+default['grafana']['ini'][nil]['app_mode'] = 'production'
+
+default['grafana']['ini']['database']['type'] = {
+  comment: "Either mysl, postgres, sqlite3, it's your choice",
+  disable: true,
+  value: 'sqlite3',
+}
+default['grafana']['ini']['database']['host'] = '127.0.0.1:3306'
+default['grafana']['ini']['database']['name'] = 'grafana'
+default['grafana']['ini']['database']['user'] = 'root'
+default['grafana']['ini']['database']['password'] = ''
+default['grafana']['ini']['database']['ssl_mode'] = {
+  comment: 'For "postgres" only, either "disable", "require" or "verify-full"',
+  disable: true,
+  value: 'disable'
+}
+default['grafana']['ini']['database']['path'] = {
+  comment: 'For sqlite3 only, path relative to data_path setting',
+  disable: true,
+  value: 'grafana.db'
+}
+
 # server
-default['grafana']['http_addr'] = nil
-default['grafana']['http_protocol'] = 'http'
-default['grafana']['http_port'] = 3000
-default['grafana']['http_domain'] = 'localhost'
-default['grafana']['http_root_url'] = '%(protocol)s://%(domain)s:%(http_port)s/'
-# database
-default['grafana']['database']['type'] = 'sqlite3'
-default['grafana']['database']['host'] = '127.0.0.1:3306'
-default['grafana']['database']['name'] = 'grafana'
-default['grafana']['database']['user'] = 'root'
-default['grafana']['database']['password'] = ''
-# session
-default['grafana']['session_provider'] = 'memory'
-default['grafana']['session_provider_config'] = 'sessions'
-default['grafana']['session_life_time'] = 86400
-# analytics
-default['grafana']['reporting_enabled'] = true
-default['grafana']['google_analytics_ua_id'] = nil
-# security
-default['grafana']['admin_user'] = 'admin'
-default['grafana']['admin_password'] = 'admin'
-default['grafana']['sec_secret_key'] = 'SW2YcwTIb9zpOOhoPsMm'
-# users
-default['grafana']['allow_sign_up'] = true
-default['grafana']['allow_org_create'] = true
-default['grafana']['auto_assign_org'] = true
-default['grafana']['auto_assign_org_role'] = 'Viewer'
-# anonymous auth
-default['grafana']['anon_auth_enabled'] = false
-default['grafana']['anon_auth_org_name'] = 'Main Org.'
-default['grafana']['anon_auth_org_role'] = 'Viewer'
-# logging
-default['grafana']['log_level'] = 'Info'
-default['grafana']['log_daily_rotate'] = true
-default['grafana']['log_max_days'] = 7
+default['grafana']['ini']['server']['protocol'] = 'http'
+default['grafana']['ini']['server']['http_port'] = 3000
+default['grafana']['ini']['server']['domain'] = 'localhost'
+
 
 # webserver
 default['grafana']['webserver'] = 'nginx'

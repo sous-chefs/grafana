@@ -33,12 +33,15 @@ class Chef
         end
 
         if exists
-          update_data_source(new_resource.source, grafana_options)
+          converge_by("Updating data source #{new_resource.name}") do
+            update_data_source(new_resource.source, grafana_options)
+          end
         else
-          add_data_source(new_resource.source, grafana_options)
+          converge_by("Creating data source #{new_resource.name}") do
+            add_data_source(new_resource.source, grafana_options)
+          end
           Chef::Log.info "Added #{new_resource.source_name} as a datasource to Grafana"
         end
-        new_resource.updated_by_last_action(true)
       end
 
       action :create_if_missing do
@@ -57,9 +60,10 @@ class Chef
         end
 
         if !exists
-          add_data_source(new_resource.source, grafana_options)
+          converge_by("Creating data source #{new_resource.name}") do
+            add_data_source(new_resource.source, grafana_options)
+          end
           Chef::Log.info "Added #{new_resource.source_name} as a datasource to Grafana"
-          new_resource.updated_by_last_action(true)
         else
           Chef::Log.info "#{new_resource.source_name} exists, nothing to update!"
         end
@@ -83,9 +87,10 @@ class Chef
         end
 
         if exists
-          delete_data_source(new_resource.source[:id], grafana_options)
+          converge_by("Deleting data source #{new_resource.name}") do
+            delete_data_source(new_resource.source[:id], grafana_options)
+          end
           Chef::Log.info "Deleted datasource #{new_resource.source_name} (id: #{new_resource.source[:id]}) from Grafana"
-          new_resource.updated_by_last_action(true)
         else
           Chef::Log.info "#{new_resource.source_name} did not exist, nothing deleted!"
         end

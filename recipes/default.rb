@@ -60,9 +60,7 @@ ini['paths']['logs'] = node['grafana']['log_dir']
 
 template "#{node['grafana']['conf_dir']}/grafana.ini" do
   source 'grafana.ini.erb'
-  variables(
-    ini: ini,
-  )
+  variables ini: ini
   owner 'root'
   group 'root'
   mode '0644'

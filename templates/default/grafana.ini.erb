@@ -6,19 +6,9 @@
 # for full description of each settings, refer to grafana doc
 
 <% @ini.each do |section,group| %>
-<%= "[#{section}]" if section %>
-<%= group.each do |key,v| %>
-<%= case v
-   when Hash
-    line = ""
-    line += "# " + v['comment'] + "\n" if v['comment']
-    line += ';' if v['disable']
-    line += v['value']
-   else
-    v
-   end
-%>
 
+<%= GrafanaCookbook::IniHelper.format_section section %>
+<% group.each do |key,v| %>
+<%= GrafanaCookbook::IniHelper.format_value v %>
 <% end %>
-
 <% end %>

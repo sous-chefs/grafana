@@ -51,7 +51,7 @@ default['grafana']['ini'][nil]['app_mode'] = 'production'
 default['grafana']['ini']['database']['type'] = {
   comment: "Either mysl, postgres, sqlite3, it's your choice",
   disable: true,
-  value: 'sqlite3',
+  value: 'sqlite3'
 }
 default['grafana']['ini']['database']['host'] = '127.0.0.1:3306'
 default['grafana']['ini']['database']['name'] = 'grafana'
@@ -72,7 +72,6 @@ default['grafana']['ini']['database']['path'] = {
 default['grafana']['ini']['server']['protocol'] = 'http'
 default['grafana']['ini']['server']['http_port'] = 3000
 default['grafana']['ini']['server']['domain'] = 'localhost'
-
 
 # webserver
 default['grafana']['webserver'] = 'nginx'

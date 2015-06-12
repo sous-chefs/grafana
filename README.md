@@ -34,34 +34,6 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 | `node['grafana']['log_dir']`                 | `'/var/log/grafana'`                   | Grafana's log directory |
 | `node['grafana']['env_dir']`                 | `'/etc/default'` or `'/etc/sysconfig'` | The location for environment variables - autoconfigured for rhel and debian systems |
 | `node['grafana']['conf_dir']`                | `'/etc/grafana'`                       | The location to store the `grafana.ini` file |
-| `node['grafana']['http_addr']`               | `nil`                                  | The ip address to bind to, empty will bind to all interfaces |
-| `node['grafana']['http_protocol']`           | `'http'`                               | The http protocol: `'http'` or `'https'` |
-| `node['grafana']['http_port']`               | `3000`                                 | The http port grafana binds to |
-| `node['grafana']['http_domain']`             | `'localhost'`                          | The public-facing domain name used to access grafana |
-| `node['grafana']['http_root_url']`           | `'%(protocol)s://%(domain)s:%(http_port)s/'`| Full url used for auth callbacks or with reverse proxies |
-| `node['grafana']['database']['type']`        | `'sqlite3'`                            | The database type: `'mysql'`, `'postgres'`, `'sqlite3'` |
-| `node['grafana']['database']['host']`        | `'127.0.0.1:3306'`                     | The database host and port |
-| `node['grafana']['database']['name']`        | `'grafana'`                            | The database name |
-| `node['grafana']['database']['user']`        | `'root'`                               | The database user |
-| `node['grafana']['database']['password']`    | `''`                                   | The database user's password |
-| `node['grafana']['admin_user']`              | `'admin'`                              | The username used to administer Grafana |
-| `node['grafana']['admin_password']`          | `'admin'`                              | The password for the `admin_user` |
-| `node['grafana']['sec_secret_key']`          | `'SW2YcwTIb9zpOOhoPsMm'`               | CHANGE THIS! Used for signing remember me cookies |
-| `node['grafana']['session_provider']`        | `'memory'`                             | Session provider: `'memory'`, `'file'`, `'redis'`, `'mysql'` |
-| `node['grafana']['session_provider_config']` | `'sessions'`                           | See [Grafana documentation](http://docs.grafana.org/installation/configuration/) for further details. |
-| `node['grafana']['session_life_time']`       | `86400`                                | The session life time in seconds |
-| `node['grafana']['reporting_enabled']`       | `true`                                 | Enable Grafana to send anonymous usage statistics to `stats.grafana.org` |
-| `node['grafana']['google_analytics_ua_id']`  | `nil`                                  | Google Analytics universal tracking code |
-| `node['grafana']['allow_sign_up']`           | `true`                                 | Allow user signup / registration |
-| `node['grafana']['allow_org_create']`        | `true`                                 | Allow non-admin users to create organizations |
-| `node['grafana']['auto_assign_org']`         | `true`                                 | Automatically assign new users to the default organization (id 1) |
-| `node['grafana']['auto_assign_org_role']`    | `'Viewer'`                             | The role new users will be given if `allow_sign_up` is `true` |
-| `node['grafana']['anon_auth_enabled']`       | `false`                                | Enable anonymous access |
-| `node['grafana']['anon_auth_org_name']`      | `'Main Org.'`                          | The organization used by unauthenticated users |
-| `node['grafana']['anon_auth_org_role']`      | `'Viewer'`                             | The role used by unauthenticated users |
-| `node['grafana']['log_level']`               | `'Info'`                               | Log level: `'Trace'`, `'Debug'`, `'Info'`, `'Warn'`, `'Error'`, `'Critical'` |
-| `node['grafana']['log_daily_rotate']`        | `true`                                 | Rotate the logs daily |
-| `node['grafana']['log_max_days']`            | `7`                                    | Number of days to keep the logs |
 | `node['grafana']['webserver']`               | `'nginx'`                              | Which webserver to use: `'nginx'` or `''` |
 | `node['grafana']['webserver_hostname']`      | `node.name`                            | The server_name used in the webserver config |
 | `node['grafana']['webserver_aliases']`       | `[node['ipaddress']]`                  | Array of any secondary hostnames that are valid vhosts |
@@ -71,6 +43,12 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 **NOTE**
 Any derived attributes should be wrapped in a lambda if you expect to change
 the value of the root attribute (see example above).
+
+** NOTE**
+For the ini configuration file, any parameters can be specified as this:
+`node['grafana']['ini'][SECTION_NAME][KEY][VALUE]`
+
+It is also possible to specify a comment that will precedes the parameter and to comment the parameter as well. See attributes/default.rb file for details and examples.
 
 #### grafana::nginx
 

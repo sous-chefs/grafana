@@ -14,6 +14,14 @@ class Chef
       end
 
       action :create do
+        create(true)
+      end
+
+      action :create_if_missing do
+        create(false)
+      end
+
+      def create(allow_update)
         new_resource.source[:name] = new_resource.source_name
         grafana_options = {
           host: new_resource.host,
@@ -33,39 +41,18 @@ class Chef
         end
 
         if exists
-          converge_by("Updating data source #{new_resource.name}") do
-            update_data_source(new_resource.source, grafana_options)
+          if allow_update
+            converge_by("Updating data source #{new_resource.name}") do
+              update_data_source(new_resource.source, grafana_options)
+            end
+          else
+            Chef::Log.info "#{new_resource.source_name} exists, nothing to update!"
           end
         else
           converge_by("Creating data source #{new_resource.name}") do
             add_data_source(new_resource.source, grafana_options)
           end
           Chef::Log.info "Added #{new_resource.source_name} as a datasource to Grafana"
-        end
-      end
-
-      action :create_if_missing do
-        new_resource.source[:name] = new_resource.source_name
-        grafana_options = {
-          host: new_resource.host,
-          port: new_resource.port,
-          user: new_resource.user,
-          password: new_resource.password
-        }
-        datasources = get_data_source_list(grafana_options)
-
-        exists = false
-        datasources.each do |src|
-          exists = true if src['name'] == new_resource.source_name
-        end
-
-        if !exists
-          converge_by("Creating data source #{new_resource.name}") do
-            add_data_source(new_resource.source, grafana_options)
-          end
-          Chef::Log.info "Added #{new_resource.source_name} as a datasource to Grafana"
-        else
-          Chef::Log.info "#{new_resource.source_name} exists, nothing to update!"
         end
       end
 

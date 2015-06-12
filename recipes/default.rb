@@ -53,39 +53,15 @@ template '/etc/default/grafana-server' do
   notifies :restart, 'service[grafana-server]', :delayed
 end
 
+ini = node['grafana']['ini'].dup
+ini['paths'] ||= {}
+ini['paths']['data'] = node['grafana']['data_dir']
+ini['paths']['logs'] = node['grafana']['log_dir']
+
 template "#{node['grafana']['conf_dir']}/grafana.ini" do
   source 'grafana.ini.erb'
   variables(
-    database_type: node['grafana']['database']['type'],
-    database_host: node['grafana']['database']['host'],
-    database_name: node['grafana']['database']['name'],
-    database_user: node['grafana']['database']['user'],
-    database_password: node['grafana']['database']['password'],
-    admin_user: node['grafana']['admin_user'],
-    admin_password: node['grafana']['admin_password'],
-    sec_secret_key: node['grafana']['sec_secret_key'],
-    session_provider: node['grafana']['session_provider'],
-    session_provider_config: node['grafana']['session_provider_config'],
-    session_life_time: node['grafana']['session_life_time'],
-    reporting_enabled: node['grafana']['reporting_enabled'],
-    google_analytics_ua_id: node['grafana']['google_analytics_ua_id'],
-    log_dir: node['grafana']['log_dir'],
-    data_dir: node['grafana']['data_dir'],
-    http_protocol: node['grafana']['http_protocol'],
-    http_port: node['grafana']['http_port'],
-    http_addr: node['grafana']['http_addr'],
-    http_domain: node['grafana']['http_domain'],
-    http_root_url: node['grafana']['http_root_url'],
-    allow_sign_up: node['grafana']['allow_sign_up'],
-    allow_org_create: node['grafana']['allow_org_create'],
-    auto_assign_org: node['grafana']['auto_assign_org'],
-    auto_assign_org_role: node['grafana']['auto_assign_org_role'],
-    anon_auth_enabled: node['grafana']['anon_auth_enabled'],
-    anon_auth_org_name: node['grafana']['anon_auth_org_name'],
-    anon_auth_org_role: node['grafana']['anon_auth_org_role'],
-    log_level: node['grafana']['log_level'],
-    log_daily_rotate: node['grafana']['log_daily_rotate'],
-    log_max_days: node['grafana']['log_max_days']
+    ini: ini,
   )
   owner 'root'
   group 'root'

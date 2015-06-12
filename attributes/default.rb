@@ -20,7 +20,7 @@ default['grafana']['version'] = '2.0.2'
 
 default['grafana']['file']['url'] = 'https://grafanarel.s3.amazonaws.com/builds/grafana'
 
-default['grafana']['package']['repo'] = 'https://packagecloud.io/grafana/stable/'
+default['grafana']['package']['repo'] = 'https://packagecloud.io/grafana/stable/el/$releasever/$basearch'
 default['grafana']['package']['key'] = 'https://packagecloud.io/gpg.key'
 default['grafana']['package']['components'] = ['main']
 

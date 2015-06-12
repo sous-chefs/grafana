@@ -32,7 +32,7 @@ when 'debian'
 when 'rhel'
   yum_repository 'grafana' do
     description 'Grafana Stable Repo'
-    baseurl "#{node['grafana']['package']['repo']}el/6/$basearch"
+    baseurl node['grafana']['package']['repo']
     gpgkey 'https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana'
     action :create
   end

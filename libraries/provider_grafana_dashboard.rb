@@ -30,8 +30,9 @@ class Chef
           overwrite: new_resource.overwrite
         }
         dashboard_sanity(dash_hash)
-        create_dashboard(dash_hash, grafana_options)
-        new_resource.updated_by_last_action(true)
+        converge_by("Creating dashboard #{new_resource.name}") do
+          create_dashboard(dash_hash, grafana_options)
+        end
       end
 
       action :create_if_missing do
@@ -52,10 +53,10 @@ class Chef
         }
         dashboard_sanity(dash_hash)
         dash = get_dashboard(dash_hash, grafana_options)
-        # puts "dash is #{dash}"
         if dash['message'] == 'Dashboard not found'
-          create_dashboard(dash_hash, grafana_options)
-          new_resource.updated_by_last_action(true)
+          converge_by("Creating dashboard #{new_resource.name}") do
+            create_dashboard(dash_hash, grafana_options)
+          end
         end
       end
 
@@ -68,8 +69,9 @@ class Chef
         }
         dash = get_dashboard({ name: new_resource.source_name }, grafana_options)
         unless dash['message'] == 'Dashboard not found'
-          delete_dashboard(new_resource.source_name, grafana_options)
-          new_resource.updated_by_last_action(true)
+          converge_by("Removing dashboard #{new_resource.name}") do
+            delete_dashboard(new_resource.source_name, grafana_options)
+          end
         end
       end
     end

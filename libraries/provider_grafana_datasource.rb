@@ -1,3 +1,4 @@
+require 'chef/mash'
 require 'chef/provider/lwrp_base'
 require_relative 'datasource_api'
 
@@ -32,18 +33,24 @@ class Chef
         datasources = get_data_source_list(grafana_options)
 
         exists = false
+        should_update = true
         datasources.each do |src|
           if src['name'] == new_resource.source_name
             exists = true
             new_resource.source[:id] = src['id']
             new_resource.source[:orgId] = src['orgId']
+            should_update = Mash.new(new_resource.source) != Mash.new(src)
           end
         end
 
         if exists
           if allow_update
-            converge_by("Updating data source #{new_resource.name}") do
-              update_data_source(new_resource.source, grafana_options)
+            if should_update
+              converge_by("Updating data source #{new_resource.name}") do
+                update_data_source(new_resource.source, grafana_options)
+              end
+            else
+              Chef::Log.info "#{new_resource.source_name} already up to date, nothing to update!"
             end
           else
             Chef::Log.info "#{new_resource.source_name} exists, nothing to update!"

@@ -40,15 +40,24 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 | `node['grafana']['webserver_listen']`        | `node['ipaddress']`                    | The ip address the web server will listen on |
 | `node['grafana']['webserver_port']`          | `80`                                   | The port the webserver will listen on |
 
+##### grafana.ini
+For the ini configuration file, parameters can be specified as this: `node['grafana']['ini'][SECTION_NAME][KEY] = [VALUE]`. Here's an example:
+
+	default['grafana']['ini']['server']['protocol'] = 'http'
+
+It is also possible to specify a comment that will precede the parameter and to comment the parameter as well.
+
+	default['grafana']['ini']['database']['ssl_mode'] = {
+	  comment: 'For "postgres" only, either "disable", "require" or "verify-full"',
+	  disable: true,
+	  value: 'disable'
+	}
+
+See attributes/default.rb file for more details and examples.
+
 **NOTE**
 Any derived attributes should be wrapped in a lambda if you expect to change
 the value of the root attribute (see example above).
-
-** NOTE**
-For the ini configuration file, any parameters can be specified as this:
-`node['grafana']['ini'][SECTION_NAME][KEY][VALUE]`
-
-It is also possible to specify a comment that will precedes the parameter and to comment the parameter as well. See attributes/default.rb file for details and examples.
 
 #### grafana::nginx
 
@@ -56,10 +65,6 @@ It is also possible to specify a comment that will precedes the parameter and to
 |-------------------------------------------------|:--------------------------:|-----------------------------------|
 | `node['grafana']['nginx']['template']`          | `'grafana-nginx.conf.erb'` | The template file to use for the nginx site configuration |
 | `node['grafana']['nginx']['template_cookbook']` | `'grafana'`                | The cookbook containing said template |
-
-Removed:
-
-- `node['grafana']['nginx']['enable_default_site']` - use `node['nginx']['enable_default_site']`
 
 Usage
 -----
@@ -69,9 +74,9 @@ The default recipe will:
 - install Grafana via downloaded system package
 - install `nginx` to proxy the grafana application
 
-If you want to install the Grafana package repository, update `node['grafana']['install_type']` attribute to `package`.  Set `node['grafana']['checksum']` to appropriate sha256 value of latest archive file.
+If you want to install the Grafana package repository, update `node['grafana']['install_type']` attribute to `package`.
 
-Nginx is used to proxy Grafana to run on port 80 as well other proxying for Elaticsearch. If you don't want this cookbook to handle the webserver config simply set `node['grafana']['webserver']` to `''` in a role/environment/node somewhere.
+Nginx is used to proxy Grafana to run on port 80. If you don't want this cookbook to handle the webserver config simply set `node['grafana']['webserver']` to `''` in a role/environment/node somewhere.
 
 
 **NOTE**
@@ -102,7 +107,7 @@ You can control Grafana DataSources via the `grafana_datasource` LWRP. Due to th
 | `action`       | `String` | `create`          | Valid actions are `create`, `create_if_missing`, and `delete`. Create will update the datasource if it already exists. |
 
 
-#### Example
+#### Examples
 You can create a data source for Graphite as follows:
 
 ```ruby
@@ -150,7 +155,7 @@ This resource currently makes an assumption that the name used in invocation mat
 | `overwrite`    | `boolean`| `true`              | Whether you want to overwrite existing dashboard with newer version or with same dashboard title |
 | `action`       | `String` | `create_if_missing` | Valid actions are `create`, `create_if_missing`, and `delete`. Create will update the dashboard, so be careful! |
 
-#### Example
+#### Examples
 Assuming you have a `files/default/simple-dashboard.json`:
 
 ```ruby

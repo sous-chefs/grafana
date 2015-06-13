@@ -59,7 +59,7 @@ default['grafana']['ini'][nil]['app_mode'] = 'production'
 
 default['grafana']['ini']['database']['type'] = {
   comment: "Either mysl, postgres, sqlite3, it's your choice",
-  disable: true,
+  disable: false,
   value: 'sqlite3'
 }
 default['grafana']['ini']['database']['host'] = '127.0.0.1:3306'
@@ -73,7 +73,7 @@ default['grafana']['ini']['database']['ssl_mode'] = {
 }
 default['grafana']['ini']['database']['path'] = {
   comment: 'For sqlite3 only, path relative to data_path setting',
-  disable: true,
+  disable: false,
   value: 'grafana.db'
 }
 

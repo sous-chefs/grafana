@@ -12,7 +12,7 @@ module GrafanaCookbook
     end
 
     def self.format_section(section)
-      "[#{section}]" if section
+      "\n[#{section}]" if section
     end
 
     def self.format_kv(key, value)

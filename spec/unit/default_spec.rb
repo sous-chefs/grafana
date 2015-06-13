@@ -55,8 +55,8 @@ describe 'grafana::default' do
               mode: '0644',
               user: 'root'
             )
-            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/\[database\]/)
-            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{data = /var/lib/grafana/})
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[database\]/)
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^data = /var/lib/grafana})
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^host = 127.0.0.1:3306/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^# For "postgres" only, either "disable", "require" or "verify-full"/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^;ssl_mode = disable/)
@@ -108,8 +108,8 @@ describe 'grafana::default' do
               mode: '0644',
               user: 'root'
             )
-            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/\[database\]/)
-            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{data = /var/lib/grafana/})
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[database\]/)
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^data = /var/lib/grafana})
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^host = 127.0.0.1:3306/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^# For "postgres" only, either "disable", "require" or "verify-full"/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^;ssl_mode = disable/)

@@ -40,14 +40,18 @@ suites:
       - recipe[grafana::default]
     attributes:
       grafana:
-        http_addr: '127.0.0.1'
+        ini:
+          server:
+            http_addr: '127.0.0.1'
   - name: package
     run_list:
       - recipe[grafana::default]
     attributes:
       grafana:
         install_type: package
-        http_port: 3015
+        ini:
+          server:
+            http_port: 3015
   # - name: source
   #   run_list:
   #     - recipe[grafana::default]

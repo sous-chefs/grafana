@@ -27,7 +27,7 @@ template '/etc/nginx/sites-available/grafana' do
   owner 'root'
   group 'root'
   variables(
-    grafana_port: node['grafana']['http_port'],
+    grafana_port: node['grafana']['ini']['server']['http_port'] || 3000,
     server_name: node['grafana']['webserver_hostname'],
     server_aliases: node['grafana']['webserver_aliases'],
     listen_address: node['grafana']['webserver_listen'],

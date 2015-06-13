@@ -20,9 +20,18 @@ default['grafana']['version'] = '2.0.2'
 
 default['grafana']['file']['url'] = 'https://grafanarel.s3.amazonaws.com/builds/grafana'
 
-default['grafana']['package']['repo'] = 'https://packagecloud.io/grafana/stable/el/$releasever/$basearch'
-default['grafana']['package']['key'] = 'https://packagecloud.io/gpg.key'
-default['grafana']['package']['components'] = ['main']
+case node['platform_family']
+when 'debian'
+  default['grafana']['package']['repo'] = 'https://packagecloud.io/grafana/stable/debian/'
+  default['grafana']['package']['distribution'] = 'wheezy'
+  default['grafana']['package']['components'] = ['main']
+  default['grafana']['package']['key'] = 'https://packagecloud.io/gpg.key'
+  default['grafana']['package']['version'] = node['grafana']['version']
+when 'rhel', 'fedora'
+  default['grafana']['package']['repo'] = 'https://packagecloud.io/grafana/stable/el/$releasever/$basearch'
+  default['grafana']['package']['key'] = 'https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana'
+  default['grafana']['package']['version'] = "#{node['grafana']['version']}-1"
+end
 
 default['grafana']['user'] = 'grafana'
 default['grafana']['group'] = 'grafana'

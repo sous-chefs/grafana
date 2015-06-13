@@ -5,10 +5,4 @@
 
 # for full description of each settings, refer to grafana doc
 
-<% @ini.each do |section,group| %>
-
-<%= GrafanaCookbook::IniHelper.format_section section %>
-<% group.each do |key,v| %>
-<%= GrafanaCookbook::IniHelper.format_value v %>
-<% end %>
-<% end %>
+<%= GrafanaCookbook::IniHelper.format_config @ini %>

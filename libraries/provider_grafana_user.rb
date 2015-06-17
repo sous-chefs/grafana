@@ -31,9 +31,7 @@ class Chef
 
           exists = false
           global_users.each do |user|
-            if user['login'] == new_resource.login
-              exists = true
-            end
+            exists = true if user['login'] == new_resource.login
           end
           unless exists
             converge_by("Creating global user #{new_resource.login}") do

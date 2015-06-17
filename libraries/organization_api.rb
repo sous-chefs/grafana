@@ -50,7 +50,6 @@ module GrafanaCookbook
       nil
     end
 
-
     # Get a list of the existing organizations
     def get_orgs_list(grafana_options)
       session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])

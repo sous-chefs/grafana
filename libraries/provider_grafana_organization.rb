@@ -24,9 +24,7 @@ class Chef
 
         exists = false
         orgs.each do |org|
-          if org['name'] == new_resource.name
-            exists = true
-          end
+          exists = true if org['name'] == new_resource.name
         end
         unless exists
           converge_by("Creating organization #{new_resource.name}") do

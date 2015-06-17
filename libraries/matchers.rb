@@ -22,4 +22,8 @@ if defined?(ChefSpec)
   def delete_grafana_dashboard(name)
     ChefSpec::Matchers::ResourceMatcher.new(:grafana_dashboard, :delete, name)
   end
+
+  def create_grafana_organization_if_missing(name)
+    ChefSpec::Matchers::ResourceMatcher.new(:grafana_organization, :create_if_missing, name)
+  end
 end

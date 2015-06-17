@@ -179,6 +179,26 @@ grafana_dashboard 'on-disk-dash' do
 end
 ```
 
+### grafana_organization
+This resource will allow you to create organizations within Grafana. This resource is minimally viable and only supports the addition of a new organization by name. It does check to see if an organization of the same name already exists, but it does not currently support adding address or city information.
+
+#### Attributes
+| Attribute      | Type     | Default Value       | Description                       |
+|----------------|:--------:|:-------------------:|-----------------------------------|
+| `host`         | `String` | `'localhost'`       | The host grafana is running on    |
+| `port`         | `Integer`| `3000`              | The port grafana is running on    |
+| `user`         | `String` | `'admin'`           | A grafana user with admin privileges |
+| `password`     | `String` | `'admin'`           | The grafana user's password       |
+| `name`         | `String` |                     | The name of the organization you would like to add. Defaults to the name used in the resource invocation. |
+| `action`       | `String` | `create_if_missing` | Valid actions are `create_if_missing`. Delete and create are not currently supported. |
+
+#### Examples
+Assuming you would like to create a new organization called `Second Org.`:
+
+```ruby
+grafana_organization 'Second Org.'
+```
+
 Testing
 -------
 #### Foodcritic & Rubocop

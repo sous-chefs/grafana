@@ -26,4 +26,8 @@ if defined?(ChefSpec)
   def create_grafana_organization_if_missing(name)
     ChefSpec::Matchers::ResourceMatcher.new(:grafana_organization, :create_if_missing, name)
   end
+
+  def create_grafana_user_if_missing(name)
+    ChefSpec::Matchers::ResourceMatcher.new(:grafana_user, :create_if_missing, name)
+  end
 end

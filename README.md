@@ -199,6 +199,35 @@ Assuming you would like to create a new organization called `Second Org.`:
 grafana_organization 'Second Org.'
 ```
 
+### grafana_user
+This resource will allow you to create global users within Grafana. This resource is minimally viable and only supports the addition of global non-admin users. Contribution to the funcationality would be appreciated.
+
+#### Attributes
+| Attribute      | Type     | Default Value       | Description                       |
+|----------------|:--------:|:-------------------:|-----------------------------------|
+| `host`         | `String` | `'localhost'`       | The host grafana is running on    |
+| `port`         | `Integer`| `3000`              | The port grafana is running on    |
+| `user`         | `String` | `'admin'`           | A grafana user with admin privileges |
+| `password`     | `String` | `'admin'`           | The grafana user's password       |
+| `global`       | `boolean`| `true`              | Whether you want the user to be a global user. _Currently only global `true` is supported._ |
+| `admin`        | `boolean`| `false`             | Whether or not the user should be a global admin. _Currently only admin `false` is supported._ |
+| `login`        | `String` |                     | The login for this user. Defaults to the name used in the resource invocation. |
+| `full_name`    | `String` |                     | The common, human-readable name used for the user |
+| `email`        | `String` |                     | The email address for this user   |
+| `passwd`       | `String` |                     | The password to use for this user |
+| `action`       | `String` | `create_if_missing` | Valid actions are `create_if_missing`. Delete and create are not currently supported. |
+
+#### Examples
+Assuming you would like to create a new user...
+
+```ruby
+grafana_user 'person2' do
+  full_name 'John Smith'
+  email 'test@example.com'
+  passwd 'test123'
+end
+```
+
 Testing
 -------
 #### Foodcritic & Rubocop

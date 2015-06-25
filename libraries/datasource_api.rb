@@ -11,7 +11,7 @@ module GrafanaCookbook
     def add_data_source(db_options, grafana_options)
       session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
-      request = Net::HTTP::Put.new('/api/datasources')
+      request = Net::HTTP::Post.new('/api/datasources')
       request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
       request.add_field('Content-Type', 'application/json;charset=utf-8')
       request.body = db_options.to_json
@@ -39,7 +39,7 @@ module GrafanaCookbook
     def update_data_source(db_options, grafana_options)
       session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
-      request = Net::HTTP::Post.new('/api/datasources')
+      request = Net::HTTP::Put.new("/api/datasources/#{db_options[:id]}")
       request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
       request.add_field('Content-Type', 'application/json;charset=utf-8')
       request.body = db_options.to_json

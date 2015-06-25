@@ -93,7 +93,7 @@ Resources
 It's important to note that Grafana must be running for these resources to be used because they utilitze Grafana's HTTP API. In your recipe, you'll simply need to make sure that you include the default recipe that starts Grafana before using these.
 
 ### grafana_datasource
-You can control Grafana DataSources via the `grafana_datasource` LWRP. Due to the varying nature of the potental data sources, the information used to create the datasource is consumed by the resource as a Hash (the `source` attribute). The examples should be able to illustrate the flexibility.
+You can control Grafana dataSources via the `grafana_datasource` LWRP. Due to the varying nature of the potental data sources, the information used to create the datasource is consumed by the resource as a Hash (the `source` attribute). The examples should illustrate the flexibility. The full breadth of options are (or will be) documented on the [Grafana website](http://docs.grafana.org/reference/http_api/#data-sources), however you can discover undocumented parameters by inspecting the HTTP requests your browser makes to the Grafana server.
 
 #### Attributes
 | Attribute      | Type     | Default Value     | Description                       |
@@ -120,17 +120,18 @@ grafana_datasource 'graphite-test' do
 end
 ```
 
-You can create a data source for InfluxDB 0.8.x as follows:
+You can create a data source for InfluxDB 0.8.x and make it the default dashboard as follows:
 
 ```ruby
 grafana_datasource 'influxdb-test' do
   source(
     type: 'influxdb_08',
     url: 'http://10.0.0.10:8086',
-    access: 'direct',
+    access: 'proxy',
     database: 'metrics',
     user: 'dashboard',
-    password: 'dashpass'
+    password: 'dashpass',
+    isdefault: true
   )
   action :create_if_missing
 end
@@ -139,7 +140,7 @@ end
 ### grafana_dashboard
 Dashboards in Grafana are always going to be incredibly specific to the application, but you may want to be able to create a new dashboard along with a newly provisioned stack. This resource assumes you have a static json file that displays the information that will be flowing from the newly created stack.
 
-This resource currently makes an assumption that the name used in invocation matches the name of the dashboard. This will obviously have limitations, and can change in the future.
+This resource currently makes an assumption that the name used in invocation matches the name of the dashboard. This will obviously have limitations, and could change in the future. More documentation on creating Grafana dashboards via the HTTP API can be found [here](http://docs.grafana.org/reference/http_api/#dashboards).
 
 #### Attributes
 | Attribute      | Type     | Default Value       | Description                       |
@@ -182,6 +183,8 @@ end
 ### grafana_organization
 This resource will allow you to create organizations within Grafana. This resource is minimally viable and only supports the addition of a new organization by name. It does check to see if an organization of the same name already exists, but it does not currently support adding address or city information.
 
+More information about creating Grafana organizations via the HTTP API can be found [here](http://docs.grafana.org/reference/http_api/#organizations).
+
 #### Attributes
 | Attribute      | Type     | Default Value       | Description                       |
 |----------------|:--------:|:-------------------:|-----------------------------------|
@@ -201,6 +204,8 @@ grafana_organization 'Second Org.'
 
 ### grafana_user
 This resource will allow you to create global users within Grafana. This resource is minimally viable and only supports the addition of global non-admin users. Contribution to the funcationality would be appreciated.
+
+More information about creating Grafana users via the HTTP API can be found [here](http://docs.grafana.org/reference/http_api/#users).
 
 #### Attributes
 | Attribute      | Type     | Default Value       | Description                       |

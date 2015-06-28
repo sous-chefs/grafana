@@ -62,7 +62,7 @@ def do_create(exists, allow_update, should_update, grafana_options)
 end
 
 def legacy_http_semantic
-  Chef::Version.new(node['grafana']['version']) < Chef::Version.new('2.0.3')
+  Gem::Version.new(node['grafana']['version']) < Gem::Version.new('2.0.3')
 end
 
 action :delete do

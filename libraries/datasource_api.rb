@@ -7,11 +7,16 @@ module GrafanaCookbook
     # --data '{"name":"not-influxdb","type":"influxdb_08","url":"http://10.0.0.6:8086","access":"direct","database":"grafana","user":"root","password":"root"}'
     # Params:
     # +db_options+:: This is a hash of the options used to create the new datasource
+    # +legacy_http_semantic+:: In older grafana versions (<= 2.0.2) http semantic for create/update was reversed
     # +grafana_options+:: This is a hash with the details used to communicate with the Grafana server
-    def add_data_source(db_options, grafana_options)
+    def add_data_source(db_options, legacy_http_semantic, grafana_options)
       session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
-      request = Net::HTTP::Put.new('/api/datasources')
+      if legacy_http_semantic
+        request = Net::HTTP::Put.new('/api/datasources')
+      else
+        request = Net::HTTP::Post.new('/api/datasources')
+      end
       request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
       request.add_field('Content-Type', 'application/json;charset=utf-8')
       request.body = db_options.to_json
@@ -35,11 +40,16 @@ module GrafanaCookbook
     # Uses the HTTP API and session-based authentication to update a Grafana datasource
     # Params:
     # +db_options+:: This is a hash of the options used to update the datasource
+    # +legacy_http_semantic+:: In older grafana versions (<= 2.0.2) http semantic for create/update was reversed
     # +grafana_options+:: A hash of the host, port, user, and password
-    def update_data_source(db_options, grafana_options)
+    def update_data_source(db_options, legacy_http_semantic, grafana_options)
       session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
-      request = Net::HTTP::Post.new('/api/datasources')
+      if legacy_http_semantic
+        request = Net::HTTP::Post.new('/api/datasources')
+      else
+        request = Net::HTTP::Put.new("/api/datasources/#{db_options[:id]}")
+      end
       request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
       request.add_field('Content-Type', 'application/json;charset=utf-8')
       request.body = db_options.to_json

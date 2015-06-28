@@ -45,7 +45,7 @@ def do_create(exists, allow_update, should_update, grafana_options)
     if allow_update
       if should_update
         converge_by("Updating data source #{new_resource.name}") do
-          update_data_source(new_resource.source, grafana_options)
+          update_data_source(new_resource.source, legacy_http_semantic, grafana_options)
         end
       else
         Chef::Log.info "#{new_resource.source_name} already up to date, nothing to update!"
@@ -55,10 +55,14 @@ def do_create(exists, allow_update, should_update, grafana_options)
     end
   else
     converge_by("Creating data source #{new_resource.name}") do
-      add_data_source(new_resource.source, grafana_options)
+      add_data_source(new_resource.source, legacy_http_semantic, grafana_options)
     end
     Chef::Log.info "Added #{new_resource.source_name} as a datasource to Grafana"
   end
+end
+
+def legacy_http_semantic
+  Chef::Version.new(node['grafana']['version']) < Chef::Version.new('2.0.3')
 end
 
 action :delete do

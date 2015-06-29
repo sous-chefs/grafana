@@ -1,15 +1,15 @@
 Grafana Cookbook [![Build Status](https://travis-ci.org/JonathanTron/chef-grafana.svg?branch=master)](https://travis-ci.org/JonathanTron/chef-grafana)
-===============
+================
 
-A stand-alone cookbook for Grafana.
+A stand-alone cookbook for Grafana. The 2.x versions of this cookbook work with the 2.x versions of Grafana. There is no backward compatibility for pre-2.0 versions of Grafana in the 2.x versions of this cookbook.
 
-***Please Note***: We are working on a cookbook overhaul to support Grafana 2. This work is currently being done in the [grafana-2](https://github.com/JonathanTron/chef-grafana/tree/grafana-2) branch. Pull requests are welcome although the code is very much a work-in-progress. Thanks!
+If you would like to configure pre-2.0 versions of Grafana, please use the 1.x branch and 1.x versions of this cookbook in the supermarket. There is a 1.x tag for PRs or Issues related to the 1.x branch.
 
 Requirements
 ------------
 - apt
+- yum
 - nginx
-- git
 
 Attributes
 ----------
@@ -19,96 +19,66 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 
 | Attribute                                    | Default                                | Description                       |
 |----------------------------------------------|:--------------------------------------:|-----------------------------------|
-| `node['grafana']['install_type']`            | `'file'`                               | The type of install we are going to use either `git` or `file` |
-| `node['grafana']['git']['url']`              | `'https://github.com/grafana/grafana'` | The url for the git repo to use for Grafana |
-| `node['grafana']['git']['branch']`           | `'master'`                             | The sha or branch name to use |
-| `node['grafana']['file']['type']`            | `'tar.gz'`                             | the type of archive file. `zip` or `tar.gz`. |
-| `node['grafana']['file']['version']`         | `'1.9.1'`                              | the version to install. |
-| `node['grafana']['file']['url']`             | `'http://grafanarel.s3.amazonaws.com/grafana-1.9.1.tar.gz'` | The file URL for the latest Grafana build |
-| `node['grafana']['file']['checksum']`        | `'c328c7a002622f672affbcaabd5e64ae279be1051ee27c62ba22bfed63680508'`| The sha256 of the Grafana file |
-| `node['grafana']['install_path']`            | `'/srv/apps'`                          | The root directory where Grafana will be installed |
-| `node['grafana']['install_dir']`             | `'/srv/apps/grafana'`                  | The directory to checkout into. A `current` symlink will be created in this directory as well. |
-| `node['grafana']['admin_password']`          | `''`                                   | This is a password used when saving dashboard |
-| `node['grafana']['es_server']`               | `'127.0.0.1'`                          | The ipaddress or hostname of your elasticsearch server |
-| `node['grafana']['es_port']`                 | `'9200'`                               | The port of your elasticsearch server's http interface |
-| `node['grafana']['es_role']`                 | `'elasticsearch_server'`               | eventually for wiring up discovery of your elasticsearch server, set to `nil` to prevent any search |
-| `node['grafana']['es_scheme']`               | `'http://'`                            | Scheme helper if elasticsearch is outside of this cookbook `http://` or `https://` |
-| `node['grafana']['es_user']`                 | `''`                                   | Elasticsearch authentication user |
-| `node['grafana']['es_password']`             | `''`                                   | Elasticsearch authentication password |
-| `node['grafana']['graphite_server']`         | `'127.0.0.1'`                          | The ipaddress or hostname of your graphite server |
-| `node['grafana']['graphite_port']`           | `'80'`                                 | The port of your graphite server's http interface |
-| `node['grafana']['graphite_role']`           | `'graphite_server'`                    | eventually for wiring up discovery of your graphite server, set to `nil` to prevent any search |
-| `node['grafana']['graphite_scheme']`         | `'http://'`                            | Scheme helper if graphite is outside of this cookbook `http://` or `https://` |
-| `node['grafana']['graphite_user']`           | `''`                                   | Graphite authentication user |
-| `node['grafana']['graphite_password']`       | `''`                                   | Graphite authentication password |
-| `node['grafana']['user']`                    | `''`                                   | The user who will own the files from the git checkout. |
-| `node['grafana']['config_template']`         | `'config.js.erb'`                      | The template to use for Grafana's `config.js` |
-| `node['grafana']['config_cookbook']`         | `'grafana'`                            | The cookbook that contains said config template |
-| `node['grafana']['webserver']`               | `'nginx'`                              | Which webserver to use: nginx or '' |
-| `node['grafana']['webserver_hostname']`      | `node.name`                            | The primary vhost the web server will use for Grafana |
+| `node['grafana']['install_type']`            | `'file'`                               | The type of install: `file`, `package` or `source`. *Note*: `source` is not currently supported. |
+| `node['grafana']['version']`                 | `'2.0.2'`                              | The version to install |
+| `node['grafana']['file']['url']`             | `'https://grafanarel.s3.amazonaws.com/builds/grafana'` | The file URL for Grafana builds |
+| `node['grafana']['package']['repo']`         | `'https://packagecloud.io/grafana/stable/'` | The grafana package repo |
+| `node['grafana']['package']['key']`          | `'https://packagecloud.io/gpg.key'`    | The package repo GPG key |
+| `node['grafana']['package']['components']`   | `['main']`                             | The package repo components |
+| `node['grafana']['user']`                    | `'grafana'`                            | The grafana user |
+| `node['grafana']['group']`                   | `'grafana'`                            | The grafana group |
+| `node['grafana']['home']`                    | `'/usr/share/grafana'`                 | The value set to GRAFANA_HOME |
+| `node['grafana']['data_dir']`                | `'/var/lib/grafana'`                   | The path grafana can use to store temp files, sessions, and the sqlite3 db |
+| `node['grafana']['log_dir']`                 | `'/var/log/grafana'`                   | Grafana's log directory |
+| `node['grafana']['env_dir']`                 | `'/etc/default'` or `'/etc/sysconfig'` | The location for environment variables - autoconfigured for rhel and debian systems |
+| `node['grafana']['conf_dir']`                | `'/etc/grafana'`                       | The location to store the `grafana.ini` file |
+| `node['grafana']['webserver']`               | `'nginx'`                              | Which webserver to use: `'nginx'` or `''` |
+| `node['grafana']['webserver_hostname']`      | `node.name`                            | The server_name used in the webserver config |
 | `node['grafana']['webserver_aliases']`       | `[node['ipaddress']]`                  | Array of any secondary hostnames that are valid vhosts |
 | `node['grafana']['webserver_listen']`        | `node['ipaddress']`                    | The ip address the web server will listen on |
 | `node['grafana']['webserver_port']`          | `80`                                   | The port the webserver will listen on |
-| `node['grafana']['webserver_scheme']`        | `'http://'`                            | Scheme helper if webserver is outside of this cookbook `http://` or `https://` |
-| `node['grafana']['default_route']`           | `'/dashboard/file/default.json'`       | Default route config, set start dashboard |
-| `node['grafana']['timezone_offset']`         | `'null'`                               | Timezone offset config, example: "-0500" (for UTC-5 hours) |
-| `node['grafana']['grafana_index']`           | `'grafana-index'`                      | Elasticsearch index to use for Grafana |
-| `node['grafana']['unsaved_changes_warning']` | `'true'`                               | Enable disable unsaved changes warning in UI |
-| `node['grafana']['playlist_timespan']`       | `'1m'`                                 | Playlist timespan config |
-| `node['grafana']['window_title_prefix']`     | `'Grafana - '`                         | Window title prefix config |
-| `node['grafana']['search_max_results']`      | `20`                                   | Search maximuyum result config  |
-| `node['grafana']['datasources']`             | see below                              | Grafana (`> 1.7.0`) data sources configuration |
 
-Starting with `1.7.0`, Grafana uses `datasources` array in its configuration file
-to know about the multiple databases it should read data from (`elasticsearch`,
-`graphite`, `InfluxDB`, ...), we're generating this array from
-`node['grafana']['datasources']`, the defaults are:
+##### grafana.ini
+For the ini configuration file, parameters can be specified as this: `node['grafana']['ini'][SECTION_NAME][KEY] = [VALUE]`. Here's an example:
 
 ```ruby
-{
-  'graphite' => {
-    'type' => "'graphite'",
-    'url'  => 'window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/_graphite"',
-    'default' => true
-  },
-  'elasticsearch' => {
-    'type' => "'elasticsearch'",
-    'url'  => 'window.location.protocol+"//"+window.location.hostname+":"+window.location.port',
-    'index' => lambda { "'#{node['grafana']['grafana_index']}'" },
-    'grafanaDB' => true
-  }
+default['grafana']['ini']['server']['protocol'] = 'http'
+```
+
+It is also possible to specify a comment that will precede the parameter and to comment the parameter as well.
+
+```ruby
+default['grafana']['ini']['database']['ssl_mode'] = {
+  comment: 'For "postgres" only, either "disable", "require" or "verify-full"',
+  disable: true,
+  value: 'disable'
 }
 ```
 
-**NOTE**
-Any derived attributes should be wrapped in a lambda if you expect to change
-the value of the root attribute (see example above).
+See attributes/default.rb file for more details and examples.
 
-#### kibana::nginx
+**NOTE**
+Any derived attributes should be wrapped in a lambda if you expect to change the value of the root attribute (see example above).
+
+#### grafana::nginx
 
 | Attribute                                       | Default                    | Description                       |
 |-------------------------------------------------|:--------------------------:|-----------------------------------|
 | `node['grafana']['nginx']['template']`          | `'grafana-nginx.conf.erb'` | The template file to use for the nginx site configuration |
 | `node['grafana']['nginx']['template_cookbook']` | `'grafana'`                | The cookbook containing said template |
 
-Removed:
-
-- `node['grafana']['nginx']['enable_default_site']` - use `node['nginx']['enable_default_site']`
-
 Usage
 -----
 #### grafana::default
 The default recipe will:
 
-- install Grafana from `master` into `/opt/grafana/master` and create a symlink called `current` in the same directory to `master`
-- install `nginx` and serve the grafana application
+- install Grafana via downloaded system package
+- install `nginx` to proxy the grafana application
 
-If you want to use the file distribution of Grafana update `node['grafana']['install_type']` attribute to `file`.  Set `node['grafana']['checksum']` to appropriate sha256 value of latest archive file.
+If you want to install the Grafana package repository, update `node['grafana']['install_type']` attribute to `package`.
 
-If you don't want this cookbook to handle the webserver config simply set `node['grafana']['webserver']` to `''` in a role/environment/node somewhere.
-Please note that in this case you have to set `node['grafana']['user']`.
+Nginx is used to proxy Grafana to run on port 80. If you don't want this cookbook to handle the webserver config simply set `node['grafana']['webserver']` to `''` in a role/environment/node somewhere.
 
-Nginx recipe, by default, will configure the appropriate proxy to your ElasticSearch server such that you don't have to expose it to the world.
 
 **NOTE**
 There is **NO** security enabled by default on any of the content being served.
@@ -119,35 +89,190 @@ If you would like to modify the `nginx` parameters, you should:
 - modify the template as you see fit (add auth, setup ssl)
 - use the appropriate webserver template attributes to point to your cookbook and template
 
+Resources
+---------
+It's important to note that Grafana must be running for these resources to be used because they utilitze Grafana's HTTP API. In your recipe, you'll simply need to make sure that you include the default recipe that starts Grafana before using these.
+
+### grafana_datasource
+You can control Grafana dataSources via the `grafana_datasource` LWRP. Due to the varying nature of the potental data sources, the information used to create the datasource is consumed by the resource as a Hash (the `source` attribute). The examples should illustrate the flexibility. The full breadth of options are (or will be) documented on the [Grafana website](http://docs.grafana.org/reference/http_api/#data-sources), however you can discover undocumented parameters by inspecting the HTTP requests your browser makes to the Grafana server.
+
+#### Attributes
+| Attribute      | Type     | Default Value     | Description                       |
+|----------------|:--------:|:-----------------:|-----------------------------------|
+| `host`         | `String` | `'localhost'`     | The host grafana is running on    |
+| `port`         | `Integer`| `3000`            | The port grafana is running on    |
+| `user`         | `String` | `'admin'`         | A grafana user with admin privileges |
+| `password`     | `String` | `'admin'`         | The grafana user's password    |
+| `source_name`  | `String` |                   | The Data Source name as it will appear in Grafana. Defaults to the name unsed in the resource invocation. |
+| `source`       | `Hash  ` | `{}`              | A Hash of the values to create the datasource. Examples below. |
+| `action`       | `String` | `create`          | Valid actions are `create`, `create_if_missing`, and `delete`. Create will update the datasource if it already exists. |
+
+
+#### Examples
+You can create a data source for Graphite as follows:
+
+```ruby
+grafana_datasource 'graphite-test' do
+  source(
+    type: 'graphite',
+    url: 'http://10.0.0.15:8080',
+    access: 'direct'
+  )
+end
+```
+
+You can create a data source for InfluxDB 0.8.x and make it the default dashboard as follows:
+
+```ruby
+grafana_datasource 'influxdb-test' do
+  source(
+    type: 'influxdb_08',
+    url: 'http://10.0.0.10:8086',
+    access: 'proxy',
+    database: 'metrics',
+    user: 'dashboard',
+    password: 'dashpass',
+    isdefault: true
+  )
+  action :create_if_missing
+end
+```
+
+### grafana_dashboard
+Dashboards in Grafana are always going to be incredibly specific to the application, but you may want to be able to create a new dashboard along with a newly provisioned stack. This resource assumes you have a static json file that displays the information that will be flowing from the newly created stack.
+
+This resource currently makes an assumption that the name used in invocation matches the name of the dashboard. This will obviously have limitations, and could change in the future. More documentation on creating Grafana dashboards via the HTTP API can be found [here](http://docs.grafana.org/reference/http_api/#dashboards).
+
+#### Attributes
+| Attribute      | Type     | Default Value       | Description                       |
+|----------------|:--------:|:-------------------:|-----------------------------------|
+| `host`         | `String` | `'localhost'`       | The host grafana is running on    |
+| `port`         | `Integer`| `3000`              | The port grafana is running on    |
+| `user`         | `String` | `'admin'`           | A grafana user with admin privileges |
+| `password`     | `String` | `'admin'`           | The grafana user's password       |
+| `source_name`  | `String` |                     | The extensionless name of the dashboard json file, and should match the dashboard title in the json (lower-cased and with hyphens for spaces) if `source` is not provided. Defaults to the name used in the resource invocation. |
+| `source`       | `String` | `nil`               | If you would like to override the name of the json file, use this attribute. |
+| `cookbook`     | `String` | `nil`               | The cookbook name to pull the file from if not this one |
+| `path`         | `String` | `nil`               | _Overrides `cookbook` and `source`_. The absolute path to the json file on disk. |
+| `overwrite`    | `boolean`| `true`              | Whether you want to overwrite existing dashboard with newer version or with same dashboard title |
+| `action`       | `String` | `create_if_missing` | Valid actions are `create`, `create_if_missing`, and `delete`. Create will update the dashboard, so be careful! |
+
+#### Examples
+Assuming you have a `files/default/simple-dashboard.json`:
+
+```ruby
+grafana_dashboard 'simple-dashboard'
+```
+
+If you'd like to use a `my-dashboard.json` with the title `"title": "Test Dash"`:
+
+```ruby
+grafana_dashboard 'test-dash' do
+  source 'my-dashboard'
+  overwrite false
+end
+```
+
+If the dashboard you would like to import is already on disk with the title `"title": "On Disk Dash"`:
+
+```ruby
+grafana_dashboard 'on-disk-dash' do
+  path '/opt/grafana/dashboards/local-dash.json'
+end
+```
+
+### grafana_organization
+This resource will allow you to create organizations within Grafana. This resource is minimally viable and only supports the addition of a new organization by name. It does check to see if an organization of the same name already exists, but it does not currently support adding address or city information.
+
+More information about creating Grafana organizations via the HTTP API can be found [here](http://docs.grafana.org/reference/http_api/#organizations).
+
+#### Attributes
+| Attribute      | Type     | Default Value       | Description                       |
+|----------------|:--------:|:-------------------:|-----------------------------------|
+| `host`         | `String` | `'localhost'`       | The host grafana is running on    |
+| `port`         | `Integer`| `3000`              | The port grafana is running on    |
+| `user`         | `String` | `'admin'`           | A grafana user with admin privileges |
+| `password`     | `String` | `'admin'`           | The grafana user's password       |
+| `name`         | `String` |                     | The name of the organization you would like to add. Defaults to the name used in the resource invocation. |
+| `action`       | `String` | `create_if_missing` | Valid actions are `create_if_missing`. Delete and create are not currently supported. |
+
+#### Examples
+Assuming you would like to create a new organization called `Second Org.`:
+
+```ruby
+grafana_organization 'Second Org.'
+```
+
+### grafana_user
+This resource will allow you to create global users within Grafana. This resource is minimally viable and only supports the addition of global non-admin users. Contribution to the funcationality would be appreciated.
+
+More information about creating Grafana users via the HTTP API can be found [here](http://docs.grafana.org/reference/http_api/#users).
+
+#### Attributes
+| Attribute      | Type     | Default Value       | Description                       |
+|----------------|:--------:|:-------------------:|-----------------------------------|
+| `host`         | `String` | `'localhost'`       | The host grafana is running on    |
+| `port`         | `Integer`| `3000`              | The port grafana is running on    |
+| `user`         | `String` | `'admin'`           | A grafana user with admin privileges |
+| `password`     | `String` | `'admin'`           | The grafana user's password       |
+| `global`       | `boolean`| `true`              | Whether you want the user to be a global user. _Currently only global `true` is supported._ |
+| `admin`        | `boolean`| `false`             | Whether or not the user should be a global admin. _Currently only admin `false` is supported._ |
+| `login`        | `String` |                     | The login for this user. Defaults to the name used in the resource invocation. |
+| `full_name`    | `String` |                     | The common, human-readable name used for the user |
+| `email`        | `String` |                     | The email address for this user   |
+| `passwd`       | `String` |                     | The password to use for this user |
+| `action`       | `String` | `create_if_missing` | Valid actions are `create_if_missing`. Delete and create are not currently supported. |
+
+#### Examples
+Assuming you would like to create a new user...
+
+```ruby
+grafana_user 'person2' do
+  full_name 'John Smith'
+  email 'test@example.com'
+  passwd 'test123'
+end
+```
+
 Testing
 -------
+#### Foodcritic & Rubocop
+
+```
+$ bundle exec foodcritic -X spec -f any ./
+$ bundle exec rubocop
+```
+
+#### ChefSpec
+
+```
+$ bundle exec rspec
+```
+
 #### kitchen-test
 
-Requires Vagrant >= 1.2 with the following plugins :
-
-* vagrant-berkshef
-* vagrant-omnibus
+Requires Vagrant >= 1.7.
 
 ```
 $ bundle install
-$ kitchen test
+$ bundle exec kitchen test
 ```
 
 Contributing
 ------------
 - Fork the repository on Github
 - Create a named feature branch (like `add_component_x`)
-- Write you change
+- Write your change
 - Write tests for your change (if applicable)
-- Run the tests, ensuring they all pass
--- `bundle exec strainer test`
+- Run the tests, ensuring they all pass -- `bundle exec strainer test`
 - Submit a Pull Request using Github
 
 License and Authors
 -------------------
-Primary author:
+Primary authors:
 
 - Jonathan Tron <jonathan@tron.name>
+- Mike Lanyon <lanyonm@gmail.com>
 
 Contributors:
 
@@ -163,7 +288,6 @@ Contributors:
 - Olivier Bazoud (@obazoud)
 - @osigida
 - @BackSlasher
-- Michael Lanyon (@lanyonm)
 
 Based on `chef-kibana` cookbook by:
 

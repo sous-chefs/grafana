@@ -1,92 +1,60 @@
 ---
 driver:
   name: vagrant
-  require_chef_omnibus: "latest"
+  require_chef_omnibus: '12.3.0'
   customize:
     memory: 1024
     cpus: 2
     cpuexecutioncap: 80
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
 
 platforms:
   - name: ubuntu-12.04
     run_list:
       - recipe[apt::default]
-    attributes:
-      java:
-        jdk_version: "7"
-      graphite:
-        listen_port: 8081
-        uwsgi:
-          listen_http: true
-      grafana:
-        graphite_port: 8081
-        webserver_aliases:
-          - grafana.dev
+      - recipe[curl::default]
   - name: ubuntu-14.04
     run_list:
       - recipe[apt::default]
+      - recipe[curl::default]
     attributes:
-      java:
-        jdk_version: "7"
-      graphite:
-        listen_port: 8081
-        uwsgi:
-          listen_http: true
       grafana:
-        graphite_port: 8081
-        webserver_aliases:
-          - grafana.dev
-  - name: debian-7.0
+        webserver_listen: ''
+  - name: debian-7.4
+    driver:
+      box: debian-7.4.0
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-7.4_chef-provisionerless.box
     run_list:
       - recipe[apt::default]
-    attributes:
-      java:
-        jdk_version: "7"
-      graphite:
-        listen_port: 8081
-        uwsgi:
-          listen_http: true
-      grafana:
-        graphite_port: 8081
-        webserver_aliases:
-          - grafana.dev
+      - recipe[curl::default]
   - name: centos-6.4
-    attributes:
-      java:
-        jdk_version: "7"
-      graphite:
-        listen_port: 8081
-        uwsgi:
-          listen_http: true
-      grafana:
-        graphite_port: 8081
-        webserver_aliases:
-          - grafana.dev
-      yum:
-        epel:
-          gpgkey: 'http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6'
-          mirrorlist: 'http://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=$basearch'
+    driver:
+      box: centos-6.4
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.4_chef-provisionerless.box
 
 suites:
   - name: default
     run_list:
-      - recipe[java::default]
-      - recipe[elasticsearch::default]
-      - recipe[graphite::carbon]
-      - recipe[graphite::web]
-      - recipe[graphite::uwsgi]
       - recipe[grafana::default]
-  - name: git
     attributes:
       grafana:
-        install_type: git
+        ini:
+          server:
+            http_addr: '127.0.0.1'
+  - name: package
     run_list:
-      - recipe[java::default]
-      - recipe[elasticsearch::default]
-      - recipe[graphite::carbon]
-      - recipe[graphite::web]
-      - recipe[graphite::uwsgi]
       - recipe[grafana::default]
+    attributes:
+      grafana:
+        install_type: package
+        ini:
+          server:
+            http_port: 3015
+  # - name: source
+  #   run_list:
+  #     - recipe[grafana::default]
+  #   attributes:
+  #     grafana:
+  #       install_type: source

@@ -42,12 +42,8 @@ describe file('/etc/nginx/sites-enabled/grafana') do
   its(:content) { should match /proxy_pass http:\/\/grafana;/ }
 end
 
-describe command("curl http://127.0.0.1:3000/") do
-  its(:stdout) { should match /<a href="\/login">Found<\/a>/ }
-end
-
 describe command("curl http://#{$ohaidata[:ipaddress]}:3000/") do
-  its(:stdout) { should match /(Failed to|couldn't) connect/ }
+  its(:stdout) { should match /<a href="\/login">Found<\/a>/ }
 end
 
 describe command("curl http://#{$ohaidata[:ipaddress]}/") do

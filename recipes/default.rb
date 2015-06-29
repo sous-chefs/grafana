@@ -17,36 +17,57 @@
 # limitations under the License.
 #
 
-unless Chef::Config[:solo] || node['grafana']['es_role'].nil?
-  es_server_results = search(:node, "roles:#{node['grafana']['es_role']} AND chef_environment:#{node.chef_environment}")
-  unless es_server_results.empty?
-    node.default['grafana']['es_server'] = es_server_results.first['ipaddress']
-  end
-end
-
-unless Chef::Config[:solo] || node['grafana']['graphite_role'].nil?
-  graphite_server_results = search(:node, "roles:#{node['grafana']['graphite_role']} AND chef_environment:#{node.chef_environment}")
-  unless graphite_server_results.empty?
-    node.default['grafana']['graphite_server'] = graphite_server_results.first['ipaddress']
-  end
-end
-
 unless node['grafana']['webserver'].empty?
   include_recipe "grafana::_#{node['grafana']['webserver']}"
 end
 
-directory node['grafana']['install_dir'] do
-  owner grafana_user
-  mode '0755'
-  recursive true
-end
-
 include_recipe "grafana::_install_#{node['grafana']['install_type']}"
 
-template "#{node['grafana']['web_dir']}/config.js" do
-  source node['grafana']['config_template']
-  cookbook node['grafana']['config_cookbook']
-  variables 'datasources' => node['grafana']['datasources']
+directory node['grafana']['data_dir'] do
+  owner node['grafana']['user']
+  group node['grafana']['group']
+  mode '0755'
+  action :create
+end
+
+directory node['grafana']['log_dir'] do
+  owner node['grafana']['user']
+  group node['grafana']['group']
+  mode '0755'
+  action :create
+end
+
+template '/etc/default/grafana-server' do
+  source 'grafana-env.erb'
+  variables(
+    grafana_user: node['grafana']['user'],
+    grafana_group: node['grafana']['group'],
+    grafana_home: node['grafana']['home'],
+    log_dir: node['grafana']['log_dir'],
+    data_dir: node['grafana']['data_dir'],
+    conf_dir: node['grafana']['conf_dir']
+  )
+  owner 'root'
+  group 'root'
   mode '0644'
-  user grafana_user
+  notifies :restart, 'service[grafana-server]', :delayed
+end
+
+ini = node['grafana']['ini'].dup
+ini['paths'] ||= {}
+ini['paths']['data'] = node['grafana']['data_dir']
+ini['paths']['logs'] = node['grafana']['log_dir']
+
+template "#{node['grafana']['conf_dir']}/grafana.ini" do
+  source 'grafana.ini.erb'
+  variables ini: ini
+  owner 'root'
+  group 'root'
+  mode '0644'
+  notifies :restart, 'service[grafana-server]', :immediate
+end
+
+service 'grafana-server' do
+  supports start: true, stop: true, restart: true, status: true, reload: false
+  action [:enable, :start]
 end

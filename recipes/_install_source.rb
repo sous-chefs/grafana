@@ -1,9 +1,8 @@
 #
 # Cookbook Name:: grafana
-# Recipe:: install_git
+# Recipe:: _install_source
 #
-# Copyright 2014, Grégoire Seux
-# Copyright 2014, Jonathan Tron
+# Copyright 2015, Michael Lanyon
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,15 +17,5 @@
 # limitations under the License.
 #
 
-include_recipe 'git'
-
-git "#{node['grafana']['install_dir']}/#{node['grafana']['git']['branch']}" do
-  repository node['grafana']['git']['url']
-  reference node['grafana']['git']['branch']
-  action node['grafana']['git']['type'].to_s
-  user grafana_user
-end
-
-link "#{node['grafana']['install_dir']}/current" do
-  to "#{node['grafana']['install_dir']}/#{node['grafana']['git']['branch']}"
-end
+# Need to follow these instructions:
+# http://docs.grafana.org/project/building_from_source/

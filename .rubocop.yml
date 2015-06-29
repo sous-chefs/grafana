@@ -7,29 +7,35 @@ AllCops:
 AlignParameters:
   Enabled: false
 
-Encoding:
-  Enabled: false
-
 LineLength:
   Max: 200
 
 Documentation:
   Enabled: false
 
+Metrics/AbcSize:
+  Max: 40
+
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/ModuleLength:
+  Max: 120
+
 Style/AsciiComments:
   Enabled: false
 
-Style/MethodLength:
+Style/FileName:
+  Enabled: false
+
+Style/Next:
+  Enabled: false
+
+Style/NumericLiterals:
   Enabled: false
 
 Style/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
 
-Style/SpaceAfterComma:
-  Enabled: false
-
-Style/SpaceAroundOperators:
-  Enabled: false
-
-Style/Lambda:
+Style/SignalException:
   Enabled: false

@@ -13,14 +13,14 @@ Requirements
 
 Attributes
 ----------
-As with most cookbooks I write, this one is hopefully flexible enough to be wrapped by allowing you to override as much as possible
+As with most cookbooks, this one is hopefully flexible enough to be wrapped by allowing you to override as much as possible. Please let us know if you find a value that is not configurable.
 
 #### grafana::default
 
 | Attribute                                    | Default                                | Description                       |
 |----------------------------------------------|:--------------------------------------:|-----------------------------------|
 | `node['grafana']['install_type']`            | `'file'`                               | The type of install: `file`, `package` or `source`. *Note*: `source` is not currently supported. |
-| `node['grafana']['version']`                 | `'2.0.2'`                              | The version to install |
+| `node['grafana']['version']`                 | `'2.0.2'`                              | The version to install. For the most recent versions use `'latest'`. |
 | `node['grafana']['file']['url']`             | `'https://grafanarel.s3.amazonaws.com/builds/grafana'` | The file URL for Grafana builds |
 | `node['grafana']['package']['repo']`         | `'https://packagecloud.io/grafana/stable/'` | The grafana package repo |
 | `node['grafana']['package']['key']`          | `'https://packagecloud.io/gpg.key'`    | The package repo GPG key |
@@ -57,9 +57,6 @@ default['grafana']['ini']['database']['ssl_mode'] = {
 
 See attributes/default.rb file for more details and examples.
 
-**NOTE**
-Any derived attributes should be wrapped in a lambda if you expect to change the value of the root attribute (see example above).
-
 #### grafana::nginx
 
 | Attribute                                       | Default                    | Description                       |
@@ -75,7 +72,7 @@ The default recipe will:
 - install Grafana via downloaded system package
 - install `nginx` to proxy the grafana application
 
-If you want to install the Grafana package repository, update `node['grafana']['install_type']` attribute to `package`.
+If you want to install the Grafana package repository, update `node['grafana']['install_type']` attribute to `package`. Additionally, the `node['grafana']['version']` can be set to `'latest'` so that the very latest Grafana build is used instead of the default release.
 
 Nginx is used to proxy Grafana to run on port 80. If you don't want this cookbook to handle the webserver config simply set `node['grafana']['webserver']` to `''` in a role/environment/node somewhere.
 

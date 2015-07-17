@@ -92,11 +92,17 @@ module GrafanaCookbook
         dashboard_source_file = File.expand_path("#{Chef::Config[:file_cache_path]}/cookbooks/#{dashboard_options[:cookbook]}/files/default/#{dashboard_options[:source]}.json", File.dirname(__FILE__))
       end
       unless File.exist?(dashboard_source_file)
-        fail "#{dashboard_options[:source]} was specified, but #{dashboard_source_file} does not exist!"
+        if !dashboard_options[:path].nil?
+          err_msg_prt = "#{dashboard_options[:path]} path"
+        else
+          err_msg_prt = "#{dashboard_options[:source]} source"
+        end
+        fail "dashboard_sanity failure: #{err_msg_prt} was specified, but #{dashboard_source_file} does not exist!"
       end
       dash_json = JSON.parse(File.read(dashboard_source_file))
 
-      fail "#{dashboard_options[:name]} did not match the name (#{dash_json['title']}) in the json" if dash_json['title'].gsub('.', '-').gsub(' ', '-').downcase != dashboard_options[:name]
+      dash_json_title = dash_json['title'].gsub('.', '-').gsub(' ', '-').downcase
+      fail "dashboard_sanity failure: #{dashboard_options[:name]} did not match a valid Grafana slug (#{dash_json_title}) in the json. See http://docs.grafana.org/reference/http_api/#get-dashboard for more details." if dash_json_title != dashboard_options[:name]
     rescue BackendError
       nil
     end

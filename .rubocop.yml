@@ -8,7 +8,7 @@ AlignParameters:
   Enabled: false
 
 LineLength:
-  Max: 200
+  Max: 275
 
 Documentation:
   Enabled: false
@@ -21,6 +21,9 @@ Metrics/MethodLength:
 
 Metrics/ModuleLength:
   Max: 120
+
+Metrics/PerceivedComplexity:
+  Max: 8
 
 Style/AsciiComments:
   Enabled: false

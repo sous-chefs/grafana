@@ -110,7 +110,7 @@ module GrafanaCookbook
       if dashboard_options[:path]
         Array(dashboard_options[:path])
       else
-        directories = Array(Chef::Config[:file_cache_path])
+        directories = Array(Chef::Config[:cookbook_path])
         if Chef::Config[:solo]
           directories.unshift(*Chef::Config[:cookbook_path])
         end
@@ -118,8 +118,7 @@ module GrafanaCookbook
           File.expand_path(
             File.join(
               path,
-              'cookbooks',
-              dashboard_options[:cookbook],
+              "#{dashboard_options[:cookbook]}",
               'files',
               'default',
               "#{dashboard_options[:source]}.json"

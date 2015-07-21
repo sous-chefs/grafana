@@ -13,9 +13,20 @@ describe 'grafana::default' do
     }
   }
 
-  platforms.each do |platform, value|
-    value['versions'].each do |version|
-      context "on #{platform} #{version}" do
+  let(:chef_solo_opts) do
+    {
+      platform: platform,
+      version: version,
+      file_cache_path: '/var/chef/cache',
+    }
+  end
+
+  platforms.each do |ext_platform, value|
+    value['versions'].each do |ext_version|
+      context "on #{ext_platform} #{ext_version}" do
+        let(:platform) { ext_platform }
+        let(:version) { ext_version }
+
         before do
           stub_command("dpkg -l | grep '^ii' | grep grafana | grep 2.0.2")
           stub_command('yum list installed | grep grafana | grep 2.0.2')
@@ -26,7 +37,7 @@ describe 'grafana::default' do
           end
 
           let(:chef_run) do
-            ChefSpec::SoloRunner.new(platform: platform, version: version, file_cache_path: '/var/chef/cache').converge described_recipe
+            ChefSpec::SoloRunner.new(chef_solo_opts).converge described_recipe
           end
 
           it 'installs grafana package' do
@@ -76,7 +87,7 @@ describe 'grafana::default' do
 
         context 'with no webserver' do
           let(:chef_run) do
-            ChefSpec::SoloRunner.new(platform: platform, version: version, file_cache_path: '/var/chef/cache') do |node|
+            ChefSpec::SoloRunner.new(chef_solo_opts) do |node|
               node.set['grafana']['webserver'] = ''
             end.converge described_recipe
           end

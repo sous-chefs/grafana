@@ -34,11 +34,7 @@ module GrafanaCookbook
       request = Net::HTTP::Post.new('/api/dashboards/db')
       request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
       request.add_field('Content-Type', 'application/json;charset=utf-8;')
-      if !dashboard_options[:path].nil?
-        dashboard_source_file = dashboard_options[:path]
-      else
-        dashboard_source_file = File.expand_path("#{Chef::Config[:file_cache_path]}/cookbooks/#{dashboard_options[:cookbook]}/files/default/#{dashboard_options[:source]}.json", File.dirname(__FILE__))
-      end
+      dashboard_source_file = find_dashboard_source_file dashboard_options
       dash_hash = {
         'dashboard' => JSON.parse(File.read(dashboard_source_file)),
         'overwrite' => dashboard_options[:overwrite]
@@ -86,18 +82,15 @@ module GrafanaCookbook
     # Params:
     # +dashboard_options+:: A hash of the dashboard options
     def dashboard_sanity(dashboard_options)
-      if !dashboard_options[:path].nil?
-        dashboard_source_file = dashboard_options[:path]
-      else
-        dashboard_source_file = File.expand_path("#{Chef::Config[:file_cache_path]}/cookbooks/#{dashboard_options[:cookbook]}/files/default/#{dashboard_options[:source]}.json", File.dirname(__FILE__))
-      end
-      unless File.exist?(dashboard_source_file)
-        if !dashboard_options[:path].nil?
+      dashboard_source_file = find_dashboard_source_file dashboard_options
+      unless dashboard_source_file
+        checked_paths = lookup_paths(dashboard_options).join(', ')
+        if dashboard_options[:path]
           err_msg_prt = "#{dashboard_options[:path]} path"
         else
           err_msg_prt = "#{dashboard_options[:source]} resource name or source"
         end
-        fail "dashboard_sanity failure: #{err_msg_prt} was specified, but #{dashboard_source_file} does not exist!"
+        fail "dashboard_sanity failure: #{err_msg_prt} was specified, but no dashboard found (checked: #{checked_paths})"
       end
       dash_json = JSON.parse(File.read(dashboard_source_file))
 
@@ -109,6 +102,37 @@ module GrafanaCookbook
       end
     rescue BackendError
       nil
+    end
+
+    private
+
+    def lookup_paths(dashboard_options)
+      if dashboard_options[:path]
+        Array(dashboard_options[:path])
+      else
+        directories = Array(Chef::Config[:file_cache_path])
+        if Chef::Config[:solo]
+          directories.unshift(*Chef::Config[:cookbook_path])
+        end
+        Array(directories).map do |path|
+          File.expand_path(
+            File.join(
+              path,
+              'cookbooks',
+              dashboard_options[:cookbook],
+              'files',
+              'default',
+              "#{dashboard_options[:source]}.json"
+            ),
+            File.dirname(__FILE__)
+          )
+        end
+      end
+    end
+
+    def find_dashboard_source_file(dashboard_options)
+      $stdout.puts "find_dashboard_source_file: #{lookup_paths(dashboard_options).inspect}"
+      lookup_paths(dashboard_options).detect { |path| File.exist?(path) }
     end
   end
 end

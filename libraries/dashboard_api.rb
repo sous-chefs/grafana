@@ -115,7 +115,7 @@ module GrafanaCookbook
           File.expand_path(
             File.join(
               path,
-              "#{dashboard_options[:cookbook]}",
+              dashboard_options[:cookbook].to_s,
               'files',
               'default',
               "#{dashboard_options[:source]}.json"

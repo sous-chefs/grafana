@@ -47,7 +47,7 @@ describe command("curl http://127.0.0.1:3000/") do
 end
 
 describe command("curl http://#{$ohaidata[:ipaddress]}:3000/") do
-  its(:stdout) { should match /(Failed to|couldn't) connect/ }
+  its(:stderr) { should match /(Failed to|couldn't) connect/ }
 end
 
 describe command("curl http://#{$ohaidata[:ipaddress]}/") do

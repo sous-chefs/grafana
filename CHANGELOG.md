@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 2.x dev:
+
+* Improve error messages during dashboard creation [#64](https://github.com/JonathanTron/chef-grafana/pull/64)
+* Update ServerSpec test to check `:stderr` for curl output
+
 ## 2.0.0 (2015-06-28):
 
 * Major overhaul of the cookbook to support Grafana 2.x

@@ -111,9 +111,6 @@ module GrafanaCookbook
         Array(dashboard_options[:path])
       else
         directories = Array(Chef::Config[:cookbook_path])
-        if Chef::Config[:solo]
-          directories.unshift(*Chef::Config[:cookbook_path])
-        end
         Array(directories).map do |path|
           File.expand_path(
             File.join(
@@ -130,7 +127,6 @@ module GrafanaCookbook
     end
 
     def find_dashboard_source_file(dashboard_options)
-      $stdout.puts "find_dashboard_source_file: #{lookup_paths(dashboard_options).inspect}"
       lookup_paths(dashboard_options).detect { |path| File.exist?(path) }
     end
   end

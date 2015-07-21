@@ -8,7 +8,7 @@ AlignParameters:
   Enabled: false
 
 LineLength:
-  Max: 275
+  Max: 200
 
 Documentation:
   Enabled: false

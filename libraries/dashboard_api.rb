@@ -95,14 +95,18 @@ module GrafanaCookbook
         if !dashboard_options[:path].nil?
           err_msg_prt = "#{dashboard_options[:path]} path"
         else
-          err_msg_prt = "#{dashboard_options[:source]} source"
+          err_msg_prt = "#{dashboard_options[:source]} resource name or source"
         end
         fail "dashboard_sanity failure: #{err_msg_prt} was specified, but #{dashboard_source_file} does not exist!"
       end
       dash_json = JSON.parse(File.read(dashboard_source_file))
 
       dash_json_title = dash_json['title'].gsub('.', '-').gsub(' ', '-').downcase
-      fail "dashboard_sanity failure: #{dashboard_options[:name]} did not match a valid Grafana slug (#{dash_json_title}) in the json. See http://docs.grafana.org/reference/http_api/#get-dashboard for more details." if dash_json_title != dashboard_options[:name]
+      if dash_json_title != dashboard_options[:name]
+        fail "dashboard_sanity failure: the resource name (#{dashboard_options[:name]}) "\
+             "did not match the \"title\" in the json (#{dash_json_title}) or is not a valid Grafana slug. "\
+             'See http://docs.grafana.org/reference/http_api/#get-dashboard for more details.'
+      end
     rescue BackendError
       nil
     end

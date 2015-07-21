@@ -17,7 +17,7 @@ describe 'grafana::default' do
     {
       platform: platform,
       version: version,
-      file_cache_path: '/var/chef/cache',
+      file_cache_path: '/var/chef/cache'
     }
   end
 

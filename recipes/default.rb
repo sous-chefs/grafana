@@ -25,7 +25,7 @@ include_recipe "grafana::_install_#{node['grafana']['install_type']}"
 
 service 'grafana-server' do
   supports start: true, stop: true, restart: true, status: true, reload: false
-  action [ :enable, :start ]
+  action [:enable, :start]
 end
 
 directory node['grafana']['data_dir'] do

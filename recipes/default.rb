@@ -68,5 +68,5 @@ template "#{node['grafana']['conf_dir']}/grafana.ini" do
   owner 'root'
   group 'root'
   mode '0644'
-  notifies :restart, 'service[grafana-server]', :immediate
+  notifies :restart, 'service[grafana-server]', :immediately
 end

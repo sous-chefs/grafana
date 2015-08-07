@@ -21,6 +21,8 @@ describe 'grafana::default' do
     }
   end
 
+  let(:grafana_version) { '2.0.2' }
+
   platforms.each do |ext_platform, value|
     value['versions'].each do |ext_version|
       context "on #{ext_platform} #{ext_version}" do
@@ -28,9 +30,10 @@ describe 'grafana::default' do
         let(:version) { ext_version }
 
         before do
-          stub_command("dpkg -l | grep '^ii' | grep grafana | grep #{chef_run.node['grafana']['version']}")
-          stub_command("yum list installed | grep grafana | grep #{chef_run.node['grafana']['version']}")
+          stub_command("dpkg -l | grep '^ii' | grep grafana | grep #{grafana_version}")
+          stub_command("yum list installed | grep grafana | grep #{grafana_version}")
         end
+
         context 'with default attributes' do
           before do
             stub_command 'which nginx'
@@ -42,9 +45,9 @@ describe 'grafana::default' do
 
           it 'installs grafana package' do
             if platform == 'centos'
-              expect(chef_run).to install_rpm_package("grafana-#{chef_run.node['grafana']['version']}")
+              expect(chef_run).to install_rpm_package("grafana-#{grafana_version}")
             else
-              expect(chef_run).to install_dpkg_package("grafana-#{chef_run.node['grafana']['version']}")
+              expect(chef_run).to install_dpkg_package("grafana-#{grafana_version}")
             end
           end
 
@@ -95,13 +98,13 @@ describe 'grafana::default' do
             if platform == 'centos'
               expect(chef_run).to install_yum_package 'initscripts'
               expect(chef_run).to install_yum_package 'fontconfig'
-              expect(chef_run).to create_remote_file "/var/chef/cache/grafana-#{chef_run.node['grafana']['version']}.rpm"
-              expect(chef_run).to install_rpm_package "grafana-#{chef_run.node['grafana']['version']}"
+              expect(chef_run).to create_remote_file "/var/chef/cache/grafana-#{grafana_version}.rpm"
+              expect(chef_run).to install_rpm_package "grafana-#{grafana_version}"
             else
               expect(chef_run).to install_apt_package 'adduser'
               expect(chef_run).to install_apt_package 'libfontconfig'
-              expect(chef_run).to create_remote_file "/var/chef/cache/grafana-#{chef_run.node['grafana']['version']}.deb"
-              expect(chef_run).to install_dpkg_package "grafana-#{chef_run.node['grafana']['version']}"
+              expect(chef_run).to create_remote_file "/var/chef/cache/grafana-#{grafana_version}.deb"
+              expect(chef_run).to install_dpkg_package "grafana-#{grafana_version}"
             end
           end
 

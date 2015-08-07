@@ -26,7 +26,7 @@ when 'debian'
     package pkg
   end
 
-  remote_file "#{Chef::Config[:file_cache_path]}/grafana-#{node['grafana']['version']}.deb" do
+  package_file = remote_file "#{Chef::Config[:file_cache_path]}/grafana-#{node['grafana']['version']}.deb" do
     source "#{node['grafana']['file']['url']}_#{node['grafana']['version']}_amd64.deb"
     action :create
     not_if "dpkg -l | grep '^ii' | grep grafana | grep #{node['grafana']['version']}"
@@ -35,6 +35,7 @@ when 'debian'
   dpkg_package "grafana-#{node['grafana']['version']}" do
     source "#{Chef::Config[:file_cache_path]}/grafana-#{node['grafana']['version']}.deb"
     action :install
+    only_if { package_file.updated_by_last_action? }
   end
 when 'rhel'
   pkgs = %w(initscripts fontconfig)

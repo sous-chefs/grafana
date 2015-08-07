@@ -43,7 +43,7 @@ when 'rhel'
     package pkg
   end
 
-  remote_file "#{Chef::Config[:file_cache_path]}/grafana-#{node['grafana']['version']}.rpm" do
+  package_file = remote_file "#{Chef::Config[:file_cache_path]}/grafana-#{node['grafana']['version']}.rpm" do
     source "#{node['grafana']['file']['url']}-#{node['grafana']['version']}-1.x86_64.rpm"
     action :create
     not_if "yum list installed | grep grafana | grep #{node['grafana']['version']}"
@@ -52,5 +52,6 @@ when 'rhel'
   rpm_package "grafana-#{node['grafana']['version']}" do
     source "#{Chef::Config[:file_cache_path]}/grafana-#{node['grafana']['version']}.rpm"
     action :install
+    only_if { package_file.updated_by_last_action? }
   end
 end

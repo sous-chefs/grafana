@@ -23,6 +23,11 @@ end
 
 include_recipe "grafana::_install_#{node['grafana']['install_type']}"
 
+service 'grafana-server' do
+  supports start: true, stop: true, restart: true, status: true, reload: false
+  action :enable
+end
+
 directory node['grafana']['data_dir'] do
   owner node['grafana']['user']
   group node['grafana']['group']
@@ -64,10 +69,5 @@ template "#{node['grafana']['conf_dir']}/grafana.ini" do
   owner 'root'
   group 'root'
   mode '0644'
-  notifies :restart, 'service[grafana-server]', :immediate
-end
-
-service 'grafana-server' do
-  supports start: true, stop: true, restart: true, status: true, reload: false
-  action [:enable, :start]
+  notifies :restart, 'service[grafana-server]', :immediately
 end

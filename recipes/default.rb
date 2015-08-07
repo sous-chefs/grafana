@@ -55,6 +55,7 @@ template '/etc/default/grafana-server' do
   owner 'root'
   group 'root'
   mode '0644'
+  notifies :restart, 'service[grafana-server]', :delayed
 end
 
 ini = node['grafana']['ini'].dup

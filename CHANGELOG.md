@@ -4,6 +4,7 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
+* Fix start service making it just be restarted at the end of the configuration (@HelioCampos) [#71](https://github.com/JonathanTron/chef-grafana/pull/71)
 * Improve error messages during dashboard creation [#64](https://github.com/JonathanTron/chef-grafana/pull/64)
 * Update ServerSpec test to check `:stderr` for curl output
 

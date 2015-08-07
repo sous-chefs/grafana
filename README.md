@@ -285,6 +285,7 @@ Contributors:
 - Olivier Bazoud (@obazoud)
 - @osigida
 - @BackSlasher
+- Helio Campos Mello de Andrade (@HelioCampos)
 
 Based on `chef-kibana` cookbook by:
 

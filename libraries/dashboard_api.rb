@@ -101,7 +101,7 @@ module GrafanaCookbook
       end
       dash_json = JSON.parse(File.read(dashboard_source_file))
 
-      dash_json_title = dash_json['title'].gsub('.', '-').gsub(' ', '-').downcase
+      dash_json_title = dash_json['title'].tr('.', '-').tr(' ', '-').downcase
       if dash_json_title != dashboard_options[:name]
         fail "dashboard_sanity failure: the resource name (#{dashboard_options[:name]}) "\
              "did not match the \"title\" in the json (#{dash_json_title}) or is not a valid Grafana slug. "\

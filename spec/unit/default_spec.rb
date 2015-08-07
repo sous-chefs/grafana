@@ -28,8 +28,8 @@ describe 'grafana::default' do
         let(:version) { ext_version }
 
         before do
-          stub_command("dpkg -l | grep '^ii' | grep grafana | grep 2.0.2")
-          stub_command('yum list installed | grep grafana | grep 2.0.2')
+          stub_command("dpkg -l | grep '^ii' | grep grafana | grep #{chef_run.node['grafana']['version']}")
+          stub_command("yum list installed | grep grafana | grep #{chef_run.node['grafana']['version']}")
         end
         context 'with default attributes' do
           before do
@@ -79,9 +79,8 @@ describe 'grafana::default' do
             expect(chef_run).to create_template('/etc/default/grafana-server')
           end
 
-          it 'start and enable grafana-server service' do
+          it 'enable grafana-server service' do
             expect(chef_run).to enable_service('grafana-server')
-            expect(chef_run).to start_service('grafana-server')
           end
         end
 

@@ -4,6 +4,7 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
+* Update Grafana default version to 2.1.1
 * Make sure upgrading via deb file don't fail on configuration conflict [#74](https://github.com/JonathanTron/chef-grafana/issues/74)
 * Ensure installing a new version trigger a server restart
 * Add packages checksum to ensure expected file and prevent unecessary re-download (see warnings section below)

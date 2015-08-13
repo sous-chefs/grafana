@@ -4,9 +4,26 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
+* Add packages checksum to ensure expected file and prevent unecessary re-download (see warnings section below)
+* Installation package file only if present and/or modified (@arifcse019) [#73](https://github.com/JonathanTron/chef-grafana/pull/73)
 * Fix start service making it just be restarted at the end of the configuration (@HelioCampos) [#71](https://github.com/JonathanTron/chef-grafana/pull/71)
 * Improve error messages during dashboard creation [#64](https://github.com/JonathanTron/chef-grafana/pull/64)
 * Update ServerSpec test to check `:stderr` for curl output
+
+__warning__
+
+When using the default's file installation, we've added checksum for package files
+if you set the grafana version to something different than the default you will
+also need set the checksum for the package you're expecting to use:
+
+```ruby
+# Example if your Grafana version is different from the cookbook default
+node['grafana']['version'] = '2.1.0'
+# For debian platform family
+node['grafana']['file']['checksum']['deb'] = 'b824c8358ff07f76f0d9eb35e9441f6f9e591819ad8bc70db4b0c904a8e7130e'
+# For rhel platform family
+node['grafana']['file']['checksum']['rpm'] = '1b436b286bd464e65eeb2a9b393da0986569fe483e1053b01c092b2e590d8399'
+```
 
 ## 2.0.0 (2015-06-28):
 

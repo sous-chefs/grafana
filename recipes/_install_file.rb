@@ -30,7 +30,8 @@ when 'debian'
 
   remote_file "#{Chef::Config[:file_cache_path]}/grafana-#{node['grafana']['version']}.deb" do
     source "#{node['grafana']['file']['url']}_#{node['grafana']['version']}_amd64.deb"
-    action :create_if_missing
+    checksum node['grafana']['file']['checksum']['deb']
+    action :create
     not_if grafana_installed
   end
 
@@ -50,7 +51,8 @@ when 'rhel'
 
   remote_file "#{Chef::Config[:file_cache_path]}/grafana-#{node['grafana']['version']}.rpm" do
     source "#{node['grafana']['file']['url']}-#{node['grafana']['version']}-1.x86_64.rpm"
-    action :create_if_missing
+    checksum node['grafana']['file']['checksum']['rpm']
+    action :create
     not_if grafana_installed
   end
 

@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## 2.x dev:
+## 2.1.0 (2015-08-17):
 
 * Update Grafana default version to 2.1.1
 * Make sure upgrading via deb file don't fail on configuration conflict [#74](https://github.com/JonathanTron/chef-grafana/issues/74)

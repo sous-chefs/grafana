@@ -51,13 +51,6 @@ module GrafanaCookbook
       end
     end
 
-    # Format a request for use in error/debug message
-    # Params:
-    # +request+:: Net::HTTPRequest
-    def request_message(request)
-      "#{request.method} #{request.path}"
-    end
-
     # Log the right thing when
     # Params:
     # +request+:: Net::HTTPRequest
@@ -66,35 +59,62 @@ module GrafanaCookbook
     def handle_response(request, response, messages)
       case response
       when Net::HTTPSuccess
-        if messages[:success].nil?
-          Chef::Log.debug "Request succeeded when sending #{request_message request}"
-        else
-          Chef::Log.debug messages[:success]
-        end
+        handle_response_success request, messages[:success]
       when Net::HTTPUnauthorized
-        if messages[:unauthorized].nil?
-          Chef::Log.error 'Invalid grafana_user and grafana_sess.'
-        else
-          Chef::Log.error messages[:unauthorized]
-        end
-        raise BackendError
+        handle_response_unauthorized messages[:unauthorized]
       when Net::HTTPNotFound
-        if messages[:not_found].nil?
-          Chef::Log.error "Endpoint not found when sending #{request_message request}"
-        else
-          Chef::Log.error messages[:not_found]
-        end
+        handle_response_not_found request, messages[:not_found]
       when nil
-        Chef::Log.error 'Connection refused.'
-        raise BackendError
+        handle_response_conn_refused
       else
-        if messages[:unknown_code].nil?
-          Chef::Log.error "Response code '#{response.code}' not handled when sending #{request_message request}"
-        else
-          Chef::Log.error(messages[:unknown_code] % { code: response.code })
-        end
-        raise BackendError
+        handle_response_unknown request, response.code, messages[:unknown_code]
       end
+    end
+
+    # Format a request for use in error/debug message
+    # Params:
+    # +request+:: Net::HTTPRequest
+    def request_message(request)
+      "#{request.method} #{request.path}"
+    end
+
+    def handle_response_success(request, message)
+      if message
+        Chef::Log.debug message
+      else
+        Chef::Log.debug "Request succeeded when sending #{request_message request}"
+      end
+    end
+
+    def handle_response_unauthorized(message)
+      if message
+        Chef::Log.error messages[:unauthorized]
+      else
+        Chef::Log.error 'Invalid grafana_user and grafana_sess.'
+      end
+      raise BackendError
+    end
+
+    def handle_response_not_found(request, message)
+      if message
+        Chef::Log.error message
+      else
+        Chef::Log.error "Endpoint not found when sending #{request_message request}"
+      end
+    end
+
+    def handle_response_conn_refused
+      Chef::Log.error 'Connection refused.'
+      raise BackendError
+    end
+
+    def handle_response_unknown(request, code, message)
+      if message
+        Chef::Log.error(message % { code: code })
+      else
+        Chef::Log.error "Response code '#{code}' not handled when sending #{request_message request}"
+      end
+      raise BackendError
     end
   end
 end

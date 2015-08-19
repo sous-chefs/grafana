@@ -16,6 +16,7 @@ module GrafanaCookbook
       end
 
       handle_response(
+        request,
         response,
         success: 'The admin user has been successfully created.',
         unknown_code: 'UserApi::add_admin_user unchecked response code: %{code}'
@@ -40,6 +41,7 @@ module GrafanaCookbook
       end
 
       handle_response(
+        request,
         response,
         success: 'The list of users has been successfully retrieved.',
         unknown_code: 'UserApi::get_admin_user_list unchecked response code: %{code}'

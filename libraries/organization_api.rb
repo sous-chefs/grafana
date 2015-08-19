@@ -16,6 +16,7 @@ module GrafanaCookbook
       end
 
       handle_response(
+        request,
         response,
         success: 'Organization addition was successful.',
         unknown_code: 'OrganizationApi::add_org unchecked response code: %{code}'
@@ -40,6 +41,7 @@ module GrafanaCookbook
       end
 
       handle_response(
+        request,
         response,
         success: 'Organization update was successful.',
         unknown_code: 'OrganizationApi::update_org unchecked response code: %{code}'
@@ -63,6 +65,7 @@ module GrafanaCookbook
       end
 
       handle_response(
+        request,
         response,
         success: 'The list of organizations has been successfully retrieved.',
         unknown_code: 'OrganizationApi::get_orgs_list unchecked response code: %{code}'

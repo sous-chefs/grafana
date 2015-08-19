@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## dev:
+
+* Ensure we're displaying better messages in some edge cases with HTTP requests [#76](https://github.com/JonathanTron/chef-grafana/issues/76)
+
 ## 2.1.0 (2015-08-17):
 
 * Update Grafana default version to 2.1.1

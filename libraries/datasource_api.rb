@@ -29,6 +29,7 @@ module GrafanaCookbook
       end
 
       handle_response(
+        request,
         response,
         success: 'Datasource addition was successful.',
         unknown_code: 'DataSourceAPI::add_data_source unchecked response code: %{code}'
@@ -59,6 +60,7 @@ module GrafanaCookbook
       end
 
       handle_response(
+        request,
         response,
         success: 'Datasource update was successful.',
         unknown_code: 'DataSourceAPI::update_data_source unchecked response code: %{code}'
@@ -83,6 +85,7 @@ module GrafanaCookbook
       end
 
       handle_response(
+        request,
         response,
         success: 'Datasource deletion was successful.',
         unknown_code: 'DataSourceAPI::delete_data_source unchecked response code: %{code}'
@@ -106,6 +109,7 @@ module GrafanaCookbook
       end
 
       handle_response(
+        request,
         response,
         success: 'List of datasources have been successfully retrieved.',
         unknown_code: 'Error retrieving list of datasources.'

@@ -21,6 +21,7 @@ module GrafanaCookbook
       end
 
       handle_response(
+        request,
         response,
         success: 'Login was successful.',
         unauthorized: 'Invalid username/password.',
@@ -50,14 +51,26 @@ module GrafanaCookbook
       end
     end
 
+    # Format a request for use in error/debug message
+    # Params:
+    # +request+:: Net::HTTPRequest
+    def request_message(request)
+      "#{request.method} #{request.path}"
+    end
+
     # Log the right thing when
     # Params:
+    # +request+:: Net::HTTPRequest
     # +response+:: Net::HTTPResponse -
     # +messages+:: String or  -
-    def handle_response(response, messages)
+    def handle_response(request, response, messages)
       case response
       when Net::HTTPSuccess
-        Chef::Log.debug messages[:success]
+        if messages[:success].nil?
+          Chef::Log.debug "Request succeeded when sending #{request_message request}"
+        else
+          Chef::Log.debug messages[:success]
+        end
       when Net::HTTPUnauthorized
         if messages[:unauthorized].nil?
           Chef::Log.error 'Invalid grafana_user and grafana_sess.'
@@ -66,12 +79,20 @@ module GrafanaCookbook
         end
         raise BackendError
       when Net::HTTPNotFound
-        Chef::Log.error messages[:not_found]
+        if messages[:not_found].nil?
+          Chef::Log.error "Endpoint not found when sending #{request_message request}"
+        else
+          Chef::Log.error messages[:not_found]
+        end
       when nil
         Chef::Log.error 'Connection refused.'
         raise BackendError
       else
-        Chef::Log.error(messages[:unknown_code] % { code: response.code })
+        if messages[:unknown_code].nil?
+          Chef::Log.error "Response code '#{response.code}' not handled when sending #{request_message request}"
+        else
+          Chef::Log.error(messages[:unknown_code] % { code: response.code })
+        end
         raise BackendError
       end
     end

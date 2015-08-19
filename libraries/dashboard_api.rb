@@ -16,6 +16,7 @@ module GrafanaCookbook
       end
 
       handle_response(
+        request,
         response,
         success: 'The dashboard has been successfully retrieved.',
         not_found: 'The dashboard does not exist.',
@@ -48,6 +49,7 @@ module GrafanaCookbook
       end
 
       handle_response(
+        request,
         response,
         success: "Dashboard (#{dashboard_options[:name]}) creation was successful.",
         unknown_code: 'DashboardApi::create_dashboard unchecked response code: %{code}'
@@ -69,6 +71,7 @@ module GrafanaCookbook
       end
 
       handle_response(
+        request,
         response,
         success: 'Dashboard deletion was successful.',
         unknown_code: 'DashboardApi::delete_dashboard unchecked response code: %{code}'

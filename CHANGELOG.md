@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 2.1.3 (2015-08-24):
+
+* Fix a bug in error message handling code [#80](https://github.com/JonathanTron/chef-grafana/issues/80)
+
 ## 2.1.2 (2015-08-24):
 
 * Fix Grafana package checksums [#79](https://github.com/JonathanTron/chef-grafana/issues/79)

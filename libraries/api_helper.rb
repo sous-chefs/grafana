@@ -88,7 +88,7 @@ module GrafanaCookbook
 
     def handle_response_unauthorized(message)
       if message
-        Chef::Log.error messages[:unauthorized]
+        Chef::Log.error message
       else
         Chef::Log.error 'Invalid grafana_user and grafana_sess.'
       end

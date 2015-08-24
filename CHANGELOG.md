@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 2.1.2 (2015-08-24):
+
+* Fix Grafana package checksums [#79](https://github.com/JonathanTron/chef-grafana/issues/79)
+
 ## 2.1.1 (2015-08-20):
 
 * Update Grafana default version to 2.1.2

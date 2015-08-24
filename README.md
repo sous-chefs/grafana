@@ -22,8 +22,8 @@ As with most cookbooks, this one is hopefully flexible enough to be wrapped by a
 | `node['grafana']['install_type']`            | `'file'`                               | The type of install: `file`, `package` or `source`. *Note*: `source` is not currently supported. |
 | `node['grafana']['version']`                 | `'2.1.2'`                              | The version to install. For the most recent versions use `'latest'`. |
 | `node['grafana']['file']['url']`             | `'https://grafanarel.s3.amazonaws.com/builds/grafana'` | The file URL for Grafana builds |
-| `node['grafana']['file']['checksum']['deb']` | `'34d6ae0e81db559bbfb71f1cee811469407eb197b9e8717e73930dceb47d4278'` | The SHA256 checksum of Grafana .deb file |
-| `node['grafana']['file']['checksum']['rpm']` | `'d356418eb6bcbdfed998330aa3b19f5c575e7d09ff1d56431206ca73178bc379'` | The SHA256 checksum of Grafana .rpm file |
+| `node['grafana']['file']['checksum']['deb']` | `'57f52cc8e510f395f7f15caac841dc31e67527072fcbf5cc2d8351404989b298'` | The SHA256 checksum of Grafana .deb file |
+| `node['grafana']['file']['checksum']['rpm']` | `'618f5361e594b101a4832a67a9d82f1179c35ff158ef4288dc1f8b6e8de67bb8'` | The SHA256 checksum of Grafana .rpm file |
 | `node['grafana']['package']['repo']`         | `'https://packagecloud.io/grafana/stable/'` | The grafana package repo |
 | `node['grafana']['package']['key']`          | `'https://packagecloud.io/gpg.key'`    | The package repo GPG key |
 | `node['grafana']['package']['components']`   | `['main']`                             | The package repo components |

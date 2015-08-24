@@ -19,8 +19,8 @@ default['grafana']['install_type'] = 'file' # file | package | source
 default['grafana']['version'] = '2.1.2'
 
 default['grafana']['file']['url'] = 'https://grafanarel.s3.amazonaws.com/builds/grafana'
-default['grafana']['file']['checksum']['deb'] = '34d6ae0e81db559bbfb71f1cee811469407eb197b9e8717e73930dceb47d4278'
-default['grafana']['file']['checksum']['rpm'] = 'd356418eb6bcbdfed998330aa3b19f5c575e7d09ff1d56431206ca73178bc379'
+default['grafana']['file']['checksum']['deb'] = '57f52cc8e510f395f7f15caac841dc31e67527072fcbf5cc2d8351404989b298'
+default['grafana']['file']['checksum']['rpm'] = '618f5361e594b101a4832a67a9d82f1179c35ff158ef4288dc1f8b6e8de67bb8'
 
 case node['platform_family']
 when 'debian'

@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 2.x dev:
+
+* Improve LWRP error logging when Grafana is down [#81](https://github.com/JonathanTron/chef-grafana/issues/81)
+
 ## 2.1.3 (2015-08-24):
 
 * Fix a bug in error message handling code [#80](https://github.com/JonathanTron/chef-grafana/issues/80)

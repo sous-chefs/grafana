@@ -105,7 +105,7 @@ module GrafanaCookbook
 
     def handle_response_conn_refused
       Chef::Log.error 'Connection refused.'
-      raise BackendError
+      raise BackendError, 'Connection to Grafana refused. Please ensure Grafana is running.'
     end
 
     def handle_response_unknown(request, code, message)

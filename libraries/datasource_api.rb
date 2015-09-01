@@ -116,8 +116,6 @@ module GrafanaCookbook
       )
 
       JSON.parse(response.body)
-    rescue BackendError
-      nil
     end
   end
 end

@@ -32,7 +32,7 @@ describe 'grafana::_install_package' do
           if platform == 'centos'
             expect(chef_run).to create_yum_repository('grafana')
           else
-            expect(chef_run).to install_apt_package('apt-transport-https')
+            expect(chef_run).to install_package('apt-transport-https')
             expect(chef_run).to add_apt_repository('grafana')
           end
         end

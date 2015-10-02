@@ -69,5 +69,9 @@ template "#{node['grafana']['conf_dir']}/grafana.ini" do
   owner 'root'
   group 'root'
   mode '0644'
-  notifies :restart, 'service[grafana-server]', :immediately
+  notifies :restart, 'service[grafana-server]', :delayed
+end
+
+unless node['grafana']['ini']['auth.ldap']['enabled']['value'] == false
+  include_recipe "grafana::_ldap_config"
 end

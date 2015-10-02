@@ -289,6 +289,7 @@ Contributors:
 - @BackSlasher
 - Helio Campos Mello de Andrade (@HelioCampos)
 - Arif Akram Khan (@arifcse019)
+- Jean Baptiste Favre (@jbfavre)
 
 Based on `chef-kibana` cookbook by:
 

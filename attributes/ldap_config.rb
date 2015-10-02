@@ -73,7 +73,7 @@ default['grafana']['ldap_mappings'] = [
     org_role: {
       disable: false,
       value: '"Editor"'
-    },
+    }
   },
   {
     group_dn: {

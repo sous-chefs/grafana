@@ -73,5 +73,5 @@ template "#{node['grafana']['conf_dir']}/grafana.ini" do
 end
 
 unless node['grafana']['ini']['auth.ldap']['enabled']['value'] == false
-  include_recipe "grafana::_ldap_config"
+  include_recipe 'grafana::_ldap_config'
 end

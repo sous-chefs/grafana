@@ -96,13 +96,13 @@ describe 'grafana::default' do
 
           it 'installs grafana package' do
             if platform == 'centos'
-              expect(chef_run).to install_yum_package 'initscripts'
-              expect(chef_run).to install_yum_package 'fontconfig'
+              expect(chef_run).to install_package 'initscripts'
+              expect(chef_run).to install_package 'fontconfig'
               expect(chef_run).to create_remote_file "/var/chef/cache/grafana-#{grafana_version}.rpm"
               expect(chef_run).to install_rpm_package "grafana-#{grafana_version}"
             else
-              expect(chef_run).to install_apt_package 'adduser'
-              expect(chef_run).to install_apt_package 'libfontconfig'
+              expect(chef_run).to install_package 'adduser'
+              expect(chef_run).to install_package 'libfontconfig'
               expect(chef_run).to create_remote_file "/var/chef/cache/grafana-#{grafana_version}.deb"
               expect(chef_run).to install_dpkg_package "grafana-#{grafana_version}"
             end

@@ -2,10 +2,20 @@ module GrafanaCookbook
   module IniHelper
     def self.format_config(config)
       output = []
-      config.each do |section, groups|
-        output << format_section(section)
-        groups.each do |key, value|
-          output << format_kv(key, value)
+      case config
+      when Hash
+        config.each do |section, groups|
+          output << format_section(section)
+          groups.each do |key, value|
+            output << format_kv(key, value)
+          end
+        end
+      else
+        config.each do |groups|
+          output << format_section('[servers.group_mappings]')
+          groups.each do |key, value|
+            output << format_kv(key, value)
+          end
         end
       end
       output.join "\n"

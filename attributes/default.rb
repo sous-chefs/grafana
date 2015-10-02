@@ -79,6 +79,16 @@ default['grafana']['ini']['database']['path'] = {
   value: 'grafana.db'
 }
 
+default['grafana']['ini']['auth.ldap']['enabled'] = {
+  comment: '',
+  disable: true,
+  value: false
+}
+default['grafana']['ini']['auth.ldap']['config_file'] = {
+  disable: true,
+  value: '/etc/grafana/ldap.toml'
+}
+
 # server
 default['grafana']['ini']['server']['protocol'] = 'http'
 default['grafana']['ini']['server']['http_port'] = 3000

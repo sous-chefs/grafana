@@ -235,12 +235,12 @@ describe 'grafana::default' do
             expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^email = "email"/)
 
             expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^\[\[servers.group_mappings\]\]/)
-            expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^group_dn = "cn=admins,ou=ACLs,dc=grafana,dc=org"/)
+            expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^group_dn = "cn=admins,dc=grafana,dc=org"/)
             expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^org_role = "Admin"/)
             expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^# org_id = 1/)
 
             expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^\[\[servers.group_mappings\]\]/)
-            expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^group_dn = "cn=users,dc=comugrafana,dc=org"/)
+            expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^group_dn = "cn=users,dc=grafana,dc=org"/)
             expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^org_role = "Editor"/)
 
             expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^\[\[servers.group_mappings\]\]/)

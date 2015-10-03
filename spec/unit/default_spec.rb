@@ -72,7 +72,7 @@ describe 'grafana::default' do
 
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[database\]/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^host = 127.0.0.1:3306/)
-            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^;ssl_mode = disable/)
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^# ssl_mode = disable/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^path = grafana.db/)
 
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[server\]/)
@@ -136,7 +136,7 @@ describe 'grafana::default' do
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[database\]/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^data = /var/lib/grafana})
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^host = 127.0.0.1:3306/)
-            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^;ssl_mode = disable/)
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^# ssl_mode = disable/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^path = grafana.db/)
 
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[server\]/)
@@ -196,7 +196,7 @@ describe 'grafana::default' do
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[database\]/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^data = /var/lib/grafana})
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^host = 127.0.0.1:3306/)
-            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^;ssl_mode = disable/)
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^# ssl_mode = disable/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^path = grafana.db/)
 
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[server\]/)
@@ -237,7 +237,7 @@ describe 'grafana::default' do
             expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^\[\[servers.group_mappings\]\]/)
             expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^group_dn = "cn=admins,ou=ACLs,dc=grafana,dc=org"/)
             expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^org_role = "Admin"/)
-            expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^;org_id = 1/)
+            expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^# org_id = 1/)
 
             expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^\[\[servers.group_mappings\]\]/)
             expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^group_dn = "cn=users,dc=comugrafana,dc=org"/)

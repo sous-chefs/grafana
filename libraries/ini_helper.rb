@@ -29,8 +29,8 @@ module GrafanaCookbook
       case value
       when Hash
         line = ''
-        line << '# ' + value['comment'] + "\n" if value['comment']
-        line << ';' if value['disable']
+        line << '## ' + value['comment'] + "\n" if value['comment']
+        line << '# ' if value['disable']
         line << "#{key} = #{value['value']}"
       else
         "#{key} = #{value}"

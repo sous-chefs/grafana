@@ -202,6 +202,24 @@ Assuming you would like to create a new organization called `Second Org.`:
 grafana_organization 'Second Org.'
 ```
 
+You can also update an existing organization (usefull to change the name of the default organization):
+
+```ruby
+grafana_organization 'Main Org.' do
+  organization(
+    name: 'Main Org 2.'
+  )
+  action :update
+end
+```
+You will finally be able to delete an organization (WARNING: this change has _NOT_ been released yet by Grafana):
+
+```ruby
+grafana_organization 'Second Org.' do
+  action :delete
+end
+```
+
 ### grafana_user
 This resource will allow you to create global users within Grafana. This resource is minimally viable and only supports the addition of global non-admin users. Contribution to the funcationality would be appreciated.
 

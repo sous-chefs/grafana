@@ -7,6 +7,7 @@ module GrafanaCookbook
       end
       output.join "\n"
     end
+
     def self.config_iterator(section, groups)
       output = []
       if groups.is_a?(Array)

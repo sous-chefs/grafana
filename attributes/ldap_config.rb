@@ -47,12 +47,12 @@ default['grafana']['ldap']['servers.attributes'] = {
   member_of: { value: '"memberOf"' },
   email: { value: '"email"' }
 }
-default['grafana']['ldap_mappings'] = [
+default['grafana']['ldap']['[servers.group_mappings]'] = [
   {
     group_dn: {
       comment: 'Map ldap groups to grafana org roles',
       disable: false,
-      value: '"cn=admins,ou=ACLs,dc=grafana,dc=org"'
+      value: '"cn=admins,dc=grafana,dc=org"'
     },
     org_role: {
       disable: false,
@@ -68,7 +68,7 @@ default['grafana']['ldap_mappings'] = [
   {
     group_dn: {
       disable: false,
-      value: '"cn=users,dc=comugrafana,dc=org"'
+      value: '"cn=users,dc=grafana,dc=org"'
     },
     org_role: {
       disable: false,

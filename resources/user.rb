@@ -1,16 +1,14 @@
-actions :create_if_missing
+actions :create_if_missing, :update, :delete
 default_action :create_if_missing
 
 state_attrs :login,
   :admin
 
+# Grafana options
 attribute :host, kind_of: String, default: 'localhost'
 attribute :port, kind_of: Integer, default: 3000
-attribute :user, kind_of: String, default: 'admin'
-attribute :password, kind_of: String, default: 'admin'
-attribute :global, kind_of: [TrueClass, FalseClass], default: true
-attribute :admin, kind_of: [TrueClass, FalseClass], default: false
-attribute :login, kind_of: String, name_attribute: true, required: true
-attribute :full_name, kind_of: String, required: true
-attribute :email, kind_of: String, required: true
-attribute :passwd, kind_of: String, required: true
+attribute :admin_user, kind_of: String, default: 'admin'
+attribute :admin_password, kind_of: String, default: 'admin'
+# Resource properties
+attribute :name, kind_of: String, required: true
+attribute :user, kind_of: Hash, default: {}

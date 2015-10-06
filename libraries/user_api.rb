@@ -2,7 +2,6 @@ module GrafanaCookbook
   module UserApi
     include GrafanaCookbook::ApiHelper
 
-    #
     def add_user(user, grafana_options)
       session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
@@ -26,7 +25,6 @@ module GrafanaCookbook
       nil
     end
 
-    #
     def update_user_details(user, grafana_options)
       session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])

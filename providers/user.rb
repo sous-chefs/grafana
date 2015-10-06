@@ -26,9 +26,7 @@ action :create do
 
   # Find wether user already exists
   users_list.each do |user|
-    if user['login'] == new_resource.user[:login]
-      exists = true
-    end
+    exists = true if user['login'] == new_resource.user[:login]
     break if exists
   end
 
@@ -64,9 +62,8 @@ action :update do
   # Check wether we have to update user's login
   if new_resource.user[:login] != new_resource.name
     old_login = new_resource.name
-    new_login = new_resource.user[:login]
   else
-    old_login = new_login = new_resource.user[:login]
+    old_login = new_resource.user[:login]
   end
 
   # Find wether user already exists

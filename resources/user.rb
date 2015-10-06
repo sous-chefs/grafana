@@ -1,4 +1,4 @@
-actions :create_if_missing, :update, :delete
+actions :create, :update, :delete
 default_action :create_if_missing
 
 state_attrs :login,

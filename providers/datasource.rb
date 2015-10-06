@@ -9,85 +9,101 @@ def whyrun_supported?
 end
 
 action :create do
-  create(true)
-end
-
-action :create_if_missing do
-  create(false)
-end
-
-def create(allow_update)
-  new_resource.source[:name] = new_resource.source_name
   grafana_options = {
     host: new_resource.host,
     port: new_resource.port,
-    user: new_resource.user,
-    password: new_resource.password
+    user: new_resource.admin_user,
+    password: new_resource.admin_password
   }
-  datasources = get_data_source_list(grafana_options)
+  # If datasource name is not provided as variable,
+  # Let's use resource name for it
+  unless new_resource.datasource.key?(:name)
+    new_resource.datasource[:name] = new_resource.name
+  end
 
+  datasources = get_datasource_list(grafana_options)
   exists = false
-  should_update = true
+
   datasources.each do |src|
-    if src['name'] == new_resource.source_name
+    if src['name'] == new_resource.datasource[:name]
       exists = true
-      new_resource.source[:id] = src['id']
-      new_resource.source[:orgId] = src['orgId']
-      should_update = Mash.new(new_resource.source) != Mash.new(src)
     end
+    break if exists
   end
 
-  do_create exists, allow_update, should_update, grafana_options
+  # If not found, let's create it
+  unless exists
+    converge_by("Creating datasource #{new_resource.datasource[:name]}") do
+      add_datasource(new_resource.datasource, legacy_http_semantic, grafana_options)
+    end
+  end
 end
 
-def do_create(exists, allow_update, should_update, grafana_options)
-  if exists
-    if allow_update
-      if should_update
-        converge_by("Updating data source #{new_resource.name}") do
-          update_data_source(new_resource.source, legacy_http_semantic, grafana_options)
-        end
-      else
-        Chef::Log.info "#{new_resource.source_name} already up to date, nothing to update!"
-      end
-    else
-      Chef::Log.info "#{new_resource.source_name} exists, nothing to update!"
-    end
+action :update do
+  grafana_options = {
+    host: new_resource.host,
+    port: new_resource.port,
+    user: new_resource.admin_user,
+    password: new_resource.admin_password
+  }
+  # If datasource name is not provided as variable,
+  # Let's use resource name for it
+  unless new_resource.datasource.key?(:name)
+    new_resource.datasource[:name] = new_resource.name
+  end
+
+  datasources = get_datasource_list(grafana_options)
+  exists = false
+
+  # Check wether we have to update datasource's login
+  if new_resource.datasource[:name] != new_resource.name
+    old_name = new_resource.name
+    new_name = new_resource.datasource[:name]
   else
-    converge_by("Creating data source #{new_resource.name}") do
-      add_data_source(new_resource.source, legacy_http_semantic, grafana_options)
-    end
-    Chef::Log.info "Added #{new_resource.source_name} as a datasource to Grafana"
+    old_name = new_login = new_resource.datasource[:name]
   end
-end
 
-def legacy_http_semantic
-  Gem::Version.new(node['grafana']['version']) < Gem::Version.new('2.0.3')
+  # Find wether datasource already exists
+  # If found, update all informations we have to
+  datasources.each do |src|
+    if src['name'] == old_name
+      exists = true
+      new_resource.datasource[:id] = src['id']
+      converge_by("Updating datasource #{new_resource.datasource[:name]}") do
+        update_datasource(new_resource.datasource, legacy_http_semantic, grafana_options)
+      end
+    end
+    break if exists
+  end
 end
 
 action :delete do
   grafana_options = {
     host: new_resource.host,
     port: new_resource.port,
-    user: new_resource.user,
-    password: new_resource.password
+    user: new_resource.admin_user,
+    password: new_resource.admin_password
   }
-  datasources = get_data_source_list(grafana_options)
+  datasources = get_datasource_list(grafana_options)
 
   exists = false
   datasources.each do |src|
-    if src['name'] == new_resource.source_name
+    if src['name'] == new_resource.datasource[:name]
       exists = true
-      new_resource.source[:id] = src['id']
+      new_resource.datasource[:id] = src['id']
     end
   end
 
   if exists
     converge_by("Deleting data source #{new_resource.name}") do
-      delete_data_source(new_resource.source[:id], grafana_options)
+      delete_datasource(new_resource.datasource, grafana_options)
     end
-    Chef::Log.info "Deleted datasource #{new_resource.source_name} (id: #{new_resource.source[:id]}) from Grafana"
+    Chef::Log.info "Deleted datasource #{new_resource.datasource[:name]} (id: #{new_resource.datasource[:id]}) from Grafana"
   else
-    Chef::Log.info "#{new_resource.source_name} did not exist, nothing deleted!"
+    Chef::Log.info "#{new_resource.datasource[:name]} did not exist, nothing deleted!"
   end
+end
+
+def legacy_http_semantic
+  Gem::Version.new(node['grafana']['version']) < Gem::Version.new('2.0.3')
 end

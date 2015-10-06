@@ -9,7 +9,7 @@ module GrafanaCookbook
     # +db_options+:: This is a hash of the options used to create the new datasource
     # +legacy_http_semantic+:: In older grafana versions (<= 2.0.2) http semantic for create/update was reversed
     # +grafana_options+:: This is a hash with the details used to communicate with the Grafana server
-    def add_data_source(db_options, legacy_http_semantic, grafana_options)
+    def add_datasource(datasource, legacy_http_semantic, grafana_options)
       session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
       if legacy_http_semantic
@@ -19,7 +19,7 @@ module GrafanaCookbook
       end
       request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
       request.add_field('Content-Type', 'application/json;charset=utf-8')
-      request.body = db_options.to_json
+      request.body = datasource.to_json
 
       # When you want to debug the http request
       # http.set_debug_output $stdout
@@ -32,7 +32,7 @@ module GrafanaCookbook
         request,
         response,
         success: 'Datasource addition was successful.',
-        unknown_code: 'DataSourceAPI::add_data_source unchecked response code: %{code}'
+        unknown_code: 'DataSourceAPI::add_datasource unchecked response code: %{code}'
       )
     rescue BackendError
       nil
@@ -43,17 +43,17 @@ module GrafanaCookbook
     # +db_options+:: This is a hash of the options used to update the datasource
     # +legacy_http_semantic+:: In older grafana versions (<= 2.0.2) http semantic for create/update was reversed
     # +grafana_options+:: A hash of the host, port, user, and password
-    def update_data_source(db_options, legacy_http_semantic, grafana_options)
+    def update_datasource(datasource, legacy_http_semantic, grafana_options)
       session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
       if legacy_http_semantic
         request = Net::HTTP::Post.new('/api/datasources')
       else
-        request = Net::HTTP::Put.new("/api/datasources/#{db_options[:id]}")
+        request = Net::HTTP::Put.new("/api/datasources/#{datasource[:id]}")
       end
       request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
       request.add_field('Content-Type', 'application/json;charset=utf-8')
-      request.body = db_options.to_json
+      request.body = datasource.to_json
 
       response = with_limited_retry tries: 10, exceptions: Errno::ECONNREFUSED do
         http.request(request)
@@ -63,7 +63,7 @@ module GrafanaCookbook
         request,
         response,
         success: 'Datasource update was successful.',
-        unknown_code: 'DataSourceAPI::update_data_source unchecked response code: %{code}'
+        unknown_code: 'DataSourceAPI::update_datasource unchecked response code: %{code}'
       )
     rescue BackendError
       nil
@@ -73,10 +73,10 @@ module GrafanaCookbook
     # Params:
     # +db_id+:: The id of the datasource to be deleted
     # +grafana_options+:: A hash of the host, port, user, and password
-    def delete_data_source(db_id, grafana_options)
+    def delete_datasource(datasource, grafana_options)
       session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
-      request = Net::HTTP::Delete.new("/api/datasources/#{db_id}")
+      request = Net::HTTP::Delete.new("/api/datasources/#{datasource[:id]}")
       request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
       request.add_field('Accept', 'application/json')
 
@@ -88,7 +88,7 @@ module GrafanaCookbook
         request,
         response,
         success: 'Datasource deletion was successful.',
-        unknown_code: 'DataSourceAPI::delete_data_source unchecked response code: %{code}'
+        unknown_code: 'DataSourceAPI::delete_datasource unchecked response code: %{code}'
       )
     rescue BackendError
       nil
@@ -98,7 +98,7 @@ module GrafanaCookbook
     # curl -G http://localhost:3000/api/datasources --cookie "grafana_user=admin; grafana_sess=5945ea31879f4779"
     # Params:
     # +grafana_options+:: A hash of the host, port, user, and password
-    def get_data_source_list(grafana_options)
+    def get_datasource_list(grafana_options)
       session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
       request = Net::HTTP::Get.new('/api/datasources')

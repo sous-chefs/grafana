@@ -96,15 +96,14 @@ It's important to note that Grafana must be running for these resources to be us
 You can control Grafana dataSources via the `grafana_datasource` LWRP. Due to the varying nature of the potental data sources, the information used to create the datasource is consumed by the resource as a Hash (the `source` attribute). The examples should illustrate the flexibility. The full breadth of options are (or will be) documented on the [Grafana website](http://docs.grafana.org/reference/http_api/#data-sources), however you can discover undocumented parameters by inspecting the HTTP requests your browser makes to the Grafana server.
 
 #### Attributes
-| Attribute      | Type     | Default Value     | Description                       |
-|----------------|:--------:|:-----------------:|-----------------------------------|
-| `host`         | `String` | `'localhost'`     | The host grafana is running on    |
-| `port`         | `Integer`| `3000`            | The port grafana is running on    |
-| `user`         | `String` | `'admin'`         | A grafana user with admin privileges |
-| `password`     | `String` | `'admin'`         | The grafana user's password    |
-| `source_name`  | `String` |                   | The Data Source name as it will appear in Grafana. Defaults to the name unsed in the resource invocation. |
+| Attribute      | Type     | Default Value     | Description                                                    |
+|----------------|:--------:|:-----------------:|----------------------------------------------------------------|
+| `host`         | `String` | `'localhost'`     | The host grafana is running on                                 |
+| `port`         | `Integer`| `3000`            | The port grafana is running on                                 |
+| `user`         | `String` | `'admin'`         | A grafana user with admin privileges                           |
+| `password`     | `String` | `'admin'`         | The grafana user's password                                    |
 | `source`       | `Hash  ` | `{}`              | A Hash of the values to create the datasource. Examples below. |
-| `action`       | `String` | `create`          | Valid actions are `create`, `create_if_missing`, and `delete`. Create will update the datasource if it already exists. |
+| `action`       | `String` | `create`          | Valid actions are `create`, `update`, and `delete`.            |
 
 
 #### Examples
@@ -133,9 +132,45 @@ grafana_datasource 'influxdb-test' do
     password: 'dashpass',
     isdefault: true
   )
-  action :create_if_missing
+  action :create
 end
 ```
+You can update an existing datasource as follows:
+```ruby
+grafana_datasource 'influxdb-test' do
+  source(
+    type: 'influxdb_09',
+    url: 'http://10.0.0.10:8086',
+    access: 'proxy',
+    database: 'metrics',
+    user: 'dashboard',
+    password: 'dashpass',
+    isdefault: true
+  )
+  action :create
+end
+```
+And even rename it:
+```ruby
+grafana_datasource 'influxdb-test' do
+  source(
+    name: 'influxdb test',
+    type: 'influxdb_08',
+    url: 'http://10.0.0.10:8086',
+    access: 'proxy',
+    database: 'metrics',
+    user: 'dashboard',
+    password: 'dashpass',
+    isdefault: true
+  )
+  action :create
+end
+```
+Finally, you can also delete a datasource:
+```ruby
+grafana_datasource 'influxdb-test' do
+  action :delete
+end
 
 ### grafana_dashboard
 Dashboards in Grafana are always going to be incredibly specific to the application, but you may want to be able to create a new dashboard along with a newly provisioned stack. This resource assumes you have a static json file that displays the information that will be flowing from the newly created stack.

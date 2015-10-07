@@ -6,90 +6,56 @@ module GrafanaCookbook
     # Here's a sample curl statement: curl 'http://localhost/api/datasources' -X PUT -H 'Content-Type: application/json;charset=utf-8' -H 'Cookie: grafana_sess=807f6bf34a80787e; grafana_user=admin;'
     # --data '{"name":"not-influxdb","type":"influxdb_08","url":"http://10.0.0.6:8086","access":"direct","database":"grafana","user":"root","password":"root"}'
     # Params:
-    # +db_options+:: This is a hash of the options used to create the new datasource
+    # +datasource+:: This is a hash of the options used to create the new datasource
     # +legacy_http_semantic+:: In older grafana versions (<= 2.0.2) http semantic for create/update was reversed
     # +grafana_options+:: This is a hash with the details used to communicate with the Grafana server
-    def add_data_source(db_options, legacy_http_semantic, grafana_options)
-      session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
-      http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
+    def add_datasource(datasource, legacy_http_semantic, grafana_options)
       if legacy_http_semantic
-        request = Net::HTTP::Put.new('/api/datasources')
+        grafana_options[:method] = 'Put'
       else
-        request = Net::HTTP::Post.new('/api/datasources')
+        grafana_options[:method] = 'Post'
       end
-      request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
-      request.add_field('Content-Type', 'application/json;charset=utf-8')
-      request.body = db_options.to_json
+      grafana_options[:success_msg] = 'Datasource addition was successful.'
+      grafana_options[:unknown_code_msg] = 'DataSourceAPI::add_datasource unchecked response code: %{code}'
+      grafana_options[:endpoint] = '/api/datasources'
 
-      # When you want to debug the http request
-      # http.set_debug_output $stdout
-
-      response = with_limited_retry tries: 10, exceptions: Errno::ECONNREFUSED do
-        http.request(request)
-      end
-
-      handle_response(
-        request,
-        response,
-        success: 'Datasource addition was successful.',
-        unknown_code: 'DataSourceAPI::add_data_source unchecked response code: %{code}'
-      )
+      _do_request(grafana_options, datasource.to_json)
     rescue BackendError
       nil
     end
 
     # Uses the HTTP API and session-based authentication to update a Grafana datasource
     # Params:
-    # +db_options+:: This is a hash of the options used to update the datasource
+    # +datasource+:: This is a hash of the options used to update the datasource
     # +legacy_http_semantic+:: In older grafana versions (<= 2.0.2) http semantic for create/update was reversed
     # +grafana_options+:: A hash of the host, port, user, and password
-    def update_data_source(db_options, legacy_http_semantic, grafana_options)
-      session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
-      http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
+    def update_datasource(datasource, legacy_http_semantic, grafana_options)
       if legacy_http_semantic
-        request = Net::HTTP::Post.new('/api/datasources')
+        grafana_options[:method] = 'Post'
+        grafana_options[:endpoint] = '/api/datasources'
       else
-        request = Net::HTTP::Put.new("/api/datasources/#{db_options[:id]}")
+        grafana_options[:method] = 'Put'
+        grafana_options[:endpoint] = '/api/datasources/' + datasource[:id].to_s
       end
-      request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
-      request.add_field('Content-Type', 'application/json;charset=utf-8')
-      request.body = db_options.to_json
+      grafana_options[:success_msg] = 'Datasource update was successful.'
+      grafana_options[:unknown_code_msg] = 'DataSourceAPI::update_datasource unchecked response code: %{code}'
 
-      response = with_limited_retry tries: 10, exceptions: Errno::ECONNREFUSED do
-        http.request(request)
-      end
-
-      handle_response(
-        request,
-        response,
-        success: 'Datasource update was successful.',
-        unknown_code: 'DataSourceAPI::update_data_source unchecked response code: %{code}'
-      )
+      _do_request(grafana_options, datasource.to_json)
     rescue BackendError
       nil
     end
 
     # Uses the HTTP API and session-based authentication to delete a Grafana datasource
     # Params:
-    # +db_id+:: The id of the datasource to be deleted
+    # +datasource+:: The id of the datasource to be deleted
     # +grafana_options+:: A hash of the host, port, user, and password
-    def delete_data_source(db_id, grafana_options)
-      session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
-      http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
-      request = Net::HTTP::Delete.new("/api/datasources/#{db_id}")
-      request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
-      request.add_field('Accept', 'application/json')
+    def delete_datasource(datasource, grafana_options)
+      grafana_options[:method] = 'Delete'
+      grafana_options[:success_msg] = 'Datasource deletion was successful.'
+      grafana_options[:unknown_code_msg] = 'DataSourceAPI::delete_datasource unchecked response code: %{code}'
+      grafana_options[:endpoint] = '/api/datasources/' + datasource[:id].to_s
 
-      response = with_limited_retry tries: 10, exceptions: Errno::ECONNREFUSED do
-        http.request(request)
-      end
-
-      handle_response(
-        request,
-        response,
-        success: 'Datasource deletion was successful.',
-        unknown_code: 'DataSourceAPI::delete_data_source unchecked response code: %{code}'
-      )
+      _do_request(grafana_options)
     rescue BackendError
       nil
     end
@@ -98,11 +64,35 @@ module GrafanaCookbook
     # curl -G http://localhost:3000/api/datasources --cookie "grafana_user=admin; grafana_sess=5945ea31879f4779"
     # Params:
     # +grafana_options+:: A hash of the host, port, user, and password
-    def get_data_source_list(grafana_options)
+    def get_datasource_list(grafana_options)
+      grafana_options[:method] = 'Get'
+      grafana_options[:success_msg] = 'List of datasources have been successfully retrieved.'
+      grafana_options[:unknown_code_msg] = 'Error retrieving list of datasources.'
+      grafana_options[:endpoint] = '/api/datasources/'
+
+      _do_request(grafana_options)
+    end
+
+    # Generic method to build, perform and handle response of any API requests
+    # Params:
+    # +grafana_options+:: A hash of the host, port, user, and password as well as request parameters
+    def _do_request(grafana_options, payload=nil)
       session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
-      request = Net::HTTP::Get.new('/api/datasources')
+      case grafana_options[:method]
+      when 'Post'
+        request = Net::HTTP::Post.new(grafana_options[:endpoint])
+      when 'Put'
+        request = Net::HTTP::Put.new(grafana_options[:endpoint])
+      when 'Delete'
+        request = Net::HTTP::Delete.new(grafana_options[:endpoint])
+      else
+        request = Net::HTTP::Get.new(grafana_options[:endpoint])
+      end
       request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
+      request.add_field('Content-Type', 'application/json;charset=utf-8;')
+      request.add_field('Accept', 'application/json')
+      request.body = payload if payload
 
       response = with_limited_retry tries: 10, exceptions: Errno::ECONNREFUSED do
         http.request(request)
@@ -111,11 +101,12 @@ module GrafanaCookbook
       handle_response(
         request,
         response,
-        success: 'List of datasources have been successfully retrieved.',
-        unknown_code: 'Error retrieving list of datasources.'
+        success: grafana_options[:success_msg],
+        unknown_code: grafana_options[:unknown_code_msg]
       )
-
       JSON.parse(response.body)
+    rescue BackendError
+      nil
     end
   end
 end

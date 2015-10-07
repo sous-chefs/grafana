@@ -181,7 +181,7 @@ end
 ```
 
 ### grafana_organization
-This resource will allow you to create organizations within Grafana. This resource is minimally viable and only supports the addition of a new organization by name. It does check to see if an organization of the same name already exists, but it does not currently support adding address or city information.
+This resource will allow you to create organizations within Grafana.
 
 More information about creating Grafana organizations via the HTTP API can be found [here](http://docs.grafana.org/reference/http_api/#organizations).
 
@@ -192,8 +192,8 @@ More information about creating Grafana organizations via the HTTP API can be fo
 | `port`         | `Integer`| `3000`              | The port grafana is running on    |
 | `user`         | `String` | `'admin'`           | A grafana user with admin privileges |
 | `password`     | `String` | `'admin'`           | The grafana user's password       |
-| `name`         | `String` |                     | The name of the organization you would like to add. Defaults to the name used in the resource invocation. |
-| `action`       | `String` | `create_if_missing` | Valid actions are `create_if_missing`. Delete and create are not currently supported. |
+| `organization  | `Hash  ` | `{}`                | A Hash of the values to create the organization. Examples below. |
+| `action`       | `String` | `create_if_missing` | Valid actions are `create`, `update` and `delete`. |
 
 #### Examples
 Assuming you would like to create a new organization called `Second Org.`:
@@ -212,7 +212,7 @@ grafana_organization 'Main Org.' do
   action :update
 end
 ```
-You will finally be able to delete an organization (WARNING: this change has _NOT_ been released yet by Grafana):
+You will finally be able to delete an organization (WARNING: this change is _NOT_ supported in Grafana 2.1.3):
 
 ```ruby
 grafana_organization 'Second Org.' do
@@ -233,13 +233,6 @@ More information about creating Grafana users via the HTTP API can be found [her
 | `admin_user`   | `String` | `'admin'`           | A grafana user with admin privileges                     |
 | `adminpassword`| `String` | `'admin'`           | The grafana user's password                              |
 | `user`         | `Hash  ` | `{}`                | A Hash of the values to create the user. Examples below. |
-
-| `global`       | `boolean`| `true`              | Whether you want the user to be a global user. _Currently only global `true` is supported._ |
-| `admin`        | `boolean`| `false`             | Whether or not the user should be a global admin. _Currently only admin `false` is supported._ |
-| `login`        | `String` |                     | The login for this user. Defaults to the name used in the resource invocation. |
-| `full_name`    | `String` |                     | The common, human-readable name used for the user |
-| `email`        | `String` |                     | The email address for this user   |
-| `passwd`       | `String` |                     | The password to use for this user |
 | `action`       | `String` | `create_if_missing` | Valid actions are `create_if_missing`. Delete and create are not currently supported. |
 
 #### Examples

@@ -1,14 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'berkshelf', '~> 3.2'
+gem 'berkshelf', '~> 4.0'
 gem 'rake'
 gem 'emeril'
 
 group :test do
-  gem 'chefspec', '~> 4.2.0'
-  gem 'foodcritic', '~> 4.0.0'
+  gem 'chefspec', '~> 4.4.0'
+  gem 'foodcritic', '~> 5.0.0'
   gem 'rubocop', '~> 0.31'
-  gem 'strainer'
 end
 
 group :integration do
@@ -18,8 +17,8 @@ end
 
 group :development do
   gem 'rb-readline'
-  gem 'guard', '2.4'
+  gem 'guard'
   gem 'guard-foodcritic'
-  gem 'guard-rspec', '~> 4.2.6'
+  gem 'guard-rspec'
   gem 'guard-rubocop'
 end

@@ -12,4 +12,6 @@ rvm:
 before_script:
   - bundle exec berks vendor vendor/cookbooks
 script:
-  - bundle exec "strainer test --except kitchen"
+  - bundle exec rubocop .
+  - bundle exec foodcritic --progress -f any .
+  - bundle exec rspec --color --format progress

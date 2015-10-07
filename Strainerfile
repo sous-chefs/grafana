@@ -1,4 +1,0 @@
-rubocop:      bundle exec rubocop $COOKBOOK
-foodcritic:   bundle exec foodcritic -f any $SANDBOX/$COOKBOOK
-chefspec:     bundle exec rspec --color --format progress
-kitchen:      bundle exec kitchen test

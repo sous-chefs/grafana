@@ -171,6 +171,7 @@ Finally, you can also delete a datasource:
 grafana_datasource 'influxdb-test' do
   action :delete
 end
+```
 
 ### grafana_dashboard
 Dashboards in Grafana are always going to be incredibly specific to the application, but you may want to be able to create a new dashboard along with a newly provisioned stack. This resource assumes you have a static json file that displays the information that will be flowing from the newly created stack.
@@ -178,18 +179,14 @@ Dashboards in Grafana are always going to be incredibly specific to the applicat
 This resource currently makes an assumption that the name used in invocation matches the name of the dashboard. This will obviously have limitations, and could change in the future. More documentation on creating Grafana dashboards via the HTTP API can be found [here](http://docs.grafana.org/reference/http_api/#dashboards).
 
 #### Attributes
-| Attribute      | Type     | Default Value       | Description                       |
-|----------------|:--------:|:-------------------:|-----------------------------------|
-| `host`         | `String` | `'localhost'`       | The host grafana is running on    |
-| `port`         | `Integer`| `3000`              | The port grafana is running on    |
-| `user`         | `String` | `'admin'`           | A grafana user with admin privileges |
-| `password`     | `String` | `'admin'`           | The grafana user's password       |
-| `source_name`  | `String` |                     | The extensionless name of the dashboard json file, and should match the dashboard title in the json (lower-cased and with hyphens for spaces) if `source` is not provided. Defaults to the name used in the resource invocation. |
-| `source`       | `String` | `nil`               | If you would like to override the name of the json file, use this attribute. |
-| `cookbook`     | `String` | `nil`               | The cookbook name to pull the file from if not this one |
-| `path`         | `String` | `nil`               | _Overrides `cookbook` and `source`_. The absolute path to the json file on disk. |
-| `overwrite`    | `boolean`| `true`              | Whether you want to overwrite existing dashboard with newer version or with same dashboard title |
-| `action`       | `String` | `create_if_missing` | Valid actions are `create`, `create_if_missing`, and `delete`. Create will update the dashboard, so be careful! |
+| Attribute      | Type     | Default Value       | Description                                                                                                              |
+|----------------|:--------:|:-------------------:|--------------------------------------------------------------------------------------------------------------------------|
+| `host`         | `String` | `'localhost'`       | The host grafana is running on                                                                                           |
+| `port`         | `Integer`| `3000`              | The port grafana is running on                                                                                           |
+| `user`         | `String` | `'admin'`           | A grafana user with admin privileges                                                                                     |
+| `password`     | `String` | `'admin'`           | The grafana user's password                                                                                              |
+| `dashboard`    | `String` |                     | A Hash of the values to create the dashboard. Examples below.                                                            |
+| `action`       | `String` | `create_if_missing` | Valid actions are `create`, `update`, and `delete`. Create can update the dashbord, be careful (see below for details) ! |
 
 #### Examples
 Assuming you have a `files/default/simple-dashboard.json`:
@@ -202,8 +199,10 @@ If you'd like to use a `my-dashboard.json` with the title `"title": "Test Dash"`
 
 ```ruby
 grafana_dashboard 'test-dash' do
-  source 'my-dashboard'
-  overwrite false
+  dashboard(
+    source 'my-dashboard',
+    overwrite false
+  )
 end
 ```
 
@@ -211,7 +210,37 @@ If the dashboard you would like to import is already on disk with the title `"ti
 
 ```ruby
 grafana_dashboard 'on-disk-dash' do
-  path '/opt/grafana/dashboards/local-dash.json'
+  dashboard(
+    path '/opt/grafana/dashboards/local-dash.json'
+  )
+end
+```
+You can update a dashboard. For that, you have 2 options:
+
+Use `create` action with `overwrite` dashboard property, like:
+```ruby
+grafana_dashboard 'on-disk-dash' do
+  dashboard(
+    path '/opt/grafana/dashboards/local-dash.json'
+    overwrite: true
+  )
+  action :create
+end
+```
+
+Or use `update` action, which will force `overwrite` dashboard property to true:
+```ruby
+grafana_dashboard 'on-disk-dash' do
+  dashboard(
+    path '/opt/grafana/dashboards/local-dash.json'
+  )
+  action :update
+end
+```
+Finally, you can delete a dashboard:
+```ruby
+grafana_dashboard 'test-dash' do
+  action :delete
 end
 ```
 

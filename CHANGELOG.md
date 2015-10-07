@@ -4,8 +4,18 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
+* Add support for LDAP configuration (@jbfavre)
+  [#87](https://github.com/JonathanTron/chef-grafana/pull/87)
+  [#88](https://github.com/JonathanTron/chef-grafana/pull/88)
+  [#89](https://github.com/JonathanTron/chef-grafana/pull/89)
 * Improve LWRP error logging when Grafana is down [#81](https://github.com/JonathanTron/chef-grafana/issues/81)
 
+__breaking changes__
+
+* Improved user management (@jbfavre)
+  [#91](https://github.com/JonathanTron/chef-grafana/pull/91)
+
+breaking change
 ## 2.1.3 (2015-08-24):
 
 * Fix a bug in error message handling code [#80](https://github.com/JonathanTron/chef-grafana/issues/80)

@@ -55,9 +55,8 @@ action :update do
   # Check wether we have to update user's login
   if new_resource.organization[:name] != new_resource.name
     old_login = new_resource.name
-    new_login = new_resource.organization[:name]
   else
-    old_login = new_login = new_resource.organization[:name]
+    old_login = new_resource.organization[:name]
   end
 
   orgs.each do |org|
@@ -92,7 +91,7 @@ action :delete do
     if org['name'] == new_resource.organization[:name]
       exists = true
       new_resource.organization[:id] = org['id']
-      converge_by("Deleting organization #{new_resource.name}") do
+      converge_by("Deleting organization #{new_resource.organization[:name]}") do
         delete_org(new_resource.organization, grafana_options)
       end
     end

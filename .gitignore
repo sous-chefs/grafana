@@ -17,8 +17,8 @@ Berksfile.lock
 Gemfile.lock
 bin/*
 .bundle/*
-vendor/bundle
 
+vendor/*
 .chef
 .ruby-version
 .chef/*

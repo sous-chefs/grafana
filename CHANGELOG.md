@@ -16,6 +16,8 @@ __breaking changes__
   [#91](https://github.com/JonathanTron/chef-grafana/pull/91)
 * Improved organization provider (@jbfavre)
   [#92](https://github.com/JonathanTron/chef-grafana/pull/92)
+* Improved datasource provider (@jbfavre)
+  [#93](https://github.com/JonathanTron/chef-grafana/pull/93)
 
 breaking change
 ## 2.1.3 (2015-08-24):

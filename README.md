@@ -200,8 +200,8 @@ If you'd like to use a `my-dashboard.json` with the title `"title": "Test Dash"`
 ```ruby
 grafana_dashboard 'test-dash' do
   dashboard(
-    source 'my-dashboard',
-    overwrite false
+    source: 'my-dashboard',
+    overwrite: false
   )
 end
 ```
@@ -211,7 +211,7 @@ If the dashboard you would like to import is already on disk with the title `"ti
 ```ruby
 grafana_dashboard 'on-disk-dash' do
   dashboard(
-    path '/opt/grafana/dashboards/local-dash.json'
+    path: '/opt/grafana/dashboards/local-dash.json'
   )
 end
 ```
@@ -221,7 +221,7 @@ Use `create` action with `overwrite` dashboard property, like:
 ```ruby
 grafana_dashboard 'on-disk-dash' do
   dashboard(
-    path '/opt/grafana/dashboards/local-dash.json'
+    path: '/opt/grafana/dashboards/local-dash.json',
     overwrite: true
   )
   action :create
@@ -232,7 +232,7 @@ Or use `update` action, which will force `overwrite` dashboard property to true:
 ```ruby
 grafana_dashboard 'on-disk-dash' do
   dashboard(
-    path '/opt/grafana/dashboards/local-dash.json'
+    path: '/opt/grafana/dashboards/local-dash.json'
   )
   action :update
 end

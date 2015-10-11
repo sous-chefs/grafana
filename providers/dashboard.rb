@@ -1,3 +1,5 @@
+require 'chef/mash'
+
 include GrafanaCookbook::DashboardApi
 
 use_inline_resources if defined?(use_inline_resources)
@@ -10,45 +12,70 @@ action :create do
   grafana_options = {
     host: new_resource.host,
     port: new_resource.port,
-    user: new_resource.user,
-    password: new_resource.password
+    user: new_resource.admin_user,
+    password: new_resource.admin_password
   }
-  source = new_resource.source_name
-  source = new_resource.source unless new_resource.source.nil?
-  dash_hash = {
-    name: new_resource.source_name,
-    source: source,
-    cookbook: new_resource.cookbook.nil? ? cookbook_name : new_resource.cookbook,
-    path: new_resource.path,
-    overwrite: new_resource.overwrite
-  }
-  dashboard_sanity(dash_hash)
-  converge_by("Creating dashboard #{new_resource.name}") do
-    create_dashboard(dash_hash, grafana_options)
+  # If dashboard's name is not provided as variable,
+  # Let's use resource name for it
+  unless new_resource.dashboard.key?(:name)
+    new_resource.dashboard[:name] = new_resource.name
+  end
+  # If dashboard source is not provided as variable,
+  # Let's use resource name for it
+  unless new_resource.dashboard.key?(:source)
+    new_resource.dashboard[:source] = new_resource.name
+  end
+  # If dashboard cookbook is not provided as variable,
+  # Let's use resource name for it
+  unless new_resource.dashboard.key?(:cookbook)
+    new_resource.dashboard[:cookbook] = cookbook_name
+  end
+  dashboard_sanity(new_resource.dashboard)
+
+  # Find wether dashboard already exists
+  dash = get_dashboard(new_resource.dashboard, grafana_options)
+
+  # If not found, or if overwrite is set to true, let's create it
+  if dash.nil? || new_resource.dashboard[:overwrite]
+    converge_by("Creating dashboard #{new_resource.name}") do
+      create_update_dashboard(new_resource.dashboard, grafana_options)
+    end
   end
 end
 
-action :create_if_missing do
+action :update do
+  new_resource.dashboard[:overwrite] = true
+
   grafana_options = {
     host: new_resource.host,
     port: new_resource.port,
-    user: new_resource.user,
-    password: new_resource.password
+    user: new_resource.admin_user,
+    password: new_resource.admin_password
   }
-  source = new_resource.source_name
-  source = new_resource.source unless new_resource.source.nil?
-  dash_hash = {
-    name: new_resource.source_name,
-    source: source,
-    cookbook: new_resource.cookbook.nil? ? cookbook_name : new_resource.cookbook,
-    path: new_resource.path,
-    overwrite: new_resource.overwrite
-  }
-  dashboard_sanity(dash_hash)
-  dash = get_dashboard(dash_hash, grafana_options)
-  if dash['message'] == 'Dashboard not found'
-    converge_by("Creating dashboard #{new_resource.name}") do
-      create_dashboard(dash_hash, grafana_options)
+  # If dashboard's name is not provided as variable,
+  # Let's use resource name for it
+  unless new_resource.dashboard.key?(:name)
+    new_resource.dashboard[:name] = new_resource.name
+  end
+  # If dashboard source is not provided as variable,
+  # Let's use resource name for it
+  unless new_resource.dashboard.key?(:source)
+    new_resource.dashboard[:source] = new_resource.name
+  end
+  # If dashboard cookbook is not provided as variable,
+  # Let's use resource name for it
+  unless new_resource.dashboard.key?(:cookbook)
+    new_resource.dashboard[:cookbook] = cookbook_name
+  end
+  dashboard_sanity(new_resource.dashboard)
+
+  # Find wether dashboard already exists
+  dash = get_dashboard(new_resource.dashboard, grafana_options)
+
+  # If not found, or if overwrite is set to true, let's update it
+  if dash.nil? || new_resource.dashboard[:overwrite]
+    converge_by("Updating dashboard #{new_resource.name}") do
+      create_update_dashboard(new_resource.dashboard, grafana_options)
     end
   end
 end
@@ -57,13 +84,33 @@ action :delete do
   grafana_options = {
     host: new_resource.host,
     port: new_resource.port,
-    user: new_resource.user,
-    password: new_resource.password
+    user: new_resource.admin_user,
+    password: new_resource.admin_password
   }
-  dash = get_dashboard({ name: new_resource.source_name }, grafana_options)
-  unless dash['message'] == 'Dashboard not found'
+  # If dashboard's name is not provided as variable,
+  # Let's use resource name for it
+  unless new_resource.dashboard.key?(:name)
+    new_resource.dashboard[:name] = new_resource.name
+  end
+  # If dashboard source is not provided as variable,
+  # Let's use resource name for it
+  unless new_resource.dashboard.key?(:source)
+    new_resource.dashboard[:source] = new_resource.name
+  end
+  # If dashboard cookbook is not provided as variable,
+  # Let's use resource name for it
+  unless new_resource.dashboard.key?(:cookbook)
+    new_resource.dashboard[:cookbook] = cookbook_name
+  end
+  dashboard_sanity(new_resource.dashboard)
+
+  # Find wether dashboard already exists
+  dash = get_dashboard(new_resource.dashboard, grafana_options)
+
+  # If found, just delete it
+  unless dash.nil?
     converge_by("Removing dashboard #{new_resource.name}") do
-      delete_dashboard(new_resource.source_name, grafana_options)
+      delete_dashboard(new_resource.dashboard, grafana_options)
     end
   end
 end

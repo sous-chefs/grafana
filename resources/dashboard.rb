@@ -1,15 +1,13 @@
-actions :create, :create_if_missing, :delete
-default_action :create_if_missing
+actions :create, :update, :delete
+default_action :create
 
-state_attrs :source_name
+state_attrs :name
 
+# Grafana options
 attribute :host, kind_of: String, default: 'localhost'
 attribute :port, kind_of: Integer, default: 3000
-attribute :user, kind_of: String, default: 'admin'
-attribute :password, kind_of: String, default: 'admin'
-attribute :source_name, kind_of: String, name_attribute: true, required: true
-attribute :source, kind_of: String, default: nil
-attribute :cookbook, kind_of: String, default: nil
-attribute :path, kind_of: String, default: nil
-attribute :overwrite, kind_of: [TrueClass, FalseClass], default: true
-# attribute :dashboard, kind_of: Hash, default: Hash.new
+attribute :admin_user, kind_of: String, default: 'admin'
+attribute :admin_password, kind_of: String, default: 'admin'
+# Resource properties
+attribute :name, kind_of: String, required: true
+attribute :dashboard, kind_of: Hash, default: {}

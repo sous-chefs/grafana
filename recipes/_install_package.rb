@@ -26,6 +26,7 @@ when 'debian'
     distribution node['grafana']['package']['distribution']
     components node['grafana']['package']['components']
     key node['grafana']['package']['key']
+    cache_rebuild node['grafana']['package']['apt_rebuild']
   end
 when 'rhel'
   yum_repository 'grafana' do

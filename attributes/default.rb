@@ -29,6 +29,7 @@ when 'debian'
   default['grafana']['package']['components'] = ['main']
   default['grafana']['package']['key'] = 'https://packagecloud.io/gpg.key'
   default['grafana']['package']['version'] = node['grafana']['version']
+  default['grafana']['package']['apt_rebuild'] = false
 when 'rhel', 'fedora'
   default['grafana']['package']['repo'] = 'https://packagecloud.io/grafana/stable/el/$releasever/$basearch'
   default['grafana']['package']['key'] = 'https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana'

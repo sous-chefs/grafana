@@ -405,6 +405,7 @@ Contributors:
 - Helio Campos Mello de Andrade (@HelioCampos)
 - Arif Akram Khan (@arifcse019)
 - Jean Baptiste Favre (@jbfavre)
+- Miguel Moll (@MiguelMoll)
 
 Based on `chef-kibana` cookbook by:
 

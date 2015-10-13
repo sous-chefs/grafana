@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
+* Option to rebuild the apt cache when adding the grafana repo.
+  [#95](https://github.com/JonathanTron/chef-grafana/pull/95)
 * Add support for LDAP configuration (@jbfavre)
   [#87](https://github.com/JonathanTron/chef-grafana/pull/87)
   [#88](https://github.com/JonathanTron/chef-grafana/pull/88)

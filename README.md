@@ -102,7 +102,7 @@ You can control Grafana dataSources via the `grafana_datasource` LWRP. Due to th
 | `port`         | `Integer`| `3000`            | The port grafana is running on                                 |
 | `user`         | `String` | `'admin'`         | A grafana user with admin privileges                           |
 | `password`     | `String` | `'admin'`         | The grafana user's password                                    |
-| `source`       | `Hash  ` | `{}`              | A Hash of the values to create the datasource. Examples below. |
+| `datasource`   | `Hash  ` | `{}`              | A Hash of the values to create the datasource. Examples below. |
 | `action`       | `String` | `create`          | Valid actions are `create`, `update`, and `delete`.            |
 
 
@@ -111,7 +111,7 @@ You can create a data source for Graphite as follows:
 
 ```ruby
 grafana_datasource 'graphite-test' do
-  source(
+  datasource(
     type: 'graphite',
     url: 'http://10.0.0.15:8080',
     access: 'direct'
@@ -123,7 +123,7 @@ You can create a data source for InfluxDB 0.8.x and make it the default dashboar
 
 ```ruby
 grafana_datasource 'influxdb-test' do
-  source(
+  datasource(
     type: 'influxdb_08',
     url: 'http://10.0.0.10:8086',
     access: 'proxy',
@@ -138,7 +138,7 @@ end
 You can update an existing datasource as follows:
 ```ruby
 grafana_datasource 'influxdb-test' do
-  source(
+  datasource(
     type: 'influxdb_09',
     url: 'http://10.0.0.10:8086',
     access: 'proxy',
@@ -153,7 +153,7 @@ end
 And even rename it:
 ```ruby
 grafana_datasource 'influxdb-test' do
-  source(
+  datasource(
     name: 'influxdb test',
     type: 'influxdb_08',
     url: 'http://10.0.0.10:8086',

@@ -4,6 +4,10 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
+* Fix support for 'latest' in `node['graphana']['version']` (@ptqa)
+  [#97](https://github.com/JonathanTron/chef-grafana/pull/97)
+* Fix README doc for provider datasource (@ptqa)
+  [#96](https://github.com/JonathanTron/chef-grafana/pull/96)
 * Option to rebuild the apt cache when adding the grafana repo.
   [#95](https://github.com/JonathanTron/chef-grafana/pull/95)
 * Add support for LDAP configuration (@jbfavre)

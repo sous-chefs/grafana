@@ -406,6 +406,7 @@ Contributors:
 - Arif Akram Khan (@arifcse019)
 - Jean Baptiste Favre (@jbfavre)
 - Miguel Moll (@MiguelMoll)
+- ptQa (@ptqa)
 
 Based on `chef-kibana` cookbook by:
 

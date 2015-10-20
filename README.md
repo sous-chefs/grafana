@@ -96,14 +96,14 @@ It's important to note that Grafana must be running for these resources to be us
 You can control Grafana dataSources via the `grafana_datasource` LWRP. Due to the varying nature of the potental data sources, the information used to create the datasource is consumed by the resource as a Hash (the `source` attribute). The examples should illustrate the flexibility. The full breadth of options are (or will be) documented on the [Grafana website](http://docs.grafana.org/reference/http_api/#data-sources), however you can discover undocumented parameters by inspecting the HTTP requests your browser makes to the Grafana server.
 
 #### Attributes
-| Attribute      | Type     | Default Value     | Description                                                    |
-|----------------|:--------:|:-----------------:|----------------------------------------------------------------|
-| `host`         | `String` | `'localhost'`     | The host grafana is running on                                 |
-| `port`         | `Integer`| `3000`            | The port grafana is running on                                 |
-| `user`         | `String` | `'admin'`         | A grafana user with admin privileges                           |
-| `password`     | `String` | `'admin'`         | The grafana user's password                                    |
-| `datasource`   | `Hash  ` | `{}`              | A Hash of the values to create the datasource. Examples below. |
-| `action`       | `String` | `create`          | Valid actions are `create`, `update`, and `delete`.            |
+| Attribute        | Type     | Default Value     | Description                                                    |
+|------------------|:--------:|:-----------------:|----------------------------------------------------------------|
+| `host`           | `String` | `'localhost'`     | The host grafana is running on                                 |
+| `port`           | `Integer`| `3000`            | The port grafana is running on                                 |
+| `admin_user`     | `String` | `'admin'`         | A grafana user with admin privileges                           |
+| `admin_password` | `String` | `'admin'`         | The grafana user's password                                    |
+| `datasource`     | `Hash  ` | `{}`              | A Hash of the values to create the datasource. Examples below. |
+| `action`         | `String` | `create`          | Valid actions are `create`, `update`, and `delete`.            |
 
 
 #### Examples
@@ -128,8 +128,8 @@ grafana_datasource 'influxdb-test' do
     url: 'http://10.0.0.10:8086',
     access: 'proxy',
     database: 'metrics',
-    user: 'dashboard',
-    password: 'dashpass',
+    admin_user: 'dashboard',
+    admin_password: 'dashpass',
     isdefault: true
   )
   action :create
@@ -143,8 +143,8 @@ grafana_datasource 'influxdb-test' do
     url: 'http://10.0.0.10:8086',
     access: 'proxy',
     database: 'metrics',
-    user: 'dashboard',
-    password: 'dashpass',
+    admin_user: 'dashboard',
+    admin_password: 'dashpass',
     isdefault: true
   )
   action :create
@@ -159,8 +159,8 @@ grafana_datasource 'influxdb-test' do
     url: 'http://10.0.0.10:8086',
     access: 'proxy',
     database: 'metrics',
-    user: 'dashboard',
-    password: 'dashpass',
+    admin_user: 'dashboard',
+    admin_password: 'dashpass',
     isdefault: true
   )
   action :create
@@ -179,14 +179,14 @@ Dashboards in Grafana are always going to be incredibly specific to the applicat
 This resource currently makes an assumption that the name used in invocation matches the name of the dashboard. This will obviously have limitations, and could change in the future. More documentation on creating Grafana dashboards via the HTTP API can be found [here](http://docs.grafana.org/reference/http_api/#dashboards).
 
 #### Attributes
-| Attribute      | Type     | Default Value       | Description                                                                                                              |
-|----------------|:--------:|:-------------------:|--------------------------------------------------------------------------------------------------------------------------|
-| `host`         | `String` | `'localhost'`       | The host grafana is running on                                                                                           |
-| `port`         | `Integer`| `3000`              | The port grafana is running on                                                                                           |
-| `user`         | `String` | `'admin'`           | A grafana user with admin privileges                                                                                     |
-| `password`     | `String` | `'admin'`           | The grafana user's password                                                                                              |
-| `dashboard`    | `String` |                     | A Hash of the values to create the dashboard. Examples below.                                                            |
-| `action`       | `String` | `create_if_missing` | Valid actions are `create`, `update`, and `delete`. Create can update the dashbord, be careful (see below for details) ! |
+| Attribute        | Type     | Default Value       | Description                                                                                                              |
+|------------------|:--------:|:-------------------:|--------------------------------------------------------------------------------------------------------------------------|
+| `host`           | `String` | `'localhost'`       | The host grafana is running on                                                                                           |
+| `port`           | `Integer`| `3000`              | The port grafana is running on                                                                                           |
+| `admin_user`     | `String` | `'admin'`           | A grafana user with admin privileges                                                                                     |
+| `admin_password` | `String` | `'admin'`           | The grafana user's password                                                                                              |
+| `dashboard`      | `String` |                     | A Hash of the values to create the dashboard. Examples below.                                                            |
+| `action`         | `String` | `create_if_missing` | Valid actions are `create`, `update`, and `delete`. Create can update the dashbord, be careful (see below for details) ! |
 
 #### Examples
 Assuming you have a `files/default/simple-dashboard.json`:
@@ -250,14 +250,14 @@ This resource will allow you to create organizations within Grafana.
 More information about creating Grafana organizations via the HTTP API can be found [here](http://docs.grafana.org/reference/http_api/#organizations).
 
 #### Attributes
-| Attribute      | Type     | Default Value       | Description                       |
-|----------------|:--------:|:-------------------:|-----------------------------------|
-| `host`         | `String` | `'localhost'`       | The host grafana is running on    |
-| `port`         | `Integer`| `3000`              | The port grafana is running on    |
-| `user`         | `String` | `'admin'`           | A grafana user with admin privileges |
-| `password`     | `String` | `'admin'`           | The grafana user's password       |
-| `organization  | `Hash  ` | `{}`                | A Hash of the values to create the organization. Examples below. |
-| `action`       | `String` | `create_if_missing` | Valid actions are `create`, `update` and `delete`. |
+| Attribute        | Type     | Default Value       | Description                       |
+|------------------|:--------:|:-------------------:|-----------------------------------|
+| `host`           | `String` | `'localhost'`       | The host grafana is running on    |
+| `port`           | `Integer`| `3000`              | The port grafana is running on    |
+| `admin_user`     | `String` | `'admin'`           | A grafana user with admin privileges |
+| `admin_password` | `String` | `'admin'`           | The grafana user's password       |
+| `organization    | `Hash  ` | `{}`                | A Hash of the values to create the organization. Examples below. |
+| `action`         | `String` | `create_if_missing` | Valid actions are `create`, `update` and `delete`. |
 
 #### Examples
 Assuming you would like to create a new organization called `Second Org.`:
@@ -290,14 +290,14 @@ This resource will allow you to create global users within Grafana. This resourc
 More information about creating Grafana users via the HTTP API can be found [here](http://docs.grafana.org/reference/http_api/#users).
 
 #### Attributes
-| Attribute      | Type     | Default Value       | Description                                              |
-|----------------|:--------:|:-------------------:|----------------------------------------------------------|
-| `host`         | `String` | `'localhost'`       | The host grafana is running on                           |
-| `port`         | `Integer`| `3000`              | The port grafana is running on                           |
-| `admin_user`   | `String` | `'admin'`           | A grafana user with admin privileges                     |
-| `adminpassword`| `String` | `'admin'`           | The grafana user's password                              |
-| `user`         | `Hash  ` | `{}`                | A Hash of the values to create the user. Examples below. |
-| `action`       | `String` | `create_if_missing` | Valid actions are `create_if_missing`. Delete and create are not currently supported. |
+| Attribute       | Type     | Default Value       | Description                                              |
+|-----------------|:--------:|:-------------------:|----------------------------------------------------------|
+| `host`          | `String` | `'localhost'`       | The host grafana is running on                           |
+| `port`          | `Integer`| `3000`              | The port grafana is running on                           |
+| `admin_user`    | `String` | `'admin'`           | A grafana user with admin privileges                     |
+| `admin_password`| `String` | `'admin'`           | The grafana user's password                              |
+| `user`          | `Hash  ` | `{}`                | A Hash of the values to create the user. Examples below. |
+| `action`        | `String` | `create_if_missing` | Valid actions are `create_if_missing`. Delete and create are not currently supported. |
 
 #### Examples
 Assuming you would like to create a new user...

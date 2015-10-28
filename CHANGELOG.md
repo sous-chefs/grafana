@@ -18,8 +18,9 @@ This file is used to list changes made in each version of grafana.
 
 __breaking changes__
 
-* Improved user management (@jbfavre)
-  [#91](https://github.com/JonathanTron/chef-grafana/pull/91)
+* Improved user management
+  [#91](https://github.com/JonathanTron/chef-grafana/pull/91) (@jbfavre)
+  [#98](https://github.com/JonathanTron/chef-grafana/pull/98) (@ptqa)
 * Improved organization provider (@jbfavre)
   [#92](https://github.com/JonathanTron/chef-grafana/pull/92)
 * Improved datasource provider (@jbfavre)

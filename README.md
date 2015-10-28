@@ -93,7 +93,7 @@ Resources
 It's important to note that Grafana must be running for these resources to be used because they utilitze Grafana's HTTP API. In your recipe, you'll simply need to make sure that you include the default recipe that starts Grafana before using these.
 
 ### grafana_datasource
-You can control Grafana dataSources via the `grafana_datasource` LWRP. Due to the varying nature of the potental data sources, the information used to create the datasource is consumed by the resource as a Hash (the `source` attribute). The examples should illustrate the flexibility. The full breadth of options are (or will be) documented on the [Grafana website](http://docs.grafana.org/reference/http_api/#data-sources), however you can discover undocumented parameters by inspecting the HTTP requests your browser makes to the Grafana server.
+You can control Grafana dataSources via the `grafana_datasource` LWRP. Due to the varying nature of the potential data sources, the information used to create the datasource is consumed by the resource as a Hash (the `source` attribute). The examples should illustrate the flexibility. The full breadth of options are (or will be) documented on the [Grafana website](http://docs.grafana.org/reference/http_api/#data-sources), however you can discover undocumented parameters by inspecting the HTTP requests your browser makes to the Grafana server.
 
 #### Attributes
 | Attribute      | Type     | Default Value     | Description                                                    |
@@ -135,6 +135,7 @@ grafana_datasource 'influxdb-test' do
   action :create
 end
 ```
+
 You can update an existing datasource as follows:
 ```ruby
 grafana_datasource 'influxdb-test' do
@@ -150,6 +151,7 @@ grafana_datasource 'influxdb-test' do
   action :create
 end
 ```
+
 And even rename it:
 ```ruby
 grafana_datasource 'influxdb-test' do
@@ -166,6 +168,7 @@ grafana_datasource 'influxdb-test' do
   action :create
 end
 ```
+
 Finally, you can also delete a datasource:
 ```ruby
 grafana_datasource 'influxdb-test' do
@@ -285,7 +288,7 @@ end
 ```
 
 ### grafana_user
-This resource will allow you to create global users within Grafana. This resource is minimally viable and only supports the addition of global non-admin users. Contribution to the funcationality would be appreciated.
+This resource will allow you to create global users within Grafana. This resource is minimally viable and only supports the addition of global non-admin users. Contribution to the functionality would be appreciated.
 
 More information about creating Grafana users via the HTTP API can be found [here](http://docs.grafana.org/reference/http_api/#users).
 
@@ -297,7 +300,7 @@ More information about creating Grafana users via the HTTP API can be found [her
 | `admin_user`   | `String` | `'admin'`           | A grafana user with admin privileges                     |
 | `adminpassword`| `String` | `'admin'`           | The grafana user's password                              |
 | `user`         | `Hash  ` | `{}`                | A Hash of the values to create the user. Examples below. |
-| `action`       | `String` | `create_if_missing` | Valid actions are `create_if_missing`. Delete and create are not currently supported. |
+| `action`       | `String` | `create `           | Valid actions are `create`, `update`, `delete`.          |
 
 #### Examples
 Assuming you would like to create a new user...
@@ -313,7 +316,7 @@ grafana_user 'j.smith' do
   action :create
 end
 ```
-User's login property is not mandatory. DEfault goes to resource name.
+User's login property is not mandatory. Default goes to resource name.
 
 To update user's details, password and permissions
 ```ruby
@@ -341,6 +344,7 @@ grafana_user 'j.smith' do
   action :update
 end
 ```
+
 And finally to delete a user
 ```ruby
 grafana_user 'john.smith' do

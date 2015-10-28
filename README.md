@@ -298,7 +298,7 @@ More information about creating Grafana users via the HTTP API can be found [her
 | `admin_user`    | `String` | `'admin'`           | A grafana user with admin privileges                     |
 | `admin_password`| `String` | `'admin'`           | The grafana user's password                              |
 | `user`          | `Hash  ` | `{}`                | A Hash of the values to create the user. Examples below. |
-| `action`        | `String` | `create`            | Valid actions are `create`. Delete and create are not currently supported. |
+| `action`        | `String` | `create`            | Valid actions are `create`, `update`, `delete`.         |
 
 #### Examples
 Assuming you would like to create a new user...

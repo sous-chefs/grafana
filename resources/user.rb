@@ -1,5 +1,5 @@
 actions :create, :update, :delete
-default_action :create_if_missing
+default_action :create
 
 state_attrs :login,
   :admin

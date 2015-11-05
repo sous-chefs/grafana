@@ -38,12 +38,15 @@ platforms:
     run_list:
       - recipe[apt::default]
       - recipe[curl::default]
-  - name: centos-6.4-chef-zero
+  - name: centos-6.6-chef-zero
     provisioner:
       name: chef_zero
     driver:
-      box: centos-6.4
-      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.4_chef-provisionerless.box
+      box: centos-6.6
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.6_chef-provisionerless.box
+    attributes:
+      grafana:
+        webserver_listen: ''
   - name: ubuntu-12.04-chef-solo
     provisioner:
       name: chef_solo
@@ -74,12 +77,12 @@ platforms:
     run_list:
       - recipe[apt::default]
       - recipe[curl::default]
-  - name: centos-6.4-chef-solo
+  - name: centos-6.6-chef-solo
     provisioner:
       name: chef_solo
     driver:
-      box: centos-6.4
-      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.4_chef-provisionerless.box
+      box: centos-6.6
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.6_chef-provisionerless.box
 
 suites:
   - name: default

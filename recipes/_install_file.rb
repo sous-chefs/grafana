@@ -59,6 +59,7 @@ when 'rhel'
 
   rpm_package "grafana-#{node['grafana']['version']}" do
     source "#{Chef::Config[:file_cache_path]}/grafana-#{node['grafana']['version']}.rpm"
+    version node['grafana']['version']
     action :install
     not_if grafana_installed
   end

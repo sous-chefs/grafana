@@ -37,6 +37,7 @@ when 'debian'
 
   dpkg_package "grafana-#{node['grafana']['version']}" do
     source "#{Chef::Config[:file_cache_path]}/grafana-#{node['grafana']['version']}.deb"
+    version node['grafana']['version']
     action :install
     options '--force-confdef,confnew'
     not_if grafana_installed

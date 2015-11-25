@@ -15,6 +15,7 @@
 # limitations under the License.
 #
 
+default['grafana']['manage_install'] = true
 default['grafana']['install_type'] = 'file' # file | package | source
 default['grafana']['version'] = '2.1.2'
 

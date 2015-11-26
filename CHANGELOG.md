@@ -4,6 +4,10 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
+* Reload nginx on template change
+  [#108](https://github.com/JonathanTron/chef-grafana/issues/108)
+* Ensure datasources always return an array
+  [#110](https://github.com/JonathanTron/chef-grafana/issues/110)
 * Option to skip Grafana installation management (@kemra102)
   [#113](https://github.com/JonathanTron/chef-grafana/pull/113)
 * Fix support for 'latest' in `node['graphana']['version']` (@ptqa)

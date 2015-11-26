@@ -70,7 +70,7 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'Error retrieving list of datasources.'
       grafana_options[:endpoint] = '/api/datasources/'
 
-      _do_request(grafana_options)
+      Array(_do_request(grafana_options))
     end
 
     # Generic method to build, perform and handle response of any API requests

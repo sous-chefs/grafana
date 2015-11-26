@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
+* Option to skip Grafana installation management (@kemra102)
+  [#113](https://github.com/JonathanTron/chef-grafana/pull/113)
 * Fix support for 'latest' in `node['graphana']['version']` (@ptqa)
   [#97](https://github.com/JonathanTron/chef-grafana/pull/97)
 * Fix README doc for provider datasource (@ptqa)
@@ -28,7 +30,6 @@ __breaking changes__
 * improve dashboard provider (@jbfavre)
   [#94](https://github.com/JonathanTron/chef-grafana/pull/94)
 
-breaking change
 ## 2.1.3 (2015-08-24):
 
 * Fix a bug in error message handling code [#80](https://github.com/JonathanTron/chef-grafana/issues/80)

@@ -412,6 +412,7 @@ Contributors:
 - Jean Baptiste Favre (@jbfavre)
 - Miguel Moll (@MiguelMoll)
 - ptQa (@ptqa)
+- Danny (@kemra102)
 
 Based on `chef-kibana` cookbook by:
 

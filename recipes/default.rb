@@ -21,7 +21,9 @@ unless node['grafana']['webserver'].empty?
   include_recipe "grafana::_#{node['grafana']['webserver']}"
 end
 
-include_recipe "grafana::_install_#{node['grafana']['install_type']}"
+if node['grafana']['manage_install']
+  include_recipe "grafana::_install_#{node['grafana']['install_type']}"
+end
 
 service 'grafana-server' do
   supports start: true, stop: true, restart: true, status: true, reload: false

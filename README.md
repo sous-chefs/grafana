@@ -19,6 +19,7 @@ As with most cookbooks, this one is hopefully flexible enough to be wrapped by a
 
 | Attribute                                    | Default                                | Description                       |
 |----------------------------------------------|:--------------------------------------:|-----------------------------------|
+| `node['grafana']['manage_install']`          | `true`                                 | Whether or not the installation should be managed by this cookbook. |
 | `node['grafana']['install_type']`            | `'file'`                               | The type of install: `file`, `package` or `source`. *Note*: `source` is not currently supported. |
 | `node['grafana']['version']`                 | `'2.1.2'`                              | The version to install. For the most recent versions use `'latest'`. |
 | `node['grafana']['file']['url']`             | `'https://grafanarel.s3.amazonaws.com/builds/grafana'` | The file URL for Grafana builds |

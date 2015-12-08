@@ -413,6 +413,7 @@ Contributors:
 - Miguel Moll (@MiguelMoll)
 - ptQa (@ptqa)
 - Danny (@kemra102)
+- Dave Steinberg (@redterror)
 
 Based on `chef-kibana` cookbook by:
 

@@ -115,32 +115,29 @@ def _legacy_http_semantic
   Gem::Version.new(node['grafana']['version']) < Gem::Version.new('2.0.3')
 end
 
+def _check_org!(datasource, orgs)
+  return if orgs.length == 0 || datasource.key?(:organization)
+  raise 'More then one organization, so organization is mandatory for a datasource'
+end
+
 def _select_org(new_resource, grafana_options)
   # check, if we have multiple orgs, then the org is mandatory
   orgs = get_orgs_list(grafana_options)
-  if orgs.length > 1 && !new_resource.datasource.key?(:organization)
-    raise 'More then one organization, so organization is mandatory for a datasource'
+  _check_org! new_resource.datasource, orgs
+
+  # don't do anything if an organization is not selected
+  return unless new_resource.datasource.key?(:organization)
+
+  # Find organization by name
+  selected_org = orgs.detect do |org|
+    org['name'] == new_resource.datasource[:organization]
   end
 
   # If organization is provided select it
-  if new_resource.datasource.key?(:organization)
-    exists = false
-    selected_org = nil
-
-    # Find organization by name
-    orgs.each do |org|
-     exists = true if org['name'] == new_resource.datasource[:organization]
-     if exists then
-        selected_org = org
-      end
-      break if exists
-    end
-
-    if exists
-      # Call api to select organization
-      select_org(selected_org, grafana_options)
-    else
-      raise "Could not find organization #{new_resource.datasource[:organization]}"
-    end
+  if selected_org
+    # Call api to select organization
+    select_org(selected_org, grafana_options)
+  else
+    raise "Could not find organization #{new_resource.datasource[:organization]}"
   end
 end

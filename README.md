@@ -414,6 +414,7 @@ Contributors:
 - ptQa (@ptqa)
 - Danny (@kemra102)
 - Dave Steinberg (@redterror)
+- Roel Gerrits (@roelgerrits)
 
 Based on `chef-kibana` cookbook by:
 

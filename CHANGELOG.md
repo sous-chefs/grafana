@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
+* Allow managing datasources by organizations (@ roelgerrits)
+  [#115](https://github.com/JonathanTron/chef-grafana/pull/115)
 * Fix wrong `state_attrs` in user resource (@redterror)
   [#114](https://github.com/JonathanTron/chef-grafana/pull/114)
 * Reload nginx on template change

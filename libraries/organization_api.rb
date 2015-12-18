@@ -50,6 +50,18 @@ module GrafanaCookbook
       nil
     end
 
+    # Sets the current organization in context of grafana
+    def select_org(organization, grafana_options)
+      grafana_options[:method] = 'Post'
+      grafana_options[:success_msg] = 'Organization selected'
+      grafana_options[:unknown_code_msg] = 'OrganizationApi::select_org unchecked response code: %{code}'
+      grafana_options[:endpoint] = '/api/user/using/' + organization['id'].to_s
+
+      _do_request(grafana_options, organization.to_json)
+    rescue BackendError
+      nil
+    end
+
     def _do_request(grafana_options, payload=nil)
       session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])

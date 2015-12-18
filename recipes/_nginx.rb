@@ -33,7 +33,7 @@ template '/etc/nginx/sites-available/grafana' do
     listen_address: node['grafana']['webserver_listen'],
     listen_port: node['grafana']['webserver_port']
   )
-  notifies :reload, "service[nginx]", :immediately
+  notifies :reload, 'service[nginx]', :immediately
 end
 
 nginx_site 'grafana' do

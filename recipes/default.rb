@@ -76,7 +76,7 @@ ruby_block 'restart grafana immediately after config change' do
   block { g_service.run_action :restart }
   only_if do
     g_default_template.updated_by_last_action? ||
-    g_ini_template.updated_by_last_action?
+      g_ini_template.updated_by_last_action?
   end
 end
 

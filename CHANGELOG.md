@@ -4,7 +4,12 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
-* Allow managing datasources by organizations (@ roelgerrits)
+* Fix README documentation (@obazoud, @ptqa)
+  [#116](https://github.com/JonathanTron/chef-grafana/pull/115)
+  [#117](https://github.com/JonathanTron/chef-grafana/pull/115)
+  [#118](https://github.com/JonathanTron/chef-grafana/pull/115)
+  [#100](https://github.com/JonathanTron/chef-grafana/pull/100)
+* Allow managing datasources by organizations (@roelgerrits)
   [#115](https://github.com/JonathanTron/chef-grafana/pull/115)
 * Fix wrong `state_attrs` in user resource (@redterror)
   [#114](https://github.com/JonathanTron/chef-grafana/pull/114)

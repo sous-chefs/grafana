@@ -258,8 +258,8 @@ More information about creating Grafana organizations via the HTTP API can be fo
 |----------------|:--------:|:-------------------:|-----------------------------------|
 | `host`         | `String` | `'localhost'`       | The host grafana is running on    |
 | `port`         | `Integer`| `3000`              | The port grafana is running on    |
-| `user`         | `String` | `'admin'`           | A grafana user with admin privileges |
-| `password`     | `String` | `'admin'`           | The grafana user's password       |
+| `admin_user`         | `String` | `'admin'`           | A grafana user with admin privileges |
+| `admin_password`     | `String` | `'admin'`           | The grafana user's password       |
 | `organization  | `Hash  ` | `{}`                | A Hash of the values to create the organization. Examples below. |
 | `action`       | `String` | `create_if_missing` | Valid actions are `create`, `update` and `delete`. |
 

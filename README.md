@@ -101,8 +101,8 @@ You can control Grafana dataSources via the `grafana_datasource` LWRP. Due to th
 |----------------|:--------:|:-----------------:|----------------------------------------------------------------|
 | `host`         | `String` | `'localhost'`     | The host grafana is running on                                 |
 | `port`         | `Integer`| `3000`            | The port grafana is running on                                 |
-| `user`         | `String` | `'admin'`         | A grafana user with admin privileges                           |
-| `password`     | `String` | `'admin'`         | The grafana user's password                                    |
+| `admin_user`         | `String` | `'admin'`         | A grafana user with admin privileges                           |
+| `admin_password`     | `String` | `'admin'`         | The grafana user's password                                    |
 | `datasource`   | `Hash  ` | `{}`              | A Hash of the values to create the datasource. Examples below. |
 | `action`       | `String` | `create`          | Valid actions are `create`, `update`, and `delete`.            |
 
@@ -187,8 +187,8 @@ This resource currently makes an assumption that the name used in invocation mat
 |----------------|:--------:|:-------------------:|--------------------------------------------------------------------------------------------------------------------------|
 | `host`         | `String` | `'localhost'`       | The host grafana is running on                                                                                           |
 | `port`         | `Integer`| `3000`              | The port grafana is running on                                                                                           |
-| `user`         | `String` | `'admin'`           | A grafana user with admin privileges                                                                                     |
-| `password`     | `String` | `'admin'`           | The grafana user's password                                                                                              |
+| `admin_user`         | `String` | `'admin'`           | A grafana user with admin privileges                                                                                     |
+| `admin_password`     | `String` | `'admin'`           | The grafana user's password                                                                                              |
 | `dashboard`    | `String` |                     | A Hash of the values to create the dashboard. Examples below.                                                            |
 | `action`       | `String` | `create_if_missing` | Valid actions are `create`, `update`, and `delete`. Create can update the dashbord, be careful (see below for details) ! |
 

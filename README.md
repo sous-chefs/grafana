@@ -190,7 +190,7 @@ This resource currently makes an assumption that the name used in invocation mat
 | `admin_user`     | `String` | `'admin'`           | A grafana user with admin privileges                                                                                     |
 | `admin_password` | `String` | `'admin'`           | The grafana user's password                                                                                              |
 | `dashboard`      | `String` |                     | A Hash of the values to create the dashboard. Examples below.                                                            |
-| `action`         | `String` | `create_if_missing` | Valid actions are `create`, `update`, and `delete`. Create can update the dashbord, be careful (see below for details) ! |
+| `action`         | `String` | `create` | Valid actions are `create`, `update`, and `delete`. Create can update the dashbord, be careful (see below for details) ! |
 
 #### Examples
 Assuming you have a `files/default/simple-dashboard.json`:

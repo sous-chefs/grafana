@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
+* Ensure organization is not required if there's only one (@iksaif)
+  [#120](https://github.com/JonathanTron/chef-grafana/pull/120)
 * Fix README documentation (@obazoud, @ptqa)
   [#116](https://github.com/JonathanTron/chef-grafana/pull/115)
   [#117](https://github.com/JonathanTron/chef-grafana/pull/115)

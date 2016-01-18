@@ -116,7 +116,7 @@ def _legacy_http_semantic
 end
 
 def _check_org!(datasource, orgs)
-  return if orgs.length > 1 || datasource.key?(:organization)
+  return if orgs.length <= 1 || datasource.key?(:organization)
   raise 'More then one organization, so organization is mandatory for a datasource'
 end
 

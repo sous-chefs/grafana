@@ -10,11 +10,7 @@ module GrafanaCookbook
     # +legacy_http_semantic+:: In older grafana versions (<= 2.0.2) http semantic for create/update was reversed
     # +grafana_options+:: This is a hash with the details used to communicate with the Grafana server
     def add_datasource(datasource, legacy_http_semantic, grafana_options)
-      if legacy_http_semantic
-        grafana_options[:method] = 'Put'
-      else
-        grafana_options[:method] = 'Post'
-      end
+      grafana_options[:method] = legacy_http_semantic ? 'Put' : 'Post'
       grafana_options[:success_msg] = 'Datasource addition was successful.'
       grafana_options[:unknown_code_msg] = 'DataSourceAPI::add_datasource unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/datasources'
@@ -79,16 +75,16 @@ module GrafanaCookbook
     def _do_request(grafana_options, payload=nil)
       session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
-      case grafana_options[:method]
-      when 'Post'
-        request = Net::HTTP::Post.new(grafana_options[:endpoint])
-      when 'Put'
-        request = Net::HTTP::Put.new(grafana_options[:endpoint])
-      when 'Delete'
-        request = Net::HTTP::Delete.new(grafana_options[:endpoint])
-      else
-        request = Net::HTTP::Get.new(grafana_options[:endpoint])
-      end
+      request = case grafana_options[:method]
+                when 'Post'
+                  Net::HTTP::Post.new(grafana_options[:endpoint])
+                when 'Put'
+                  Net::HTTP::Put.new(grafana_options[:endpoint])
+                when 'Delete'
+                  Net::HTTP::Delete.new(grafana_options[:endpoint])
+                else
+                  Net::HTTP::Get.new(grafana_options[:endpoint])
+                end
       request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
       request.add_field('Content-Type', 'application/json;charset=utf-8;')
       request.add_field('Accept', 'application/json')

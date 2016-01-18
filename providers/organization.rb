@@ -53,11 +53,11 @@ action :update do
   exists = false
 
   # Check wether we have to update user's login
-  if new_resource.organization[:name] != new_resource.name
-    old_login = new_resource.name
-  else
-    old_login = new_resource.organization[:name]
-  end
+  old_login = if new_resource.organization[:name] != new_resource.name
+                new_resource.name
+              else
+                new_resource.organization[:name]
+              end
 
   orgs.each do |org|
     if org['name'] == old_login

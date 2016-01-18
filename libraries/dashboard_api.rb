@@ -41,11 +41,11 @@ module GrafanaCookbook
       dashboard_source_file = find_dashboard_source_file dashboard_options
       unless dashboard_source_file
         checked_paths = lookup_paths(dashboard_options).join(', ')
-        if dashboard_options[:path]
-          err_msg_prt = "#{dashboard_options[:path]} path"
-        else
-          err_msg_prt = "#{dashboard_options[:source]} resource name or source"
-        end
+        err_msg_prt = if dashboard_options[:path]
+                        "#{dashboard_options[:path]} path"
+                      else
+                        "#{dashboard_options[:source]} resource name or source"
+                      end
         fail "dashboard_sanity failure: #{err_msg_prt} was specified, but no dashboard found (checked: #{checked_paths})"
       end
       dash_json = JSON.parse(File.read(dashboard_source_file))
@@ -70,11 +70,8 @@ module GrafanaCookbook
 
       dash = _do_request(grafana_options)
 
-      if dash['message'] == 'Dashboard not found'
-        return nil
-      else
-        return dash
-      end
+      return if dash['message'] == 'Dashboard not found'
+      dash
     end
 
     private

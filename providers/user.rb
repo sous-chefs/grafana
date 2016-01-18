@@ -60,11 +60,11 @@ action :update do
   exists = false
 
   # Check wether we have to update user's login
-  if new_resource.user[:login] != new_resource.name
-    old_login = new_resource.name
-  else
-    old_login = new_resource.user[:login]
-  end
+  old_login = if new_resource.user[:login] != new_resource.name
+                new_resource.name
+              else
+                new_resource.user[:login]
+              end
 
   # Find wether user already exists
   # If found, update all informations we have to

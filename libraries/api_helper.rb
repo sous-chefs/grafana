@@ -38,14 +38,14 @@ module GrafanaCookbook
     # opts:
     #   :tries - Integer - number of time to retry the block (required)
     #   :exceptions - Exception or Array of Exception - exceptions to catch (required)
-    def with_limited_retry(opts, &block)
+    def with_limited_retry(opts)
       tries = opts.fetch :tries
-      exceptions = Array(opts.fetch :exceptions)
+      exceptions = Array(opts.fetch(:exceptions))
 
       return if tries == 0
 
       begin
-        block.call
+        yield
       rescue *exceptions
         retry if (tries -= 1) > 0
       end

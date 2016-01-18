@@ -59,11 +59,11 @@ action :update do
   exists = false
 
   # Check wether we have to update datasource's login
-  if new_resource.datasource[:name] != new_resource.name
-    old_name = new_resource.name
-  else
-    old_name = new_resource.datasource[:name]
-  end
+  old_name = if new_resource.datasource[:name] != new_resource.name
+               new_resource.name
+             else
+               new_resource.datasource[:name]
+             end
 
   # Find wether datasource already exists
   # If found, update all informations we have to
@@ -134,10 +134,8 @@ def _select_org(new_resource, grafana_options)
   end
 
   # If organization is provided select it
-  if selected_org
-    # Call api to select organization
-    select_org(selected_org, grafana_options)
-  else
+  unless selected_org
     raise "Could not find organization #{new_resource.datasource[:organization]}"
   end
+  select_org(selected_org, grafana_options)
 end

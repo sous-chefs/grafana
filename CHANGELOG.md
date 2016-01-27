@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
+* Add not about new data source value for type when using InfluxDB 0.9.x (@phoenixyz)
+  [#124](https://github.com/JonathanTron/chef-grafana/pull/124)
 * Fix organization check (@iksaif)
   [#122](https://github.com/JonathanTron/chef-grafana/pull/122)
 * Ensure organization is not required if there's only one (@iksaif)

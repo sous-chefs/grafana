@@ -137,6 +137,9 @@ grafana_datasource 'influxdb-test' do
 end
 ```
 
+Based on you version of `Grafana`, value for the `type` key to use `InfluxDB 0.9.x`, need to be
+`'influxdb'` instead of `'influxdb_08'`.
+
 You can update an existing datasource as follows:
 ```ruby
 grafana_datasource 'influxdb-test' do
@@ -416,6 +419,7 @@ Contributors:
 - Dave Steinberg (@redterror)
 - Roel Gerrits (@roelgerrits)
 - Corentin Chary (@iksaif)
+- @phoenixyz
 
 Based on `chef-kibana` cookbook by:
 

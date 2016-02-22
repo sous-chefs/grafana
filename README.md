@@ -420,6 +420,7 @@ Contributors:
 - Roel Gerrits (@roelgerrits)
 - Corentin Chary (@iksaif)
 - @phoenixyz
+- Ioannis Charitopoulos (@jinxcat)
 
 Based on `chef-kibana` cookbook by:
 

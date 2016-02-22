@@ -70,6 +70,7 @@ g_ini_template = template "#{node['grafana']['conf_dir']}/grafana.ini" do
   owner 'root'
   group 'root'
   mode '0644'
+  sensitive true
 end
 
 ruby_block 'restart grafana immediately after config change' do

@@ -36,10 +36,15 @@ action :create do
     converge_by("Creating user #{new_resource.user[:login]}") do
       add_user(new_resource.user, grafana_options)
     end
+    new_users_list = get_user_list(grafana_options)
+    new_users_list.each do |n_user|
+      if n_user['login'] == new_resource.user[:login]
+        new_resource.user[:id] = n_user['id']
+      end
+    end
     converge_by("Setting permissions #{new_resource.user[:login]}") do
       update_user_permissions(new_resource.user, grafana_options)
     end
-
   end
 end
 

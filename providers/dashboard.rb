@@ -1,6 +1,8 @@
 require 'chef/mash'
 
 include GrafanaCookbook::DashboardApi
+include GrafanaCookbook::OrganizationApi
+
 
 use_inline_resources if defined?(use_inline_resources)
 
@@ -20,6 +22,9 @@ action :create do
   unless new_resource.dashboard.key?(:name)
     new_resource.dashboard[:name] = new_resource.name
   end
+
+  _select_org(new_resource, grafana_options)
+
   # If dashboard source is not provided as variable,
   # Let's use resource name for it
   unless new_resource.dashboard.key?(:source)
@@ -57,6 +62,9 @@ action :update do
   unless new_resource.dashboard.key?(:name)
     new_resource.dashboard[:name] = new_resource.name
   end
+
+  _select_org(new_resource, grafana_options)
+
   # If dashboard source is not provided as variable,
   # Let's use resource name for it
   unless new_resource.dashboard.key?(:source)
@@ -92,6 +100,9 @@ action :delete do
   unless new_resource.dashboard.key?(:name)
     new_resource.dashboard[:name] = new_resource.name
   end
+
+  _select_org(new_resource, grafana_options)
+
   # If dashboard source is not provided as variable,
   # Let's use resource name for it
   unless new_resource.dashboard.key?(:source)
@@ -113,4 +124,29 @@ action :delete do
       delete_dashboard(new_resource.dashboard, grafana_options)
     end
   end
+end
+
+def _check_org!(dashboard, orgs)
+  return if orgs.length <= 1 || dashboard.key?(:organization)
+  raise 'More then one organization, so organization is mandatory for a dashboard'
+end
+
+def _select_org(new_resource, grafana_options)
+  # check, if we have multiple orgs, then the org is mandatory
+  orgs = get_orgs_list(grafana_options)
+  _check_org! new_resource.dashboard, orgs
+
+  # don't do anything if an organization is not selected
+  return unless new_resource.dashboard.key?(:organization)
+
+  # Find organization by name
+  selected_org = orgs.detect do |org|
+    org['name'] == new_resource.dashboard[:organization]
+  end
+
+  # If organization is provided select it
+  unless selected_org
+    raise "Could not find organization #{new_resource.dashboard[:organization]}"
+  end
+  select_org(selected_org, grafana_options)
 end

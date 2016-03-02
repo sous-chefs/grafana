@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
+* Fix new user not given the grafana admin options
+  [#127](https://github.com/JonathanTron/chef-grafana/pull/127)
 * Mark `grafana.ini` template as sensitive (@jinxcat)
   [#125](https://github.com/JonathanTron/chef-grafana/pull/125)
 * Add a note about new data source value for type when using InfluxDB 0.9.x (@phoenixyz)

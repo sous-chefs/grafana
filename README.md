@@ -421,6 +421,7 @@ Contributors:
 - Corentin Chary (@iksaif)
 - @phoenixyz
 - Ioannis Charitopoulos (@jinxcat)
+- Joshua Zitting (@joshzitting)
 
 Based on `chef-kibana` cookbook by:
 

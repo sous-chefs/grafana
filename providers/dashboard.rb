@@ -3,7 +3,6 @@ require 'chef/mash'
 include GrafanaCookbook::DashboardApi
 include GrafanaCookbook::OrganizationApi
 
-
 use_inline_resources if defined?(use_inline_resources)
 
 def whyrun_supported?

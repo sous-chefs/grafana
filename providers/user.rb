@@ -1,6 +1,8 @@
 require 'chef/mash'
 
 include GrafanaCookbook::UserApi
+include GrafanaCookbook::OrganizationApi
+
 
 use_inline_resources if defined?(use_inline_resources)
 
@@ -20,6 +22,8 @@ action :create do
   unless new_resource.user.key?(:login)
     new_resource.user[:login] = new_resource.name
   end
+
+  _select_org(new_resource, grafana_options)
 
   users_list = get_user_list(grafana_options)
   exists = false
@@ -46,6 +50,20 @@ action :create do
       update_user_permissions(new_resource.user, grafana_options)
     end
   end
+  # This section will add the user to the organization if organization is passed in
+  ou_exists = false
+
+  org_users = get_org_users(grafana_options)
+
+  org_users.each do |user|
+    ou_exists = true if user['login'] == new_resource.user[:login]
+    break if ou_exists
+  end
+  unless ou_exists
+    converge_by("Updating user organizations #{new_resource.user[:login]}") do
+      add_user_orgs(new_resource.user, grafana_options)
+    end
+  end
 end
 
 action :update do
@@ -61,15 +79,17 @@ action :update do
     new_resource.user[:login] = new_resource.name
   end
 
+  _select_org(new_resource, grafana_options)
+
   users_list = get_user_list(grafana_options)
   exists = false
 
   # Check wether we have to update user's login
   old_login = if new_resource.user[:login] != new_resource.name
-                new_resource.name
-              else
-                new_resource.user[:login]
-              end
+    new_resource.name
+  else
+    new_resource.user[:login]
+  end
 
   # Find wether user already exists
   # If found, update all informations we have to
@@ -91,6 +111,11 @@ action :update do
     end
     break if exists
   end
+  # This section will add the user to the organization if organization is passed in
+  converge_by("Updating user organizations #{new_resource.user[:login]}") do
+    update_user_orgs(new_resource.user, grafana_options)
+  end
+  # end
 end
 
 action :delete do
@@ -105,6 +130,8 @@ action :delete do
   unless new_resource.user.key?(:login)
     new_resource.user[:login] = new_resource.name
   end
+
+  _select_org(new_resource, grafana_options)
 
   users_list = get_user_list(grafana_options)
   exists = false
@@ -122,4 +149,35 @@ action :delete do
     end
     break if exists
   end
+end
+
+
+def _legacy_http_semantic
+  return false if node['grafana']['version'] == 'latest'
+  Gem::Version.new(node['grafana']['version']) < Gem::Version.new('2.0.3')
+end
+
+def _check_org!(user, orgs)
+  return if orgs.length <= 1 || user.key?(:organization)
+  raise 'More then one organization, so organization is mandatory for a user'
+end
+
+def _select_org(new_resource, grafana_options)
+  # check, if we have multiple orgs, then the org is mandatory
+  orgs = get_orgs_list(grafana_options)
+  _check_org! new_resource.user, orgs
+
+  # don't do anything if an organization is not selected
+  return unless new_resource.user.key?(:organization)
+
+  # Find organization by name
+  selected_org = orgs.detect do |org|
+    org['name'] == new_resource.user[:organization]
+  end
+
+  # If organization is provided select it
+  unless selected_org
+    raise "Could not find organization #{new_resource.user[:organization]}"
+  end
+  select_org(selected_org, grafana_options)
 end

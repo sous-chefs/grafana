@@ -25,9 +25,11 @@ action :create do
   exists = false
 
   # Find wether organization already exists
-  orgs.each do |org|
-    exists = true if org['name'] == new_resource.organization[:name]
-    break if exists
+  if orgs.any?
+    orgs.each do |org|
+      exists = true if org['name'] == new_resource.organization[:name]
+      break if exists
+    end
   end
   unless exists
     converge_by("Creating organization #{new_resource.name}") do
@@ -58,16 +60,17 @@ action :update do
               else
                 new_resource.organization[:name]
               end
-
-  orgs.each do |org|
-    if org['name'] == old_login
-      exists = true
-      new_resource.organization[:id] = org['id']
-      converge_by("Updating organization #{new_resource.name}") do
-        update_org(new_resource.organization, grafana_options)
+  if orgs.any?
+    orgs.each do |org|
+      if org['name'] == old_login
+        exists = true
+        new_resource.organization[:id] = org['id']
+        converge_by("Updating organization #{new_resource.name}") do
+          update_org(new_resource.organization, grafana_options)
+        end
       end
+      break if exists
     end
-    break if exists
   end
 end
 

@@ -3,7 +3,6 @@ require 'chef/mash'
 include GrafanaCookbook::UserApi
 include GrafanaCookbook::OrganizationApi
 
-
 use_inline_resources if defined?(use_inline_resources)
 
 def whyrun_supported?
@@ -86,10 +85,10 @@ action :update do
 
   # Check wether we have to update user's login
   old_login = if new_resource.user[:login] != new_resource.name
-    new_resource.name
-  else
-    new_resource.user[:login]
-  end
+                new_resource.name
+              else
+                new_resource.user[:login]
+              end
 
   # Find wether user already exists
   # If found, update all informations we have to
@@ -150,7 +149,6 @@ action :delete do
     break if exists
   end
 end
-
 
 def _legacy_http_semantic
   return false if node['grafana']['version'] == 'latest'

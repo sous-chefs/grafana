@@ -72,17 +72,17 @@ module GrafanaCookbook
       session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
       request = case grafana_options[:method]
-      when 'Post'
-        Net::HTTP::Post.new(grafana_options[:endpoint])
-      when 'Put'
-        Net::HTTP::Put.new(grafana_options[:endpoint])
-      when 'Delete'
-        Net::HTTP::Delete.new(grafana_options[:endpoint])
-      when 'Patch'
-        Net::HTTP::Patch.new(grafana_options[:endpoint])
-      else
-        Net::HTTP::Get.new(grafana_options[:endpoint])
-      end
+                when 'Post'
+                  Net::HTTP::Post.new(grafana_options[:endpoint])
+                when 'Put'
+                  Net::HTTP::Put.new(grafana_options[:endpoint])
+                when 'Delete'
+                  Net::HTTP::Delete.new(grafana_options[:endpoint])
+                when 'Patch'
+                  Net::HTTP::Patch.new(grafana_options[:endpoint])
+                else
+                  Net::HTTP::Get.new(grafana_options[:endpoint])
+                end
       request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
       request.add_field('Content-Type', 'application/json;charset=utf-8;')
       request.add_field('Accept', 'application/json')
@@ -127,6 +127,7 @@ module GrafanaCookbook
     rescue BackendError
       nil
     end
+
     def add_user_orgs(user, grafana_options)
       grafana_options[:method] = 'Post'
       grafana_options[:success_msg] = 'User added to organization'
@@ -134,7 +135,7 @@ module GrafanaCookbook
       grafana_options[:endpoint] = '/api/org/users'
       grafana_options[:accept_header] = 'application/json;charset=utf-8;'
 
-      do_request(grafana_options, { role: user[:organization_role], loginOrEmail: user[:login] }.to_json )
+      do_request(grafana_options, { role: user[:organization_role], loginOrEmail: user[:login] }.to_json)
     rescue BackendError
       nil
     end
@@ -143,7 +144,7 @@ module GrafanaCookbook
       grafana_options[:method] = 'Patch'
       grafana_options[:success_msg] = 'Organization user updated'
       grafana_options[:unknown_code_msg] = 'UserApi::update_user_orgs unchecked response code: %{code}'
-      grafana_options[:endpoint] = '/api/org/users/'+ user[:id].to_s
+      grafana_options[:endpoint] = '/api/org/users/' + user[:id].to_s
       grafana_options[:accept_header] = 'application/json;charset=utf-8;'
 
       do_request(grafana_options, { role: user[:organization_role] }.to_json)

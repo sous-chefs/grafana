@@ -47,7 +47,7 @@ module GrafanaCookbook
 
       _do_request(grafana_options)
     rescue BackendError
-      nil
+      []
     end
 
     # Sets the current organization in context of grafana

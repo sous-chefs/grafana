@@ -45,7 +45,7 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'OrganizationApi::get_orgs_list unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/orgs/'
 
-      _do_request(grafana_options)
+      Array(_do_request(grafana_options))
     rescue BackendError
       []
     end

@@ -68,7 +68,7 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'DashboardApi::delete_dashboard unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/dashboards/db/' + dashboard[:name]
 
-      dash = Array(_do_request(grafana_options))
+      dash = _do_request(grafana_options)
 
       return if dash['message'] == 'Dashboard not found'
       dash

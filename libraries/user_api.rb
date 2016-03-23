@@ -78,6 +78,8 @@ module GrafanaCookbook
                   Net::HTTP::Put.new(grafana_options[:endpoint])
                 when 'Delete'
                   Net::HTTP::Delete.new(grafana_options[:endpoint])
+                when 'Patch'
+                  Net::HTTP::Patch.new(grafana_options[:endpoint])
                 else
                   Net::HTTP::Get.new(grafana_options[:endpoint])
                 end
@@ -110,6 +112,43 @@ module GrafanaCookbook
       grafana_options[:accept_header] = 'application/json'
 
       do_request(grafana_options)
+    rescue BackendError
+      nil
+    end
+
+    def get_org_users(grafana_options)
+      grafana_options[:method] = 'Get'
+      grafana_options[:success_msg] = 'The list of org users has been successfully retrieved.'
+      grafana_options[:unknown_code_msg] = 'UserApi::get_admin_user_list unchecked response code: %{code}'
+      grafana_options[:endpoint] = '/api/org/users/'
+      grafana_options[:accept_header] = 'application/json'
+
+      do_request(grafana_options)
+    rescue BackendError
+      nil
+    end
+
+    def add_user_orgs(user, grafana_options)
+      grafana_options[:method] = 'Post'
+      grafana_options[:success_msg] = 'User added to organization'
+      grafana_options[:unknown_code_msg] = 'UserApi::add_user_orgs unchecked response code: %{code}'
+      grafana_options[:endpoint] = '/api/org/users'
+      grafana_options[:accept_header] = 'application/json;charset=utf-8;'
+
+      do_request(grafana_options, { role: user[:organization_role], loginOrEmail: user[:login] }.to_json)
+    rescue BackendError
+      nil
+    end
+
+    def update_user_orgs(user, grafana_options)
+      grafana_options[:method] = 'Patch'
+      grafana_options[:success_msg] = 'Organization user updated'
+      grafana_options[:unknown_code_msg] = 'UserApi::update_user_orgs unchecked response code: %{code}'
+      grafana_options[:endpoint] = '/api/org/users/' + user[:id].to_s
+      grafana_options[:accept_header] = 'application/json;charset=utf-8;'
+
+      do_request(grafana_options, { role: user[:organization_role] }.to_json)
+
     rescue BackendError
       nil
     end

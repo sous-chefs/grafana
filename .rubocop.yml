@@ -20,10 +20,13 @@ Metrics/MethodLength:
   Max: 30
 
 Metrics/ModuleLength:
-  Max: 120
+  Max: 170
+
+CyclomaticComplexity:
+  Max: 8
 
 Metrics/PerceivedComplexity:
-  Max: 8
+  Max: 9
 
 Style/AsciiComments:
   Enabled: false

@@ -1,6 +1,7 @@
 require 'chef/mash'
 
 include GrafanaCookbook::UserApi
+include GrafanaCookbook::OrganizationApi
 
 use_inline_resources if defined?(use_inline_resources)
 
@@ -45,6 +46,11 @@ action :create do
     converge_by("Setting permissions #{new_resource.user[:login]}") do
       update_user_permissions(new_resource.user, grafana_options)
     end
+    if new_resource.user.key?(:organizations)
+      converge_by("Adding user to organizations #{new_resource.user[:organizations].map { |org| org[:name] }}") do
+        add_user_to_orgs(new_resource.user, grafana_options)
+      end
+    end
   end
 end
 
@@ -83,9 +89,14 @@ action :update do
       converge_by("Updating password for user #{new_resource.user[:login]}") do
         update_user_password(new_resource.user, grafana_options)
       end
-      if new_resource.user[:isAdmin] != user['isAdmin']
+      if new_resource.user[:isAdmin] != user['isAdmin'] && !new_resource.user[:isAdmin].nil?
         converge_by("Updating permissions for user #{new_resource.user[:login]}") do
           update_user_permissions(new_resource.user, grafana_options)
+        end
+      end
+      if new_resource.user.key?(:organizations)
+        converge_by("Updating user organizations #{new_resource.user[:organizations].map { |org| org[:name] }}") do
+          update_user_orgs(new_resource.user, grafana_options)
         end
       end
     end

@@ -423,6 +423,7 @@ Contributors:
 - Ioannis Charitopoulos (@jinxcat)
 - Joshua Zitting (@joshzitting)
 - Angelo San Ramon (@angelosanramon)
+- Dmitry (@cyberflow)
 
 Based on `chef-kibana` cookbook by:
 

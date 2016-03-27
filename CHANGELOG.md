@@ -4,7 +4,9 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
-* Allow to assign user to organization (with role) when adding/updating it
+* Ensure `get_orgs_list` always returns an Array (@cyberflow)
+  [#135](https://github.com/JonathanTron/chef-grafana/pull/135)
+* Allow to assign user to organization (with role) when adding/updating it (@angelosanramon)
   [#136](https://github.com/JonathanTron/chef-grafana/pull/136)
 * Fix new user not given the grafana admin options
   [#127](https://github.com/JonathanTron/chef-grafana/pull/127)

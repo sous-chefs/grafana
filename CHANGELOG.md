@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
+* Allow to assign user to organization (with role) when adding/updating it
+  [#136](https://github.com/JonathanTron/chef-grafana/pull/136)
 * Fix new user not given the grafana admin options
   [#127](https://github.com/JonathanTron/chef-grafana/pull/127)
 * Mark `grafana.ini` template as sensitive (@jinxcat)

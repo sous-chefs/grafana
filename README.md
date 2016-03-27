@@ -422,6 +422,7 @@ Contributors:
 - @phoenixyz
 - Ioannis Charitopoulos (@jinxcat)
 - Joshua Zitting (@joshzitting)
+- Angelo San Ramon (@angelosanramon)
 
 Based on `chef-kibana` cookbook by:
 

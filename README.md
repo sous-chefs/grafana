@@ -62,10 +62,17 @@ See attributes/default.rb file for more details and examples.
 
 #### grafana::nginx
 
-| Attribute                                       | Default                    | Description                       |
-|-------------------------------------------------|:--------------------------:|-----------------------------------|
-| `node['grafana']['nginx']['template']`          | `'grafana-nginx.conf.erb'` | The template file to use for the nginx site configuration |
-| `node['grafana']['nginx']['template_cookbook']` | `'grafana'`                | The cookbook containing said template |
+| Attribute                                       | Default                     | Description                       |
+|-------------------------------------------------|:---------------------------:|-----------------------------------|
+| `node['grafana']['nginx']['template']`          | `'grafana-nginx.conf.erb'`  | The template file to use for the nginx site configuration |
+| `node['grafana']['nginx']['template_cookbook']` | `'grafana'`                 | The cookbook containing said template |
+| `node['grafana']['nginx']['basic_auth']`        | `false`                     | If `true` generated nginx config will have basic auth configured |
+| `node['grafana']['nginx']['httpasswd_file']`    | `/etc/nginx/htpasswd.users` | The basic auth user/password file to use |
+
+**NOTE**
+
+This cookbook does nothing to generate the basic auth user/password file,
+you will have to make sur this file is created and is valid.
 
 Usage
 -----

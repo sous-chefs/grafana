@@ -14,6 +14,11 @@ server {
   access_log            /var/log/nginx/<%= @server_name %>.access.log;
 
   location / {
+    <% if node['grafana']['nginx']['auth_basic'] %>
+    auth_basic            'Restricted';
+    auth_basic_user_file  <%= node['grafana']['nginx']['httpasswd_file'] %>;
+    proxy_set_header X-WEBAUTH-USER $remote_user;
+    <% end %>
     proxy_pass http://grafana;
   }
 }

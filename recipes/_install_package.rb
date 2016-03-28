@@ -30,7 +30,6 @@ when 'debian'
   end
   package 'grafana' do
     version node['grafana']['package']['version']
-    provider Chef::Provider::Package::Dpkg
     options node['grafana']['deb']['options'] if node['grafana']['deb']['options']
   end
 when 'rhel'

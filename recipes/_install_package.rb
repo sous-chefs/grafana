@@ -30,7 +30,7 @@ when 'debian'
   end
   package 'grafana' do
     version node['grafana']['package']['version']
-    options node['grafana']['deb']['options'] if node['grafana']['deb']['options']
+    options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
   end
 when 'rhel'
   yum_repository 'grafana' do

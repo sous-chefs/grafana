@@ -28,6 +28,10 @@ when 'debian'
     key node['grafana']['package']['key']
     cache_rebuild node['grafana']['package']['apt_rebuild']
   end
+  package 'grafana' do
+    version node['grafana']['package']['version']
+    options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
+  end
 when 'rhel'
   yum_repository 'grafana' do
     description 'Grafana Stable Repo'
@@ -35,8 +39,7 @@ when 'rhel'
     gpgkey node['grafana']['package']['key']
     action :create
   end
-end
-
-package 'grafana' do
-  version node['grafana']['package']['version']
+  package 'grafana' do
+    version node['grafana']['package']['version']
+  end
 end

@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
+* Pass correct options to package install (@nilroy)
+  [#137](https://github.com/JonathanTron/chef-grafana/pull/137)
 * Add nginx basic auth configuration (@cyberflow)
   [#133](https://github.com/JonathanTron/chef-grafana/pull/133)
 * Ensure `get_orgs_list` always returns an Array (@cyberflow)

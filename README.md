@@ -431,6 +431,7 @@ Contributors:
 - Joshua Zitting (@joshzitting)
 - Angelo San Ramon (@angelosanramon)
 - Dmitry (@cyberflow)
+- Nilanjan Roy (@nilroy)
 
 Based on `chef-kibana` cookbook by:
 

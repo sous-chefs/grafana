@@ -40,6 +40,7 @@ default['grafana']['group'] = 'grafana'
 default['grafana']['home'] = '/usr/share/grafana'
 default['grafana']['data_dir'] = '/var/lib/grafana'
 default['grafana']['log_dir'] = '/var/log/grafana'
+default['grafana']['plugin_dir'] = '/var/lib/grafana/plugins'
 case node['platform_family']
 when 'debian'
   default['grafana']['env_dir'] = '/etc/default'

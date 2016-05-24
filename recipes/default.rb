@@ -62,6 +62,8 @@ ini = node['grafana']['ini'].dup
 ini['paths'] ||= {}
 ini['paths']['data'] = node['grafana']['data_dir']
 ini['paths']['logs'] = node['grafana']['log_dir']
+ini['paths']['plugins'] = node['grafana']['plugin_dir']
+
 
 template "#{node['grafana']['conf_dir']}/grafana.ini" do
   source 'grafana.ini.erb'

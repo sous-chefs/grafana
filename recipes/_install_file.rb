@@ -50,8 +50,12 @@ when 'rhel'
 
   grafana_installed = "yum list installed | grep grafana | grep #{node['grafana']['version']}"
 
+  # NOTE: after v3.0.1 the rpm pkg names no longer only contain a "-1" but a build
+  # number like this: "grafana-3.0.2-1463043100.x86_64.rpm"
+  release = node['grafana']['version'] <= '3.0.1' ? '-1' : ''
+
   remote_file "#{Chef::Config[:file_cache_path]}/grafana-#{node['grafana']['version']}.rpm" do
-    source "#{node['grafana']['file']['url']}-#{node['grafana']['version']}-1.x86_64.rpm"
+    source "#{node['grafana']['file']['url']}-#{node['grafana']['version']}#{release}.x86_64.rpm"
     checksum node['grafana']['file']['checksum']['rpm']
     action :create
     not_if grafana_installed

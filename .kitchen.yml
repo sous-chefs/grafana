@@ -102,6 +102,20 @@ suites:
         ini:
           server:
             http_port: 3015
+  - name: plugins
+    run_list:
+      - recipe[grafana::default]
+      - recipe[grafana::plugins]
+    attributes:
+      grafana:
+        install_type: package
+        ini:
+          server:
+            http_port: 3015
+        package:
+          version : 3.0.3-1463994644
+        plugins:
+         - grafana-clock-panel
   # - name: source
   #   run_list:
   #     - recipe[grafana::default]

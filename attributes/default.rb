@@ -105,3 +105,7 @@ default['grafana']['webserver_hostname'] = node.name
 default['grafana']['webserver_aliases'] = [node['ipaddress']]
 default['grafana']['webserver_listen'] = node['ipaddress']
 default['grafana']['webserver_port'] = 80
+
+# Plugins
+default['grafana']['cli_bin'] = '/usr/sbin/grafana-cli'
+default['grafana']['plugins'] = []

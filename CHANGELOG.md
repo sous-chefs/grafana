@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
+* Add optional support for unsigned Grafana package repos (@jhenry82)
+  [#146](https://github.com/JonathanTron/chef-grafana/pull/146)
 * Pass correct options to package install (@nilroy)
   [#137](https://github.com/JonathanTron/chef-grafana/pull/137)
 * Add nginx basic auth configuration (@cyberflow)

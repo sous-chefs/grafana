@@ -27,6 +27,7 @@ when 'debian'
     components node['grafana']['package']['components']
     key node['grafana']['package']['key']
     cache_rebuild node['grafana']['package']['apt_rebuild']
+    trusted node['grafana']['package']['trusted']
   end
   package 'grafana' do
     version node['grafana']['package']['version']
@@ -37,6 +38,7 @@ when 'rhel'
     description 'Grafana Stable Repo'
     baseurl node['grafana']['package']['repo']
     gpgkey node['grafana']['package']['key']
+    gpgcheck node['grafana']['package']['checkkey']
     action :create
   end
   package 'grafana' do

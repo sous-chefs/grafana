@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe 'nginx'
+include_recipe 'chef_nginx'
 
 template '/etc/nginx/sites-available/grafana' do
   source node['grafana']['nginx']['template']

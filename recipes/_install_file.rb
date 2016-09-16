@@ -29,7 +29,7 @@ when 'debian'
   grafana_installed = "dpkg -l | grep '^ii' | grep grafana | grep #{node['grafana']['version']}"
 
   remote_file "#{Chef::Config[:file_cache_path]}/grafana-#{node['grafana']['version']}.deb" do
-    source "#{node['grafana']['file']['url']}_#{node['grafana']['version']}_amd64.deb"
+    source "#{node['grafana']['file']['url']}_#{node['grafana']['version']}#{node['grafana']['release_id']}_amd64.deb"
     checksum node['grafana']['file']['checksum']['deb']
     action :create
     not_if grafana_installed
@@ -51,7 +51,7 @@ when 'rhel'
   grafana_installed = "yum list installed | grep grafana | grep #{node['grafana']['version']}"
 
   remote_file "#{Chef::Config[:file_cache_path]}/grafana-#{node['grafana']['version']}.rpm" do
-    source "#{node['grafana']['file']['url']}-#{node['grafana']['version']}-1.x86_64.rpm"
+    source "#{node['grafana']['file']['url']}-#{node['grafana']['version']}#{node['grafana']['release_id']}.x86_64.rpm"
     checksum node['grafana']['file']['checksum']['rpm']
     action :create
     not_if grafana_installed

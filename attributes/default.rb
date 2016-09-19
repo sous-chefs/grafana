@@ -17,7 +17,7 @@
 
 default['grafana']['manage_install'] = true
 default['grafana']['install_type'] = 'file' # file | package | source
-default['grafana']['version'] = '2.1.2'
+default['grafana']['version'] = '3.1.1-1470047149'
 
 default['grafana']['file']['url'] = 'https://grafanarel.s3.amazonaws.com/builds/grafana'
 default['grafana']['file']['checksum']['deb'] = '57f52cc8e510f395f7f15caac841dc31e67527072fcbf5cc2d8351404989b298'

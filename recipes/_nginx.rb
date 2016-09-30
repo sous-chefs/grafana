@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe 'nginx'
+include_recipe 'chef_nginx'
 
 template '/etc/nginx/sites-available/grafana' do
   source node['grafana']['nginx']['template']
@@ -36,6 +36,4 @@ template '/etc/nginx/sites-available/grafana' do
   notifies :reload, 'service[nginx]', :immediately
 end
 
-nginx_site 'grafana' do
-  template false
-end
+nginx_site 'grafana'

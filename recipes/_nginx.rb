@@ -37,5 +37,3 @@ template '/etc/nginx/sites-available/grafana' do
 end
 
 nginx_site 'grafana' do
-  template false
-end

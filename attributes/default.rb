@@ -30,7 +30,7 @@ when 'debian'
   default['grafana']['package']['components'] = ['main']
   default['grafana']['package']['key'] = 'https://packagecloud.io/gpg.key'
   default['grafana']['package']['version'] = node['grafana']['version']
-  default['grafana']['package']['apt_rebuild'] = false
+  default['grafana']['package']['apt_rebuild'] = true
   default['grafana']['package']['trusted'] = false
 when 'rhel', 'fedora'
   default['grafana']['package']['repo'] = 'https://packagecloud.io/grafana/stable/el/$releasever/$basearch'

@@ -434,6 +434,7 @@ Contributors:
 - Dmitry (@cyberflow)
 - Nilanjan Roy (@nilroy)
 - Jon Henry (@jhenry82)
+- akadoya (@akadoya)
 
 Based on `chef-kibana` cookbook by:
 

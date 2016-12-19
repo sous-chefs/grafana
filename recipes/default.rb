@@ -37,6 +37,13 @@ directory node['grafana']['data_dir'] do
   action :create
 end
 
+directory node['grafana']['plugins_dir'] do
+  owner node['grafana']['user']
+  group node['grafana']['group']
+  mode '0755'
+  action :create
+end
+
 directory node['grafana']['log_dir'] do
   owner node['grafana']['user']
   group node['grafana']['group']
@@ -52,7 +59,8 @@ g_default_template = template '/etc/default/grafana-server' do
     grafana_home: node['grafana']['home'],
     log_dir: node['grafana']['log_dir'],
     data_dir: node['grafana']['data_dir'],
-    conf_dir: node['grafana']['conf_dir']
+    conf_dir: node['grafana']['conf_dir'],
+    plugins_dir: node['grafana']['plugins_dir']
   )
   owner 'root'
   group 'root'
@@ -63,6 +71,7 @@ ini = node['grafana']['ini'].dup
 ini['paths'] ||= {}
 ini['paths']['data'] = node['grafana']['data_dir']
 ini['paths']['logs'] = node['grafana']['log_dir']
+ini['paths']['plugins'] = node['grafana']['plugins_dir']
 
 g_ini_template = template "#{node['grafana']['conf_dir']}/grafana.ini" do
   source 'grafana.ini.erb'

@@ -30,7 +30,7 @@ when 'debian'
   default['grafana']['package']['components'] = ['main']
   default['grafana']['package']['key'] = 'https://packagecloud.io/gpg.key'
   default['grafana']['package']['version'] = node['grafana']['version']
-  default['grafana']['package']['apt_rebuild'] = false
+  default['grafana']['package']['apt_rebuild'] = true
   default['grafana']['package']['trusted'] = false
 when 'rhel', 'fedora'
   default['grafana']['file']['release_id'] = '-1'
@@ -45,6 +45,7 @@ default['grafana']['group'] = 'grafana'
 default['grafana']['home'] = '/usr/share/grafana'
 default['grafana']['data_dir'] = '/var/lib/grafana'
 default['grafana']['log_dir'] = '/var/log/grafana'
+default['grafana']['plugins_dir'] = '/var/lib/grafana/plugins'
 case node['platform_family']
 when 'debian'
   default['grafana']['env_dir'] = '/etc/default'

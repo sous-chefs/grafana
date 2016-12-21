@@ -4,6 +4,14 @@ This file is used to list changes made in each version of grafana.
 
 ## 2.x dev:
 
+* Add plugins directory configuration
+  [#154](https://github.com/JonathanTron/chef-grafana/issues/154)
+* Fix typo in organization resource
+  [#156](https://github.com/JonathanTron/chef-grafana/issues/156)
+* Add wait (2s) between retry on connection error
+  [#157](https://github.com/JonathanTron/chef-grafana/issues/157)
+* Replace dependency on `nginx` by the new `chef_nginx` cookbook (@akadoya)
+  [#153](https://github.com/JonathanTron/chef-grafana/pull/153)
 * Add optional support for unsigned Grafana package repos (@jhenry82)
   [#146](https://github.com/JonathanTron/chef-grafana/pull/146)
 * Pass correct options to package install (@nilroy)

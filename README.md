@@ -33,6 +33,7 @@ As with most cookbooks, this one is hopefully flexible enough to be wrapped by a
 | `node['grafana']['home']`                    | `'/usr/share/grafana'`                 | The value set to GRAFANA_HOME |
 | `node['grafana']['data_dir']`                | `'/var/lib/grafana'`                   | The path grafana can use to store temp files, sessions, and the sqlite3 db |
 | `node['grafana']['log_dir']`                 | `'/var/log/grafana'`                   | Grafana's log directory |
+| `node['grafana']['plugins_dir']`             | `'/var/lib/grafana/plugins'`           | Grafana's plugins directory |
 | `node['grafana']['env_dir']`                 | `'/etc/default'` or `'/etc/sysconfig'` | The location for environment variables - autoconfigured for rhel and debian systems |
 | `node['grafana']['conf_dir']`                | `'/etc/grafana'`                       | The location to store the `grafana.ini` file |
 | `node['grafana']['webserver']`               | `'nginx'`                              | Which webserver to use: `'nginx'` or `''` |
@@ -433,6 +434,7 @@ Contributors:
 - Dmitry (@cyberflow)
 - Nilanjan Roy (@nilroy)
 - Jon Henry (@jhenry82)
+- akadoya (@akadoya)
 
 Based on `chef-kibana` cookbook by:
 

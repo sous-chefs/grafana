@@ -68,39 +68,6 @@ module GrafanaCookbook
       nil
     end
 
-    def do_request(grafana_options, payload=nil)
-      session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
-      http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
-      request = case grafana_options[:method]
-                when 'Post'
-                  Net::HTTP::Post.new(grafana_options[:endpoint])
-                when 'Put'
-                  Net::HTTP::Put.new(grafana_options[:endpoint])
-                when 'Delete'
-                  Net::HTTP::Delete.new(grafana_options[:endpoint])
-                else
-                  Net::HTTP::Get.new(grafana_options[:endpoint])
-                end
-      request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
-      request.add_field('Content-Type', 'application/json;charset=utf-8;')
-      request.add_field('Accept', 'application/json')
-      request.body = payload if payload
-
-      response = with_limited_retry tries: 10, exceptions: Errno::ECONNREFUSED do
-        http.request(request)
-      end
-
-      handle_response(
-        request,
-        response,
-        success: grafana_options[:success_msg],
-        unknown_code: grafana_options[:unknown_code_msg]
-      )
-      JSON.parse(response.body)
-    rescue BackendError
-      nil
-    end
-
     # curl -G --cookie "grafana_user=admin; grafana_sess=5eca2376d310627f;" http://localhost:3000/api/users
     def get_user_list(grafana_options)
       grafana_options[:method] = 'Get'

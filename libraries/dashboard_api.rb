@@ -16,7 +16,7 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'DashboardApi::create_dashboard unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/dashboards/db'
 
-      _do_request(grafana_options, dashboard_options.to_json)
+      do_request(grafana_options, dashboard_options.to_json)
     rescue BackendError
       nil
     end
@@ -28,7 +28,7 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'DashboardApi::delete_dashboard unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/dashboards/db/' + dashboard[:name]
 
-      _do_request(grafana_options)
+      do_request(grafana_options)
     rescue BackendError
       nil
     end
@@ -68,46 +68,13 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'DashboardApi::delete_dashboard unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/dashboards/db/' + dashboard[:name]
 
-      dash = _do_request(grafana_options)
+      dash = do_request(grafana_options)
 
       return if dash['message'] == 'Dashboard not found'
       dash
     end
 
     private
-
-    def _do_request(grafana_options, payload=nil)
-      session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
-      http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
-      request = case grafana_options[:method]
-                when 'Post'
-                  Net::HTTP::Post.new(grafana_options[:endpoint])
-                when 'Put'
-                  Net::HTTP::Put.new(grafana_options[:endpoint])
-                when 'Delete'
-                  Net::HTTP::Delete.new(grafana_options[:endpoint])
-                else
-                  Net::HTTP::Get.new(grafana_options[:endpoint])
-                end
-      request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
-      request.add_field('Content-Type', 'application/json;charset=utf-8;')
-      request.add_field('Accept', 'application/json')
-      request.body = payload if payload
-
-      response = with_limited_retry tries: 10, exceptions: Errno::ECONNREFUSED do
-        http.request(request)
-      end
-
-      handle_response(
-        request,
-        response,
-        success: grafana_options[:success_msg],
-        unknown_code: grafana_options[:unknown_code_msg]
-      )
-      JSON.parse(response.body)
-    rescue BackendError
-      nil
-    end
 
     def lookup_paths(dashboard_options)
       if dashboard_options[:path]

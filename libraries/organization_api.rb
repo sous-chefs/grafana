@@ -28,7 +28,7 @@ module GrafanaCookbook
 
       user_role = user[:organizations].detect { |user_org| user_org[:name] == organization['name'] }[:role]
       payload = { 'role' => user_role, 'loginOrEmail' => user[:login] }
-      _do_request(grafana_options, payload.to_json)
+      do_request(grafana_options, payload.to_json)
     rescue BackendError
       nil
     end
@@ -81,7 +81,7 @@ module GrafanaCookbook
       grafana_options[:accept_header] = 'application/json;charset=utf-8;'
 
       payload = { 'role' => role }
-      _do_request(grafana_options, payload.to_json)
+      do_request(grafana_options, payload.to_json)
     rescue BackendError
       nil
     end
@@ -93,7 +93,7 @@ module GrafanaCookbook
       grafana_options[:endpoint] = '/api/org/users/' + user[:id].to_s
       grafana_options[:accept_header] = 'application/json;charset=utf-8;'
 
-      _do_request(grafana_options)
+      do_request(grafana_options)
     rescue BackendError
       nil
     end
@@ -105,7 +105,7 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'OrganizationApi::add_org unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/orgs'
 
-      _do_request(grafana_options, organization.to_json)
+      do_request(grafana_options, organization.to_json)
     rescue BackendError
       nil
     end
@@ -117,7 +117,7 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'OrganizationApi::update_org unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/orgs/' + organization[:id].to_s
 
-      _do_request(grafana_options, organization.to_json)
+      do_request(grafana_options, organization.to_json)
     rescue BackendError
       nil
     end
@@ -129,7 +129,7 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'OrganizationApi::delete_org unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/orgs/' + organization[:id].to_s
 
-      _do_request(grafana_options)
+      do_request(grafana_options)
     rescue BackendError
       nil
     end
@@ -141,7 +141,7 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'OrganizationApi::get_orgs_list unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/orgs/'
 
-      Array(_do_request(grafana_options))
+      Array(do_request(grafana_options))
     rescue BackendError
       []
     end
@@ -152,7 +152,7 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'OrganizationApi::get_org_users unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/org/users'
 
-      _do_request(grafana_options)
+      do_request(grafana_options)
     rescue BackendError
       []
     end
@@ -164,44 +164,10 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'OrganizationApi::select_org unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/user/using/' + organization['id'].to_s
 
-      _do_request(grafana_options, organization.to_json)
+      do_request(grafana_options, organization.to_json)
     rescue BackendError
       nil
     end
 
-    def _do_request(grafana_options, payload=nil)
-      session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
-      http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
-      request = case grafana_options[:method]
-                when 'Post'
-                  Net::HTTP::Post.new(grafana_options[:endpoint])
-                when 'Put'
-                  Net::HTTP::Put.new(grafana_options[:endpoint])
-                when 'Delete'
-                  Net::HTTP::Delete.new(grafana_options[:endpoint])
-                when 'Patch'
-                  Net::HTTP::Patch.new(grafana_options[:endpoint])
-                else
-                  Net::HTTP::Get.new(grafana_options[:endpoint])
-                end
-      request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
-      request.add_field('Content-Type', 'application/json;charset=utf-8;')
-      request.add_field('Accept', 'application/json')
-      request.body = payload if payload
-
-      response = with_limited_retry tries: 10, exceptions: Errno::ECONNREFUSED do
-        http.request(request)
-      end
-
-      handle_response(
-        request,
-        response,
-        success: grafana_options[:success_msg],
-        unknown_code: grafana_options[:unknown_code_msg]
-      )
-      JSON.parse(response.body)
-    rescue BackendError
-      nil
-    end
   end
 end

@@ -15,7 +15,7 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'DataSourceAPI::add_datasource unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/datasources'
 
-      _do_request(grafana_options, datasource.to_json)
+      do_request(grafana_options, datasource.to_json)
     rescue BackendError
       nil
     end
@@ -36,7 +36,7 @@ module GrafanaCookbook
       grafana_options[:success_msg] = 'Datasource update was successful.'
       grafana_options[:unknown_code_msg] = 'DataSourceAPI::update_datasource unchecked response code: %{code}'
 
-      _do_request(grafana_options, datasource.to_json)
+      do_request(grafana_options, datasource.to_json)
     rescue BackendError
       nil
     end
@@ -51,7 +51,7 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'DataSourceAPI::delete_datasource unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/datasources/' + datasource[:id].to_s
 
-      _do_request(grafana_options)
+      do_request(grafana_options)
     rescue BackendError
       nil
     end
@@ -66,43 +66,7 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'Error retrieving list of datasources.'
       grafana_options[:endpoint] = '/api/datasources/'
 
-      Array(_do_request(grafana_options))
-    end
-
-    # Generic method to build, perform and handle response of any API requests
-    # Params:
-    # +grafana_options+:: A hash of the host, port, user, and password as well as request parameters
-    def _do_request(grafana_options, payload=nil)
-      session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
-      http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
-      request = case grafana_options[:method]
-                when 'Post'
-                  Net::HTTP::Post.new(grafana_options[:endpoint])
-                when 'Put'
-                  Net::HTTP::Put.new(grafana_options[:endpoint])
-                when 'Delete'
-                  Net::HTTP::Delete.new(grafana_options[:endpoint])
-                else
-                  Net::HTTP::Get.new(grafana_options[:endpoint])
-                end
-      request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
-      request.add_field('Content-Type', 'application/json;charset=utf-8;')
-      request.add_field('Accept', 'application/json')
-      request.body = payload if payload
-
-      response = with_limited_retry tries: 10, exceptions: Errno::ECONNREFUSED do
-        http.request(request)
-      end
-
-      handle_response(
-        request,
-        response,
-        success: grafana_options[:success_msg],
-        unknown_code: grafana_options[:unknown_code_msg]
-      )
-      JSON.parse(response.body)
-    rescue BackendError
-      nil
+      Array(do_request(grafana_options))
     end
   end
 end

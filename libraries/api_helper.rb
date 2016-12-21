@@ -37,9 +37,11 @@ module GrafanaCookbook
     # Retry limited number of time a block catching only specific exceptions
     # opts:
     #   :tries - Integer - number of time to retry the block (required)
+    #   :wait_time - Integer - time to wait before next retry in seconds (default: 2s)
     #   :exceptions - Exception or Array of Exception - exceptions to catch (required)
     def with_limited_retry(opts)
       tries = opts.fetch :tries
+      wait_time = opts.fetch :wait_time, 2
       exceptions = Array(opts.fetch(:exceptions))
 
       return if tries == 0
@@ -47,8 +49,47 @@ module GrafanaCookbook
       begin
         yield
       rescue *exceptions
-        retry if (tries -= 1) > 0
+        if (tries -= 1) > 0
+          sleep wait_time
+          retry
+        end
       end
+    end
+
+    # Generic method to build, perform and handle response of any API requests
+    # Params:
+    # +grafana_options+:: A hash of the host, port, user, and password as well as request parameters
+    def do_request(grafana_options, payload=nil)
+      session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
+      http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
+      request = case grafana_options[:method]
+                when 'Post'
+                  Net::HTTP::Post.new(grafana_options[:endpoint])
+                when 'Put'
+                  Net::HTTP::Put.new(grafana_options[:endpoint])
+                when 'Delete'
+                  Net::HTTP::Delete.new(grafana_options[:endpoint])
+                else
+                  Net::HTTP::Get.new(grafana_options[:endpoint])
+                end
+      request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
+      request.add_field('Content-Type', 'application/json;charset=utf-8;')
+      request.add_field('Accept', 'application/json')
+      request.body = payload if payload
+
+      response = with_limited_retry tries: 10, exceptions: Errno::ECONNREFUSED do
+        http.request(request)
+      end
+
+      handle_response(
+        request,
+        response,
+        success: grafana_options[:success_msg],
+        unknown_code: grafana_options[:unknown_code_msg]
+      )
+      JSON.parse(response.body)
+    rescue BackendError
+      nil
     end
 
     # Log the right thing when

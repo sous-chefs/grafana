@@ -33,6 +33,10 @@ when 'debian'
     version node['grafana']['package']['version']
     options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
   end
+  package 'grafana' do
+    version node['grafana']['package']['version']
+    options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
+  end
 when 'rhel'
   yum_repository 'grafana' do
     description 'Grafana Stable Repo'

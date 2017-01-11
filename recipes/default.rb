@@ -67,11 +67,17 @@ g_default_template = template '/etc/default/grafana-server' do
   mode '0644'
 end
 
-ini = node['grafana']['ini'].dup
+ini = node['grafana']['ini'].to_hash
 ini['paths'] ||= {}
 ini['paths']['data'] = node['grafana']['data_dir']
 ini['paths']['logs'] = node['grafana']['log_dir']
 ini['paths']['plugins'] = node['grafana']['plugins_dir']
+
+if node['grafana'].key?('database_databag')
+  databag_info = node['grafana']['database_databag']
+  bag = Chef::EncryptedDataBagItem.load(databag_info['databag_name'], databag_info['databag_key'])
+  ini['database']['password'] = bag[ini['database']['user']]
+end
 
 g_ini_template = template "#{node['grafana']['conf_dir']}/grafana.ini" do
   source 'grafana.ini.erb'

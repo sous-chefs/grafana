@@ -14,4 +14,5 @@ recipe 'grafana::default', 'Installs and configures Grafana with a web server pr
 
 depends 'apt'
 depends 'yum'
-depends 'chef_nginx'
+depends 'nginx', '>2.0.0'
+depends 'ohai', '=3.0.2'

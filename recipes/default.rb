@@ -61,6 +61,7 @@ g_default_template = template '/etc/default/grafana-server' do
     data_dir: node['grafana']['data_dir'],
     conf_dir: node['grafana']['conf_dir'],
     plugins_dir: node['grafana']['plugins_dir']
+    restart_on_upgrade: node['grafana']['restart_on_upgrade']
   )
   owner 'root'
   group 'root'

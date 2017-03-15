@@ -36,6 +36,7 @@ As with most cookbooks, this one is hopefully flexible enough to be wrapped by a
 | `node['grafana']['plugins_dir']`             | `'/var/lib/grafana/plugins'`           | Grafana's plugins directory |
 | `node['grafana']['env_dir']`                 | `'/etc/default'` or `'/etc/sysconfig'` | The location for environment variables - autoconfigured for rhel and debian systems |
 | `node['grafana']['conf_dir']`                | `'/etc/grafana'`                       | The location to store the `grafana.ini` file |
+| `node['grafana']['restart_on_upgrade']`      | `false`                                | Whether or not to restart the service on upgrade when installing form packages |
 | `node['grafana']['webserver']`               | `'nginx'`                              | Which webserver to use: `'nginx'` or `''` |
 | `node['grafana']['webserver_hostname']`      | `node.name`                            | The server_name used in the webserver config |
 | `node['grafana']['webserver_aliases']`       | `[node['ipaddress']]`                  | Array of any secondary hostnames that are valid vhosts |

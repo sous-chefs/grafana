@@ -52,6 +52,7 @@ when 'rhel', 'fedora'
   default['grafana']['env_dir'] = '/etc/sysconfig'
 end
 default['grafana']['conf_dir'] = '/etc/grafana'
+default['grafana']['restart_on_upgrade'] = false
 
 ## ini file configuration
 # format is the following [section][key] = value

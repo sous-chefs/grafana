@@ -46,7 +46,7 @@ template ::File.join(node['grafana']['env_dir'], 'grafana-server') do
     conf_dir: node['grafana']['conf_dir'],
     plugins_dir: node['grafana']['plugins_dir'],
     pid_dir: node['grafana']['pid_dir']
-  )
+    restart_on_upgrade: node['grafana']['restart_on_upgrade']
   mode '0644'
   notifies :restart, 'service[grafana-server]'
 end

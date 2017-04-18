@@ -168,6 +168,5 @@ module GrafanaCookbook
     rescue BackendError
       nil
     end
-
   end
 end

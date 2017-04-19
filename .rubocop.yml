@@ -52,5 +52,8 @@ Style/SignalException:
 Style/FormatString:
   Enabled: false
 
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
 RegexpLiteral:
   Enabled: false

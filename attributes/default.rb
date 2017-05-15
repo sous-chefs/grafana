@@ -110,3 +110,4 @@ default['grafana']['webserver_port'] = 80
 # Plugins
 default['grafana']['cli_bin'] = '/usr/sbin/grafana-cli'
 default['grafana']['plugins'] = []
+default['grafana']['plugins_action'] = :install

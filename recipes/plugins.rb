@@ -19,7 +19,7 @@
 
 node['grafana']['plugins'].each do |p|
   grafana_plugin p do
-    action :install
+    action node['grafana']['plugins_action']
     grafana_cli_bin node['grafana']['cli_bin']
   end
 end

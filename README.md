@@ -44,6 +44,7 @@ As with most cookbooks, this one is hopefully flexible enough to be wrapped by a
 | `node['grafana']['webserver_port']`          | `80`                                   | The port the webserver will listen on |
 | `node['grafana']['cli_bin']`                 | `/usr/sbin/grafana-cli`                | The path to the grafana-cli binary |
 | `node['grafana']['plugins']`                 | `empty`                                | Array of plugins to install |
+| `node['grafana']['plugins_action']`          | `:install`                             | Action to run on the array of plugins (:install, :upgrade, ..) |
 
 ##### grafana.ini
 For the ini configuration file, parameters can be specified as this: `node['grafana']['ini'][SECTION_NAME][KEY] = [VALUE]`. Here's an example:
@@ -102,7 +103,7 @@ If you would like to modify the `nginx` parameters, you should:
 - use the appropriate webserver template attributes to point to your cookbook and template
 
 #### grafana::plugins
-This recipe will install the plugins given with the `node['grafana']['plugins']` attribute
+This recipe will install or upgrade the plugins given with the `node['grafana']['plugins']` attribute
 
 It will use the grafana_plugin LWRP described in the section below.
 

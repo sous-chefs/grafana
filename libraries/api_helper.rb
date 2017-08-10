@@ -28,8 +28,10 @@ module GrafanaCookbook
         unknown_code: 'DataSourceAPI::login unchecked response code: %{code}'
       )
 
-      # sorry for the fancy hackery - rubists are welcome to make this better
-      response['set-cookie'][/grafana_sess=(\w+);/, 1]
+      # Use the last grafana_sess cookie sent.
+      # Grafana v4.4.3 has a bug where it sends two cookies named grafana_sess, and only the last one is valid.
+      # https://github.com/grafana/grafana/issues/9013
+      response['set-cookie'].scan(/grafana_sess=(\w+);/)[-1][0]
     rescue BackendError
       nil
     end

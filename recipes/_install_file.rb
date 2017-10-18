@@ -43,7 +43,7 @@ when 'debian'
     not_if grafana_installed
   end
 when 'rhel'
-  pkgs = %w(initscripts fontconfig)
+  pkgs = %w(initscripts fontconfig urw-fonts)
   pkgs.each do |pkg|
     package pkg
   end

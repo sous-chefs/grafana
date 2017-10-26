@@ -1,21 +1,41 @@
-Grafana Cookbook [![Build Status](https://travis-ci.org/JonathanTron/chef-grafana.svg?branch=master)](https://travis-ci.org/JonathanTron/chef-grafana)
-================
+# Grafana Cookbook
+
+[![Build Status](https://secure.travis-ci.org/sous-chefs/chef-grafana.png?branch=master)](http://travis-ci.org/sous-chefs/chef-grafana)
+[![Cookbook Version](https://img.shields.io/cookbook/v/grafana.svg)](https://supermarket.chef.io/cookbooks/grafana)
+
+## Overview
 
 A stand-alone cookbook for Grafana. The 2.x versions of this cookbook work with the 2.x versions of Grafana. There is no backward compatibility for pre-2.0 versions of Grafana in the 2.x versions of this cookbook.
 
 If you would like to configure pre-2.0 versions of Grafana, please use the 1.x branch and 1.x versions of this cookbook in the supermarket. There is a 1.x tag for PRs or Issues related to the 1.x branch.
 
-Requirements
-------------
-- apt
-- yum
-- nginx
+## Requirements
 
-Attributes
-----------
+### Chef Client
+
+* Chef Client 12.+
+
+### Platforms
+
+* Ubuntu >= 12.04
+* Debian >= 7
+* CentOS >= 6
+
+### Cookbooks
+
+* [apt](https://supermarket.chef.io/cookbooks/apt)
+* [yum](https://supermarket.chef.io/cookbooks/yum)
+* [chef_nginx](https://supermarket.chef.io/cookbooks/yum)
+
+## Recipes
+
+* `default` - Wrap private recipes for Grafana setup
+
+## Attributes
+
 As with most cookbooks, this one is hopefully flexible enough to be wrapped by allowing you to override as much as possible. Please let us know if you find a value that is not configurable.
 
-#### grafana::default
+### grafana::default
 
 | Attribute                                    | Default                                | Description                       |
 |----------------------------------------------|:--------------------------------------:|-----------------------------------|
@@ -42,7 +62,7 @@ As with most cookbooks, this one is hopefully flexible enough to be wrapped by a
 | `node['grafana']['webserver_listen']`        | `node['ipaddress']`                    | The ip address the web server will listen on |
 | `node['grafana']['webserver_port']`          | `80`                                   | The port the webserver will listen on |
 
-##### grafana.ini
+#### grafana.ini
 For the ini configuration file, parameters can be specified as this: `node['grafana']['ini'][SECTION_NAME][KEY] = [VALUE]`. Here's an example:
 
 ```ruby
@@ -435,6 +455,7 @@ Contributors:
 - Nilanjan Roy (@nilroy)
 - Jon Henry (@jhenry82)
 - akadoya (@akadoya)
+- Andrei Skopenko (@scopenco)
 
 Based on `chef-kibana` cookbook by:
 

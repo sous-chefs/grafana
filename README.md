@@ -17,7 +17,7 @@ If you would like to configure pre-2.0 versions of Grafana, please use the 1.x b
 
 ### Platforms
 
-* Ubuntu >= 12.04
+* Ubuntu >= 14.04
 * Debian >= 7
 * CentOS >= 6
 
@@ -25,7 +25,7 @@ If you would like to configure pre-2.0 versions of Grafana, please use the 1.x b
 
 * [apt](https://supermarket.chef.io/cookbooks/apt)
 * [yum](https://supermarket.chef.io/cookbooks/yum)
-* [chef_nginx](https://supermarket.chef.io/cookbooks/yum)
+* [chef_nginx](https://supermarket.chef.io/cookbooks/chef_nginx)
 
 ## Recipes
 

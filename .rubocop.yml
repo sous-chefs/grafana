@@ -22,6 +22,9 @@ Metrics/MethodLength:
 Metrics/ModuleLength:
   Max: 170
 
+Metrics/BlockLength:
+  Max: 250
+
 CyclomaticComplexity:
   Max: 8
 
@@ -44,4 +47,13 @@ Style/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
 
 Style/SignalException:
+  Enabled: false
+
+Style/FormatString:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+RegexpLiteral:
   Enabled: false

@@ -36,4 +36,4 @@ template '/etc/nginx/sites-available/grafana' do
   notifies :reload, 'service[nginx]', :immediately
 end
 
-nginx_site 'grafana' 
+nginx_site 'grafana'

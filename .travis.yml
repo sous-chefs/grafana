@@ -1,15 +1,26 @@
-language: ruby
-cache:
-  directories:
-  - vendor/bundle
-  - vendor/cookbooks
-sudo: false
-bundler_args: --without integration --path=$PWD/vendor/bundle
-rvm:
-  - 2.3
+rvm: 2.3.1
+sudo: required
+services: docker
+
+addons:
+  apt:
+    sources:
+      - chef-stable-precise
+    packages:
+      - chefdk
+
+# Don't `bundle install`
+install: echo "skip bundle install"
+
+# Ensure we make ChefDK's Ruby the default
 before_script:
-  - bundle exec berks vendor vendor/cookbooks
+  # https://github.com/zuazo/kitchen-in-travis-native/issues/1#issuecomment-142230889
+  - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+  - /opt/chefdk/embedded/bin/chef gem install kitchen-docker
 script:
-  - bundle exec rubocop .
-  - bundle exec foodcritic --progress -f any .
-  - bundle exec rspec --color --format progress
+  - /opt/chefdk/embedded/bin/chef --version
+  - /opt/chefdk/embedded/bin/rubocop --version
+  - /opt/chefdk/embedded/bin/foodcritic --version
+  - /opt/chefdk/embedded/bin/rspec
+  - /opt/chefdk/embedded/bin/rake

@@ -22,5 +22,4 @@ script:
   - /opt/chefdk/embedded/bin/chef --version
   - /opt/chefdk/embedded/bin/rubocop --version
   - /opt/chefdk/embedded/bin/foodcritic --version
-  - /opt/chefdk/embedded/bin/rspec
   - /opt/chefdk/embedded/bin/rake

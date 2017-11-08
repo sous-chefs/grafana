@@ -8,7 +8,7 @@ module GrafanaCookbook
       dashboard_source_file = find_dashboard_source_file dashboard
       dashboard_options = {
         'dashboard' => JSON.parse(File.read(dashboard_source_file)),
-        'overwrite' => dashboard[:overwrite]
+        'overwrite' => dashboard[:overwrite],
       }
 
       grafana_options[:method] = 'Post'
@@ -46,13 +46,13 @@ module GrafanaCookbook
                       else
                         "#{dashboard_options[:source]} resource name or source"
                       end
-        fail "dashboard_sanity failure: #{err_msg_prt} was specified, but no dashboard found (checked: #{checked_paths})"
+        raise "dashboard_sanity failure: #{err_msg_prt} was specified, but no dashboard found (checked: #{checked_paths})"
       end
       dash_json = JSON.parse(File.read(dashboard_source_file))
 
       dash_json_title = dash_json['title'].tr('.', '-').tr(' ', '-').downcase
       if dash_json_title != dashboard_options[:name]
-        fail "dashboard_sanity failure: the resource name (#{dashboard_options[:name]}) "\
+        raise "dashboard_sanity failure: the resource name (#{dashboard_options[:name]}) "\
              "did not match the \"title\" in the json (#{dash_json_title}) or is not a valid Grafana slug. "\
              'See http://docs.grafana.org/reference/http_api/#get-dashboard for more details.'
       end

@@ -59,7 +59,7 @@ module GrafanaCookbook
     # Generic method to build, perform and handle response of any API requests
     # Params:
     # +grafana_options+:: A hash of the host, port, user, and password as well as request parameters
-    def do_request(grafana_options, payload=nil)
+    def do_request(grafana_options, payload = nil)
       session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
       request = case grafana_options[:method]
@@ -151,7 +151,7 @@ module GrafanaCookbook
 
     def handle_response_unknown(request, code, message)
       if message
-        Chef::Log.error(message % { code: code })
+        Chef::Log.error(format(message, code: code))
       else
         Chef::Log.error "Response code '#{code}' not handled when sending #{request_message request}"
       end

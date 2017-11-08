@@ -3,14 +3,14 @@ require 'spec_helper'
 describe 'grafana::_install_package' do
   platforms = {
     'debian' => {
-      'versions' => ['7.4']
+      'versions' => ['7.4'],
     },
     'ubuntu' => {
-      'versions' => ['12.04', '14.04']
+      'versions' => ['12.04', '14.04'],
     },
     'centos' => {
-      'versions' => ['6.4', '6.6']
-    }
+      'versions' => ['6.4', '6.6'],
+    },
   }
 
   platforms.each do |platform, value|

@@ -14,7 +14,7 @@ action :create do
     host: new_resource.host,
     port: new_resource.port,
     user: new_resource.admin_user,
-    password: new_resource.admin_password
+    password: new_resource.admin_password,
   }
   # If datasource name is not provided as variable,
   # Let's use resource name for it
@@ -45,7 +45,7 @@ action :update do
     host: new_resource.host,
     port: new_resource.port,
     user: new_resource.admin_user,
-    password: new_resource.admin_password
+    password: new_resource.admin_password,
   }
   # If datasource name is not provided as variable,
   # Let's use resource name for it
@@ -84,7 +84,7 @@ action :delete do
     host: new_resource.host,
     port: new_resource.port,
     user: new_resource.admin_user,
-    password: new_resource.admin_password
+    password: new_resource.admin_password,
   }
   # If datasource name is not provided as variable,
   # Let's use resource name for it
@@ -100,12 +100,11 @@ action :delete do
   # Find wether datasource already exists
   # If found, delete it
   datasources.each do |src|
-    if src['name'] == new_resource.datasource[:name]
-      exists = true
-      new_resource.datasource[:id] = src['id']
-      converge_by("Deleting data source #{new_resource.name}") do
-        delete_datasource(new_resource.datasource, grafana_options)
-      end
+    next unless src['name'] == new_resource.datasource[:name]
+    exists = true
+    new_resource.datasource[:id] = src['id']
+    converge_by("Deleting data source #{new_resource.name}") do
+      delete_datasource(new_resource.datasource, grafana_options)
     end
   end
 end

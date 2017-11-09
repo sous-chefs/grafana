@@ -46,6 +46,6 @@ describe command('curl http://127.0.0.1:3000/') do
   its(:stdout) { should match %r{<a href="/login">Found</a>} }
 end
 
-describe command("curl http://127.0.0.1/") do
+describe command('curl http://127.0.0.1/') do
   its(:stdout) { should match %r{<a href="/login">Found</a>} }
 end

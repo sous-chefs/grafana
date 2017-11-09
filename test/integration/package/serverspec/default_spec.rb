@@ -42,10 +42,10 @@ describe file('/etc/nginx/sites-enabled/grafana') do
   its(:content) { should match %r{proxy_pass http://grafana;} }
 end
 
-describe command("curl http://127.0.0.1:3015/") do
+describe command('curl http://127.0.0.1:3015/') do
   its(:stdout) { should match %r{<a href="/login">Found</a>} }
 end
 
-describe command("curl http://127.0.0.1/") do
+describe command('curl http://127.0.0.1/') do
   its(:stdout) { should match %r{<a href="/login">Found</a>} }
 end

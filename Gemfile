@@ -2,12 +2,12 @@ source 'https://rubygems.org'
 
 gem 'berkshelf', '~> 4.0'
 gem 'rake'
-gem 'emeril'
 
 group :test do
-  gem 'chefspec', '~> 4.4.0'
-  gem 'foodcritic', '~> 5.0.0'
-  gem 'rubocop', '~> 0.31'
+  gem 'chefspec'
+  gem 'foodcritic'
+  gem 'rubocop'
+  gem 'cookstyle'
 end
 
 group :integration do

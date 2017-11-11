@@ -14,7 +14,7 @@ action :create do
     host: new_resource.host,
     port: new_resource.port,
     user: new_resource.admin_user,
-    password: new_resource.admin_password
+    password: new_resource.admin_password,
   }
   # If dashboard's name is not provided as variable,
   # Let's use resource name for it
@@ -54,7 +54,7 @@ action :update do
     host: new_resource.host,
     port: new_resource.port,
     user: new_resource.admin_user,
-    password: new_resource.admin_password
+    password: new_resource.admin_password,
   }
   # If dashboard's name is not provided as variable,
   # Let's use resource name for it
@@ -92,7 +92,7 @@ action :delete do
     host: new_resource.host,
     port: new_resource.port,
     user: new_resource.admin_user,
-    password: new_resource.admin_password
+    password: new_resource.admin_password,
   }
   # If dashboard's name is not provided as variable,
   # Let's use resource name for it

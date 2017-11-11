@@ -1,4 +1,4 @@
-require ::File.expand_path('../../spec_helper', __FILE__)
+require_relative 'spec_helper'
 
 describe file('/usr/sbin/grafana-server') do
   it { should be_a_file }
@@ -39,17 +39,13 @@ describe file('/etc/nginx/sites-enabled/grafana') do
   it { should be_owned_by 'root' }
   it { should be_grouped_into 'root' }
   its(:content) { should match /server 127.0.0.1:3000;/ }
-  its(:content) { should match /proxy_pass http:\/\/grafana;/ }
+  its(:content) { should match %r{proxy_pass http://grafana;} }
 end
 
-describe command("curl http://127.0.0.1:3000/") do
-  its(:stdout) { should match /<a href="\/login">Found<\/a>/ }
+describe command('curl http://127.0.0.1:3000/') do
+  its(:stdout) { should match %r{<a href="/login">Found</a>} }
 end
 
-describe command("curl http://#{$ohaidata[:ipaddress]}:3000/") do
-  its(:stderr) { should match /(Failed to|couldn't) connect/ }
-end
-
-describe command("curl http://#{$ohaidata[:ipaddress]}/") do
-  its(:stdout) { should match /<a href="\/login">Found<\/a>/ }
+describe command('curl http://127.0.0.1/') do
+  its(:stdout) { should match %r{<a href="/login">Found</a>} }
 end

@@ -3,21 +3,21 @@ require 'spec_helper'
 describe 'grafana::default' do
   platforms = {
     'debian' => {
-      'versions' => ['7.4']
+      'versions' => ['7.4'],
     },
     'ubuntu' => {
-      'versions' => ['12.04', '14.04']
+      'versions' => ['12.04', '14.04'],
     },
     'centos' => {
-      'versions' => ['6.4', '6.6']
-    }
+      'versions' => ['6.4', '6.6'],
+    },
   }
 
   let(:chef_solo_opts) do
     {
       platform: platform,
       version: version,
-      file_cache_path: '/var/chef/cache'
+      file_cache_path: '/var/chef/cache',
     }
   end
 
@@ -88,16 +88,16 @@ describe 'grafana::default' do
 
           it 'generate grafana-server environment vars' do
             expect(chef_run).to create_template('/etc/default/grafana-server')
-            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^GRAFANA_USER=grafana})
-            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^GRAFANA_GROUP=grafana})
+            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(/^GRAFANA_USER=grafana/)
+            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(/^GRAFANA_GROUP=grafana/)
             expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^GRAFANA_HOME=/usr/share/grafana})
             expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^LOGS_DIR=/var/log/grafana})
             expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^DATA_DIR=/var/lib/grafana})
             expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^PLUGINS_DIR=/var/lib/grafana/plugins})
-            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^MAX_OPEN_FILES=10000})
+            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(/^MAX_OPEN_FILES=10000/)
             expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^CONF_DIR=/etc/grafana})
             expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^CONF_FILE=/etc/grafana/grafana.ini})
-            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^RESTART_ON_UPGRADE=false})
+            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(/^RESTART_ON_UPGRADE=false/)
           end
 
           it 'enable grafana-server service' do

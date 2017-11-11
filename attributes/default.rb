@@ -67,7 +67,7 @@ default['grafana']['ini'][nil]['app_mode'] = 'production'
 default['grafana']['ini']['database']['type'] = {
   comment: "Either mysl, postgres, sqlite3, it's your choice",
   disable: false,
-  value: 'sqlite3'
+  value: 'sqlite3',
 }
 default['grafana']['ini']['database']['host'] = '127.0.0.1:3306'
 default['grafana']['ini']['database']['name'] = 'grafana'
@@ -76,22 +76,22 @@ default['grafana']['ini']['database']['password'] = ''
 default['grafana']['ini']['database']['ssl_mode'] = {
   comment: 'For "postgres" only, either "disable", "require" or "verify-full"',
   disable: true,
-  value: 'disable'
+  value: 'disable',
 }
 default['grafana']['ini']['database']['path'] = {
   comment: 'For sqlite3 only, path relative to data_path setting',
   disable: false,
-  value: 'grafana.db'
+  value: 'grafana.db',
 }
 
 default['grafana']['ini']['auth.ldap']['enabled'] = {
   comment: '',
   disable: true,
-  value: false
+  value: false,
 }
 default['grafana']['ini']['auth.ldap']['config_file'] = {
   disable: true,
-  value: '/etc/grafana/ldap.toml'
+  value: '/etc/grafana/ldap.toml',
 }
 
 # server

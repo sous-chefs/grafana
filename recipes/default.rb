@@ -51,6 +51,13 @@ directory node['grafana']['log_dir'] do
   action :create
 end
 
+directory node['grafana']['pid_dir'] do
+  owner node['grafana']['user']
+  group node['grafana']['group']
+  mode '0755'
+  action :create
+end
+
 g_default_template = template '/etc/default/grafana-server' do
   source 'grafana-env.erb'
   variables(
@@ -60,6 +67,7 @@ g_default_template = template '/etc/default/grafana-server' do
     log_dir: node['grafana']['log_dir'],
     data_dir: node['grafana']['data_dir'],
     conf_dir: node['grafana']['conf_dir'],
+    pid_dir: node['grafana']['pid_dir'],
     plugins_dir: node['grafana']['plugins_dir']
   )
   owner 'root'

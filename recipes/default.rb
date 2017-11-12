@@ -26,33 +26,16 @@ if node['grafana']['manage_install']
   include_recipe "grafana::_install_#{node['grafana']['install_type']}"
 end
 
-g_service = service 'grafana-server' do
-  supports start: true, stop: true, restart: true, status: true, reload: false
-  action :enable
+[node['grafana']['data_dir'], node['grafana']['plugins_dir'], node['grafana']['log_dir']].each do |dir|
+  directory dir do
+    owner node['grafana']['user']
+    group node['grafana']['group']
+    mode '0755'
+    action :create
+  end
 end
 
-directory node['grafana']['data_dir'] do
-  owner node['grafana']['user']
-  group node['grafana']['group']
-  mode '0755'
-  action :create
-end
-
-directory node['grafana']['plugins_dir'] do
-  owner node['grafana']['user']
-  group node['grafana']['group']
-  mode '0755'
-  action :create
-end
-
-directory node['grafana']['log_dir'] do
-  owner node['grafana']['user']
-  group node['grafana']['group']
-  mode '0755'
-  action :create
-end
-
-g_default_template = template '/etc/default/grafana-server' do
+template ::File.join(node['grafana']['env_dir'], 'grafana-server') do
   source 'grafana-env.erb'
   variables(
     grafana_user: node['grafana']['user'],
@@ -63,34 +46,23 @@ g_default_template = template '/etc/default/grafana-server' do
     conf_dir: node['grafana']['conf_dir'],
     plugins_dir: node['grafana']['plugins_dir']
   )
-  owner 'root'
-  group 'root'
   mode '0644'
+  notifies :restart, 'service[grafana-server]'
 end
 
-ini = node['grafana']['ini'].dup
-ini['paths'] ||= {}
-ini['paths']['data'] = node['grafana']['data_dir']
-ini['paths']['logs'] = node['grafana']['log_dir']
-ini['paths']['plugins'] = node['grafana']['plugins_dir']
-
-g_ini_template = template "#{node['grafana']['conf_dir']}/grafana.ini" do
+template ::File.join(node['grafana']['conf_dir'], 'grafana.ini') do
   source 'grafana.ini.erb'
-  variables ini: ini
-  owner 'root'
-  group 'root'
+  variables ini: node['grafana']['ini']
   mode '0644'
   sensitive true
-end
-
-ruby_block 'restart grafana immediately after config change' do
-  block { g_service.run_action :restart }
-  only_if do
-    g_default_template.updated_by_last_action? ||
-      g_ini_template.updated_by_last_action?
-  end
+  notifies :restart, 'service[grafana-server]'
 end
 
 unless node['grafana']['ini']['auth.ldap']['enabled']['value'] == false
   include_recipe 'grafana::_ldap_config'
+end
+
+service 'grafana-server' do
+  supports start: true, stop: true, restart: true, status: true, reload: false
+  action [:enable, :start]
 end

@@ -2,74 +2,12 @@
 
 This file is used to list changes made in each version of grafana.
 
-## 2.x dev:
+## 2.2.0 (2017-10-12):
 
-* Add plugins directory configuration
-  [#154](https://github.com/JonathanTron/chef-grafana/issues/154)
-* Fix typo in organization resource
-  [#156](https://github.com/JonathanTron/chef-grafana/issues/156)
-* Add wait (2s) between retry on connection error
-  [#157](https://github.com/JonathanTron/chef-grafana/issues/157)
-* Replace dependency on `nginx` by the new `chef_nginx` cookbook (@akadoya)
-  [#153](https://github.com/JonathanTron/chef-grafana/pull/153)
-* Add optional support for unsigned Grafana package repos (@jhenry82)
-  [#146](https://github.com/JonathanTron/chef-grafana/pull/146)
-* Pass correct options to package install (@nilroy)
-  [#137](https://github.com/JonathanTron/chef-grafana/pull/137)
-* Add nginx basic auth configuration (@cyberflow)
-  [#133](https://github.com/JonathanTron/chef-grafana/pull/133)
-* Ensure `get_orgs_list` always returns an Array (@cyberflow)
-  [#135](https://github.com/JonathanTron/chef-grafana/pull/135)
-* Allow to assign user to organization (with role) when adding/updating it (@angelosanramon)
-  [#136](https://github.com/JonathanTron/chef-grafana/pull/136)
-* Fix new user not given the grafana admin options
-  [#127](https://github.com/JonathanTron/chef-grafana/pull/127)
-* Mark `grafana.ini` template as sensitive (@jinxcat)
-  [#125](https://github.com/JonathanTron/chef-grafana/pull/125)
-* Add a note about new data source value for type when using InfluxDB 0.9.x (@phoenixyz)
-  [#124](https://github.com/JonathanTron/chef-grafana/pull/124)
-* Fix organization check (@iksaif)
-  [#122](https://github.com/JonathanTron/chef-grafana/pull/122)
-* Ensure organization is not required if there's only one (@iksaif)
-  [#120](https://github.com/JonathanTron/chef-grafana/pull/120)
-* Fix README documentation (@obazoud, @ptqa)
-  [#116](https://github.com/JonathanTron/chef-grafana/pull/115)
-  [#117](https://github.com/JonathanTron/chef-grafana/pull/115)
-  [#118](https://github.com/JonathanTron/chef-grafana/pull/115)
-  [#100](https://github.com/JonathanTron/chef-grafana/pull/100)
-* Allow managing datasources by organizations (@roelgerrits)
-  [#115](https://github.com/JonathanTron/chef-grafana/pull/115)
-* Fix wrong `state_attrs` in user resource (@redterror)
-  [#114](https://github.com/JonathanTron/chef-grafana/pull/114)
-* Reload nginx on template change
-  [#108](https://github.com/JonathanTron/chef-grafana/issues/108)
-* Ensure datasources always return an array
-  [#110](https://github.com/JonathanTron/chef-grafana/issues/110)
-* Option to skip Grafana installation management (@kemra102)
-  [#113](https://github.com/JonathanTron/chef-grafana/pull/113)
-* Fix support for 'latest' in `node['graphana']['version']` (@ptqa)
-  [#97](https://github.com/JonathanTron/chef-grafana/pull/97)
-* Fix README doc for provider datasource (@ptqa)
-  [#96](https://github.com/JonathanTron/chef-grafana/pull/96)
-* Option to rebuild the apt cache when adding the grafana repo.
-  [#95](https://github.com/JonathanTron/chef-grafana/pull/95)
-* Add support for LDAP configuration (@jbfavre)
-  [#87](https://github.com/JonathanTron/chef-grafana/pull/87)
-  [#88](https://github.com/JonathanTron/chef-grafana/pull/88)
-  [#89](https://github.com/JonathanTron/chef-grafana/pull/89)
-* Improve LWRP error logging when Grafana is down [#81](https://github.com/JonathanTron/chef-grafana/issues/81)
-
-__breaking changes__
-
-* Improved user management
-  [#91](https://github.com/JonathanTron/chef-grafana/pull/91) (@jbfavre)
-  [#98](https://github.com/JonathanTron/chef-grafana/pull/98) (@ptqa)
-* Improved organization provider (@jbfavre)
-  [#92](https://github.com/JonathanTron/chef-grafana/pull/92)
-* Improved datasource provider (@jbfavre)
-  [#93](https://github.com/JonathanTron/chef-grafana/pull/93)
-* improve dashboard provider (@jbfavre)
-  [#94](https://github.com/JonathanTron/chef-grafana/pull/94)
+* Switch to linter `cookstyle`
+* Fix serverspec tests [#180](https://github.com/sous-chefs/chef-grafana/pull/180)
+* Upgrade grafana version
+* Fix env file
 
 ## 2.1.3 (2015-08-24):
 

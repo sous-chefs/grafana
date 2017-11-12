@@ -15,11 +15,14 @@
 # limitations under the License.
 #
 
+# webserver
+default['grafana']['webserver'] = 'nginx'
+default['grafana']['webserver_hostname'] = node.name
+default['grafana']['webserver_aliases'] = [node['ipaddress']]
+default['grafana']['webserver_listen'] = node['ipaddress']
+default['grafana']['webserver_port'] = 80
+
 default['grafana']['nginx']['template'] = 'grafana-nginx.conf.erb'
 default['grafana']['nginx']['template_cookbook'] = 'grafana'
 default['grafana']['nginx']['auth_basic'] = false
 default['grafana']['nginx']['httpasswd_file'] = '/etc/nginx/htpasswd.users'
-
-include_attribute 'chef_nginx'
-
-default['nginx']['default_site_enabled'] = false

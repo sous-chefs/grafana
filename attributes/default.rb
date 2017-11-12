@@ -17,7 +17,7 @@
 
 default['grafana']['manage_install'] = true
 default['grafana']['install_type'] = 'file' # file | package | source
-default['grafana']['version'] = '4.5.2'
+default['grafana']['version'] = '4.6.1'
 
 default['grafana']['file']['url'] = 'https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana'
 default['grafana']['file']['checksum']['deb'] = '0e9d6c8539d300ab352fb81b2f324cf759037fb1229864ba2e2d9a7562754d53'
@@ -45,6 +45,7 @@ default['grafana']['home'] = '/usr/share/grafana'
 default['grafana']['data_dir'] = '/var/lib/grafana'
 default['grafana']['log_dir'] = '/var/log/grafana'
 default['grafana']['plugins_dir'] = '/var/lib/grafana/plugins'
+
 case node['platform_family']
 when 'debian'
   default['grafana']['env_dir'] = '/etc/default'
@@ -83,6 +84,11 @@ default['grafana']['ini']['database']['path'] = {
   disable: false,
   value: 'grafana.db',
 }
+default['grafana']['ini']['paths'] = {
+  data: node['grafana']['data_dir'],
+  logs: node['grafana']['log_dir'],
+  plugins: node['grafana']['plugins_dir'],
+}
 
 default['grafana']['ini']['auth.ldap']['enabled'] = {
   comment: '',
@@ -98,10 +104,3 @@ default['grafana']['ini']['auth.ldap']['config_file'] = {
 default['grafana']['ini']['server']['protocol'] = 'http'
 default['grafana']['ini']['server']['http_port'] = 3000
 default['grafana']['ini']['server']['domain'] = 'localhost'
-
-# webserver
-default['grafana']['webserver'] = 'nginx'
-default['grafana']['webserver_hostname'] = node.name
-default['grafana']['webserver_aliases'] = [node['ipaddress']]
-default['grafana']['webserver_listen'] = node['ipaddress']
-default['grafana']['webserver_port'] = 80

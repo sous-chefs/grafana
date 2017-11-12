@@ -20,8 +20,8 @@ default['grafana']['install_type'] = 'file' # file | package | source
 default['grafana']['version'] = '4.6.1'
 
 default['grafana']['file']['url'] = 'https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana'
-default['grafana']['file']['checksum']['deb'] = '0e9d6c8539d300ab352fb81b2f324cf759037fb1229864ba2e2d9a7562754d53'
-default['grafana']['file']['checksum']['rpm'] = '2185db058a25ff6608e581b18e92e950395eedd367ce3e0d5df4b8ee8a1cb35f'
+default['grafana']['file']['checksum']['deb'] = 'd02495a10f6ae32a6fac729fab79db61fd90d67dd0fdd385d2e4ddef4cb8c9dc'
+default['grafana']['file']['checksum']['rpm'] = 'ea8989d21f9cf51cfa85ec5331b9d159c4e4cfa75eff5ac91bc6915583a52b0d'
 
 case node['platform_family']
 when 'debian'
@@ -45,6 +45,7 @@ default['grafana']['home'] = '/usr/share/grafana'
 default['grafana']['data_dir'] = '/var/lib/grafana'
 default['grafana']['log_dir'] = '/var/log/grafana'
 default['grafana']['plugins_dir'] = '/var/lib/grafana/plugins'
+default['grafana']['pid_dir'] = '/var/run/grafana'
 
 case node['platform_family']
 when 'debian'

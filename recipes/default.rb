@@ -44,7 +44,8 @@ template ::File.join(node['grafana']['env_dir'], 'grafana-server') do
     log_dir: node['grafana']['log_dir'],
     data_dir: node['grafana']['data_dir'],
     conf_dir: node['grafana']['conf_dir'],
-    plugins_dir: node['grafana']['plugins_dir']
+    plugins_dir: node['grafana']['plugins_dir'],
+    pid_dir: node['grafana']['pid_dir']
   )
   mode '0644'
   notifies :restart, 'service[grafana-server]'
@@ -53,6 +54,7 @@ end
 template ::File.join(node['grafana']['conf_dir'], 'grafana.ini') do
   source 'grafana.ini.erb'
   variables ini: node['grafana']['ini']
+  group node['grafana']['group']
   mode '0644'
   sensitive true
   notifies :restart, 'service[grafana-server]'

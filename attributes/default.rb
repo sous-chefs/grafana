@@ -33,6 +33,7 @@ when 'debian'
   default['grafana']['package']['apt_rebuild'] = true
   default['grafana']['package']['trusted'] = false
 when 'rhel', 'fedora'
+  default['grafana']['file']['release_id'] = '-1'
   default['grafana']['package']['repo'] = 'https://packagecloud.io/grafana/stable/el/$releasever/$basearch'
   default['grafana']['package']['key'] = 'https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana'
   default['grafana']['package']['version'] = "#{node['grafana']['version']}-1"

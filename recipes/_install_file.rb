@@ -49,17 +49,18 @@ when 'rhel'
     package pkg
   end
 
+  rpm_version = get_rpm_version(node['grafana']['version'])
   grafana_installed = "yum list installed | grep grafana | grep #{node['grafana']['version']}"
 
-  remote_file "#{Chef::Config[:file_cache_path]}/grafana-#{node['grafana']['version']}.rpm" do
-    source "#{node['grafana']['file']['url']}-#{node['grafana']['version']}-1.x86_64.rpm"
+  remote_file "#{Chef::Config[:file_cache_path]}/grafana-#{rpm_version}.rpm" do
+    source "#{node['grafana']['file']['url']}-#{rpm_version}.x86_64.rpm"
     checksum node['grafana']['file']['checksum']['rpm']
     action :create
     not_if grafana_installed
   end
 
   rpm_package "grafana-#{node['grafana']['version']}" do
-    source "#{Chef::Config[:file_cache_path]}/grafana-#{node['grafana']['version']}.rpm"
+    source "#{Chef::Config[:file_cache_path]}/grafana-#{rpm_version}.rpm"
     version node['grafana']['version']
     action :install
     not_if grafana_installed

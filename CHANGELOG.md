@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 2.2.1 ():
+
+* Add exception handling for JSON::ParserError [#155](https://github.com/sous-chefs/chef-grafana/pull/155) by [@ton31337](https://github.com/ton31337)
+
 ## 2.2.0 (2017-10-12):
 
 * Switch to linter `cookstyle`

@@ -87,7 +87,11 @@ module GrafanaCookbook
         success: grafana_options[:success_msg],
         unknown_code: grafana_options[:unknown_code_msg]
       )
-      JSON.parse(response.body)
+      begin
+        JSON.parse(response.body)
+      rescue JSON::ParserError
+        nil
+      end
     rescue BackendError
       nil
     end

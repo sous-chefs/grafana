@@ -31,7 +31,7 @@ when 'debian'
   end
   package 'grafana' do
     version node['grafana']['package']['version']
-    options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
+    options node['grafana']['package']['options']
   end
 when 'rhel'
   yum_repository 'grafana' do
@@ -43,5 +43,6 @@ when 'rhel'
   end
   package 'grafana' do
     version node['grafana']['package']['version']
+    options node['grafana']['package']['options']
   end
 end

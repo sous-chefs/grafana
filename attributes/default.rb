@@ -97,6 +97,10 @@ default['grafana']['ini']['auth.ldap']['config_file'] = {
   value: '/etc/grafana/ldap.toml'
 }
 
+# Alerting
+default['grafana']['ini']['alerting']['enabled'] = true
+default['grafana']['ini']['alerting']['execute_alerts'] = true
+
 # server
 default['grafana']['ini']['server']['protocol'] = 'http'
 default['grafana']['ini']['server']['http_port'] = 3000

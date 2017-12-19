@@ -3,13 +3,13 @@ require 'spec_helper'
 describe 'grafana::_install_source' do
   platforms = {
     'debian' => {
-      'versions' => ['7.4']
+      'versions' => ['7.11']
     },
     'ubuntu' => {
-      'versions' => ['12.04', '14.04']
+      'versions' => ['14.04', '16.04']
     },
     'centos' => {
-      'versions' => ['6.4', '6.6']
+      'versions' => ['6.8']
     }
   }
 

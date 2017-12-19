@@ -29,21 +29,21 @@ platforms:
     attributes:
       grafana:
         webserver_listen: ''
-  - name: debian-7.4-chef-zero
+  - name: debian-7.11-chef-zero
     provisioner:
       name: chef_zero
     driver:
-      box: debian-7.4.0
-      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-7.4_chef-provisionerless.box
+      box: debian-7.11.0
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-7.11_chef-provisionerless.box
     run_list:
       - recipe[apt::default]
       - recipe[curl::default]
-  - name: centos-6.6-chef-zero
+  - name: centos-6.8-chef-zero
     provisioner:
       name: chef_zero
     driver:
-      box: centos-6.6
-      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.6_chef-provisionerless.box
+      box: centos-6.8
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.8_chef-provisionerless.box
     attributes:
       grafana:
         webserver_listen: ''
@@ -68,21 +68,21 @@ platforms:
     attributes:
       grafana:
         webserver_listen: ''
-  - name: debian-7.4-chef-solo
+  - name: debian-7.11-chef-solo
     provisioner:
       name: chef_solo
     driver:
-      box: debian-7.4.0
-      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-7.4_chef-provisionerless.box
+      box: debian-7.11.0
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-7.11_chef-provisionerless.box
     run_list:
       - recipe[apt::default]
       - recipe[curl::default]
-  - name: centos-6.6-chef-solo
+  - name: centos-6.8-chef-solo
     provisioner:
       name: chef_solo
     driver:
-      box: centos-6.6
-      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.6_chef-provisionerless.box
+      box: centos-6.8
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.8_chef-provisionerless.box
 
 suites:
   - name: default

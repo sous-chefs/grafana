@@ -17,11 +17,12 @@
 
 default['grafana']['manage_install'] = true
 default['grafana']['install_type'] = 'file' # file | package | source
-default['grafana']['version'] = '2.1.2'
+default['grafana']['version'] = '4.6.3'
 
-default['grafana']['file']['url'] = 'https://grafanarel.s3.amazonaws.com/builds/grafana'
-default['grafana']['file']['checksum']['deb'] = '57f52cc8e510f395f7f15caac841dc31e67527072fcbf5cc2d8351404989b298'
-default['grafana']['file']['checksum']['rpm'] = '618f5361e594b101a4832a67a9d82f1179c35ff158ef4288dc1f8b6e8de67bb8'
+default['grafana']['file']['url'] = 'https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana'
+default['grafana']['file']['checksum']['deb'] = 'd022fceb939e7570d74b437932bee876e306b0e21ecdd830752c61b4e89dab31'
+default['grafana']['file']['checksum']['rpm'] = 'bfb639baffb34d43f826c6edc2912a8b79957ab08e777ec77fa7e931f741944c'
+
 
 case node['platform_family']
 when 'debian'
@@ -96,6 +97,10 @@ default['grafana']['ini']['auth.ldap']['config_file'] = {
   disable: true,
   value: '/etc/grafana/ldap.toml'
 }
+
+# Alerting
+default['grafana']['ini']['alerting']['enabled'] = true
+default['grafana']['ini']['alerting']['execute_alerts'] = true
 
 # server
 default['grafana']['ini']['server']['protocol'] = 'http'

@@ -12,7 +12,7 @@ describe 'grafana::_nginx' do
 
   it 'creates a template with auth basic attributes' do
     stub_command('which nginx').and_return('/usr/bin/nginx')
-    chef_run.node.set['grafana']['nginx']['auth_basic'] = true
+    chef_run.node.normal['grafana']['nginx']['auth_basic'] = true
     chef_run.converge(described_recipe)
     expect(chef_run).to create_template('/etc/nginx/sites-available/grafana')
     expect(chef_run).to render_file('/etc/nginx/sites-available/grafana').with_content(/auth_basic_user_file.+/)

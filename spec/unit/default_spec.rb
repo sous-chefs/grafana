@@ -3,13 +3,13 @@ require 'spec_helper'
 describe 'grafana::default' do
   platforms = {
     'debian' => {
-      'versions' => ['7.4']
+      'versions' => ['7.11']
     },
     'ubuntu' => {
-      'versions' => ['12.04', '14.04']
+      'versions' => ['14.04', '16.04']
     },
     'centos' => {
-      'versions' => ['6.4', '6.6']
+      'versions' => ['6.8']
     }
   }
 
@@ -21,7 +21,7 @@ describe 'grafana::default' do
     }
   end
 
-  let(:grafana_version) { '2.1.2' }
+  let(:grafana_version) { '4.6.3' }
 
   platforms.each do |ext_platform, value|
     value['versions'].each do |ext_version|
@@ -75,6 +75,10 @@ describe 'grafana::default' do
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^# ssl_mode = disable/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^path = grafana.db/)
 
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[alerting\]/)
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^enabled = true/)
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^execute_alerts = true/)
+
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[server\]/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^protocol = http/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^http_port = 3000/)
@@ -84,6 +88,7 @@ describe 'grafana::default' do
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^data = /var/lib/grafana})
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^logs = /var/log/grafana})
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^plugins = /var/lib/grafana/plugins})
+
           end
 
           it 'generate grafana-server environment vars' do
@@ -112,7 +117,7 @@ describe 'grafana::default' do
         context 'with no webserver' do
           let(:chef_run) do
             ChefSpec::SoloRunner.new(chef_solo_opts) do |node|
-              node.set['grafana']['webserver'] = ''
+              node.normal['grafana']['webserver'] = ''
             end.converge described_recipe
           end
 
@@ -144,6 +149,10 @@ describe 'grafana::default' do
               user: 'root'
             )
 
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[alerting\]/)
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^enabled = true/)
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^execute_alerts = true/)
+
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[database\]/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^data = /var/lib/grafana})
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^host = 127.0.0.1:3306/)
@@ -158,6 +167,7 @@ describe 'grafana::default' do
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[paths\]/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^data = /var/lib/grafana})
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^logs = /var/log/grafana})
+
           end
           it 'does not include recipe _ldap_config' do
             expect(chef_run).to_not include_recipe('grafana::_ldap_config')
@@ -167,7 +177,7 @@ describe 'grafana::default' do
         context 'with LDAP authentication enabled' do
           let(:chef_run) do
             ChefSpec::SoloRunner.new(chef_solo_opts) do |node|
-              node.set['grafana']['ini']['auth.ldap']['enabled']['value'] = true
+              node.normal['grafana']['ini']['auth.ldap']['enabled']['value'] = true
             end.converge described_recipe
           end
           before do
@@ -204,6 +214,10 @@ describe 'grafana::default' do
               mode: '0644',
               user: 'root'
             )
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[alerting\]/)
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^enabled = true/)
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^execute_alerts = true/)
+
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[database\]/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^data = /var/lib/grafana})
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^host = 127.0.0.1:3306/)
@@ -218,6 +232,7 @@ describe 'grafana::default' do
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[paths\]/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^data = /var/lib/grafana})
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^logs = /var/log/grafana})
+
           end
 
           it 'generate ldap.toml' do

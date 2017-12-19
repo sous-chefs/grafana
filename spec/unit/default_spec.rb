@@ -117,7 +117,7 @@ describe 'grafana::default' do
         context 'with no webserver' do
           let(:chef_run) do
             ChefSpec::SoloRunner.new(chef_solo_opts) do |node|
-              node.set['grafana']['webserver'] = ''
+              node.normal['grafana']['webserver'] = ''
             end.converge described_recipe
           end
 
@@ -177,7 +177,7 @@ describe 'grafana::default' do
         context 'with LDAP authentication enabled' do
           let(:chef_run) do
             ChefSpec::SoloRunner.new(chef_solo_opts) do |node|
-              node.set['grafana']['ini']['auth.ldap']['enabled']['value'] = true
+              node.normal['grafana']['ini']['auth.ldap']['enabled']['value'] = true
             end.converge described_recipe
           end
           before do

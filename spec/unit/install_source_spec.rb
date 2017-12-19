@@ -21,7 +21,7 @@ describe 'grafana::_install_source' do
       context "on #{platform} #{version}" do
         let(:chef_run) do
           ChefSpec::SoloRunner.new(platform: platform, version: version) do |node|
-            node.set['grafana']['install_type'] = 'source'
+            node.normal['grafana']['install_type'] = 'source'
           end.converge 'grafana::default'
         end
 

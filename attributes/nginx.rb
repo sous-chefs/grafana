@@ -20,6 +20,4 @@ default['grafana']['nginx']['template_cookbook'] = 'grafana'
 default['grafana']['nginx']['auth_basic'] = false
 default['grafana']['nginx']['httpasswd_file'] = '/etc/nginx/htpasswd.users'
 
-include_attribute 'chef_nginx'
-
 default['nginx']['default_site_enabled'] = false

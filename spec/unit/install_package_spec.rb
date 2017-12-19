@@ -44,7 +44,7 @@ describe 'grafana::_install_package' do
         let(:chef_run) do
           ChefSpec::SoloRunner.new(platform: platform, version: version) do |node|
             node.set['grafana']['install_type'] = 'package'
-            node.set['grafana']['file']['version'] = '2.0.1'
+            node.set['grafana']['file']['version'] = '4.6.3'
           end.converge 'grafana::default'
         end
 

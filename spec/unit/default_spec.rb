@@ -21,7 +21,7 @@ describe 'grafana::default' do
     }
   end
 
-  let(:grafana_version) { '2.1.2' }
+  let(:grafana_version) { '4.6.3' }
 
   platforms.each do |ext_platform, value|
     value['versions'].each do |ext_version|

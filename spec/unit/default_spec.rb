@@ -96,7 +96,7 @@ describe 'grafana::default' do
             expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^GRAFANA_USER=grafana})
             expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^GRAFANA_GROUP=grafana})
             expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^GRAFANA_HOME=/usr/share/grafana})
-            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^LOGS_DIR=/var/log/grafana})
+            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^LOG_DIR=/var/log/grafana})
             expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^DATA_DIR=/var/lib/grafana})
             expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^PLUGINS_DIR=/var/lib/grafana/plugins})
             expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^MAX_OPEN_FILES=10000})

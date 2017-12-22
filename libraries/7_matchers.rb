@@ -1,4 +1,14 @@
 if defined?(ChefSpec)
+  # Alerting notifications matchers
+  def create_grafana_alerting_notification(name)
+    ChefSpec::Matchers::ResourceMatcher.new(:grafana_alerting_notification, :create, name)
+  end
+  def update_grafana_alerting_notification(name)
+    ChefSpec::Matchers::ResourceMatcher.new(:grafana_alerting_notification, :update, name)
+  end
+  def delete_grafana_alerting_notification(name)
+    ChefSpec::Matchers::ResourceMatcher.new(:grafana_alerting_notification, :delete, name)
+  end
   # Data Source matchers
   def create_grafana_datasource(name)
     ChefSpec::Matchers::ResourceMatcher.new(:grafana_datasource, :create, name)

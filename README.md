@@ -394,6 +394,45 @@ grafana_plugin grafana-clock-panel do
 end
 ```
 
+### grafana_alert_notification
+You can control Grafana alert notifications via the `grafana_alert_notification` LWRP. Due to the varying nature of the potential alert notifications, the information used to create the alert motification is consumed by the resource as a Hash (the `source` attribute). The examples should illustrate the flexibility. The full breadth of options are (or will be) documented on the [Grafana website](http://docs.grafana.org/http_api/alerting/), however you can discover undocumented parameters by inspecting the HTTP requests your browser makes to the Grafana server.
+
+#### Attributes
+| Attribute            | Type     | Default Value     | Description                                                            |
+|---------------------:|:--------:|:-----------------:|------------------------------------------------------------------------|
+| `host`               | `String` | `'localhost'`     | The host grafana is running on                                         |
+| `port`               | `Integer`| `3000`            | The port grafana is running on                                         |
+| `admin_user`         | `String` | `'admin'`         | A grafana user with admin privileges                                   |
+| `admin_password`     | `String` | `'admin'`         | The grafana user's password                                            |
+| `alert_notification` | `Hash  ` | `{}`              | A Hash of the values to create the alert notification. Examples below. |
+| `action`             | `String` | `create`          | Valid actions are `create`, `update`, and `delete`.                    |
+
+
+#### Examples
+You can create an alert notification for the Prometheus alertmanager as follows:
+
+```ruby
+grafana_alert_notification 'alertmanager-test' do
+  alert_notification(
+    type: 'prometheus-alertmanager',
+    settings: { url: "http://alertmanager.local.test" },
+  )
+end
+```
+
+You can create an alert notification for email and make it the default dashboard as follows:
+
+```ruby
+grafana_alert_notification 'email-test' do
+  alert_notification(
+    type: 'email',
+    settings: { addresses: "admin@local.test" },
+    isdefault: true
+  )
+  action :create
+end
+```
+
 Testing
 -------
 #### Foodcritic & Rubocop

@@ -3,6 +3,7 @@
 # Recipe:: nginx
 #
 # Copyright 2014, Jonathan Tron
+# Copyright 2017, Andrei Skopenko
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,6 +18,9 @@
 # limitations under the License.
 #
 
+node.default['nginx']['repo_source'] = 'nginx'
+node.default['nginx']['default_site_enabled'] = false
+node.default['nginx']['server_tokens'] = 'off'
 include_recipe 'chef_nginx'
 
 template '/etc/nginx/sites-available/grafana' do
@@ -36,4 +40,6 @@ template '/etc/nginx/sites-available/grafana' do
   notifies :reload, 'service[nginx]', :immediately
 end
 
-nginx_site 'grafana' 
+nginx_site 'grafana' do
+  action :enable
+end

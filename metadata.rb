@@ -1,10 +1,14 @@
 name 'grafana'
-maintainer 'Jonathan Tron'
-maintainer_email 'jonathan@tron.name'
-license 'Apache 2.0'
-description 'Installs/Configures grafana'
+maintainer 'Andrei Skopenko'
+maintainer_email 'andrei@skopenko.net'
+license 'Apache-2.0'
+description 'Installs/Configures Grafana Server'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '2.1.3'
+version '2.2.0'
+source_url 'https://github.com/sous-chefs/chef-grafana'
+issues_url 'https://github.com/sous-chefs/chef-grafana/issues'
+
+chef_version '>= 11.0'
 
 supports 'ubuntu', '>= 12.04'
 supports 'debian', '>= 7.0'

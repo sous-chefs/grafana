@@ -17,11 +17,11 @@
 
 default['grafana']['manage_install'] = true
 default['grafana']['install_type'] = 'file' # file | package | source
-default['grafana']['version'] = '2.1.2'
+default['grafana']['version'] = '4.6.1'
 
-default['grafana']['file']['url'] = 'https://grafanarel.s3.amazonaws.com/builds/grafana'
-default['grafana']['file']['checksum']['deb'] = '57f52cc8e510f395f7f15caac841dc31e67527072fcbf5cc2d8351404989b298'
-default['grafana']['file']['checksum']['rpm'] = '618f5361e594b101a4832a67a9d82f1179c35ff158ef4288dc1f8b6e8de67bb8'
+default['grafana']['file']['url'] = 'https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana'
+default['grafana']['file']['checksum']['deb'] = 'd02495a10f6ae32a6fac729fab79db61fd90d67dd0fdd385d2e4ddef4cb8c9dc'
+default['grafana']['file']['checksum']['rpm'] = 'ea8989d21f9cf51cfa85ec5331b9d159c4e4cfa75eff5ac91bc6915583a52b0d'
 
 case node['platform_family']
 when 'debian'
@@ -45,6 +45,8 @@ default['grafana']['home'] = '/usr/share/grafana'
 default['grafana']['data_dir'] = '/var/lib/grafana'
 default['grafana']['log_dir'] = '/var/log/grafana'
 default['grafana']['plugins_dir'] = '/var/lib/grafana/plugins'
+default['grafana']['pid_dir'] = '/var/run/grafana'
+
 case node['platform_family']
 when 'debian'
   default['grafana']['env_dir'] = '/etc/default'
@@ -52,6 +54,7 @@ when 'rhel', 'fedora'
   default['grafana']['env_dir'] = '/etc/sysconfig'
 end
 default['grafana']['conf_dir'] = '/etc/grafana'
+default['grafana']['restart_on_upgrade'] = false
 
 ## ini file configuration
 # format is the following [section][key] = value
@@ -67,7 +70,7 @@ default['grafana']['ini'][nil]['app_mode'] = 'production'
 default['grafana']['ini']['database']['type'] = {
   comment: "Either mysl, postgres, sqlite3, it's your choice",
   disable: false,
-  value: 'sqlite3'
+  value: 'sqlite3',
 }
 default['grafana']['ini']['database']['host'] = '127.0.0.1:3306'
 default['grafana']['ini']['database']['name'] = 'grafana'
@@ -76,22 +79,27 @@ default['grafana']['ini']['database']['password'] = ''
 default['grafana']['ini']['database']['ssl_mode'] = {
   comment: 'For "postgres" only, either "disable", "require" or "verify-full"',
   disable: true,
-  value: 'disable'
+  value: 'disable',
 }
 default['grafana']['ini']['database']['path'] = {
   comment: 'For sqlite3 only, path relative to data_path setting',
   disable: false,
-  value: 'grafana.db'
+  value: 'grafana.db',
+}
+default['grafana']['ini']['paths'] = {
+  data: node['grafana']['data_dir'],
+  logs: node['grafana']['log_dir'],
+  plugins: node['grafana']['plugins_dir'],
 }
 
 default['grafana']['ini']['auth.ldap']['enabled'] = {
   comment: '',
   disable: true,
-  value: false
+  value: false,
 }
 default['grafana']['ini']['auth.ldap']['config_file'] = {
   disable: true,
-  value: '/etc/grafana/ldap.toml'
+  value: '/etc/grafana/ldap.toml',
 }
 
 # server

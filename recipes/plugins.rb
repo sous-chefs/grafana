@@ -18,8 +18,16 @@
 #
 
 node['grafana']['plugins'].each do |p|
-  grafana_plugin p do
+  plugin = case
+    when p.kind_of?(Hash)
+      raise "Invalid plugin definition #{p}" if !p.has_key?('id') or !p.has_key?('url')
+      { 'id' => p['id'], 'url' => p['url'] }
+    else
+      { 'id' => p }
+  end
+  grafana_plugin plugin['id'] do
     action node['grafana']['plugins_action']
+    plugin_url plugin['url'] if plugin.has_key?('url')
     grafana_cli_bin node['grafana']['cli_bin']
   end
 end

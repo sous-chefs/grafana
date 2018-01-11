@@ -113,9 +113,12 @@ suites:
           server:
             http_port: 3015
         package:
-          version : 3.0.3-1463994644
+          version : 4.6.3
         plugins:
          - grafana-clock-panel
+         -
+            id: raintank-worldping-app
+            url: https://grafana.com/api/plugins/raintank-worldping-app/versions/1.2.3/download
   # - name: source
   #   run_list:
   #     - recipe[grafana::default]

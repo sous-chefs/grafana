@@ -8,13 +8,7 @@ module GrafanaCookbook
         cmd.run_command
         !cmd.stdout.split("\n").select { |item| item.include?('id:') && item.match(name) }.empty?
       else
-        response = Net::HTTP.get_response(URI(plugin_url))
-        case response
-          when Net::HTTPSuccess, Net::HTTPRedirection then
-            true
-          else
-            false
-          end
+        true
       end
     end
 

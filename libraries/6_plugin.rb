@@ -18,7 +18,7 @@ module GrafanaCookbook
       !cmd.stdout.split("\n").select { |item| item.include?('@') && item.match(name) }.empty?
     end
 
-    def build_cli_cmd(name, plugin_url, action, grafana_cli_bin)
+    def build_cli_cmd(name, action, grafana_cli_bin, plugin_url = nil)
       "#{grafana_cli_bin} #{plugin_url.nil? ? "" : "--pluginUrl #{plugin_url}"} plugins #{action} #{name}"
     end
   end

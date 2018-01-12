@@ -10,7 +10,7 @@ action :install do
   binary = new_resource.grafana_cli_bin
   raise "#{plugin_name} is not available" unless ::GrafanaCookbook::Plugin.available?(plugin_name, plugin_url, binary)
   execute "Installing plugin #{plugin_name}" do
-    command ::GrafanaCookbook::Plugin.build_cli_cmd(plugin_name, plugin_url, 'install', binary)
+    command ::GrafanaCookbook::Plugin.build_cli_cmd(plugin_name, 'install', binary, plugin_url)
     not_if { current_resource.installed }
   end
 end

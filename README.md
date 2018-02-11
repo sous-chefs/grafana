@@ -94,7 +94,7 @@ See attributes/default.rb file for more details and examples.
 **NOTE**
 
 This cookbook does nothing to generate the basic auth user/password file,
-you will have to make sur this file is created and is valid.
+you will have to make sure this file is created and is valid.
 
 Usage
 -----

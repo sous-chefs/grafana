@@ -62,6 +62,8 @@ As with most cookbooks, this one is hopefully flexible enough to be wrapped by a
 | `node['grafana']['webserver_aliases']`       | `[node['ipaddress']]`                  | Array of any secondary hostnames that are valid vhosts |
 | `node['grafana']['webserver_listen']`        | `node['ipaddress']`                    | The ip address the web server will listen on |
 | `node['grafana']['webserver_port']`          | `80`                                   | The port the webserver will listen on |
+| `node['grafana']['cli_bin']`                 | `/usr/sbin/grafana-cli`                | The path to the grafana-cli binary |
+| `node['grafana']['plugins']`                 | `empty`                                | Array of plugins to install |
 
 #### grafana.ini
 For the ini configuration file, parameters can be specified as this: `node['grafana']['ini'][SECTION_NAME][KEY] = [VALUE]`. Here's an example:
@@ -91,6 +93,7 @@ See attributes/default.rb file for more details and examples.
 | `node['grafana']['nginx']['basic_auth']`        | `false`                     | If `true` generated nginx config will have basic auth configured |
 | `node['grafana']['nginx']['httpasswd_file']`    | `/etc/nginx/htpasswd.users` | The basic auth user/password file to use |
 
+
 **NOTE**
 
 This cookbook does nothing to generate the basic auth user/password file,
@@ -117,6 +120,11 @@ If you would like to modify the `nginx` parameters, you should:
 - copy the template for the webserver you wish to use to your cookbook
 - modify the template as you see fit (add auth, setup ssl)
 - use the appropriate webserver template attributes to point to your cookbook and template
+
+#### grafana::plugins
+This recipe will install the plugins given with the `node['grafana']['plugins']` attribute
+
+It will use the grafana_plugin LWRP described in the section below.
 
 Resources
 ---------
@@ -382,6 +390,26 @@ And finally to delete a user
 ```ruby
 grafana_user 'john.smith' do
   action :delete
+end
+```
+
+### grafana_plugin
+
+This ressource will help you to manage grafana plugins.
+
+#### Attributes
+| Attribute        | Type     | Default Value       | Description                                              |
+|------------------|:--------:|:-------------------:|----------------------------------------------------------|
+| `name`           | `String` | `''`                | Name of the plugin.                                      |
+| `action`         | `String` | `install`           | Valid actions are `install`, `update`, `remove`.         |
+| `grafana_cli_bin` | `String` | `'/usr/sbin/grafana-cli'`               | The path to the grafana-cli binary                       |
+
+#### Examples
+
+```ruby
+grafana_plugin grafana-clock-panel do
+  action :install
+  grafana_cli_bin '/usr/sbin/grafana-cli'
 end
 ```
 

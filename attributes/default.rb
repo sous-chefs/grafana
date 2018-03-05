@@ -106,3 +106,14 @@ default['grafana']['ini']['auth.ldap']['config_file'] = {
 default['grafana']['ini']['server']['protocol'] = 'http'
 default['grafana']['ini']['server']['http_port'] = 3000
 default['grafana']['ini']['server']['domain'] = 'localhost'
+
+# webserver
+default['grafana']['webserver'] = 'nginx'
+default['grafana']['webserver_hostname'] = node.name
+default['grafana']['webserver_aliases'] = [node['ipaddress']]
+default['grafana']['webserver_listen'] = node['ipaddress']
+default['grafana']['webserver_port'] = 80
+
+# Plugins
+default['grafana']['cli_bin'] = '/usr/sbin/grafana-cli'
+default['grafana']['plugins'] = []

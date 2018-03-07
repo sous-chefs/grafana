@@ -117,3 +117,7 @@ default['grafana']['webserver_port'] = 80
 # Plugins
 default['grafana']['cli_bin'] = '/usr/sbin/grafana-cli'
 default['grafana']['plugins'] = []
+
+# Configuration from databag
+default['grafana']['data_bag']['name'] = 'grafana'
+default['grafana']['data_bag']['config_item'] = 'config'

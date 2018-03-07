@@ -56,7 +56,7 @@ As with most cookbooks, this one is hopefully flexible enough to be wrapped by a
 | `node['grafana']['plugins_dir']`             | `'/var/lib/grafana/plugins'`           | Grafana's plugins directory |
 | `node['grafana']['env_dir']`                 | `'/etc/default'` or `'/etc/sysconfig'` | The location for environment variables - autoconfigured for rhel and debian systems |
 | `node['grafana']['conf_dir']`                | `'/etc/grafana'`                       | The location to store the `grafana.ini` file |
-| `node['grafana']['restart_on_upgrade']`      | `false`                                | Whether or not to restart the service on upgrade when installing form packages |
+| `node['grafana']['restart_on_upgrade']`      | `false`                                | Whether or not to restart the service on upgrade when installing from packages |
 | `node['grafana']['webserver']`               | `'nginx'`                              | Which webserver to use: `'nginx'` or `''` |
 | `node['grafana']['webserver_hostname']`      | `node.name`                            | The server_name used in the webserver config |
 | `node['grafana']['webserver_aliases']`       | `[node['ipaddress']]`                  | Array of any secondary hostnames that are valid vhosts |
@@ -97,7 +97,7 @@ See attributes/default.rb file for more details and examples.
 **NOTE**
 
 This cookbook does nothing to generate the basic auth user/password file,
-you will have to make sur this file is created and is valid.
+you will have to make sure this file is created and is valid.
 
 Usage
 -----

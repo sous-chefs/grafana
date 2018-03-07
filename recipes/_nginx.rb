@@ -21,7 +21,7 @@
 node.default['nginx']['repo_source'] = 'nginx'
 node.default['nginx']['default_site_enabled'] = false
 node.default['nginx']['server_tokens'] = 'off'
-include_recipe 'chef_nginx'
+include_recipe 'nginx'
 
 template '/etc/nginx/sites-available/grafana' do
   source node['grafana']['nginx']['template']

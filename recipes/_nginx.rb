@@ -23,13 +23,9 @@ node.default['nginx']['default_site_enabled'] = false
 node.default['nginx']['server_tokens'] = 'off'
 include_recipe 'nginx'
 
-template '/etc/nginx/sites-available/grafana' do
-  source node['grafana']['nginx']['template']
+nginx_site 'Grafana' do
+  template node['grafana']['nginx']['template']
   cookbook node['grafana']['nginx']['template_cookbook']
-  notifies :reload, 'service[nginx]'
-  mode '0644'
-  owner 'root'
-  group 'root'
   variables(
     grafana_port: node['grafana']['ini']['server']['http_port'] || 3000,
     server_name: node['grafana']['webserver_hostname'],
@@ -37,9 +33,5 @@ template '/etc/nginx/sites-available/grafana' do
     listen_address: node['grafana']['webserver_listen'],
     listen_port: node['grafana']['webserver_port']
   )
-  notifies :reload, 'service[nginx]', :immediately
-end
-
-nginx_site 'grafana' do
   action :enable
 end

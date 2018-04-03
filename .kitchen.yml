@@ -1,9 +1,6 @@
 ---
 driver:
   name: vagrant
-  customize:
-    memory: 1024
-    cpus: 2
 
 platforms:
   - name: ubuntu-14.04
@@ -58,9 +55,3 @@ suites:
           version : 3.0.3-1463994644
         plugins:
          - grafana-clock-panel
-  # - name: source
-  #   run_list:
-  #     - recipe[grafana::default]
-  #   attributes:
-  #     grafana:
-  #       install_type: source

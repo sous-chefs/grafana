@@ -8,13 +8,11 @@ version '2.2.1'
 source_url 'https://github.com/sous-chefs/chef-grafana'
 issues_url 'https://github.com/sous-chefs/chef-grafana/issues'
 
-chef_version '>= 11.0'
+chef_version '>= 13.0'
 
 supports 'ubuntu', '>= 12.04'
 supports 'debian', '>= 7.0'
 supports 'centos', '>= 6.4'
-
-recipe 'grafana::default', 'Installs and configures Grafana with a web server proxy'
 
 depends 'apt'
 depends 'yum'

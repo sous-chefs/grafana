@@ -3,13 +3,13 @@ require 'spec_helper'
 describe 'grafana::_install_source' do
   platforms = {
     'debian' => {
-      'versions' => ['7.4'],
+      'versions' => ['8.10'],
     },
     'ubuntu' => {
-      'versions' => ['12.04', '14.04'],
+      'versions' => ['14.04', '16.04'],
     },
     'centos' => {
-      'versions' => ['6.4', '6.6'],
+      'versions' => ['6.9', '7.4.1708'],
     },
   }
 
@@ -21,7 +21,7 @@ describe 'grafana::_install_source' do
       context "on #{platform} #{version}" do
         let(:chef_run) do
           ChefSpec::SoloRunner.new(platform: platform, version: version) do |node|
-            node.set['grafana']['install_type'] = 'source'
+            node.override['grafana']['install_type'] = 'source'
           end.converge 'grafana::default'
         end
 

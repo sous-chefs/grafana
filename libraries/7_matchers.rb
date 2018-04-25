@@ -9,6 +9,16 @@ if defined?(ChefSpec)
   def delete_grafana_alert_notification(name)
     ChefSpec::Matchers::ResourceMatcher.new(:grafana_alert_notification, :delete, name)
   end
+  # Provisioning feature
+  def create_grafana_provisioning_datasource(name)
+    ChefSpec::Matchers::ResourceMatcher.new(:grafana_provisioning_datasource, :create, name)
+  end
+  def create_grafana_provisioning_datasource(name)
+    ChefSpec::Matchers::ResourceMatcher.new(:grafana_provisioning_datasource, :update, name)
+  end
+  def create_grafana_provisioning_datasource(name)
+    ChefSpec::Matchers::ResourceMatcher.new(:grafana_provisioning_datasource, :delete, name)
+  end
   # Data Source matchers
   def create_grafana_datasource(name)
     ChefSpec::Matchers::ResourceMatcher.new(:grafana_datasource, :create, name)

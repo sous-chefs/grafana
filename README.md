@@ -198,6 +198,35 @@ grafana_datasource 'influxdb-test' do
 end
 ```
 
+### grafana_provisioning_datasource
+Since Grafana 5.0, tt’s possible to manage datasources in Grafana by adding one or more yaml config files in the provisioning/datasources directory. Each config file can contain a list of datasources that will be added or updated during start up. 
+
+You can create a data source for Graphite 1.1 as follows:
+```ruby
+grafana_provisioning_datasource 'graphite-test' do
+  action :create
+  datasource(
+    name: 'graphite-test',
+    type: 'graphite',
+    url: 'http://10.0.0.15:8080',
+    organization_id: 1,
+    access: 'direct',
+    json_data: { tlsAuth: false, tlsAuthWithCACert: false, graphiteVersion: 1.1 },
+  )
+end
+```
+
+Finally, you can also delete a datasource:
+```ruby
+grafana_provisioning_datasource 'graphite-test' do
+  action :delete
+  datasource(
+    name: 'graphite-test',
+    organization_id: 1,
+  )
+end
+```
+
 ### grafana_dashboard
 Dashboards in Grafana are always going to be incredibly specific to the application, but you may want to be able to create a new dashboard along with a newly provisioned stack. This resource assumes you have a static json file that displays the information that will be flowing from the newly created stack.
 

@@ -47,6 +47,7 @@ default['grafana']['home'] = '/usr/share/grafana'
 default['grafana']['data_dir'] = '/var/lib/grafana'
 default['grafana']['log_dir'] = '/var/log/grafana'
 default['grafana']['plugins_dir'] = '/var/lib/grafana/plugins'
+default['grafana']['provisioning_dir'] = '/etc/grafana/provisioning'
 case node['platform_family']
 when 'debian'
   default['grafana']['env_dir'] = '/etc/default'
@@ -55,11 +56,6 @@ when 'rhel', 'fedora'
 end
 default['grafana']['conf_dir'] = '/etc/grafana'
 default['grafana']['restart_on_upgrade'] = false
-
-# Provisioning
-default['grafana']['provisioning_dir'] = '/etc/grafana/provisioning'
-default['grafana']['datasources']['provisioning_dir'] = ::File.join(node['grafana']['provisioning_dir'], 'datasources')
-default['grafana']['dashboards']['provisioning_dir'] = ::File.join(node['grafana']['provisioning_dir'], 'dashboards')
 
 ## ini file configuration
 # format is the following [section][key] = value

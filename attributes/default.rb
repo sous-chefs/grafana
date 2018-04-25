@@ -17,12 +17,11 @@
 
 default['grafana']['manage_install'] = true
 default['grafana']['install_type'] = 'file' # file | package | source
-default['grafana']['version'] = '4.6.3'
+default['grafana']['version'] = '5.0.4'
 
 default['grafana']['file']['url'] = 'https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana'
-default['grafana']['file']['checksum']['deb'] = 'd022fceb939e7570d74b437932bee876e306b0e21ecdd830752c61b4e89dab31'
-default['grafana']['file']['checksum']['rpm'] = 'bfb639baffb34d43f826c6edc2912a8b79957ab08e777ec77fa7e931f741944c'
-
+default['grafana']['file']['checksum']['deb'] = '994f305781a80648741288bc4c1376d81c17c5f367edb709cc413b0438eee1f5'
+default['grafana']['file']['checksum']['rpm'] = 'c77113509d86f313647d38719d4888302415bd636839e1b777e1585a2a6e1ffa'
 
 case node['platform_family']
 when 'debian'
@@ -56,6 +55,11 @@ when 'rhel', 'fedora'
 end
 default['grafana']['conf_dir'] = '/etc/grafana'
 default['grafana']['restart_on_upgrade'] = false
+
+# Provisioning
+default['grafana']['provisioning_dir'] = '/etc/grafana/provisioning'
+default['grafana']['datasources']['provisioning_dir'] = ::File.join(node['grafana']['provisioning_dir'], 'datasources')
+default['grafana']['dashboards']['provisioning_dir'] = ::File.join(node['grafana']['provisioning_dir'], 'dashboards')
 
 ## ini file configuration
 # format is the following [section][key] = value

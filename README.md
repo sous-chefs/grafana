@@ -12,7 +12,7 @@ If you would like to configure pre-2.0 versions of Grafana, please use the 1.x b
 
 ### Chef Client
 
-- Chef Client 12.+
+- Chef Client 13+
 
 ### Platforms
 
@@ -22,7 +22,7 @@ If you would like to configure pre-2.0 versions of Grafana, please use the 1.x b
 
 ### Cookbooks
 
-- [nginx](https://supermarket.chef.io/cookbooks/nginx)
+- [nginx](https://supermarket.chef.io/cookbooks/nginx) 7+
 
 ## Recipes
 
@@ -123,15 +123,15 @@ It will use the grafana_plugin LWRP described in the section below.
 
 ## Resources
 
-It's important to note that Grafana must be running for these resources to be used because they utilitze Grafana's HTTP API. In your recipe, you'll simply need to make sure that you include the default recipe that starts Grafana before using these.
+It's important to note that Grafana must be running for these resources to be used because they utilize Grafana's HTTP API. In your recipe, you'll simply need to make sure that you include the default recipe that starts Grafana before using these.
 
 ### grafana_datasource
 
 You can control Grafana dataSources via the `grafana_datasource` LWRP. Due to the varying nature of the potential data sources, the information used to create the datasource is consumed by the resource as a Hash (the `source` attribute). The examples should illustrate the flexibility. The full breadth of options are (or will be) documented on the [Grafana website](http://docs.grafana.org/reference/http_api/#data-sources), however you can discover undocumented parameters by inspecting the HTTP requests your browser makes to the Grafana server.
 
-#### Attributes
+#### Properties
 
-Attribute        |   Type    | Default Value | Description
+Property         |   Type    | Default Value | Description
 ---------------- | :-------: | :-----------: | --------------------------------------------------------------
 `host`           | `String`  | `'localhost'` | The host grafana is running on
 `port`           | `Integer` |    `3000`     | The port grafana is running on
@@ -222,9 +222,9 @@ Dashboards in Grafana are always going to be incredibly specific to the applicat
 
 This resource currently makes an assumption that the name used in invocation matches the name of the dashboard. This will obviously have limitations, and could change in the future. More documentation on creating Grafana dashboards via the HTTP API can be found [here](http://docs.grafana.org/reference/http_api/#dashboards).
 
-#### Attributes
+#### Properties
 
-Attribute        |   Type    | Default Value | Description
+Property         |   Type    | Default Value | Description
 ---------------- | :-------: | :-----------: | ------------------------------------------------------------------------------------------------------------------------
 `host`           | `String`  | `'localhost'` | The host grafana is running on
 `port`           | `Integer` |    `3000`     | The port grafana is running on
@@ -301,9 +301,9 @@ This resource will allow you to create organizations within Grafana.
 
 More information about creating Grafana organizations via the HTTP API can be found [here](http://docs.grafana.org/reference/http_api/#organizations).
 
-#### Attributes
+#### Properties
 
-Attribute        |   Type    |    Default Value    | Description
+Property         |   Type    |    Default Value    | Description
 ---------------- | :-------: | :-----------------: | ----------------------------------------------------------------
 `host`           | `String`  |    `'localhost'`    | The host grafana is running on
 `port`           | `Integer` |       `3000`        | The port grafana is running on
@@ -345,9 +345,9 @@ This resource will allow you to create global users within Grafana. This resourc
 
 More information about creating Grafana users via the HTTP API can be found [here](http://docs.grafana.org/reference/http_api/#users).
 
-#### Attributes
+#### Properties
 
-Attribute        |   Type    | Default Value | Description
+Property         |   Type    | Default Value | Description
 ---------------- | :-------: | :-----------: | --------------------------------------------------------
 `host`           | `String`  | `'localhost'` | The host grafana is running on
 `port`           | `Integer` |    `3000`     | The port grafana is running on
@@ -415,9 +415,9 @@ end
 
 This ressource will help you to manage grafana plugins.
 
-#### Attributes
+#### Properties
 
-Attribute         |   Type   |       Default Value       | Description
+Property          |   Type   |       Default Value       | Description
 ----------------- | :------: | :-----------------------: | ------------------------------------------------
 `name`            | `String` |           `''`            | Name of the plugin.
 `action`          | `String` |         `install`         | Valid actions are `install`, `update`, `remove`.

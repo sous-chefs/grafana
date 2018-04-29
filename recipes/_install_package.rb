@@ -30,7 +30,7 @@ when 'debian'
     cache_rebuild node['grafana']['package']['apt_rebuild']
     trusted node['grafana']['package']['trusted']
   end
-  
+
   package 'grafana' do
     version node['grafana']['package']['version']
     options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'

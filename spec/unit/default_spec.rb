@@ -40,7 +40,7 @@ describe 'grafana::default' do
             stub_command 'which nginx'
           end
 
-          let(:chef_run) do
+          cached(:chef_run) do
             ChefSpec::SoloRunner.new(chef_solo_opts).converge described_recipe
           end
 
@@ -125,8 +125,7 @@ describe 'grafana::default' do
               expect(chef_run).to create_remote_file "/var/chef/cache/grafana-#{grafana_version}.rpm"
               expect(chef_run).to install_rpm_package "grafana-#{grafana_version}"
             else
-              expect(chef_run).to install_package 'adduser'
-              expect(chef_run).to install_package 'libfontconfig'
+              expect(chef_run).to install_package %(adduser, libfontconfig)
               expect(chef_run).to create_remote_file "/var/chef/cache/grafana-#{grafana_version}.deb"
               expect(chef_run).to install_dpkg_package "grafana-#{grafana_version}"
             end
@@ -141,10 +140,7 @@ describe 'grafana::default' do
           end
 
           it 'generate grafana.ini' do
-            expect(chef_run).to create_template('/etc/grafana/grafana.ini').with(
-              mode: '0644',
-              user: 'root'
-            )
+            expect(chef_run).to create_template('/etc/grafana/grafana.ini')
 
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[database\]/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^data = /var/lib/grafana})
@@ -202,10 +198,7 @@ describe 'grafana::default' do
           end
 
           it 'generate grafana.ini' do
-            expect(chef_run).to create_template('/etc/grafana/grafana.ini').with(
-              mode: '0644',
-              user: 'root'
-            )
+            expect(chef_run).to create_template('/etc/grafana/grafana.ini')
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[database\]/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^data = /var/lib/grafana})
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^host = 127.0.0.1:3306/)

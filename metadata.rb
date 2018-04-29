@@ -12,5 +12,6 @@ version          '2.2.1'
 supports 'ubuntu', '>= 14.04'
 supports 'debian', '>= 7.0'
 supports 'centos', '>= 6.4'
+supports 'redhat', '>= 6.4'
 
 depends 'nginx', '>= 7.0'

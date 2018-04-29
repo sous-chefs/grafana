@@ -1,9 +1,17 @@
 ---
 driver:
   name: vagrant
-  customize:
-    memory: 1024
-    cpus: 2
+
+provisioner:
+  name: chef_zero
+  product_name: chef
+  product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
+  install_strategy: once
+
+client_rb:
+  treat_deprecation_warnings_as_errors: true
+verifier:
+  name: inspec
 
 platforms:
   - name: ubuntu-14.04
@@ -13,15 +21,15 @@ platforms:
     attributes:
       grafana:
         webserver_listen: ''
-  - name: debian-7.4
+  - name: debian-7
     run_list:
       - recipe[apt::default]
       - recipe[curl::default]
-  - name: centos-6.9
+  - name: centos-6
     attributes:
       grafana:
         webserver_listen: ''
-  - name: centos-7.2
+  - name: centos-7
     attributes:
       grafana:
         webserver_listen: ''
@@ -58,9 +66,3 @@ suites:
           version : 3.0.3-1463994644
         plugins:
          - grafana-clock-panel
-  # - name: source
-  #   run_list:
-  #     - recipe[grafana::default]
-  #   attributes:
-  #     grafana:
-  #       install_type: source

@@ -456,15 +456,6 @@ $ bundle install
 $ bundle exec kitchen test
 ```
 
-## Contributing
-
-- Fork the repository on Github
-- Create a named feature branch (like `add_component_x`)
-- Write your change
-- Write tests for your change (if applicable)
-- Run the tests, ensuring they all pass -- `bundle exec strainer test`
-- Submit a Pull Request using Github
-
 ## License and Authors
 
 Primary authors:

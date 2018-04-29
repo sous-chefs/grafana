@@ -1,7 +1,3 @@
-def whyrun_supported?
-  true
-end
-
 action :install do
   plugin_name = new_resource.name
   binary = new_resource.grafana_cli_bin

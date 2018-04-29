@@ -22,10 +22,7 @@
 
 case node['platform_family']
 when 'debian'
-  pkgs = %w(adduser libfontconfig)
-  pkgs.each do |pkg|
-    package pkg
-  end
+  package %w(adduser libfontconfig)
 
   grafana_installed = "dpkg -l | grep '^ii' | grep grafana | grep #{node['grafana']['version']}"
 
@@ -44,10 +41,7 @@ when 'debian'
     not_if grafana_installed
   end
 when 'rhel'
-  pkgs = %w(initscripts fontconfig urw-fonts)
-  pkgs.each do |pkg|
-    package pkg
-  end
+  package %w(initscripts fontconfig urw-fonts)
 
   grafana_installed = "yum list installed | grep grafana | grep #{node['grafana']['version']}"
 

@@ -30,6 +30,7 @@ when 'debian'
     cache_rebuild node['grafana']['package']['apt_rebuild']
     trusted node['grafana']['package']['trusted']
   end
+  
   package 'grafana' do
     version node['grafana']['package']['version']
     options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
@@ -42,6 +43,7 @@ when 'rhel'
     gpgcheck node['grafana']['package']['checkkey']
     action :create
   end
+
   package 'grafana' do
     version node['grafana']['package']['version']
   end

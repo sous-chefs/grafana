@@ -10,7 +10,7 @@ chef_version     '>= 13.0'
 version          '2.2.1'
 
 supports 'ubuntu', '>= 14.04'
-supports 'debian', '>= 7.0'
+supports 'debian', '>= 8.0'
 supports 'centos', '>= 6.4'
 supports 'redhat', '>= 6.4'
 

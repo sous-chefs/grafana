@@ -17,8 +17,8 @@ If you would like to configure pre-2.0 versions of Grafana, please use the 1.x b
 ### Platforms
 
 - Ubuntu >= 14.04
-- Debian >= 7
-- CentOS >= 6
+- Debian >= 8
+- CentOS/Redhat >= 6
 
 ### Cookbooks
 

@@ -13,6 +13,4 @@ supports 'ubuntu', '>= 14.04'
 supports 'debian', '>= 7.0'
 supports 'centos', '>= 6.4'
 
-depends 'apt'
-depends 'yum'
 depends 'nginx'

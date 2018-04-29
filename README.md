@@ -22,8 +22,6 @@ If you would like to configure pre-2.0 versions of Grafana, please use the 1.x b
 
 ### Cookbooks
 
-- [apt](https://supermarket.chef.io/cookbooks/apt)
-- [yum](https://supermarket.chef.io/cookbooks/yum)
 - [nginx](https://supermarket.chef.io/cookbooks/nginx)
 
 ## Recipes

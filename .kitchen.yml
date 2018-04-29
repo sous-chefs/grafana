@@ -21,10 +21,13 @@ platforms:
     attributes:
       grafana:
         webserver_listen: ''
-  - name: debian-7
+  - name: ubuntu-16.04
     run_list:
       - recipe[apt::default]
       - recipe[curl::default]
+    attributes:
+      grafana:
+        webserver_listen: ''
   - name: centos-6
     attributes:
       grafana:

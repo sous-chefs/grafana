@@ -16,7 +16,7 @@
 #
 
 default['grafana']['manage_install'] = true
-default['grafana']['install_type'] = 'file' # file | package | source
+default['grafana']['install_type'] = 'file' # file | package
 default['grafana']['version'] = '4.6.3'
 
 default['grafana']['file']['url'] = 'https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana'

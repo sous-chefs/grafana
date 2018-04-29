@@ -21,7 +21,7 @@ describe 'grafana::default' do
     }
   end
 
-  let(:grafana_version) { '2.1.2' }
+  let(:grafana_version) { '4.6.3' }
 
   platforms.each do |ext_platform, value|
     value['versions'].each do |ext_version|
@@ -30,25 +30,24 @@ describe 'grafana::default' do
         let(:version) { ext_version }
 
         before do
-          stub_command("dpkg -l | grep '^ii' | grep grafana | grep 2.1.2").and_return('2.1.2')
-          stub_command("dpkg -l | grep '^ii' | grep grafana | grep 4.6.3").and_return('4.6.3')
-          stub_command("yum list installed | grep grafana | grep #{grafana_version}").and_return(grafana_version.to_s)
+          stub_command("dpkg -l | grep '^ii' | grep grafana | grep #{grafana_version}").and_return(false)
+          stub_command("yum list installed | grep grafana | grep #{grafana_version}").and_return(false)
         end
 
         context 'with default attributes' do
-          before do
-            stub_command 'which nginx'
-          end
-
           cached(:chef_run) do
             ChefSpec::SoloRunner.new(chef_solo_opts).converge described_recipe
           end
 
           it 'installs grafana package' do
             if platform == 'centos'
-              expect(chef_run).to install_rpm_package("grafana-#{grafana_version}")
+              expect(chef_run).to install_package %w(initscripts fontconfig urw-fonts)
+              expect(chef_run).to create_remote_file "/var/chef/cache/grafana-#{grafana_version}.rpm"
+              expect(chef_run).to install_rpm_package "grafana-#{grafana_version}"
             else
-              expect(chef_run).to install_dpkg_package("grafana-#{grafana_version}")
+              expect(chef_run).to install_package %w(adduser libfontconfig)
+              expect(chef_run).to create_remote_file "/var/chef/cache/grafana-#{grafana_version}.deb"
+              expect(chef_run).to install_dpkg_package "grafana-#{grafana_version}"
             end
           end
 
@@ -60,17 +59,13 @@ describe 'grafana::default' do
             expect(chef_run).to include_recipe 'grafana::_install_file'
           end
 
-          it 'create log and data directories' do
+          it 'creates log and data directories' do
             expect(chef_run).to create_directory('/var/lib/grafana').with(mode: '0755')
             expect(chef_run).to create_directory('/var/log/grafana').with(mode: '0755')
           end
 
           it 'generate grafana.ini' do
             expect(chef_run).to create_template('/etc/grafana/grafana.ini')
-            # .with(
-            #   mode: '0644',
-            #   user: 'root'
-            # )
 
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[database\]/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^host = 127.0.0.1:3306/)
@@ -89,17 +84,23 @@ describe 'grafana::default' do
           end
 
           it 'generate grafana-server environment vars' do
-            expect(chef_run).to create_template('/etc/default/grafana-server')
-            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(/^GRAFANA_USER=grafana/)
-            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(/^GRAFANA_GROUP=grafana/)
-            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^GRAFANA_HOME=/usr/share/grafana})
-            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^LOG_DIR=/var/log/grafana})
-            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^DATA_DIR=/var/lib/grafana})
-            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^PLUGINS_DIR=/var/lib/grafana/plugins})
-            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(/^MAX_OPEN_FILES=10000/)
-            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^CONF_DIR=/etc/grafana})
-            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(%r{^CONF_FILE=/etc/grafana/grafana.ini})
-            expect(chef_run).to render_file('/etc/default/grafana-server').with_content(/^RESTART_ON_UPGRADE=false/)
+            path = if platform == 'centos'
+                     '/etc/sysconfig/grafana-server'
+                   else
+                     '/etc/default/grafana-server'
+                   end
+
+            expect(chef_run).to create_template(path)
+            expect(chef_run).to render_file(path).with_content(/^GRAFANA_USER=grafana/)
+            expect(chef_run).to render_file(path).with_content(/^GRAFANA_GROUP=grafana/)
+            expect(chef_run).to render_file(path).with_content(%r{^GRAFANA_HOME=/usr/share/grafana})
+            expect(chef_run).to render_file(path).with_content(%r{^LOG_DIR=/var/log/grafana})
+            expect(chef_run).to render_file(path).with_content(%r{^DATA_DIR=/var/lib/grafana})
+            expect(chef_run).to render_file(path).with_content(%r{^PLUGINS_DIR=/var/lib/grafana/plugins})
+            expect(chef_run).to render_file(path).with_content(/^MAX_OPEN_FILES=10000/)
+            expect(chef_run).to render_file(path).with_content(%r{^CONF_DIR=/etc/grafana})
+            expect(chef_run).to render_file(path).with_content(%r{^CONF_FILE=/etc/grafana/grafana.ini})
+            expect(chef_run).to render_file(path).with_content(/^RESTART_ON_UPGRADE=false/)
           end
 
           it 'enable grafana-server service' do
@@ -112,23 +113,10 @@ describe 'grafana::default' do
         end
 
         context 'with no webserver' do
-          let(:chef_run) do
+          cached(:chef_run) do
             ChefSpec::SoloRunner.new(chef_solo_opts) do |node|
               node.override['grafana']['webserver'] = ''
             end.converge described_recipe
-          end
-
-          it 'installs grafana package' do
-            if platform == 'centos'
-              expect(chef_run).to install_package 'initscripts'
-              expect(chef_run).to install_package 'fontconfig'
-              expect(chef_run).to create_remote_file "/var/chef/cache/grafana-#{grafana_version}.rpm"
-              expect(chef_run).to install_rpm_package "grafana-#{grafana_version}"
-            else
-              expect(chef_run).to install_package %(adduser, libfontconfig)
-              expect(chef_run).to create_remote_file "/var/chef/cache/grafana-#{grafana_version}.deb"
-              expect(chef_run).to install_dpkg_package "grafana-#{grafana_version}"
-            end
           end
 
           it 'do not load grafana::nginx recipe' do
@@ -163,21 +151,10 @@ describe 'grafana::default' do
         end
 
         context 'with LDAP authentication enabled' do
-          let(:chef_run) do
+          cached(:chef_run) do
             ChefSpec::SoloRunner.new(chef_solo_opts) do |node|
               node.override['grafana']['ini']['auth.ldap']['enabled']['value'] = true
             end.converge described_recipe
-          end
-          before do
-            stub_command 'which nginx'
-          end
-
-          it 'installs grafana package' do
-            if platform == 'centos'
-              expect(chef_run).to install_rpm_package("grafana-#{grafana_version}")
-            else
-              expect(chef_run).to install_dpkg_package("grafana-#{grafana_version}")
-            end
           end
 
           it 'loads grafana::_nginx recipe' do
@@ -252,10 +229,6 @@ describe 'grafana::default' do
             expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^\[\[servers.group_mappings\]\]/)
             expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^group_dn = "*"/)
             expect(chef_run).to render_file('/etc/grafana/ldap.toml').with_content(/^org_role = "Viewer"/)
-          end
-
-          it 'generate grafana-server environment vars' do
-            expect(chef_run).to create_template('/etc/default/grafana-server')
           end
 
           it 'enable grafana-server service' do

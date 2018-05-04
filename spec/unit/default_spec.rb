@@ -21,7 +21,7 @@ describe 'grafana::default' do
     }
   end
 
-  let(:grafana_version) { '4.6.3' }
+  let(:grafana_version) { '5.0.4' }
 
   platforms.each do |ext_platform, value|
     value['versions'].each do |ext_version|
@@ -88,6 +88,7 @@ describe 'grafana::default' do
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^data = /var/lib/grafana})
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^logs = /var/log/grafana})
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^plugins = /var/lib/grafana/plugins})
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^provisioning = /etc/grafana/provisioning})
 
           end
 
@@ -167,8 +168,11 @@ describe 'grafana::default' do
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[paths\]/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^data = /var/lib/grafana})
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^logs = /var/log/grafana})
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^provisioning = /etc/grafana/provisioning})            
 
           end
+
+
           it 'does not include recipe _ldap_config' do
             expect(chef_run).to_not include_recipe('grafana::_ldap_config')
           end
@@ -232,6 +236,7 @@ describe 'grafana::default' do
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(/^\[paths\]/)
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^data = /var/lib/grafana})
             expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^logs = /var/log/grafana})
+            expect(chef_run).to render_file('/etc/grafana/grafana.ini').with_content(%r{^provisioning = /etc/grafana/provisioning})
 
           end
 

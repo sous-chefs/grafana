@@ -2,10 +2,6 @@ require 'chef/mash'
 
 include GrafanaCookbook::OrganizationApi
 
-def whyrun_supported?
-  true
-end
-
 action :create do
   grafana_options = {
     host: new_resource.host,

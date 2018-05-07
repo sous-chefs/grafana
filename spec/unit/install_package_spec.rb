@@ -19,7 +19,7 @@ describe 'grafana::_install_package' do
         stub_command('which nginx').and_return('1')
       end
       context "on #{platform} #{version}" do
-        let(:chef_run) do
+        cached(:chef_run) do
           ChefSpec::SoloRunner.new(platform: platform, version: version) do |node|
             node.override['grafana']['install_type'] = 'package'
           end.converge 'grafana::default'
@@ -41,7 +41,7 @@ describe 'grafana::_install_package' do
         end
       end
       context "on #{platform} #{version} with grafana version older than 2.0.2" do
-        let(:chef_run) do
+        cached(:chef_run) do
           ChefSpec::SoloRunner.new(platform: platform, version: version) do |node|
             node.override['grafana']['install_type'] = 'package'
             node.override['grafana']['file']['version'] = '2.0.1'

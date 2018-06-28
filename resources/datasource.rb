@@ -18,9 +18,8 @@ action :create do
   }
   # If datasource name is not provided as variable,
   # Let's use resource name for it
-  unless new_resource.datasource.key?(:name)
-    new_resource.datasource[:name] = new_resource.name
-  end
+  new_datasource = { name: new_resource.name }
+  new_datasource.merge!(new_resource.datasource)
 
   _select_org(new_resource, grafana_options)
 
@@ -28,14 +27,14 @@ action :create do
   exists = false
 
   datasources.each do |src|
-    exists = true if src['name'] == new_resource.datasource[:name]
+    exists = true if src['name'] == new_datasource[:name]
     break if exists
   end
 
   # If not found, let's create it
   unless exists
-    converge_by("Creating datasource #{new_resource.datasource[:organization]} #{new_resource.datasource[:name]}") do
-      add_datasource(new_resource.datasource, _legacy_http_semantic, grafana_options)
+    converge_by("Creating datasource #{new_datasource[:organization]} #{new_datasource[:name]}") do
+      add_datasource(new_datasource, _legacy_http_semantic, grafana_options)
     end
   end
 end
@@ -49,9 +48,8 @@ action :update do
   }
   # If datasource name is not provided as variable,
   # Let's use resource name for it
-  unless new_resource.datasource.key?(:name)
-    new_resource.datasource[:name] = new_resource.name
-  end
+  new_datasource = { name: new_resource.name }
+  new_datasource.merge!(new_resource.datasource)
 
   _select_org(new_resource, grafana_options)
 
@@ -59,10 +57,10 @@ action :update do
   exists = false
 
   # Check wether we have to update datasource's login
-  old_name = if new_resource.datasource[:name] != new_resource.name
+  old_name = if new_datasource[:name] != new_resource.name
                new_resource.name
              else
-               new_resource.datasource[:name]
+               new_datasource[:name]
              end
 
   # Find wether datasource already exists
@@ -70,9 +68,9 @@ action :update do
   datasources.each do |src|
     if src['name'] == old_name
       exists = true
-      new_resource.datasource[:id] = src['id']
-      converge_by("Updating datasource #{new_resource.datasource[:name]}") do
-        update_datasource(new_resource.datasource, _legacy_http_semantic, grafana_options)
+      new_datasource[:id] = src['id']
+      converge_by("Updating datasource #{new_datasource[:name]}") do
+        update_datasource(new_datasource, _legacy_http_semantic, grafana_options)
       end
     end
     break if exists
@@ -88,9 +86,8 @@ action :delete do
   }
   # If datasource name is not provided as variable,
   # Let's use resource name for it
-  unless new_resource.datasource.key?(:name)
-    new_resource.datasource[:name] = new_resource.name
-  end
+  new_datasource = { name: new_resource.name }
+  new_datasource.merge!(new_resource.datasource)
 
   _select_org(new_resource, grafana_options)
 
@@ -100,11 +97,11 @@ action :delete do
   # Find wether datasource already exists
   # If found, delete it
   datasources.each do |src|
-    next unless src['name'] == new_resource.datasource[:name]
+    next unless src['name'] == new_datasource[:name]
     exists = true
-    new_resource.datasource[:id] = src['id']
+    new_datasource[:id] = src['id']
     converge_by("Deleting data source #{new_resource.name}") do
-      delete_datasource(new_resource.datasource, grafana_options)
+      delete_datasource(new_datasource, grafana_options)
     end
   end
 end

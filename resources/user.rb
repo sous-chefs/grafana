@@ -38,9 +38,7 @@ action :create do
     end
     new_users_list = get_user_list(grafana_options)
     new_users_list.each do |n_user|
-      if n_user['login'] == new_user[:login]
-        new_user[:id] = n_user['id']
-      end
+      n_user['login'] == new_user[:login] && new_user[:id] = n_user['id']
     end
     converge_by("Setting permissions #{new_user[:login]}") do
       update_user_permissions(new_user, grafana_options)

@@ -62,9 +62,6 @@ action :update do
 
   dashboard_sanity(new_dashboard)
 
-  # Find wether dashboard already exists
-  dash = get_dashboard(new_dashboard, grafana_options)
-
   converge_by("Updating dashboard #{new_resource.name}") do
     create_update_dashboard(new_dashboard, grafana_options)
   end

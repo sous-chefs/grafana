@@ -31,6 +31,6 @@ action :remove do
 end
 
 def load_current_resource
-  @current_resource = Chef::Resource::GrafanaPlugin.new(@new_resource.name)
+  @current_resource = Chef::Resource.resource_for_node(:grafana_plugin, node).new(@new_resource.name)
   @current_resource.installed = GrafanaCookbook::Plugin.installed?(new_resource.name, new_resource.grafana_cli_bin)
 end

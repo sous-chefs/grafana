@@ -2,7 +2,6 @@ module GrafanaCookbook
   module DashboardApi
     include GrafanaCookbook::ApiHelper
 
-    #
     def create_update_dashboard(dashboard, grafana_options)
       # Find dashboard from file and build payload
       dashboard_source_file = find_dashboard_source_file dashboard
@@ -21,7 +20,6 @@ module GrafanaCookbook
       nil
     end
 
-    #
     def delete_dashboard(dashboard, grafana_options)
       grafana_options[:method] = 'Delete'
       grafana_options[:success_msg] = 'Dashboard deletion was successful.'

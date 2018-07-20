@@ -2,7 +2,6 @@ module GrafanaCookbook
   module OrganizationApi
     include GrafanaCookbook::ApiHelper
 
-    #
     def add_user_to_orgs(user, grafana_options)
       orgs = get_orgs_list(grafana_options)
       selected_orgs = user[:organizations].map { |user_org| orgs.detect { |org| org['name'] == user_org[:name] } }
@@ -98,7 +97,6 @@ module GrafanaCookbook
       nil
     end
 
-    #
     def add_org(organization, grafana_options)
       grafana_options[:method] = 'Post'
       grafana_options[:success_msg] = 'Organization addition was successful.'
@@ -110,7 +108,6 @@ module GrafanaCookbook
       nil
     end
 
-    #
     def update_org(organization, grafana_options)
       grafana_options[:method] = 'Put'
       grafana_options[:success_msg] = 'Organization update was successful.'
@@ -122,7 +119,6 @@ module GrafanaCookbook
       nil
     end
 
-    #
     def delete_org(organization, grafana_options)
       grafana_options[:method] = 'Delete'
       grafana_options[:success_msg] = 'Organization deletion was successful.'

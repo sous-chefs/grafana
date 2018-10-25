@@ -104,6 +104,8 @@ The default recipe will:
 - install Grafana via downloaded system package
 - install `nginx` to proxy the grafana application
 
+If you want to install a newer version using the `file` installation method, set the `node['grafana']['version']` attribute to the desired version and also set either `node['grafana']['file']['checksum']['deb']` or `node['grafana']['file']['checksum']['rpm']` to the SHA256 checksum of the package file as shown on the [Grafana download page](https://grafana.com/grafana/download).
+
 If you want to install the Grafana package repository, update `node['grafana']['install_type']` attribute to `package`. Additionally, the `node['grafana']['version']` can be set to `'latest'` so that the very latest Grafana build is used instead of the default release.
 
 Nginx is used to proxy Grafana to run on port 80\. If you don't want this cookbook to handle the webserver config simply set `node['grafana']['webserver']` to `''` in a role/environment/node somewhere.

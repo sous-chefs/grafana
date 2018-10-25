@@ -28,6 +28,13 @@ platforms:
     attributes:
       grafana:
         webserver_listen: ''
+  - name: ubuntu-18.04
+    run_list:
+      - recipe[apt::default]
+      - recipe[curl::default]
+    attributes:
+      grafana:
+        webserver_listen: ''
   - name: centos-6
     attributes:
       grafana:

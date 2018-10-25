@@ -6,7 +6,7 @@ describe 'grafana::default' do
       'versions' => ['8.10'],
     },
     'ubuntu' => {
-      'versions' => ['14.04', '16.04'],
+      'versions' => ['14.04', '16.04', '18.04'],
     },
     'centos' => {
       'versions' => ['6.9', '7.4.1708'],
@@ -21,7 +21,7 @@ describe 'grafana::default' do
     }
   end
 
-  let(:grafana_version) { '4.6.3' }
+  let(:grafana_version) { '5.3.2' }
 
   platforms.each do |ext_platform, value|
     value['versions'].each do |ext_version|

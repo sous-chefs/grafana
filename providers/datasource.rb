@@ -110,7 +110,7 @@ end
 
 def _check_org!(datasource, orgs)
   return if orgs.length <= 1 || datasource.key?(:organization)
-  raise 'More then one organization, so organization is mandatory for a datasource'
+  raise 'More than one organization, so organization is mandatory for a datasource'
 end
 
 def _select_org(new_resource, grafana_options)

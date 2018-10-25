@@ -121,7 +121,7 @@ end
 
 def _check_org!(dashboard, orgs)
   return if orgs.length <= 1 || dashboard.key?(:organization)
-  raise 'More then one organization, so organization is mandatory for a dashboard'
+  raise 'More than one organization, so organization is mandatory for a dashboard'
 end
 
 def _select_org(new_resource, grafana_options)

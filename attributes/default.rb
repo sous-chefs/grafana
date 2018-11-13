@@ -33,11 +33,12 @@ when 'debian'
   default['grafana']['package']['apt_rebuild'] = true
   default['grafana']['package']['trusted'] = false
 when 'rhel', 'fedora', 'amazon'
-  if node['platform_family'] == 'amazon'
-    release_version = '7'
-  else
-    release_version = '$releasever'
-  end
+  release_version =
+    if node['platform_family'] == 'amazon'
+      '7'
+    else
+      '$releasever'
+    end
   default['grafana']['package']['repo'] = "https://packagecloud.io/grafana/stable/el/#{release_version}/$basearch"
   # default['grafana']['package']['repo'] = 'https://packagecloud.io/grafana/stable/el/$releasever/$basearch'
   default['grafana']['package']['key'] = 'https://packagecloud.io/gpg.key https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana'

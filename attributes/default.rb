@@ -35,7 +35,7 @@ when 'debian'
 when 'rhel', 'fedora', 'amazon'
   release_version =
     if node['platform_family'] == 'amazon'
-      '7'
+      '6'
     else
       '$releasever'
     end

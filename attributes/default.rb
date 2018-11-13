@@ -32,9 +32,15 @@ when 'debian'
   default['grafana']['package']['version'] = node['grafana']['version']
   default['grafana']['package']['apt_rebuild'] = true
   default['grafana']['package']['trusted'] = false
-when 'rhel', 'fedora'
-  default['grafana']['package']['repo'] = 'https://packagecloud.io/grafana/stable/el/$releasever/$basearch'
-  default['grafana']['package']['key'] = 'https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana'
+when 'rhel', 'fedora', 'amazon'
+  if node['platform_family'] == 'amazon'
+    release_version = '7'
+  else
+    release_version = '$releasever'
+  end
+  default['grafana']['package']['repo'] = "https://packagecloud.io/grafana/stable/el/#{release_version}/$basearch"
+  # default['grafana']['package']['repo'] = 'https://packagecloud.io/grafana/stable/el/$releasever/$basearch'
+  default['grafana']['package']['key'] = 'https://packagecloud.io/gpg.key https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana'
   default['grafana']['package']['version'] = "#{node['grafana']['version']}-1"
   default['grafana']['package']['checkkey'] = true
 end
@@ -50,7 +56,7 @@ default['grafana']['pid_dir'] = '/var/run/grafana'
 case node['platform_family']
 when 'debian'
   default['grafana']['env_dir'] = '/etc/default'
-when 'rhel', 'fedora'
+when 'rhel', 'fedora', 'amazon'
   default['grafana']['env_dir'] = '/etc/sysconfig'
 end
 default['grafana']['conf_dir'] = '/etc/grafana'

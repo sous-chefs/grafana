@@ -40,7 +40,7 @@ when 'debian'
     options '--force-confdef,confnew'
     not_if grafana_installed
   end
-when 'rhel'
+when 'rhel', 'amazon'
   package %w(initscripts fontconfig urw-fonts)
 
   grafana_installed = "yum list installed | grep grafana | grep #{node['grafana']['version']}"

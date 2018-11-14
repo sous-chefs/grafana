@@ -35,7 +35,7 @@ when 'debian'
     version node['grafana']['package']['version']
     options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
   end
-when 'rhel'
+when 'rhel', 'amazon'
   yum_repository 'grafana' do
     description 'Grafana Stable Repo'
     baseurl node['grafana']['package']['repo']

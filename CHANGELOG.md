@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 3.0.1 (2018-11-12)
+- Add support for amazon. Chef 13 and later identifies platform_family as 'amazon': https://docs.chef.io/deprecations_ohai_amazon_linux.html
+
+
 ## 3.0.0 (2018-04-29)
 
 - Require Chef 13 or later

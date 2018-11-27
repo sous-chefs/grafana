@@ -17,11 +17,11 @@
 
 default['grafana']['manage_install'] = true
 default['grafana']['install_type'] = 'file' # file | package
-default['grafana']['version'] = '4.6.3'
+default['grafana']['version'] = '5.3.4'
 
 default['grafana']['file']['url'] = 'https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana'
-default['grafana']['file']['checksum']['deb'] = 'd022fceb939e7570d74b437932bee876e306b0e21ecdd830752c61b4e89dab31'
-default['grafana']['file']['checksum']['rpm'] = 'bfb639baffb34d43f826c6edc2912a8b79957ab08e777ec77fa7e931f741944c'
+default['grafana']['file']['checksum']['deb'] = '1f1f38c9827c48ce603a59a283607955c5e0e96951ce0d67ed02edf7581a0a93'
+default['grafana']['file']['checksum']['rpm'] = '375e85339782cee09066267e3a6cd279d5ff71ce6c90a4ebcb9bd1c91de1d5c0'
 
 case node['platform_family']
 when 'debian'

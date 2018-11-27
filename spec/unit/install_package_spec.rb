@@ -6,7 +6,7 @@ describe 'grafana::_install_package' do
       'versions' => ['8.10'],
     },
     'ubuntu' => {
-      'versions' => ['14.04', '16.04', '18.04'],
+      'versions' => ['16.04', '18.04'],
     },
     'centos' => {
       'versions' => ['6.9', '7.4.1708'],

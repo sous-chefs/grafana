@@ -9,7 +9,7 @@ issues_url       'https://github.com/sous-chefs/chef-grafana/issues'
 chef_version     '>= 13.0'
 version          '3.0.0'
 
-supports 'ubuntu', '>= 14.04'
+supports 'ubuntu', '>= 16.04'
 supports 'debian', '>= 8.0'
 supports 'centos', '>= 6.4'
 supports 'redhat', '>= 6.4'

@@ -1,10 +1,8 @@
-# Grafana options
-property :host, kind_of: String, default: 'localhost'
-property :port, kind_of: Integer, default: 3000
-property :admin_user, kind_of: String, default: 'admin'
-property :admin_password, kind_of: String, default: 'admin'
-# Resource properties
-property :user, kind_of: Hash, default: {}
+property :host,           String,   default: 'localhost'
+property :port,           Integer,  default: 3000
+property :admin_user,     String,   default: 'admin'
+property :admin_password, String,   default: 'admin'
+property :user,           Hash,     default: {}
 
 default_action :create
 

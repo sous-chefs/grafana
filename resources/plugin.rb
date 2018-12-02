@@ -1,5 +1,4 @@
-# Resource properties
-property :grafana_cli_bin, kind_of: String, required: false, default: '/usr/sbin/grafana-cli'
+property :grafana_cli_bin, String, default: '/usr/sbin/grafana-cli'
 
 default_action :install
 

@@ -1,13 +1,10 @@
 # Grafana Cookbook
 
-[![CircleCI](https://circleci.com/gh/sous-chefs/grafana.svg?style=svg)](https://circleci.com/gh/sous-chefs/grafana) [![Cookbook Version](https://img.shields.io/cookbook/v/grafana.svg)](https://supermarket.chef.io/cookbooks/grafana)
-[![License](https://img.shields.io/badge/license-apache2_2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![Cookbook Version](https://img.shields.io/cookbook/v/grafana.svg?style=flat)](https://supermarket.chef.io/cookbooks/grafana) [![CircleCI](https://circleci.com/gh/sous-chefs/grafana.svg?style=svg)](https://circleci.com/gh/sous-chefs/grafana) [![Cookbook Version](https://img.shields.io/cookbook/v/grafana.svg)](https://supermarket.chef.io/cookbooks/grafana)
 
 ## Overview
 
-A stand-alone cookbook for Grafana. The 2.x versions of this cookbook work with the 2.x versions of Grafana. There is no backward compatibility for pre-2.0 versions of Grafana in the 2.x versions of this cookbook.
-
-If you would like to configure pre-2.0 versions of Grafana, please use the 1.x branch and 1.x versions of this cookbook in the supermarket. There is a 1.x tag for PRs or Issues related to the 1.x branch.
+This cookbook provides a complete installation and configuration of Grafana. This includes the ability to manage dashboards, datasources, orginizations, plugins and users with Chef.
 
 ## Requirements
 
@@ -20,14 +17,6 @@ If you would like to configure pre-2.0 versions of Grafana, please use the 1.x b
 - Ubuntu >= 16.04
 - Debian >= 8
 - CentOS/Redhat >= 6
-
-### Cookbooks
-
-- [nginx](https://supermarket.chef.io/cookbooks/nginx) 7+
-
-## Recipes
-
-- `default` - Wrap private recipes for Grafana setup
 
 ## Attributes
 

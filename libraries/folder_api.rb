@@ -73,5 +73,12 @@ module GrafanaCookbook
       return if folder_obj['message'] == 'Folder not found'
       folder_obj
     end
+
+    # Fetch the json representation of the folder
+    # curl -G --cookie "grafana_user=admin; grafana_sess=997bcbbf1c60fcf0;" http://localhost:3000/api/folders/10
+    def get_folder_by_name(folder_name, grafana_options)
+      return_folder =  get_folders(grafana_options).select { |folder,value| folder['title'] == folder_name}
+      return_folder[0]
+    end
   end
 end

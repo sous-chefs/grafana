@@ -24,8 +24,11 @@ action :create do
     new_resource.folder[:title] = new_resource.name
   end
 
-  puts "\n#{get_dashboard({name: new_resource.folder[:title]}, grafana_options).to_json}"
-  return if get_dashboard({name: new_resource.folder[:title]}, grafana_options)
+  same_dashboard_name = get_dashboard({name: new_resource.folder[:title]}, grafana_options)
+  if not same_dashboard_name.nil?
+    Chef::Log.error "A dashboard exist with same name '#{same_dashboard_name['dashboard']['title']}'"
+    return
+  end
 
   # _select_org(new_resource, grafana_options)
 
@@ -114,34 +117,4 @@ action :delete do
       delete_folder(new_resource.folder, grafana_options)
     end
   end
-end
-
-def _legacy_http_semantic
-  return false if node['grafana']['version'] == 'latest'
-  Gem::Version.new(node['grafana']['version']) < Gem::Version.new('2.0.3')
-end
-
-def _check_org!(folder, orgs)
-  return if orgs.length <= 1 || folder.key?(:organization)
-  raise 'More than one organization, so organization is mandatory for a folder'
-end
-
-def _select_org(new_resource, grafana_options)
-  # check, if we have multiple orgs, then the org is mandatory
-  orgs = get_orgs_list(grafana_options)
-  _check_org! new_resource.folder, orgs
-
-  # don't do anything if an organization is not selected
-  return unless new_resource.folder.key?(:organization)
-
-  # Find organization by name
-  selected_org = orgs.detect do |org|
-    org['name'] == new_resource.folder[:organization]
-  end
-
-  # If organization is provided select it
-  unless selected_org
-    raise "Could not find organization #{new_resource.folder[:organization]}"
-  end
-  select_org(selected_org, grafana_options)
 end

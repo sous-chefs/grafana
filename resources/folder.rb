@@ -25,7 +25,7 @@ action :create do
   end
 
   same_dashboard_name = get_dashboard({name: new_resource.folder[:title]}, grafana_options)
-  if not same_dashboard_name.nil?
+  if not same_dashboard_name.nil? and not same_dashboard_name.key?('message') and same_dashboard_name['message'] != "Not found"
     Chef::Log.error "A dashboard exist with same name '#{same_dashboard_name['dashboard']['title']}'"
     return
   end

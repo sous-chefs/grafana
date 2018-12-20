@@ -8,6 +8,7 @@ default_action :create
 
 include GrafanaCookbook::DashboardApi
 include GrafanaCookbook::OrganizationApi
+include GrafanaCookbook::FolderApi
 
 action :create do
   grafana_options = {
@@ -20,6 +21,12 @@ action :create do
   # Let's use resource name for it
   unless new_resource.dashboard.key?(:name)
     new_resource.dashboard[:name] = new_resource.name
+  end
+
+  same_folder_name = get_folder_by_name(new_resource.dashboard[:name], grafana_options)
+  if not same_folder_name.nil?
+    Chef::Log.error "Folder exist with same name '#{same_folder_name['title']}' for dashboard '#{new_resource.dashboard[:name]}'"
+    return
   end
 
   _select_org(new_resource, grafana_options)

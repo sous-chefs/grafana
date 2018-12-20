@@ -88,7 +88,7 @@ action :update do
       end
       converge_by("Updating password for user #{new_resource.user[:login]}") do
         update_user_password(new_resource.user, grafana_options)
-      end
+      end if new_resource.user[:password] 
       if new_resource.user[:isAdmin] != user['isAdmin'] && !new_resource.user[:isAdmin].nil?
         converge_by("Updating permissions for user #{new_resource.user[:login]}") do
           update_user_permissions(new_resource.user, grafana_options)

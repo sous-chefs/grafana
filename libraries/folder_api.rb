@@ -14,7 +14,7 @@ module GrafanaCookbook
     end
 
     def update_folder(folder, grafana_options)
-      grafana_options[:method] = 'PUT'
+      grafana_options[:method] = 'Put'
       grafana_options[:success_msg] = 'Folder update was successful.'
       grafana_options[:unknown_code_msg] = 'FolderApi::update_folder unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/folders/' + folder[:uid]

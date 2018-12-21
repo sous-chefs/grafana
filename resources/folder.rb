@@ -37,7 +37,7 @@ action :create do
   exists = false
 
   folders.each do |src|
-    exists = true if src['title'] == new_resource.folder[:title]
+    exists = true if get_folder_title(src) == new_resource.folder[:title]
     break if exists
   end
 
@@ -77,7 +77,7 @@ action :update do
   # Find wether folder already exists
   # If found, update all informations we have to
   folders.each do |src|
-    if src['title'] == old_name
+    if get_folder_title(src) == old_name
       exists = true
       new_resource.folder[:id] = get_folder_id(src)
       new_resource.folder[:uid] = get_folder_uid(src)

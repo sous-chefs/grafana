@@ -7,6 +7,7 @@ This file is used to list changes made in each version of grafana.
 ### 4.0.0-beta (Unreleased)
 
 - Migrate existing LWRP to Custom Resources
+- Generate Folder and folder permissions using Custom Resources
 
 ## 3.0.1 (2018-11-27)
 

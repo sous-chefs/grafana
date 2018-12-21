@@ -8,7 +8,10 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'FolderApi::create_folder unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/folders'
 
-      do_request(grafana_options, folder.to_json)
+      folder_obj = do_request(grafana_options, folder.to_json)
+      folder[:id] = get_folder_id(folder_obj)
+      folder[:uid] = get_folder_uid(folder_obj)
+      update_folder_permissions(folder, grafana_options) if folder[:permissions]
     rescue BackendError
       nil
     end
@@ -17,9 +20,21 @@ module GrafanaCookbook
       grafana_options[:method] = 'Put'
       grafana_options[:success_msg] = 'Folder update was successful.'
       grafana_options[:unknown_code_msg] = 'FolderApi::update_folder unchecked response code: %{code}'
-      grafana_options[:endpoint] = '/api/folders/' + folder[:uid]
+      grafana_options[:endpoint] = '/api/folders/' + get_folder_uid(folder)
 
-      do_request(grafana_options, folder.to_json)
+      folder_obj = do_request(grafana_options, folder.to_json)
+      update_folder_permissions(folder, grafana_options) if folder[:permissions]
+    rescue BackendError
+      nil
+    end
+
+    def update_folder_permissions(folder, grafana_options)
+      grafana_options[:method] = 'Post'
+      grafana_options[:success_msg] = 'Folder permissions update was successful.'
+      grafana_options[:unknown_code_msg] = 'FolderApi::update_folder_permissions unchecked response code: %{code}'
+      grafana_options[:endpoint] = '/api/folders/' + get_folder_uid(folder) + '/permissions'
+
+      do_request(grafana_options, folder[:permissions].to_json)
     rescue BackendError
       nil
     end
@@ -28,7 +43,7 @@ module GrafanaCookbook
       grafana_options[:method] = 'Delete'
       grafana_options[:success_msg] = 'Folder deletion was successful.'
       grafana_options[:unknown_code_msg] = 'FolderApi::delete_folder unchecked response code: %{code}'
-      grafana_options[:endpoint] = '/api/folders/' + folder[:uid]
+      grafana_options[:endpoint] = '/api/folders/' + get_folder_uid(folder)
 
       do_request(grafana_options)
     rescue BackendError
@@ -43,7 +58,11 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'FolderApi::get_folder_by_uid unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/folders'
 
-      Array(do_request(grafana_options))
+      folder_list = Array.new
+      Array(do_request(grafana_options)).each do |folder|
+        folder_list.insert(-1, get_folder(folder,grafana_options))
+      end
+      folder_list
     end
 
     # Fetch the json representation of the folder
@@ -52,11 +71,11 @@ module GrafanaCookbook
       grafana_options[:method] = 'Get'
       grafana_options[:success_msg] = 'Folder deletion was successful.'
       grafana_options[:unknown_code_msg] = 'FolderApi::get_folder_by_uid unchecked response code: %{code}'
-      grafana_options[:endpoint] = '/api/folders/' + folder[:uid]
+      grafana_options[:endpoint] = '/api/folders/' + get_folder_uid(folder)
 
       folder_obj = do_request(grafana_options)
 
-      return if folder_obj['message'] == 'Folder not found'
+      return if folder_obj[:message] == 'Folder not found'
       folder_obj
     end
 
@@ -66,19 +85,49 @@ module GrafanaCookbook
       grafana_options[:method] = 'Get'
       grafana_options[:success_msg] = 'Folder deletion was successful.'
       grafana_options[:unknown_code_msg] = 'FolderApi::get_folder_by_id unchecked response code: %{code}'
-      grafana_options[:endpoint] = '/api/folders/id/' + folder[:id]
+      grafana_options[:endpoint] = '/api/folders/id/' + get_folder_id(folder)
 
       folder_obj = do_request(grafana_options)
 
-      return if folder_obj['message'] == 'Folder not found'
+      return if folder_obj[:message] == 'Folder not found'
       folder_obj
     end
 
     # Fetch the json representation of the folder
     # curl -G --cookie "grafana_user=admin; grafana_sess=997bcbbf1c60fcf0;" http://localhost:3000/api/folders/10
     def get_folder_by_name(folder_name, grafana_options)
-      return_folder =  get_folders(grafana_options).select { |folder,value| folder['title'] == folder_name}
+      return_folder =  get_folders(grafana_options).select { |folder,value| get_folder_title(folder) == folder_name}
       return_folder[0]
+    end
+
+    def get_folder_uid(folder)
+      if folder.key?(:uid)
+        folder[:uid]
+      elsif folder.key?('uid')
+        folder['uid']
+      else
+        nil
+      end
+    end
+
+    def get_folder_id(folder)
+      if folder.key?(:id)
+        folder[:id]
+      elsif folder.key?('id')
+        folder['id']
+      else
+        nil
+      end
+    end
+
+    def get_folder_title(folder)
+      if folder.key?(:title)
+        folder[:title]
+      elsif folder.key?('title')
+        folder['title']
+      else
+        nil
+      end
     end
   end
 end

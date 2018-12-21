@@ -25,7 +25,8 @@ action :create do
   end
 
   same_dashboard_name = get_dashboard({name: new_resource.folder[:title]}, grafana_options)
-  if not same_dashboard_name.nil? and not same_dashboard_name.key?('message') and same_dashboard_name['message'] != "Not found"
+
+  if ((not same_dashboard_name.nil?) and same_dashboard_name.key?(:message) and same_dashboard_name[:message] != "Not found") or ((not same_dashboard_name.nil?) and same_dashboard_name.key?('meta') and same_dashboard_name.key?('dashboard') and same_dashboard_name['meta'].key?('url') and same_dashboard_name['dashboard'].key?('uid') and same_dashboard_name['meta']['url'].include?("/d/" + same_dashboard_name['dashboard']['uid']))
     Chef::Log.error "A dashboard exist with same name '#{same_dashboard_name['dashboard']['title']}'"
     return
   end
@@ -78,8 +79,8 @@ action :update do
   folders.each do |src|
     if src['title'] == old_name
       exists = true
-      new_resource.folder[:id] = src['id']
-      new_resource.folder[:uid] = src['uid']
+      new_resource.folder[:id] = get_folder_id(src)
+      new_resource.folder[:uid] = get_folder_uid(src)
       converge_by("Updating folder #{new_resource.folder[:title]}") do
         update_folder(new_resource.folder, grafana_options)
       end
@@ -109,10 +110,10 @@ action :delete do
   # Find wether folder already exists
   # If found, delete it
   folders.each do |src|
-    next unless src['title'] == new_resource.folder[:title]
+    next unless get_folder_title(src) == new_resource.folder[:title]
     exists = true
-    new_resource.folder[:id] = src['id']
-    new_resource.folder[:uid] = src['uid']
+    new_resource.folder[:id] = get_folder_id(src)
+    new_resource.folder[:uid] = get_folder_uid(src)
     converge_by("Deleting folder #{new_resource.name}") do
       delete_folder(new_resource.folder, grafana_options)
     end

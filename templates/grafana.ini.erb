@@ -3,14 +3,16 @@
 # Do not modify this file by hand!
 #
 # full documentation: http://docs.grafana.org/installation/configuration/
-#
+##################### Grafana Configuration Defaults #####################
 
 <% if @global['app_mode'] %>
-  app_mode = <%= @global['app_mode'] %>
+app_mode = <%= @global['app_mode'] %>
 <% end %>
 <% if @global['instance_name'] %>
 instance_name  = <%= @global['instance_name'] %>
 <% end %>
+
+#################################### Paths ###############################
 
 area1:
 <% if @global['area1']['var1'] %>

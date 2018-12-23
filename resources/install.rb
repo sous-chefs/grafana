@@ -23,7 +23,7 @@ property :version,          String, required: false
 property :repo,             String, default:  'https://packagecloud.io/grafana/stable'
 property :key,              String, default:  'https://packagecloud.io/gpg.key'
 property :rpm_key,          String, default:  'https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana'
-property :deb_distribution, String, default:  'whezy'
+property :deb_distribution, String, default:  'jessie'
 property :deb_components,   Array,  default:  ['main']
 
 action :install do

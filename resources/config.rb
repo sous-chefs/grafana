@@ -113,7 +113,111 @@ property  :auth_gitlab_auth_url,                                  String,       
 property  :auth_gitlab_token_url,                                 String,         default: 'https://gitlab.com/oauth/token'
 property  :auth_gitlab_api_url,                                   String,         default: 'https://gitlab.com/api/v4'
 property  :auth_gitlab_allowed_groups,                            String,         default: ''
-
+property  :auth_google_enabled,                                   [true, false],  default: false
+property  :auth_google_allow_sign_up,                             [true, false],  default: true
+property  :auth_google_client_id ,                                String,         default: ''
+property  :auth_google_client_secret,                             String,         default: ''
+property  :auth_google_scopes,                                    String,         default: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+property  :auth_google_auth_url,                                  String,         default: 'https://accounts.google.com/o/oauth2/auth'
+property  :auth_google_token_url,                                 String,         default: 'https://accounts.google.com/o/oauth2/token'
+property  :auth_google_api_url,                                   String,         default: 'https://www.googleapis.com/oauth2/v1/userinfo'
+property  :auth_google_allowed_domains,                           String,         default: ''
+property  :auth_google_hosted_domain,                             String,         default: ''
+property  :auth_grafananet_enabled,                               [true, false],  default: false
+property  :auth_grafananet_allow_sign_up,                         [true, false],  default: true
+property  :auth_grafananet_client_id,                             String,         default: ''
+property  :auth_grafananet_client_secret,                         String,         default: ''
+property  :auth_grafananet_scopes ,                               String,         default: 'user:email'
+property  :auth_grafananet_allowed_organizations,                 String,         default: ''
+property  :auth_grafanacom_enabled,                               [true, false],  default: false
+property  :auth_grafanacom_allow_sign_up,                         [true, false],  default: true
+property  :auth_grafanacom_client_id,                             String,         default: ''
+property  :auth_grafanacom_client_secret,                         String,         default: ''
+property  :auth_grafanacom_scopes ,                               String,         default: 'user:email'
+property  :auth_grafanacom_allowed_organizations,                 String,         default: ''
+property  :auth_generic_oath_name,                                String,         default: 'OAuth'
+property  :auth_generic_oath_enabled,                             [true, false],  default: false
+property  :auth_generic_oath_allow_sign_up,                       [true, false],  default: true
+property  :auth_generic_oath_client_id,                           String,         default: ''
+property  :auth_generic_oath_client_secret,                       String,         default: ''
+property  :auth_generic_oath_scopes,                              String,         default: 'user:email'
+property  :auth_generic_oath_email_attribute_name,                String,         default: 'email:primary'
+property  :auth_generic_oath_auth_url,                            String,         default: ''
+property  :auth_generic_oath_token_url,                           String,         default: ''
+property  :auth_generic_oath_api_url,                             String,         default: ''
+property  :auth_generic_oath_team_ids,                            String,         default: ''
+property  :auth_generic_oath_allowed_organizations,               String,         default: ''
+property  :auth_generic_oath_tls_skip_verify_insecure,            [true, false],  default: false
+property  :auth_generic_oath_tls_client_cert,                     String,         default: ''
+property  :auth_generic_oath_tls_client_key,                      String,         default: ''
+property  :auth_generic_oath_tls_client_ca,                       String,         default: ''
+property  :auth_generic_oath_send_client_credentials_via_post,    [true, false],  default: false
+property  :auth_basic,                                            [true, false],  default: true
+property  :auth_proxy_enabled,                                    [true, false],  default: false
+property  :auth_proxy_header_name,                                String,         default: 'X-WEBAUTH-USER'
+property  :auth_proxy_header_property,                            String,         default: 'username'
+property  :auth_proxy_auto_sign_up,                               [true, false],  default: true
+property  :auth_proxy_ldap_sync_ttl,                              Integer,        default: 60
+property  :auth_proxy_whitelist,                                  String,         default: ''
+property  :auth_proxy_headers,                                    String,         default: ''
+property  :auth_ldap_enabled,                                     [true, false],  default: false
+property  :auth_ldap_config_file,                                 String,         default: '/etc/grafana/ldap.toml'
+property  :auth_ldap_allow_sign_up,                               [true, false],  default: true
+property  :smtp_enabled,                                           [true, false],  default: false
+property  :smtp_host,                                              String,         default: 'localhost:25'
+property  :smtp_user,                                              String,         default: ''
+property  :smtp_password,                                          String,         default: ''
+property  :smtp_cert_file,                                         String,         default: ''
+property  :smtp_key_file,                                          String,         default: ''
+property  :smtp_skip_verify,                                       [true, false],  default: false
+property  :smtp_from_address,                                      String,         default: "admin@grafana.#{node['hostname']}"
+property  :smtp_from_name,                                         String,         default: 'Grafana'
+property  :smtp_ehlo_identity,                                     String,         default: ''
+property  :emails_welcome_email_on_sign_up,                        [true, false],  default: false
+property  :emails_templates_pattern,                               String,         default: 'emails/*.html'
+property  :log_mode,                                               String,         default: 'console file'
+property  :log_level,                                              String,         default: 'info'
+property  :log_filters,                                            String,         default: ''
+property  :log_console_level,                                      String,         default: ''
+property  :log_console_format,                                     String,         default: 'console'
+property  :log_file_level,                                         String,         default: ''
+property  :log_file_format,                                        String,         default: 'text'
+property  :log_file_log_rotate,                                    [true, false],  default: true
+property  :log_file_max_lines,                                     Integer,        default: 1000000
+property  :log_file_max_size_shift,                                Integer,        default: 28
+property  :log_file_daily_rotate,                                  [true, false],  default: true
+property  :log_file_max_days,                                      Integer,        default: 7
+property  :log_syslog_level,                                       String,         default: ''
+property  :log_syslog_format,                                      String,         default: 'text'
+property  :log_syslog_network,                                     String,         default: ''
+property  :log_syslog_address,                                     String,         default: ''
+property  :log_syslog_facility,                                    String,         default: ''
+property  :log_syslog_tag,                                         String,         default: ''
+property  :quota_enabled,                                          [true, false],  default: false
+property  :quota_org_user,                                         Integer,        default: 10
+property  :quota_org_dashboard,                                    Integer,        default: 100
+property  :quota_org_data_source,                                  Integer,        default: 10
+property  :quota_org_api_key,                                      Integer,        default: 10
+property  :quota_user_org,                                         Integer,        default: 10
+property  :quota_global_user,                                      Integer,        default: -1
+property  :quota_global_org,                                       Integer,        default: -1
+property  :quota_global_dashboard,                                 Integer,        default: -1
+property  :quota_global_api_key,                                   Integer,        default: -1
+property  :quota_global_session,                                   Integer,        default: -1
+property  :alerting_enabled,                                       [true, false],  default: true
+property  :alerting_execute_alerts,                                [true, false],  default: true
+property  :alerting_error_or_timeout,                              String,         default: 'alerting'
+property  :alerting_nodata_or_nullvalues,                          String,         default: 'no_data'
+property  :alerting_concurrent_render_limit,                       Integer,        5
+property  :explore_enabled,                                        [true, false],  default: false
+property  :metrics_enabled,                                        [true, false],  default: true
+property  :metrics_interval_seconds,                               Integer,        default: 10
+property  :metrics_basic_auth_username,                            String,         default: ''
+property  :metrics_basic_auth_password,                            String,         default: ''
+property  :metrics_graphite_address,                               String,         default: ''
+property  :metrics_graphite_prefix,                                String,         default: 'prod.grafana.%(instance_name)s.'
+property  :panels_enable_alpha,                                    [true, false],  default: false
+property  :enterprise_license_path,                                String,         default: ''
 
 property  :env_directory,       String, default: '/etc/default'
 property  :owner,               String, default: 'grafana'

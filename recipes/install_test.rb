@@ -21,10 +21,7 @@
 grafana_install 'grafana' do
 end
 
-grafana_config node['hostname'] do
-end
-
-grafana_config_users node['hostname'] do
+grafana_config 'JasonTestingThisOut' do
 end
 
 service 'grafana-server' do

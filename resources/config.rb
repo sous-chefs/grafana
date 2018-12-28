@@ -77,8 +77,8 @@ property  :security_disable_gravatar,                             [true, false],
 property  :security_data_source_proxy_whitelist,                  String,         default: ''
 property  :security_disable_brute_force_login_protection,         [true, false],  default: false
 property  :snapshots_external_enabled,                            [true, false],  default: true
-property  :snapshots_external_snapshot_url,                       String,         default: ''
-property  :snapshots_external_snapshot_name,                      String,         default: ''
+property  :snapshots_external_snapshot_url,                       String,         default: 'https://snapshots-origin.raintank.io'
+property  :snapshots_external_snapshot_name,                      String,         default: 'Publish to snapshot.raintank.io'
 property  :snapshots_snapshot_remove_expired,                     [true, false],  default: true
 property  :dashboards_versions_to_keep,                           Integer,        default: 20
 property  :users_allow_sign_up,                                   [true, false],  default: false
@@ -301,8 +301,6 @@ action :install do
       variables['grafana']['server']['cert_file'] << new_resource.server_cert_file.to_s unless new_resource.server_cert_file.nil?
       variables['grafana']['server']['cert_key'] ||= '' unless new_resource.server_cert_key.nil?
       variables['grafana']['server']['cert_key'] << new_resource.server_cert_key.to_s unless new_resource.server_cert_key.nil?
-      variables['grafana']['server']['router_logging'] ||= '' unless new_resource.server_router_logging.nil?
-      variables['grafana']['server']['router_logging'] << new_resource.server_router_logging.to_s unless new_resource.server_router_logging.nil?
 
       variables['grafana']['database'] ||= {}
       variables['grafana']['database']['type'] ||= '' unless new_resource.database_type.nil?
@@ -337,8 +335,8 @@ action :install do
       variables['grafana']['database']['path'] << new_resource.database_path.to_s unless new_resource.database_path.nil?
 
       variables['grafana']['session'] ||= {}
-      variables['grafana']['session']['provider'] << new_resource.session_provider.to_s unless new_resource.session_provider.nil?
       variables['grafana']['session']['provider'] ||= '' unless new_resource.session_provider.nil?
+      variables['grafana']['session']['provider'] << new_resource.session_provider.to_s unless new_resource.session_provider.nil?
       variables['grafana']['session']['provider_config'] ||= '' unless new_resource.session_provider_config.nil?
       variables['grafana']['session']['provider_config'] << new_resource.session_provider_config.to_s unless new_resource.session_provider_config.nil?
       variables['grafana']['session']['cookie_name'] ||= '' unless new_resource.session_cookie_name.nil?
@@ -385,6 +383,8 @@ action :install do
       variables['grafana']['snapshots']['external_snapshot_name'] << new_resource.snapshots_external_snapshot_name.to_s unless new_resource.snapshots_external_snapshot_name.nil?
       variables['grafana']['snapshots']['snapshot_remove_expired'] ||= '' unless new_resource.snapshots_snapshot_remove_expired.nil?
       variables['grafana']['snapshots']['snapshot_remove_expired'] << new_resource.snapshots_snapshot_remove_expired.to_s unless new_resource.snapshots_snapshot_remove_expired.nil?
+
+      variables['grafana']['dashboards'] ||= {}
       variables['grafana']['dashboards']['versions_to_keep'] ||= '' unless new_resource.dashboards_versions_to_keep.nil?
       variables['grafana']['dashboards']['versions_to_keep'] << new_resource.dashboards_versions_to_keep.to_s unless new_resource.dashboards_versions_to_keep.nil?
 
@@ -435,6 +435,8 @@ action :install do
       variables['grafana']['smtp']['from_name'] << new_resource.smtp_from_name.to_s unless new_resource.smtp_from_name.nil?
       variables['grafana']['smtp']['ehlo_identity'] ||= '' unless new_resource.smtp_ehlo_identity.nil?
       variables['grafana']['smtp']['ehlo_identity'] << new_resource.smtp_ehlo_identity.to_s unless new_resource.smtp_ehlo_identity.nil?
+
+      variables['grafana']['emails'] ||= {}
       variables['grafana']['emails']['welcome_email_on_sign_up'] ||= '' unless new_resource.emails_welcome_email_on_sign_up.nil?
       variables['grafana']['emails']['welcome_email_on_sign_up'] << new_resource.emails_welcome_email_on_sign_up.to_s unless new_resource.emails_welcome_email_on_sign_up.nil?
       variables['grafana']['emails']['templates_pattern'] ||= '' unless new_resource.emails_templates_pattern.nil?
@@ -485,10 +487,12 @@ action :install do
       variables['grafana']['metrics']['basic_auth_username'] << new_resource.metrics_basic_auth_username.to_s unless new_resource.metrics_basic_auth_username.nil?
       variables['grafana']['metrics']['basic_auth_password'] ||= '' unless new_resource.metrics_basic_auth_password.nil?
       variables['grafana']['metrics']['basic_auth_password'] << new_resource.metrics_basic_auth_password.to_s unless new_resource.metrics_basic_auth_password.nil?
-      variables['grafana']['metrics']['graphite_address'] ||= '' unless new_resource.metrics_graphite_address.nil?
-      variables['grafana']['metrics']['graphite_address'] << new_resource.metrics_graphite_address.to_s unless new_resource.metrics_graphite_address.nil?
-      variables['grafana']['metrics']['graphite_prefix'] ||= '' unless new_resource.metrics_graphite_prefix.nil?
-      variables['grafana']['metrics']['graphite_prefix'] << new_resource.metrics_graphite_prefix.to_s unless new_resource.metrics_graphite_prefix.nil?
+
+      variables['grafana']['metrics_graphite'] ||= {}
+      variables['grafana']['metrics_graphite']['address'] ||= '' unless new_resource.metrics_graphite_address.nil?
+      variables['grafana']['metrics_graphite']['address'] << new_resource.metrics_graphite_address.to_s unless new_resource.metrics_graphite_address.nil?
+      variables['grafana']['metrics_graphite']['prefix'] ||= '' unless new_resource.metrics_graphite_prefix.nil?
+      variables['grafana']['metrics_graphite']['prefix'] << new_resource.metrics_graphite_prefix.to_s unless new_resource.metrics_graphite_prefix.nil?
 
       variables['grafana']['explore'] ||= {}
       variables['grafana']['explore']['enabled'] ||= '' unless new_resource.explore_enabled.nil?
@@ -496,7 +500,7 @@ action :install do
 
       variables['grafana']['panels'] ||= {}
       variables['grafana']['panels']['enable_alpha'] ||= '' unless new_resource.panels_enable_alpha.nil?
-      wvariables['grafana']['panels']['enable_alpha'] << new_resource.panels_enable_alpha.to_s unless new_resource.panels_enable_alpha.nil?
+      variables['grafana']['panels']['enable_alpha'] << new_resource.panels_enable_alpha.to_s unless new_resource.panels_enable_alpha.nil?
 
       variables['grafana']['log'] ||= {}
       variables['grafana']['log']['mode'] ||= '' unless new_resource.log_mode.nil?
@@ -543,14 +547,14 @@ action :install do
       variables['grafana']['log_syslog']['tag'] << new_resource.log_syslog_tag.to_s unless new_resource.log_syslog_tag.nil?
 
       variables['grafana']['auth'] ||= {}
-      variables['grafana']['auth']['disable_login_form'] ||= '' unless new_resource.users_disable_login_form.nil?
-      variables['grafana']['auth']['disable_login_form'] << new_resource.users_disable_login_form.to_s unless new_resource.users_disable_login_form.nil?
-      variables['grafana']['auth']['disable_signout_menu'] ||= '' unless new_resource.users_disable_signout_menu.nil?
-      variables['grafana']['auth']['disable_signout_menu'] << new_resource.users_disable_signout_menu.to_s unless new_resource.users_disable_signout_menu.nil?
-      variables['grafana']['auth']['signout_redirect_url'] ||= '' unless new_resource.users_signout_redirect_ur.nil?
-      variables['grafana']['auth']['signout_redirect_url'] << new_resource.users_signout_redirect_ur.to_s unless new_resource.users_signout_redirect_ur.nil?
-      variables['grafana']['auth']['oauth_auto_login'] ||= '' unless new_resource.users_oauth_auto_logi.nil?
-      variables['grafana']['auth']['oauth_auto_login'] << new_resource.users_oauth_auto_logi.to_s unless new_resource.users_oauth_auto_logi.nil?
+      variables['grafana']['auth']['disable_login_form'] ||= '' unless new_resource.auth_disable_login_form.nil?
+      variables['grafana']['auth']['disable_login_form'] << new_resource.auth_disable_login_form.to_s unless new_resource.auth_disable_login_form.nil?
+      variables['grafana']['auth']['disable_signout_menu'] ||= '' unless new_resource.auth_disable_signout_menu.nil?
+      variables['grafana']['auth']['disable_signout_menu'] << new_resource.auth_disable_signout_menu.to_s unless new_resource.auth_disable_signout_menu.nil?
+      variables['grafana']['auth']['signout_redirect_url'] ||= '' unless new_resource.auth_signout_redirect_url.nil?
+      variables['grafana']['auth']['signout_redirect_url'] << new_resource.auth_signout_redirect_url.to_s unless new_resource.auth_signout_redirect_url.nil?
+      variables['grafana']['auth']['oauth_auto_login'] ||= '' unless new_resource.auth_oauth_auto_login.nil?
+      variables['grafana']['auth']['oauth_auto_login'] << new_resource.auth_oauth_auto_login.to_s unless new_resource.auth_oauth_auto_login.nil?
 
       variables['grafana']['auth_anonymous'] ||= {}
       variables['grafana']['auth_anonymous']['enabled'] ||= '' unless new_resource.auth_anonymous_enabled.nil?
@@ -561,44 +565,44 @@ action :install do
       variables['grafana']['auth_anonymous']['org_role'] << new_resource.auth_anonymous_org_role.to_s unless new_resource.auth_anonymous_org_role.nil?
 
       variables['grafana']['auth_basic'] ||= {}
-      variables['grafana']['auth_basic']['enable'] ||= '' unless new_resource.auth_basic_enable.nil?
-      variables['grafana']['auth_basic']['enable'] << new_resource.auth_basic_enable.to_s unless new_resource.auth_basic_enable.nil?
+      variables['grafana']['auth_basic']['enabled'] ||= '' unless new_resource.auth_basic_enabled.nil?
+      variables['grafana']['auth_basic']['enabled'] << new_resource.auth_basic_enabled.to_s unless new_resource.auth_basic_enabled.nil?
 
-      variables['grafana']['auth_generic'] ||= {}
-      variables['grafana']['auth_generic']['oath_name'] ||= '' unless new_resource.auth_generic_oath_name.nil?
-      variables['grafana']['auth_generic']['oath_name'] << new_resource.auth_generic_oath_name.to_s unless new_resource.auth_generic_oath_name.nil?
-      variables['grafana']['auth_generic']['oath_enabled'] ||= '' unless new_resource.auth_generic_oath_enabled.nil?
-      variables['grafana']['auth_generic']['oath_enabled'] << new_resource.auth_generic_oath_enabled.to_s unless new_resource.auth_generic_oath_enabled.nil?
-      variables['grafana']['auth_generic']['oath_allow_sign_up'] ||= '' unless new_resource.auth_generic_oath_allow_sign_up.nil?
-      variables['grafana']['auth_generic']['oath_allow_sign_up'] << new_resource.auth_generic_oath_allow_sign_up.to_s unless new_resource.auth_generic_oath_allow_sign_up.nil?
-      variables['grafana']['auth_generic']['oath_client_id'] ||= '' unless new_resource.auth_generic_oath_client_id.nil?
-      variables['grafana']['auth_generic']['oath_client_id'] << new_resource.auth_generic_oath_client_id.to_s unless new_resource.auth_generic_oath_client_id.nil?
-      variables['grafana']['auth_generic']['oath_client_secret'] ||= '' unless new_resource.auth_generic_oath_client_secret.nil?
-      variables['grafana']['auth_generic']['oath_client_secret'] << new_resource.auth_generic_oath_client_secret.to_s unless new_resource.auth_generic_oath_client_secret.nil?
-      variables['grafana']['auth_generic']['oath_scopes'] ||= '' unless new_resource.auth_generic_oath_scopes.nil?
-      variables['grafana']['auth_generic']['oath_scopes'] << new_resource.auth_generic_oath_scopes.to_s unless new_resource.auth_generic_oath_scopes.nil?
-      variables['grafana']['auth_generic']['oath_email_attribute_name'] ||= '' unless new_resource.auth_generic_oath_email_attribute_name.nil?
-      variables['grafana']['auth_generic']['oath_email_attribute_name'] << new_resource.auth_generic_oath_email_attribute_name.to_s unless new_resource.auth_generic_oath_email_attribute_name.nil?
-      variables['grafana']['auth_generic']['oath_auth_url'] ||= '' unless new_resource.auth_generic_oath_auth_url.nil?
-      variables['grafana']['auth_generic']['oath_auth_url'] << new_resource.auth_generic_oath_auth_url.to_s unless new_resource.auth_generic_oath_auth_url.nil?
-      variables['grafana']['auth_generic']['oath_token_url'] ||= '' unless new_resource.auth_generic_oath_token_url.nil?
-      variables['grafana']['auth_generic']['oath_token_url'] << new_resource.auth_generic_oath_token_url.to_s unless new_resource.auth_generic_oath_token_url.nil?
-      variables['grafana']['auth_generic']['oath_api_url'] ||= '' unless new_resource.auth_generic_oath_api_url.nil?
-      variables['grafana']['auth_generic']['oath_api_url'] << new_resource.auth_generic_oath_api_url.to_s unless new_resource.auth_generic_oath_api_url.nil?
-      variables['grafana']['auth_generic']['oath_team_ids'] ||= '' unless new_resource.auth_generic_oath_team_ids.nil?
-      variables['grafana']['auth_generic']['oath_team_ids'] << new_resource.auth_generic_oath_team_ids.to_s unless new_resource.auth_generic_oath_team_ids.nil?
-      variables['grafana']['auth_generic']['oath_allowed_organizations'] ||= '' unless new_resource.auth_generic_oath_allowed_organizations.nil?
-      variables['grafana']['auth_generic']['oath_allowed_organizations'] << new_resource.auth_generic_oath_allowed_organizations.to_s unless new_resource.auth_generic_oath_allowed_organizations.nil?
-      variables['grafana']['auth_generic']['oath_tls_skip_verify_insecure'] ||= '' unless new_resource.auth_generic_oath_tls_skip_verify_insecure.nil?
-      variables['grafana']['auth_generic']['oath_tls_skip_verify_insecure'] << new_resource.auth_generic_oath_tls_skip_verify_insecure.to_s unless new_resource.auth_generic_oath_tls_skip_verify_insecure.nil?
-      variables['grafana']['auth_generic']['oath_tls_client_cert'] ||= '' unless new_resource.auth_generic_oath_tls_client_cert.nil?
-      variables['grafana']['auth_generic']['oath_tls_client_cert'] << new_resource.auth_generic_oath_tls_client_cert.to_s unless new_resource.auth_generic_oath_tls_client_cert.nil?
-      variables['grafana']['auth_generic']['oath_tls_client_key'] ||= '' unless new_resource.auth_generic_oath_tls_client_key.nil?
-      variables['grafana']['auth_generic']['oath_tls_client_key'] << new_resource.auth_generic_oath_tls_client_key.to_s unless new_resource.auth_generic_oath_tls_client_key.nil?
-      variables['grafana']['auth_generic']['oath_tls_client_ca'] ||= '' unless new_resource.auth_generic_oath_tls_client_ca.nil?
-      variables['grafana']['auth_generic']['oath_tls_client_ca'] << new_resource.auth_generic_oath_tls_client_ca.to_s unless new_resource.auth_generic_oath_tls_client_ca.nil?
-      variables['grafana']['auth_generic']['oath_send_client_credentials_via_post'] ||= '' unless new_resource.auth_generic_oath_send_client_credentials_via_post.nil?
-      variables['grafana']['auth_generic']['oath_send_client_credentials_via_post'] << new_resource.auth_generic_oath_send_client_credentials_via_post.to_s unless new_resource.auth_generic_oath_send_client_credentials_via_post.nil?
+      variables['grafana']['auth_generic_oath'] ||= {}
+      variables['grafana']['auth_generic_oath']['name'] ||= '' unless new_resource.auth_generic_oath_name.nil?
+      variables['grafana']['auth_generic_oath']['name'] << new_resource.auth_generic_oath_name.to_s unless new_resource.auth_generic_oath_name.nil?
+      variables['grafana']['auth_generic_oath']['enabled'] ||= '' unless new_resource.auth_generic_oath_enabled.nil?
+      variables['grafana']['auth_generic_oath']['enabled'] << new_resource.auth_generic_oath_enabled.to_s unless new_resource.auth_generic_oath_enabled.nil?
+      variables['grafana']['auth_generic_oath']['allow_sign_up'] ||= '' unless new_resource.auth_generic_oath_allow_sign_up.nil?
+      variables['grafana']['auth_generic_oath']['allow_sign_up'] << new_resource.auth_generic_oath_allow_sign_up.to_s unless new_resource.auth_generic_oath_allow_sign_up.nil?
+      variables['grafana']['auth_generic_oath']['client_id'] ||= '' unless new_resource.auth_generic_oath_client_id.nil?
+      variables['grafana']['auth_generic_oath']['client_id'] << new_resource.auth_generic_oath_client_id.to_s unless new_resource.auth_generic_oath_client_id.nil?
+      variables['grafana']['auth_generic_oath']['client_secret'] ||= '' unless new_resource.auth_generic_oath_client_secret.nil?
+      variables['grafana']['auth_generic_oath']['client_secret'] << new_resource.auth_generic_oath_client_secret.to_s unless new_resource.auth_generic_oath_client_secret.nil?
+      variables['grafana']['auth_generic_oath']['scopes'] ||= '' unless new_resource.auth_generic_oath_scopes.nil?
+      variables['grafana']['auth_generic_oath']['scopes'] << new_resource.auth_generic_oath_scopes.to_s unless new_resource.auth_generic_oath_scopes.nil?
+      variables['grafana']['auth_generic_oath']['email_attribute_name'] ||= '' unless new_resource.auth_generic_oath_email_attribute_name.nil?
+      variables['grafana']['auth_generic_oath']['email_attribute_name'] << new_resource.auth_generic_oath_email_attribute_name.to_s unless new_resource.auth_generic_oath_email_attribute_name.nil?
+      variables['grafana']['auth_generic_oath']['auth_url'] ||= '' unless new_resource.auth_generic_oath_auth_url.nil?
+      variables['grafana']['auth_generic_oath']['auth_url'] << new_resource.auth_generic_oath_auth_url.to_s unless new_resource.auth_generic_oath_auth_url.nil?
+      variables['grafana']['auth_generic_oath']['token_url'] ||= '' unless new_resource.auth_generic_oath_token_url.nil?
+      variables['grafana']['auth_generic_oath']['token_url'] << new_resource.auth_generic_oath_token_url.to_s unless new_resource.auth_generic_oath_token_url.nil?
+      variables['grafana']['auth_generic_oath']['api_url'] ||= '' unless new_resource.auth_generic_oath_api_url.nil?
+      variables['grafana']['auth_generic_oath']['api_url'] << new_resource.auth_generic_oath_api_url.to_s unless new_resource.auth_generic_oath_api_url.nil?
+      variables['grafana']['auth_generic_oath']['team_ids'] ||= '' unless new_resource.auth_generic_oath_team_ids.nil?
+      variables['grafana']['auth_generic_oath']['team_ids'] << new_resource.auth_generic_oath_team_ids.to_s unless new_resource.auth_generic_oath_team_ids.nil?
+      variables['grafana']['auth_generic_oath']['allowed_organizations'] ||= '' unless new_resource.auth_generic_oath_allowed_organizations.nil?
+      variables['grafana']['auth_generic_oath']['allowed_organizations'] << new_resource.auth_generic_oath_allowed_organizations.to_s unless new_resource.auth_generic_oath_allowed_organizations.nil?
+      variables['grafana']['auth_generic_oath']['tls_skip_verify_insecure'] ||= '' unless new_resource.auth_generic_oath_tls_skip_verify_insecure.nil?
+      variables['grafana']['auth_generic_oath']['tls_skip_verify_insecure'] << new_resource.auth_generic_oath_tls_skip_verify_insecure.to_s unless new_resource.auth_generic_oath_tls_skip_verify_insecure.nil?
+      variables['grafana']['auth_generic_oath']['tls_client_cert'] ||= '' unless new_resource.auth_generic_oath_tls_client_cert.nil?
+      variables['grafana']['auth_generic_oath']['tls_client_cert'] << new_resource.auth_generic_oath_tls_client_cert.to_s unless new_resource.auth_generic_oath_tls_client_cert.nil?
+      variables['grafana']['auth_generic_oath']['tls_client_key'] ||= '' unless new_resource.auth_generic_oath_tls_client_key.nil?
+      variables['grafana']['auth_generic_oath']['tls_client_key'] << new_resource.auth_generic_oath_tls_client_key.to_s unless new_resource.auth_generic_oath_tls_client_key.nil?
+      variables['grafana']['auth_generic_oath']['tls_client_ca'] ||= '' unless new_resource.auth_generic_oath_tls_client_ca.nil?
+      variables['grafana']['auth_generic_oath']['tls_client_ca'] << new_resource.auth_generic_oath_tls_client_ca.to_s unless new_resource.auth_generic_oath_tls_client_ca.nil?
+      variables['grafana']['auth_generic_oath']['send_client_credentials_via_post'] ||= '' unless new_resource.auth_generic_oath_send_client_credentials_via_post.nil?
+      variables['grafana']['auth_generic_oath']['send_client_credentials_via_post'] << new_resource.auth_generic_oath_send_client_credentials_via_post.to_s unless new_resource.auth_generic_oath_send_client_credentials_via_post.nil?
 
       variables['grafana']['auth_github'] ||= {}
       variables['grafana']['auth_github']['enabled'] ||= '' unless new_resource.auth_github_enabled.nil?
@@ -647,8 +651,8 @@ action :install do
       variables['grafana']['auth_google']['enabled'] << new_resource.auth_google_enabled.to_s unless new_resource.auth_google_enabled.nil?
       variables['grafana']['auth_google']['allow_sign_up'] ||= '' unless new_resource.auth_google_allow_sign_up.nil?
       variables['grafana']['auth_google']['allow_sign_up'] << new_resource.auth_google_allow_sign_up.to_s unless new_resource.auth_google_allow_sign_up.nil?
-      variables['grafana']['auth_google']['client_i'] ||= '' unless new_resource.auth_google_client_i.nil?
-      variables['grafana']['auth_google']['client_i'] << new_resource.auth_google_client_i.to_s unless new_resource.auth_google_client_i.nil?
+      variables['grafana']['auth_google']['client_id'] ||= '' unless new_resource.auth_google_client_id.nil?
+      variables['grafana']['auth_google']['client_id'] << new_resource.auth_google_client_id.to_s unless new_resource.auth_google_client_id.nil?
       variables['grafana']['auth_google']['client_secret'] ||= '' unless new_resource.auth_google_client_secret.nil?
       variables['grafana']['auth_google']['client_secret'] << new_resource.auth_google_client_secret.to_s unless new_resource.auth_google_client_secret.nil?
       variables['grafana']['auth_google']['scopes'] ||= '' unless new_resource.auth_google_scopes.nil?
@@ -673,8 +677,8 @@ action :install do
       variables['grafana']['auth_grafanacom']['client_id'] << new_resource.auth_grafanacom_client_id.to_s unless new_resource.auth_grafanacom_client_id.nil?
       variables['grafana']['auth_grafanacom']['client_secret'] ||= '' unless new_resource.auth_grafanacom_client_secret.nil?
       variables['grafana']['auth_grafanacom']['client_secret'] << new_resource.auth_grafanacom_client_secret.to_s unless new_resource.auth_grafanacom_client_secret.nil?
-      variables['grafana']['auth_grafanacom']['scope'] ||= '' unless new_resource.auth_grafanacom_scope.nil?
-      variables['grafana']['auth_grafanacom']['scope'] << new_resource.auth_grafanacom_scope.to_s unless new_resource.auth_grafanacom_scope.nil?
+      variables['grafana']['auth_grafanacom']['scopes'] ||= '' unless new_resource.auth_grafanacom_scopes.nil?
+      variables['grafana']['auth_grafanacom']['scopes'] << new_resource.auth_grafanacom_scopes.to_s unless new_resource.auth_grafanacom_scopes.nil?
       variables['grafana']['auth_grafanacom']['allowed_organizations'] ||= '' unless new_resource.auth_grafanacom_allowed_organizations.nil?
       variables['grafana']['auth_grafanacom']['allowed_organizations'] << new_resource.auth_grafanacom_allowed_organizations.to_s unless new_resource.auth_grafanacom_allowed_organizations.nil?
 
@@ -687,8 +691,8 @@ action :install do
       variables['grafana']['auth_grafananet']['client_id'] << new_resource.auth_grafananet_client_id.to_s unless new_resource.auth_grafananet_client_id.nil?
       variables['grafana']['auth_grafananet']['client_secret'] ||= '' unless new_resource.auth_grafananet_client_secret.nil?
       variables['grafana']['auth_grafananet']['client_secret'] << new_resource.auth_grafananet_client_secret.to_s unless new_resource.auth_grafananet_client_secret.nil?
-      variables['grafana']['auth_grafananet']['scope'] ||= '' unless new_resource.auth_grafananet_scope.nil?
-      variables['grafana']['auth_grafananet']['scope'] << new_resource.auth_grafananet_scope.to_s unless new_resource.auth_grafananet_scope.nil?
+      variables['grafana']['auth_grafananet']['scopes'] ||= '' unless new_resource.auth_grafananet_scopes.nil?
+      variables['grafana']['auth_grafananet']['scopes'] << new_resource.auth_grafananet_scopes.to_s unless new_resource.auth_grafananet_scopes.nil?
       variables['grafana']['auth_grafananet']['allowed_organizations'] ||= '' unless new_resource.auth_grafananet_allowed_organizations.nil?
       variables['grafana']['auth_grafananet']['allowed_organizations'] << new_resource.auth_grafananet_allowed_organizations.to_s unless new_resource.auth_grafananet_allowed_organizations.nil?
 

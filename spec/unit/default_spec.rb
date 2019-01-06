@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'grafana::default' do
+describe 'grafana::install_test' do
   platforms = {
     'debian' => {
       'versions' => ['8.10'],
@@ -30,8 +30,8 @@ describe 'grafana::default' do
         let(:version) { ext_version }
 
         before do
-          stub_command("dpkg -l | grep '^ii' | grep grafana | grep #{grafana_version}").and_return(false)
-          stub_command("yum list installed | grep grafana | grep #{grafana_version}").and_return(false)
+          stub_command("dpkg -l | grep '^ii' | grep grafana ").and_return(false)
+          stub_command('yum list installed | grep grafana ').and_return(false)
         end
 
         context 'with default attributes' do
@@ -40,23 +40,7 @@ describe 'grafana::default' do
           end
 
           it 'installs grafana package' do
-            if platform == 'centos'
-              expect(chef_run).to install_package %w(initscripts fontconfig urw-fonts)
-              expect(chef_run).to create_remote_file "/var/chef/cache/grafana-#{grafana_version}.rpm"
-              expect(chef_run).to install_rpm_package "grafana-#{grafana_version}"
-            else
-              expect(chef_run).to install_package %w(adduser libfontconfig)
-              expect(chef_run).to create_remote_file "/var/chef/cache/grafana-#{grafana_version}.deb"
-              expect(chef_run).to install_dpkg_package "grafana-#{grafana_version}"
-            end
-          end
-
-          it 'loads grafana::_nginx recipe' do
-            expect(chef_run).to include_recipe 'grafana::_nginx'
-          end
-
-          it 'loads grafana::_install_file recipe' do
-            expect(chef_run).to include_recipe 'grafana::_install_file'
+            expect(chef_run).to install_package 'grafana'
           end
 
           it 'creates log and data directories' do

@@ -4,14 +4,14 @@
 #
 # full documentation: http://docs.grafana.org/installation/configuration/
 
-<% if @grafana['root']['app_mode'] %>
-app_mode = <%= @grafana['root']['app_mode'] %>
+<% if @grafana['app_mode'] %>
+app_mode = <%= @grafana['app_mode'] %>
 <% else %>
 app_mode = production
 <% end %>
 
-<% if @grafana['root']['instance_name'] %>
-instance_name = <%= @grafana['root']['instance_name'] %>
+<% if @grafana['instance_name'] %>
+instance_name = <%= @grafana['instance_name'] %>
 <% else %>
 instance_name = ${HOSTNAME}
 <% end %>

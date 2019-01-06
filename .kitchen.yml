@@ -40,12 +40,8 @@ platforms:
 suites:
   - name: install
     run_list:
-      - recipe[grafana::install_test]
-    attributes:
-      grafana:
-        ini:
-          server:
-            http_addr: '127.0.0.1'
+      - recipe[test::install]
+
   - name: default
     run_list:
       - recipe[grafana::default]

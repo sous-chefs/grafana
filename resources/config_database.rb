@@ -23,7 +23,7 @@ property  :conf_directory,    String,         default: '/etc/grafana'
 property  :config_file,       String,         default: lazy { ::File.join(conf_directory, 'grafana.ini') }
 property  :type,              String,         default: 'sqlite3', equal_to: %w(mysql postgres sqlite3)
 property  :host,              String,         default: '127.0.0.1:3306'
-property  :name,              String,         default: 'grafana'
+property  :database_name,     String,         default: 'grafana'
 property  :user,              String,         default: 'root'
 property  :password,          String,         default: ''
 property  :max_idle_conn,     Integer,        default: 2
@@ -40,7 +40,6 @@ property  :cookbook,          String,         default: 'grafana'
 property  :source,            String,         default: 'grafana.ini.erb'
 
 action :install do
-
   with_run_context :root do
     edit_resource(:template, new_resource.config_file) do |new_resource|
       node.run_state['grafana'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
@@ -52,8 +51,8 @@ action :install do
       variables['grafana']['database']['type'] << new_resource.type.to_s unless new_resource.type.nil?
       variables['grafana']['database']['host'] ||= '' unless new_resource.host.nil?
       variables['grafana']['database']['host'] << new_resource.host.to_s unless new_resource.host.nil?
-      variables['grafana']['database']['name'] ||= '' unless new_resource.name.nil?
-      variables['grafana']['database']['name'] << new_resource.name.to_s unless new_resource.name.nil?
+      variables['grafana']['database']['name'] ||= '' unless new_resource.database_name.nil?
+      variables['grafana']['database']['name'] << new_resource.name.to_s unless new_resource.database_name.nil?
       variables['grafana']['database']['user'] ||= '' unless new_resource.user.nil?
       variables['grafana']['database']['user'] << new_resource.user.to_s unless new_resource.user.nil?
       variables['grafana']['database']['password'] ||= '' unless new_resource.password.nil?

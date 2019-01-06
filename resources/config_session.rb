@@ -33,7 +33,6 @@ property  :cookbook,          String,         default: 'grafana'
 property  :source,            String,         default: 'grafana.ini.erb'
 
 action :install do
-
   with_run_context :root do
     edit_resource(:template, new_resource.config_file) do |new_resource|
       node.run_state['grafana'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
@@ -41,8 +40,8 @@ action :install do
       cookbook new_resource.cookbook
 
       variables['grafana']['session'] ||= {}
-      variables['grafana']['session']['provider'] ||= '' unless new_resource.provider.nil?
-      variables['grafana']['session']['provider'] << new_resource.provider.to_s unless new_resource.provider.nil?
+      variables['grafana']['session']['provider'] ||= '' unless new_resource.session_provider.nil?
+      variables['grafana']['session']['provider'] << new_resource.provider.to_s unless new_resource.session_provider.nil?
       variables['grafana']['session']['provider_config'] ||= '' unless new_resource.provider_config.nil?
       variables['grafana']['session']['provider_config'] << new_resource.provider_config.to_s unless new_resource.provider_config.nil?
       variables['grafana']['session']['cookie_name'] ||= '' unless new_resource.cookie_name.nil?

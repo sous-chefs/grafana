@@ -36,7 +36,6 @@ property  :cookbook,          String,         default: 'grafana'
 property  :source,            String,         default: 'grafana.ini.erb'
 
 action :install do
-
   with_run_context :root do
     edit_resource(:template, new_resource.config_file) do |new_resource|
       node.run_state['grafana'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }

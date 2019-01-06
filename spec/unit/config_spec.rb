@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 platforms = %w(debian ubuntu centos)
-platforms.each do |platform, value|
+platforms.each do |platform|
   describe "grafana_ on #{platform}" do
     step_into :grafana_config, :grafana_install, :grafana_config_enterprise
     platform platform

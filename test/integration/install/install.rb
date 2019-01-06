@@ -28,20 +28,6 @@ describe service('grafana-server') do
   it { should be_running }
 end
 
-describe file('/etc/nginx/sites-enabled/Grafana') do
-  it { should be_file }
-  it { should be_linked_to '/etc/nginx/sites-available/Grafana' }
-  it { should be_owned_by 'root' }
-  it { should be_grouped_into 'root' }
-  its(:content) { should match /server 127.0.0.1:3000;/ }
-  its(:content) { should match %r{proxy_pass http://grafana;} }
-end
-
 describe command('curl http://127.0.0.1:3000/') do
   its(:stdout) { should match %r{<a href="/login">Found</a>} }
 end
-
-# We don't currently setup nginx to listen on port 80
-# describe command('curl http://127.0.0.1/') do
-#   its(:stdout) { should match %r{<a href="/login">Found</a>} }
-# end

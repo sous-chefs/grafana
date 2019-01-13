@@ -28,7 +28,7 @@ property  :password,        String,         default: ''
 property  :cert_file,       String,         default: ''
 property  :key_file,        String,         default: ''
 property  :skip_verify,     [true, false],  default: false
-property  :from_address,    String,         default: "admin@grafana.#{node['hostname']}"
+property  :from_address,    String,         default: "admin@grafana-#{node['hostname']}.#{node['domain'].nil? ? 'local' : node['domain']}"
 property  :from_name,       String,         default: 'Grafana'
 property  :ehlo_identity,   String,         default: ''
 property  :cookbook,        String,         default: 'grafana'
@@ -65,7 +65,6 @@ action :install do
 
       action :nothing
       delayed_action :create
-      notifies :restart, 'service[grafana-server]', :delayed
     end
   end
 end

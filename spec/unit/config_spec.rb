@@ -21,11 +21,6 @@ platforms.each do |platform|
       it('should render config file') do
         is_expected.to render_file('/etc/grafana/grafana.ini').with_content(/license.txt/)
       end
-
-      it('should reload grafana-server') do
-        template = chef_run.template('/etc/grafana/grafana.ini')
-        expect(template).to notify('service[grafana-server]').to(:restart).delayed
-      end
     end
   end
 end

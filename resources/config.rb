@@ -32,16 +32,19 @@ property  :cookbook,            String, default: 'grafana'
 property  :source,              String, default: 'grafana.ini.erb'
 
 action :install do
-  user new_resource.owner do
-  end
+  user new_resource.owner
 
-  group new_resource.group do
-  end
+  group new_resource.group
 
   directory new_resource.conf_directory do
     owner new_resource.owner
     group new_resource.group
     mode  '0750'
+  end
+
+  service 'grafana-server' do
+    action :enable
+    subscribes :restart, "template[#{::File.join(new_resource.env_directory, 'grafana-server')}]", :immediately
   end
 
   template ::File.join(new_resource.env_directory, 'grafana-server') do
@@ -56,7 +59,6 @@ action :install do
     )
     cookbook new_resource.cookbook
     mode '0644'
-    notifies :restart, 'service[grafana-server]', :delayed
   end
 
   with_run_context :root do
@@ -73,10 +75,6 @@ action :install do
 
       action :nothing
       delayed_action :create
-      notifies :restart, 'service[grafana-server]', :delayed
     end
-  end
-  service 'grafana-server' do
-    action :nothing
   end
 end

@@ -21,10 +21,10 @@
 property  :instance_name,       String, name_property: true
 property  :conf_directory,      String, default: '/etc/grafana'
 property  :config_file,         String, default: lazy { ::File.join(conf_directory, 'grafana.ini') }
-property  :data,                String, default: 'data'
+property  :data,                String, default: '/var/lib/grafana'
 property  :temp_data_lifetime,  String, default: '24h'
-property  :logs,                String, default: 'data/log'
-property  :plugins,             String, default: 'data/plugins'
+property  :logs,                String, default: '/var/log/grafana'
+property  :plugins,             String, default: '/var/lib/grafana/plugins'
 property  :provisioning,        String, default: 'conf/provisioning'
 property  :cookbook,            String, default: 'grafana'
 property  :source,              String, default: 'grafana.ini.erb'
@@ -50,7 +50,6 @@ action :install do
 
       action :nothing
       delayed_action :create
-      notifies :restart, 'service[grafana-server]', :delayed
     end
   end
 end

@@ -48,8 +48,11 @@ action :install do
       trusted       false
     end
 
+    # There is an issue on debian based systems which causes the error:
+    # There were unauthenticated packages and -y was used without --allow-unauthenticated
+    # this will allow grafana to be installed on 16.04 without compromising security of other systems
     package 'grafana' do
-      options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
+      options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --allow-unauthenticated'
     end
   when 'rhel', 'amazon'
     yum_repository 'grafana' do
@@ -58,8 +61,10 @@ action :install do
       gpgkey        "#{new_resource.key} #{new_resource.rpm_key}"
       gpgcheck      true
     end
+
     package 'grafana' do
       version new_resource.version if new_resource.version
     end
+
   end
 end

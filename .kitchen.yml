@@ -15,30 +15,12 @@ verifier:
 
 platforms:
   - name: ubuntu-16.04
-    run_list:
-      - recipe[apt::default]
-      - recipe[curl::default]
-    attributes:
-      grafana:
-        webserver_listen: ''
   - name: ubuntu-18.04
-    run_list:
-      - recipe[apt::default]
-      - recipe[curl::default]
-    attributes:
-      grafana:
-        webserver_listen: ''
   - name: centos-6
-    attributes:
-      grafana:
-        webserver_listen: ''
   - name: centos-7
-    attributes:
-      grafana:
-        webserver_listen: ''
 
 suites:
-  - name: install
+  - name: default
     run_list:
       - recipe[test::install]
 

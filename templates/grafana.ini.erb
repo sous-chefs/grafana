@@ -31,12 +31,12 @@ temp_data_lifetime = <%= @grafana['paths']['temp_data_lifetime'] %>
 
 # Directory where grafana can store logs
 <% if @grafana['paths']['logs'] %>
-data = <%= @grafana['paths']['logs'] %>
+logs = <%= @grafana['paths']['logs'] %>
 <% end %>
 
 # Directory where grafana will automatically scan and look for plugins
 <% if @grafana['paths']['plugins'] %>
-data = <%= @grafana['paths']['plugins'] %>
+plugins = <%= @grafana['paths']['plugins'] %>
 <% end %>
 
 # folder that contains provisioning config files that grafana will apply on startup and while running.
@@ -80,7 +80,7 @@ root_url = %(protocol)s://%(domain)s:%(http_port)s/
 
 # Log web requests
 <% if @grafana['server']['router_logging'] %>
-http_addr = <%= @grafana['server']['router_logging'] %>
+router_logging = <%= @grafana['server']['router_logging'] %>
 <% end %>
 
 # the path relative working path

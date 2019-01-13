@@ -16,5 +16,6 @@ supports 'centos'
 supports 'fedora'
 supports 'amazon'
 supports 'scientific'
+supports 'oracle'
 
 depends 'nginx', '>= 7.0'

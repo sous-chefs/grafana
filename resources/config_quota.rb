@@ -67,7 +67,6 @@ action :install do
 
       action :nothing
       delayed_action :create
-      notifies :restart, 'service[grafana-server]', :delayed
     end
   end
 end

@@ -131,8 +131,7 @@ action :delete do
 end
 
 def _legacy_http_semantic
-  return false if node['grafana']['version'] == 'latest'
-  Gem::Version.new(node['grafana']['version']) < Gem::Version.new('2.0.3')
+  return false
 end
 
 def _check_org!(datasource, orgs)

@@ -4,7 +4,7 @@
 
 ## Overview
 
-This cookbook provides a complete installation and configuration of Grafana. This includes the ability to manage dashboards, datasources, orginizations, plugins and users with Chef.
+This cookbook provides a complete installation and configuration of Grafana. This includes the ability to manage dashboards, datasources, orginizations, plugins and users with Chef using Custom Resources.
 
 ## Requirements
 
@@ -18,68 +18,9 @@ This cookbook provides a complete installation and configuration of Grafana. Thi
 - Debian >= 8
 - CentOS/Redhat >= 6
 
-## Attributes
+## Depreciation Warnings
 
-As with most cookbooks, this one is hopefully flexible enough to be wrapped by allowing you to override as much as possible. Please let us know if you find a value that is not configurable.
-
-### grafana::default
-
-Attribute                                    |                               Default                                | Description
--------------------------------------------- | :------------------------------------------------------------------: | ------------------------------------------------------------------------------------------------
-`node['grafana']['manage_install']`          |                                `true`                                | Whether or not the installation should be managed by this cookbook.
-`node['grafana']['install_type']`            |                               `'file'`                               | The type of install: `file`, `package` or `source`. _Note_: `source` is not currently supported.
-`node['grafana']['version']`                 |                              `'2.1.2'`                               | The version to install. For the most recent versions use `'latest'`.
-`node['grafana']['file']['url']`             |        `'https://grafanarel.s3.amazonaws.com/builds/grafana'`        | The file URL for Grafana builds
-`node['grafana']['file']['checksum']['deb']` | `'57f52cc8e510f395f7f15caac841dc31e67527072fcbf5cc2d8351404989b298'` | The SHA256 checksum of Grafana .deb file
-`node['grafana']['file']['checksum']['rpm']` | `'618f5361e594b101a4832a67a9d82f1179c35ff158ef4288dc1f8b6e8de67bb8'` | The SHA256 checksum of Grafana .rpm file
-`node['grafana']['package']['repo']`         |             `'https://packagecloud.io/grafana/stable/'`              | The grafana package repo
-`node['grafana']['package']['key']`          |                 `'https://packagecloud.io/gpg.key'`                  | The package repo GPG key
-`node['grafana']['package']['components']`   |                              `['main']`                              | The package repo components
-`node['grafana']['user']`                    |                             `'grafana'`                              | The grafana user
-`node['grafana']['group']`                   |                             `'grafana'`                              | The grafana group
-`node['grafana']['home']`                    |                        `'/usr/share/grafana'`                        | The value set to GRAFANA_HOME
-`node['grafana']['data_dir']`                |                         `'/var/lib/grafana'`                         | The path grafana can use to store temp files, sessions, and the sqlite3 db
-`node['grafana']['log_dir']`                 |                         `'/var/log/grafana'`                         | Grafana's log directory
-`node['grafana']['plugins_dir']`             |                     `'/var/lib/grafana/plugins'`                     | Grafana's plugins directory
-`node['grafana']['env_dir']`                 |                `'/etc/default'` or `'/etc/sysconfig'`                | The location for environment variables - autoconfigured for rhel and debian systems
-`node['grafana']['conf_dir']`                |                           `'/etc/grafana'`                           | The location to store the `grafana.ini` file
-`node['grafana']['restart_on_upgrade']`      |                               `false`                                | Whether or not to restart the service on upgrade when installing from packages
-`node['grafana']['webserver']`               |                              `'nginx'`                               | Which webserver to use: `'nginx'` or `''`
-`node['grafana']['webserver_hostname']`      |                             `node.name`                              | The server_name used in the webserver config
-`node['grafana']['webserver_aliases']`       |                        `[node['ipaddress']]`                         | Array of any secondary hostnames that are valid vhosts
-`node['grafana']['webserver_listen']`        |                         `node['ipaddress']`                          | The ip address the web server will listen on
-`node['grafana']['webserver_port']`          |                                 `80`                                 | The port the webserver will listen on
-`node['grafana']['cli_bin']`                 |                       `/usr/sbin/grafana-cli`                        | The path to the grafana-cli binary
-`node['grafana']['plugins']`                 |                               `empty`                                | Array of plugins to install
-
-#### grafana.ini
-
-For the ini configuration file, parameters can be specified as this: `node['grafana']['ini'][SECTION_NAME][KEY] = [VALUE]`. Here's an example:
-
-```ruby
-default['grafana']['ini']['server']['protocol'] = 'http'
-```
-
-It is also possible to specify a comment that will precede the parameter and to comment the parameter as well.
-
-```ruby
-default['grafana']['ini']['database']['ssl_mode'] = {
-  comment: 'For "postgres" only, either "disable", "require" or "verify-full"',
-  disable: true,
-  value: 'disable'
-}
-```
-
-See attributes/default.rb file for more details and examples.
-
-#### grafana::nginx
-
-Attribute                                       |           Default           | Description
------------------------------------------------ | :-------------------------: | ----------------------------------------------------------------
-`node['grafana']['nginx']['template']`          | `'grafana-nginx.conf.erb'`  | The template file to use for the nginx site configuration
-`node['grafana']['nginx']['template_cookbook']` |         `'grafana'`         | The cookbook containing said template
-`node['grafana']['nginx']['basic_auth']`        |           `false`           | If `true` generated nginx config will have basic auth configured
-`node['grafana']['nginx']['httpasswd_file']`    | `/etc/nginx/htpasswd.users` | The basic auth user/password file to use
+All Recipes and attributes have been removed.
 
 **NOTE**
 
@@ -87,35 +28,31 @@ This cookbook does nothing to generate the basic auth user/password file, you wi
 
 ## Usage
 
-### grafana::default
-
-The default recipe will:
-
-- install Grafana via downloaded system package
-- install `nginx` to proxy the grafana application
-
-If you want to install a newer version using the `file` installation method, set the `node['grafana']['version']` attribute to the desired version and also set either `node['grafana']['file']['checksum']['deb']` or `node['grafana']['file']['checksum']['rpm']` to the SHA256 checksum of the package file as shown on the [Grafana download page](https://grafana.com/grafana/download).
-
-If you want to install the Grafana package repository, update `node['grafana']['install_type']` attribute to `package`. Additionally, the `node['grafana']['version']` can be set to `'latest'` so that the very latest Grafana build is used instead of the default release.
-
-Nginx is used to proxy Grafana to run on port 80\. If you don't want this cookbook to handle the webserver config simply set `node['grafana']['webserver']` to `''` in a role/environment/node somewhere.
-
-**NOTE** There is **NO** security enabled by default on any of the content being served. If you would like to modify the `nginx` parameters, you should:
-
-- create your own cookbook i.e. `my-grafana`
-- copy the template for the webserver you wish to use to your cookbook
-- modify the template as you see fit (add auth, setup ssl)
-- use the appropriate webserver template attributes to point to your cookbook and template
-
-### grafana::plugins
-
-This recipe will install the plugins given with the `node['grafana']['plugins']` attribute
-
-It will use the grafana_plugin LWRP described in the section below.
-
 ## Resources
 
-It's important to note that Grafana must be running for these resources to be used because they utilize Grafana's HTTP API. In your recipe, you'll simply need to make sure that you include the default recipe that starts Grafana before using these.
+### grafana_install
+
+Installs Grafana from the repositories, this will setup the correct apt/yum repo and install it, allows you to supply your own custom repository.
+
+#### Properties
+
+Property           |   Type    | Default Value                                                  | Description
+----------------   | :-------: | :-----------:                                                  | --------------------------------------------------------------
+`version`          | `String`  |    `nil`                                                       | Use if you want to install a specific version (Must exist in repo)
+`repo`             | `String`  |    `https://packagecloud.io/grafana/stable`                    | Base Repository
+`key`              | `String`  |   `https://packagecloud.io/gpg.key`                            | GPG Key for Debian
+`rpm_key`          | `String`  |   `https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana`    | GPG key for RPM
+`deb_distribution` |  `String` |     `jessie`                                                   | Deb Distribution
+`deb_components`   | `Array`   |   `['main']`                                                   | Deb Components
+
+#### Examples
+
+Installs Latest Grafana from official repository:
+
+```ruby
+grafana_install 'grafana' do
+end
+```
 
 ### grafana_datasource
 
@@ -424,70 +361,7 @@ grafana_plugin grafana-clock-panel do
 end
 ```
 
-## Testing
-
-### Foodcritic & Rubocop
-
-```
-$ bundle exec foodcritic -X spec -f any ./
-$ bundle exec rubocop
-```
-
-### ChefSpec
-
-```
-$ bundle exec rspec
-```
-
-### kitchen-test
-
-Requires Vagrant >= 1.7.
-
-```
-$ bundle install
-$ bundle exec kitchen test
-```
-
 ## License and Authors
-
-Primary authors:
-
-- Jonathan Tron [jonathan@tron.name](mailto:jonathan@tron.name)
-- Mike Lanyon [lanyonm@gmail.com](mailto:lanyonm@gmail.com)
-
-Contributors:
-
-- Grégoire Seux (@kamaradclimber)
-- Anatoliy D. (@anatolijd)
-- Greg Fitzgerald (@gregf)
-- Fred Hatfull (@fhats)
-- Tim Smith (@tas50)
-- Jonathon W. Marshall (@jwmarshall)
-- Andrew Goktepe (@andrewgoktepe)
-- Miguel Landaeta (@nomadium)
-- Bernhard Köhler (@drywheat)
-- Olivier Bazoud (@obazoud)
-- @osigida
-- @BackSlasher
-- Helio Campos Mello de Andrade (@HelioCampos)
-- Arif Akram Khan (@arifcse019)
-- Jean Baptiste Favre (@jbfavre)
-- Miguel Moll (@MiguelMoll)
-- ptQa (@ptqa)
-- Danny (@kemra102)
-- Dave Steinberg (@redterror)
-- Roel Gerrits (@roelgerrits)
-- Corentin Chary (@iksaif)
-- @phoenixyz
-- Ioannis Charitopoulos (@jinxcat)
-- Joshua Zitting (@joshzitting)
-- Angelo San Ramon (@angelosanramon)
-- Dmitry (@cyberflow)
-- Nilanjan Roy (@nilroy)
-- Jon Henry (@jhenry82)
-- akadoya (@akadoya)
-- Andrei Skopenko (@scopenco)
-
 Based on `chef-kibana` cookbook by:
 
 - John E. Vincent [lusis.org+github.com@gmail.com](mailto:lusis.org+github.com@gmail.com)

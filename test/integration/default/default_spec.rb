@@ -24,7 +24,3 @@ describe service('grafana-server') do
   it { should be_enabled }
   it { should be_running }
 end
-
-describe http('http://127.0.0.1:3000/', enable_remote_worker: true) do
-  its('body') { should cmp %r{<a href="/login">Found</a>} }
-end

@@ -131,7 +131,7 @@ action :delete do
 end
 
 def _legacy_http_semantic
-  return false
+  false
 end
 
 def _check_org!(datasource, orgs)

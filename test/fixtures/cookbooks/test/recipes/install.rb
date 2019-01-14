@@ -1,43 +1,22 @@
-grafana_install 'grafana' do
-end
+grafana_install 'grafana'
 
-grafana_config 'Grafana' do
-end
-grafana_config_alerting 'Grafana' do
-end
-grafana_config_auth 'Grafana' do
-end
-grafana_config_dashboards 'Grafana' do
-end
-grafana_config_database 'Grafana' do
-end
-grafana_config_dataproxy 'Grafana' do
-end
-grafana_config_emails 'Grafana' do
-end
-grafana_config_enterprise 'Grafana' do
-end
-grafana_config_explore 'Grafana' do
-end
-grafana_config_log 'Grafana' do
-end
-grafana_config_metrics 'Grafana' do
-end
-grafana_config_panels 'Grafana' do
-end
-grafana_config_paths 'Grafana' do
-end
-grafana_config_quota 'Grafana' do
-end
-grafana_config_security 'Grafana' do
-end
-grafana_config_server 'Grafana' do
-end
-grafana_config_session 'Grafana' do
-end
-grafana_config_smtp 'Grafana' do
-end
-grafana_config_snapshots 'Grafana' do
-end
-grafana_config_users 'Grafana' do
-end
+grafana_config 'Grafana'
+grafana_config_alerting 'Grafana'
+grafana_config_auth 'Grafana'
+grafana_config_dashboards 'Grafana'
+grafana_config_database 'Grafana'
+grafana_config_dataproxy 'Grafana'
+grafana_config_emails 'Grafana'
+grafana_config_enterprise 'Grafana'
+grafana_config_explore 'Grafana'
+grafana_config_log 'Grafana'
+grafana_config_metrics 'Grafana'
+grafana_config_panels 'Grafana'
+grafana_config_paths 'Grafana'
+grafana_config_quota 'Grafana'
+grafana_config_security 'Grafana'
+grafana_config_server 'Grafana'
+grafana_config_session 'Grafana'
+grafana_config_smtp 'Grafana'
+grafana_config_snapshots 'Grafana'
+grafana_config_users 'Grafana'

@@ -15,57 +15,11 @@ verifier:
 
 platforms:
   - name: ubuntu-16.04
-    run_list:
-      - recipe[apt::default]
-      - recipe[curl::default]
-    attributes:
-      grafana:
-        webserver_listen: ''
   - name: ubuntu-18.04
-    run_list:
-      - recipe[apt::default]
-      - recipe[curl::default]
-    attributes:
-      grafana:
-        webserver_listen: ''
   - name: centos-6
-    attributes:
-      grafana:
-        webserver_listen: ''
   - name: centos-7
-    attributes:
-      grafana:
-        webserver_listen: ''
 
 suites:
   - name: default
     run_list:
-      - recipe[grafana::default]
-    attributes:
-      grafana:
-        ini:
-          server:
-            http_addr: '127.0.0.1'
-  - name: package
-    run_list:
-      - recipe[grafana::default]
-    attributes:
-      grafana:
-        install_type: package
-        ini:
-          server:
-            http_port: 3015
-  - name: plugins
-    run_list:
-      - recipe[grafana::default]
-      - recipe[grafana::plugins]
-    attributes:
-      grafana:
-        install_type: package
-        ini:
-          server:
-            http_port: 3015
-        package:
-          version : 3.0.3-1463994644
-        plugins:
-         - grafana-clock-panel
+      - recipe[test::install]

@@ -7,5 +7,5 @@ template node['grafana']['ini']['auth.ldap']['config_file']['value'] do
   owner 'root'
   group 'root'
   mode '0644'
-  notifies :restart, 'service[grafana-server]', :delayed
+  # notifies :restart, 'service[grafana-server]', :delayed
 end

@@ -9,6 +9,7 @@ This file is used to list changes made in each version of grafana.
 - Migrate existing LWRP to Custom Resources
 - Create a new config resource to be able to configure the grafana instance
 - Create install resource to install Grafana, does not do any configuration
+- Update repo location to new grafana repos (#220)
 
 ## 3.0.1 (2018-11-27)
 

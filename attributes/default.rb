@@ -26,7 +26,7 @@ default['grafana']['file']['checksum']['rpm'] = '375e85339782cee09066267e3a6cd27
 case node['platform_family']
 when 'debian'
   default['grafana']['package']['repo'] = 'https://packages.grafana.com/oss/deb'
-  default['grafana']['package']['distribution'] = 'wheezy'
+  default['grafana']['package']['distribution'] = 'stable'
   default['grafana']['package']['components'] = ['main']
   default['grafana']['package']['key'] = 'https://packages.grafana.com/gpg.key'
   default['grafana']['package']['version'] = node['grafana']['version']

@@ -7,8 +7,11 @@ module GrafanaCookbook
       dashboard_source_file = find_dashboard_source_file dashboard
       dashboard_options = {
         'dashboard' => JSON.parse(File.read(dashboard_source_file)),
-        'overwrite' => dashboard[:overwrite],
+        'overwrite' => dashboard[:overwrite]
       }
+      if !dashboard[:folder] and !dashboard[:folder].empty?
+        dashboard_options.merge!({'folderId' => get_folder_id(get_folder_by_name(dashboard[:folder], grafana_options))})
+      end
 
       grafana_options[:method] = 'Post'
       grafana_options[:success_msg] = 'Dashboard creation was successful.'
@@ -49,10 +52,13 @@ module GrafanaCookbook
       dash_json = JSON.parse(File.read(dashboard_source_file))
 
       dash_json_title = dash_json['title'].tr('.', '-').tr(' ', '-').downcase
+      Chef::Log.info("dash_json['title'] = #{dash_json['title']}, dash_json_title = #{dash_json_title}, dashboard_options[:name] = #{dashboard_options[:name]}")
       if dash_json_title != dashboard_options[:name]
         raise "dashboard_sanity failure: the resource name (#{dashboard_options[:name]}) "\
              "did not match the \"title\" in the json (#{dash_json_title}) or is not a valid Grafana slug. "\
-             'See http://docs.grafana.org/reference/http_api/#get-dashboard for more details.'
+             'See http://docs.grafana.org/reference/http_api/#get-dashboard for more details.'\
+             "\ndash_json['title'] = #{dash_json['title']}, dash_json_title = #{dash_json_title}, dashboard_options[:name] = #{dashboard_options[:name]}"
+
       end
     rescue BackendError
       nil

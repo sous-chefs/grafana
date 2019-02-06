@@ -167,5 +167,85 @@ module GrafanaCookbook
       end
       raise BackendError
     end
+
+    # Fetch the json representation of the folder
+    # curl -G --cookie "grafana_user=admin; grafana_sess=997bcbbf1c60fcf0;" http://localhost:3000/api/folders/nErXDvCkzz
+    def get_folders(grafana_options)
+      grafana_options[:method] = 'Get'
+      grafana_options[:success_msg] = 'Folder deletion was successful.'
+      grafana_options[:unknown_code_msg] = 'FolderApi::get_folder_by_uid unchecked response code: %{code}'
+      grafana_options[:endpoint] = '/api/folders'
+
+      folder_list = Array.new
+      Array(do_request(grafana_options)).each do |folder|
+        folder_list.insert(-1, get_folder(folder,grafana_options))
+      end
+      folder_list
+    end
+
+    # Fetch the json representation of the folder
+    # curl -G --cookie "grafana_user=admin; grafana_sess=997bcbbf1c60fcf0;" http://localhost:3000/api/folders/nErXDvCkzz
+    def get_folder(folder, grafana_options)
+      grafana_options[:method] = 'Get'
+      grafana_options[:success_msg] = 'Folder deletion was successful.'
+      grafana_options[:unknown_code_msg] = 'FolderApi::get_folder_by_uid unchecked response code: %{code}'
+      grafana_options[:endpoint] = '/api/folders/' + get_folder_uid(folder)
+
+      folder_obj = do_request(grafana_options)
+
+      return if folder_obj[:message] == 'Folder not found'
+      folder_obj
+    end
+
+    # Fetch the json representation of the folder
+    # curl -G --cookie "grafana_user=admin; grafana_sess=997bcbbf1c60fcf0;" http://localhost:3000/api/folders/10
+    def get_folder_by_id(folder, grafana_options)
+      grafana_options[:method] = 'Get'
+      grafana_options[:success_msg] = 'Folder deletion was successful.'
+      grafana_options[:unknown_code_msg] = 'FolderApi::get_folder_by_id unchecked response code: %{code}'
+      grafana_options[:endpoint] = '/api/folders/id/' + get_folder_id(folder)
+
+      folder_obj = do_request(grafana_options)
+
+      return if folder_obj[:message] == 'Folder not found'
+      folder_obj
+    end
+
+    # Fetch the json representation of the folder
+    # curl -G --cookie "grafana_user=admin; grafana_sess=997bcbbf1c60fcf0;" http://localhost:3000/api/folders/10
+    def get_folder_by_name(folder_name, grafana_options)
+      return_folder =  get_folders(grafana_options).select { |folder,value| get_folder_title(folder) == folder_name}
+      return_folder[0]
+    end
+
+    def get_folder_uid(folder)
+      if folder.key?(:uid)
+        folder[:uid]
+      elsif folder.key?('uid')
+        folder['uid']
+      else
+        nil
+      end
+    end
+
+    def get_folder_id(folder)
+      if folder.key?(:id)
+        folder[:id]
+      elsif folder.key?('id')
+        folder['id']
+      else
+        nil
+      end
+    end
+
+    def get_folder_title(folder)
+      if folder.key?(:title)
+        folder[:title]
+      elsif folder.key?('title')
+        folder['title']
+      else
+        nil
+      end
+    end
   end
 end

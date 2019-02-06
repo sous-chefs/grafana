@@ -265,6 +265,16 @@ grafana_dashboard 'on-disk-dash' do
 end
 ```
 
+If you want to insert the dashboard `"title": "On Disk Dash"` to a folder `"custom_folder"`:
+
+```ruby
+grafana_dashboard 'on-disk-dash' do
+  dashboard(
+    folder: 'custom_folder'
+  )
+end
+```
+
 You can update a dashboard. For that, you have 2 options:
 
 Use `create` action with `overwrite` dashboard property, like:

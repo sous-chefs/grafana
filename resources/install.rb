@@ -20,18 +20,18 @@
 #
 
 property :version,          String, required: false
-property :repo,             String, default:  'https://packagecloud.io/grafana/stable'
-property :key,              String, default:  'https://packagecloud.io/gpg.key'
+property :repo,             String, default:  'https://packages.grafana.com/oss'
+property :key,              String, default:  'https://packages.grafana.com/gpg.key'
 property :rpm_key,          String, default:  'https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana'
-property :deb_distribution, String, default:  'jessie'
+property :deb_distribution, String, default:  'stable'
 property :deb_components,   Array,  default:  ['main']
 
 action :install do
   case node['platform_family']
   when 'debian'
-    repository = "#{new_resource.repo}/debian/"
+    repository = "#{new_resource.repo}/deb"
   when 'rhel'
-    repository = "#{new_resource.repo}/el/$releasever/$basearch"
+    repository = "#{new_resource.repo}/rpm"
   end
 
   case node['platform_family']

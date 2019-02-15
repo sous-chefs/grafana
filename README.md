@@ -38,11 +38,11 @@ Installs Grafana from the repositories, this will setup the correct apt/yum repo
 
 Property           |   Type    | Default Value                                                  | Description
 ----------------   | :-------: | :-----------:                                                  | --------------------------------------------------------------
-`version`          | `String`  |    `nil`                                                       | Use if you want to install a specific version (Must exist in repo)
-`repo`             | `String`  |    `https://packagecloud.io/grafana/stable`                    | Base Repository
-`key`              | `String`  |   `https://packagecloud.io/gpg.key`                            | GPG Key for Debian
+`version`          | `String`  |   `nil`                                                        | Use if you want to install a specific version (Must exist in repo)
+`repo`             | `String`  |   `https://packages.grafana.com/oss`                           | Base Repository
+`key`              | `String`  |   `https://packages.grafana.com/gpg.key`                       | GPG Key for Debian
 `rpm_key`          | `String`  |   `https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana`    | GPG key for RPM
-`deb_distribution` |  `String` |     `jessie`                                                   | Deb Distribution
+`deb_distribution` |  `String` |   `stable`                                                     | Deb Distribution
 `deb_components`   | `Array`   |   `['main']`                                                   | Deb Components
 
 #### Examples

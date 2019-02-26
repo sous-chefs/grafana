@@ -57,7 +57,7 @@ module GrafanaCookbook
       end
       dash_json = JSON.parse(File.read(dashboard_source_file))
 
-      dash_json_title = dash_json['title'].tr('.', '-').tr(' ', '-').downcase
+      dash_json_title = slug_dashboard_or_folder_name(dash_json['title'])
       Chef::Log.info("dash_json['title'] = #{dash_json['title']}, dash_json_title = #{dash_json_title}, dashboard_options[:name] = #{dashboard_options[:name]}")
       if dash_json_title != dashboard_options[:name]
         raise "dashboard_sanity failure: the resource name (#{dashboard_options[:name]}) "\
@@ -74,7 +74,7 @@ module GrafanaCookbook
       grafana_options[:method] = 'Get'
       grafana_options[:success_msg] = 'Dashboard deletion was successful.'
       grafana_options[:unknown_code_msg] = 'DashboardApi::delete_dashboard unchecked response code: %{code}'
-      grafana_options[:endpoint] = '/api/dashboards/db/' + dashboard[:name]
+      grafana_options[:endpoint] = '/api/dashboards/db/' + slug_dashboard_or_folder_name(dashboard[:name])
 
       dash = do_request(grafana_options)
 

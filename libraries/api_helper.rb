@@ -247,5 +247,9 @@ module GrafanaCookbook
         nil
       end
     end
+
+    def slug_dashboard_or_folder_name(name)
+      name.tr('.', '-').tr(' ', '-').downcase
+    end
   end
 end

@@ -355,6 +355,11 @@ viewers_can_edit = <%= @grafana['users']['viewers_can_edit'] %>
 
 <% if @grafana['auth'] %>
 [auth]
+# Login cookie name
+<% if @grafana['auth']['login_cookie_name'] %>
+login_cookie_name = <%= @grafana['auth']['login_cookie_name'] %>
+<% end %>
+
 # Set to true to disable (hide) the login form, useful if you use OAuth
 <% if @grafana['auth']['disable_login_form'] %>
 disable_login_form = <%= @grafana['auth']['disable_login_form'] %>

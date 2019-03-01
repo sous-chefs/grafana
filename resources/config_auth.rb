@@ -20,6 +20,7 @@
 property  :instance_name,                                 String,         name_property: true
 property  :conf_directory,                                String,         default: '/etc/grafana'
 property  :config_file,                                   String,         default: lazy { ::File.join(conf_directory, 'grafana.ini') }
+property  :login_cookie_name,                             String,         default: 'grafana_session'
 property  :disable_login_form,                            [true, false],  default: false
 property  :disable_signout_menu,                          [true, false],  default: false
 property  :signout_redirect_url,                          String,         default: ''
@@ -107,6 +108,8 @@ action :install do
       cookbook new_resource.cookbook
 
       variables['grafana']['auth'] ||= {}
+      variables['grafana']['auth']['login_cookie_name'] ||= '' unless new_resource.login_cookie_name.nil?
+      variables['grafana']['auth']['login_cookie_name'] << new_resource.login_cookie_name.to_s unless new_resource.login_cookie_name.nil?
       variables['grafana']['auth']['disable_login_form'] ||= '' unless new_resource.disable_login_form.nil?
       variables['grafana']['auth']['disable_login_form'] << new_resource.disable_login_form.to_s unless new_resource.disable_login_form.nil?
       variables['grafana']['auth']['disable_signout_menu'] ||= '' unless new_resource.disable_signout_menu.nil?

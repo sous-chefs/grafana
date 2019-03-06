@@ -76,7 +76,9 @@ enforce_domain = <%= @grafana['server']['enforce_domain'] %>
 <% end %>
 
 # The full public facing url
-root_url = %(protocol)s://%(domain)s:%(http_port)s/
+<% if @grafana['server']['root_url'] %>
+root_url = <%= @grafana['server']['root_url'] %>
+<% end %>
 
 # Log web requests
 <% if @grafana['server']['router_logging'] %>

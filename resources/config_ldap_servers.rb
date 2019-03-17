@@ -20,7 +20,7 @@
 # See https://raw.githubusercontent.com/grafana/grafana/master/conf/ldap.toml
 # Expects config_ldap to have been called before this
 
-property  :host,                                String,                   name_property: true, default: '127.0.0.1'
+property  :host,                                String,                   name_property: true
 property  :conf_directory,                      String,                   default: '/etc/grafana'
 property  :config_file,                         String,                   default: lazy { ::File.join(conf_directory, 'ldap.toml') }
 property  :port,                                Integer,                  default: 389

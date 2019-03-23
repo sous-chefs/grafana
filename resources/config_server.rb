@@ -25,6 +25,7 @@ property  :protocol,          String,         default: 'http', equal_to: %w(http
 property  :http_addr,         String,         default: ''
 property  :http_port,         Integer,        default: 3000
 property  :domain,            String,         default: node['hostname']
+property  :root_url,          String,         default: '%(protocol)s://%(domain)s:%(http_port)s/'
 property  :enforce_domain,    [true, false],  default: false
 property  :router_logging,    [true, false],  default: false
 property  :static_root_path,  String,         default: 'public'
@@ -51,6 +52,8 @@ action :install do
       variables['grafana']['server']['http_port'] << new_resource.http_port.to_s unless new_resource.http_port.nil?
       variables['grafana']['server']['domain'] ||= '' unless new_resource.domain.nil?
       variables['grafana']['server']['domain'] << new_resource.domain.to_s unless new_resource.domain.nil?
+      variables['grafana']['server']['root_url'] ||= '' unless new_resource.root_url.nil?
+      variables['grafana']['server']['root_url'] << new_resource.root_url.to_s unless new_resource.root_url.nil?
       variables['grafana']['server']['enforce_domain'] ||= '' unless new_resource.enforce_domain.nil?
       variables['grafana']['server']['enforce_domain'] << new_resource.enforce_domain.to_s unless new_resource.enforce_domain.nil?
       variables['grafana']['server']['router_logging'] ||= '' unless new_resource.router_logging.nil?

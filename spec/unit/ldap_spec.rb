@@ -25,17 +25,16 @@ platforms.each do |platform|
           search_filter   '(cn=%s)'
           search_base_dns %w( dc=grafana,dc=org )
         end
-        
+
         grafana_config_ldap_group_mappings 'cn=admins,dc=grafana,dc=org' do
           org_role      'Admin'
           grafana_admin true
           org_id        1
         end
-        
+
         grafana_config_ldap_group_mappings 'cn=readers,dc=grafana,dc=org' do
           org_role      'Viewer'
         end
-        
       end
 
       it('should render config file') do

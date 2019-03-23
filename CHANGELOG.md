@@ -7,7 +7,8 @@ This file is used to list changes made in each version of grafana.
 ### 4.0.0-beta (Unreleased)
 
 - Migrate existing LWRP to Custom Resources
-- Create a new config resource to be able to configure the grafana instance
+- Create new config resources to be able to configure the grafana instance
+- Created new ldap config resources
 - Create install resource to install Grafana, does not do any configuration
 - Update repo location to new grafana repos (#220)
 

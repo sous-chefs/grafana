@@ -32,7 +32,6 @@ property  :cookbook,                      String, default: 'grafana'
 property  :source,                        String, default: 'ldap.toml.erb'
 
 action :install do
-
   service 'grafana-server' do
     action :enable
     subscribes :restart, "template[#{new_resource.config_file}]", :immediately

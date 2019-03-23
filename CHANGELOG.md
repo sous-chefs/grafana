@@ -11,6 +11,8 @@ This file is used to list changes made in each version of grafana.
 - Created new ldap config resources
 - Create install resource to install Grafana, does not do any configuration
 - Update repo location to new grafana repos (#220)
+- Add login_cookie_name property to config_auth resource
+- Add root_url property to config_server resource
 
 ## 3.0.1 (2018-11-27)
 

@@ -2,6 +2,8 @@ grafana_install 'grafana'
 
 grafana_config 'Grafana'
 
+grafana_config_log 'Grafana'
+
 grafana_config_ldap 'Grafana'
 
 grafana_config_ldap_servers '127.0.0.1' do

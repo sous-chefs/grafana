@@ -31,3 +31,23 @@ workflows:
           platform: ubuntu-1604
           suite: default
           requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: centos-6
+          platform: centos-6
+          suite: ldap
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: centos-7
+          platform: centos-7
+          suite: ldap
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: debian-8
+          platform: debian-8
+          suite: ldap
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: ubuntu-16.04
+          platform: ubuntu-1604
+          suite: ldap
+          requires: [ lint, danger ]

@@ -7,6 +7,11 @@ This file is used to list changes made in each version of grafana.
 ### 4.0.0-beta (Unreleased)
 
 - Migrate existing LWRP to Custom Resources
+- Create a new config resource to be able to configure the grafana instance
+- Create install resource to install Grafana, does not do any configuration
+- Update repo location to new grafana repos (#220)
+- Add login_cookie_name property to config_auth resource
+- Add root_url property to config_server resource
 
 ## 3.0.1 (2018-11-27)
 

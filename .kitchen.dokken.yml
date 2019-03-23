@@ -71,4 +71,3 @@ platforms:
   driver:
     image: dokken/amazonlinux
     pid_one_command: /sbin/init
-

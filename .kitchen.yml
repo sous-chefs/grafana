@@ -23,3 +23,7 @@ suites:
   - name: default
     run_list:
       - recipe[test::install]
+
+  - name: ldap
+    run_list:
+      - recipe[test::ldap]

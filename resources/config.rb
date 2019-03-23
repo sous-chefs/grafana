@@ -47,6 +47,13 @@ action :install do
     subscribes :restart, "template[#{::File.join(new_resource.env_directory, 'grafana-server')}]", :immediately
   end
 
+  directory "/usr/share/#{new_resource.owner}" do
+    owner     new_resource.owner
+    group     new_resource.group
+    mode      '0750'
+    recursive true
+  end
+
   template ::File.join(new_resource.env_directory, 'grafana-server') do
     source 'grafana-env.erb'
     variables(

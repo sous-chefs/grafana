@@ -2,7 +2,7 @@
 # Cookbook Name:: grafana
 # Resource:: config_alerting
 #
-# Copyright 2018, Sous Chefs
+# Copyright 2019, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ property  :group_dn,                      String,                   name_propert
 property  :conf_directory,                String,                   default: '/etc/grafana'
 property  :config_file,                   String,                   default: lazy { ::File.join(conf_directory, 'ldap.toml') }
 property  :org_role,                      String,                   default: 'Viewer'
-property  :grafana_admin,                 [TrueClass, FalseClass]
+property  :grafana_admin,                 [TrueClass, FalseClass],  default: false
 property  :org_id,                        Integer,                  default: 1
 property  :cookbook,                      String,                   default: 'grafana'
 property  :source,                        String,                   default: 'ldap.toml.erb'
@@ -41,7 +41,7 @@ action :install do
       variables['grafana']['ldap']['group_mappings'][new_resource.group_dn]['org_role'] ||= '' unless new_resource.org_role.nil?
       variables['grafana']['ldap']['group_mappings'][new_resource.group_dn]['org_role'] << new_resource.org_role.to_s unless new_resource.org_role.nil?
       variables['grafana']['ldap']['group_mappings'][new_resource.group_dn]['grafana_admin'] ||= '' unless new_resource.grafana_admin.nil?
-      variables['grafana']['ldap']['group_mappings'][new_resource.group_dn]['grafana_admin'] << new_resource.grafana_admin.to_s
+      variables['grafana']['ldap']['group_mappings'][new_resource.group_dn]['grafana_admin'] << new_resource.grafana_admin.to_s unless new_resource.grafana_admin.nil?
       variables['grafana']['ldap']['group_mappings'][new_resource.group_dn]['org_id'] ||= '' unless new_resource.org_id.nil?
       variables['grafana']['ldap']['group_mappings'][new_resource.group_dn]['org_id'] << new_resource.org_id.to_s unless new_resource.org_id.nil?
 

@@ -2,7 +2,7 @@
 # Cookbook Name:: grafana
 # Resource:: config_alerting
 #
-# Copyright 2018, Sous Chefs
+# Copyright 2019, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@
 property  :instance_name,                 String, name_property: true
 property  :conf_directory,                String, default: '/etc/grafana'
 property  :config_file,                   String, default: lazy { ::File.join(conf_directory, 'ldap.toml') }
-property  :log_filters,                   String, default: 'ldap:error'
+property  :log_filters,                   String
 property  :servers_attributes_name,       String, default: 'givenName'
 property  :servers_attributes_surname,    String, default: 'sn'
 property  :servers_attributes_username,   String, default: 'cn'
@@ -32,12 +32,19 @@ property  :cookbook,                      String, default: 'grafana'
 property  :source,                        String, default: 'ldap.toml.erb'
 
 action :install do
+
+  service 'grafana-server' do
+    action :enable
+    subscribes :restart, "template[#{new_resource.config_file}]", :immediately
+  end
+
   with_run_context :root do
     edit_resource(:template, new_resource.config_file) do |new_resource|
       node.run_state['grafana'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
       source new_resource.source
       cookbook new_resource.cookbook
 
+      variables['grafana'] ||= {}
       variables['grafana']['ldap'] ||= {}
       variables['grafana']['ldap']['log_filters'] ||= '' unless new_resource.log_filters.nil?
       variables['grafana']['ldap']['log_filters'] << new_resource.log_filters.to_s unless new_resource.log_filters.nil?

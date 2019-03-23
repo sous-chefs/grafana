@@ -2,7 +2,7 @@
 # Cookbook Name:: grafana
 # Resource:: config_alerting
 #
-# Copyright 2018, Sous Chefs
+# Copyright 2019, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ property  :client_key,                          String
 property  :bind_dn,                             String,                   default: 'cn=admin,dc=grafana,dc=org'
 property  :bind_password,                       String,                   default: 'grafana', sensitive: true
 property  :search_filter,                       String,                   default: '(cn=%s)'
-property  :search_base_dns,                     String
+property  :search_base_dns,                     Array,                    default: []
 property  :group_search_filter,                 String
 property  :group_search_base_dns,               String
 property  :group_search_filter_user_attribute,  String
@@ -49,7 +49,7 @@ action :install do
 
       variables['grafana']['ldap']['servers'] ||= {}
       variables['grafana']['ldap']['servers'][new_resource.host] ||= {}
-      variables['grafana']['ldap']['servers'][new_resource.host]['port'] ||= '' unless new_resource.log_filters.nil?
+      variables['grafana']['ldap']['servers'][new_resource.host]['port'] ||= '' unless new_resource.port.nil?
       variables['grafana']['ldap']['servers'][new_resource.host]['port'] << new_resource.port.to_s unless new_resource.port.nil?
       variables['grafana']['ldap']['servers'][new_resource.host]['use_ssl'] ||= '' unless new_resource.use_ssl.nil?
       variables['grafana']['ldap']['servers'][new_resource.host]['use_ssl'] << new_resource.use_ssl.to_s
@@ -69,8 +69,8 @@ action :install do
       variables['grafana']['ldap']['servers'][new_resource.host]['bind_password'] << new_resource.bind_password.to_s unless new_resource.bind_password.nil?
       variables['grafana']['ldap']['servers'][new_resource.host]['search_filter'] ||= '' unless new_resource.search_filter.nil?
       variables['grafana']['ldap']['servers'][new_resource.host]['search_filter'] << new_resource.search_filter.to_s unless new_resource.search_filter.nil?
-      variables['grafana']['ldap']['servers'][new_resource.host]['search_base_dns'] ||= '' unless new_resource.search_base_dns.nil?
-      variables['grafana']['ldap']['servers'][new_resource.host]['search_base_dns'] << new_resource.search_base_dns.to_s unless new_resource.search_base_dns.nil?
+      variables['grafana']['ldap']['servers'][new_resource.host]['search_base_dns'] ||= [] unless new_resource.search_base_dns.nil?
+      variables['grafana']['ldap']['servers'][new_resource.host]['search_base_dns'] << new_resource.search_base_dns unless new_resource.search_base_dns.nil?
       variables['grafana']['ldap']['servers'][new_resource.host]['group_search_filter'] ||= '' unless new_resource.group_search_filter.nil?
       variables['grafana']['ldap']['servers'][new_resource.host]['group_search_filter'] << new_resource.group_search_filter.to_s unless new_resource.group_search_filter.nil?
       variables['grafana']['ldap']['servers'][new_resource.host]['group_search_base_dns'] ||= '' unless new_resource.group_search_base_dns.nil?

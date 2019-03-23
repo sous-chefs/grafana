@@ -1,6 +1,7 @@
 # Grafana Cookbook
 
-[![Cookbook Version](https://img.shields.io/cookbook/v/grafana.svg?style=flat)](https://supermarket.chef.io/cookbooks/grafana) [![CircleCI](https://circleci.com/gh/sous-chefs/grafana.svg?style=svg)](https://circleci.com/gh/sous-chefs/grafana) [![Cookbook Version](https://img.shields.io/cookbook/v/grafana.svg)](https://supermarket.chef.io/cookbooks/grafana)
+[![Cookbook Version](https://img.shields.io/cookbook/v/grafana.svg?style=flat)](https://supermarket.chef.io/cookbooks/grafana)
+[![CircleCI](https://img.shields.io/circleci/project/github/sous-chefs/grafana/master.svg)](https://circleci.com/gh/sous-chefs/grafana)
 
 ## Overview
 
@@ -8,23 +9,29 @@ This cookbook provides a complete installation and configuration of Grafana. Thi
 
 ## Requirements
 
-### Chef Client
-
 - Chef Client 13+
 
 ### Platforms
+
+This cookbook officially supports and is tested against the following platforms:
 
 - Ubuntu >= 16.04
 - Debian >= 8
 - CentOS/Redhat >= 6
 
-## Depreciation Warnings
+PRs are welcome to add support for additional platforms.
 
-All Recipes and attributes have been removed.
+## Configuration Resource Features
 
-**NOTE**
+We supply many different configuration resources, these all rely on the base config resource being called
 
-This cookbook does nothing to generate the basic auth user/password file, you will have to make sure this file is created and is valid.
+For any LDAP the base config resource is: `grafana_config_ldap`
+For any core configuration resources, the base config resource is: `grafana_config`
+
+## Resources
+
+* [grafana_config_alerting](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_alerting.md)
+* [grafana_config_auth](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_auth.md)
 
 ## Usage
 
@@ -361,10 +368,9 @@ grafana_plugin grafana-clock-panel do
 end
 ```
 
-## License and Authors
-Based on `chef-kibana` cookbook by:
+## License & Authors
 
-- John E. Vincent [lusis.org+github.com@gmail.com](mailto:lusis.org+github.com@gmail.com)
+* Author:: Jason Field (https://github.com/xorima)
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
@@ -373,3 +379,7 @@ http://www.apache.org/licenses/LICENSE-2.0
 ```
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. jhenry82
+
+Based on `chef-kibana` cookbook by:
+
+- John E. Vincent [lusis.org+github.com@gmail.com](mailto:lusis.org+github.com@gmail.com)

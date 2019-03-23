@@ -38,21 +38,20 @@ action :create do
   }
   # If name is not provided as variable,
   # Let's use resource name for it
-  unless new_resource.organization.key?(:name)
-    new_resource.organization[:name] = new_resource.name
-  end
+  new_organization = { name: new_resource.name }
+  new_organization.merge!(new_resource.organization)
 
   orgs = get_orgs_list(grafana_options)
   exists = false
 
   # Find wether organization already exists
   orgs.each do |org|
-    exists = true if org['name'] == new_resource.organization[:name]
+    exists = true if org['name'] == new_organization[:name]
     break if exists
   end
   unless exists
     converge_by("Creating organization #{new_resource.name}") do
-      add_org(new_resource.organization, grafana_options)
+      add_org(new_organization, grafana_options)
     end
   end
 end
@@ -66,26 +65,25 @@ action :update do
   }
   # If name is not provided as variable,
   # Let's use resource name for it
-  unless new_resource.organization.key?(:name)
-    new_resource.organization[:name] = new_resource.name
-  end
+  new_organization = { name: new_resource.name }
+  new_organization.merge!(new_resource.organization)
 
   orgs = get_orgs_list(grafana_options)
   exists = false
 
   # Check wether we have to update user's login
-  old_login = if new_resource.organization[:name] != new_resource.name
+  old_login = if new_organization[:name] != new_resource.name
                 new_resource.name
               else
-                new_resource.organization[:name]
+                new_organization[:name]
               end
 
   orgs.each do |org|
     if org['name'] == old_login
       exists = true
-      new_resource.organization[:id] = org['id']
+      new_organization[:id] = org['id']
       converge_by("Updating organization #{new_resource.name}") do
-        update_org(new_resource.organization, grafana_options)
+        update_org(new_organization, grafana_options)
       end
     end
     break if exists
@@ -101,19 +99,18 @@ action :delete do
   }
   # If name is not provided as variable,
   # Let's use resource name for it
-  unless new_resource.organization.key?(:name)
-    new_resource.organization[:name] = new_resource.name
-  end
+  new_organization = { name: new_resource.name }
+  new_organization.merge!(new_resource.organization)
 
   orgs = get_orgs_list(grafana_options)
   exists = false
 
   orgs.each do |org|
-    if org['name'] == new_resource.organization[:name]
+    if org['name'] == new_organization[:name]
       exists = true
-      new_resource.organization[:id] = org['id']
-      converge_by("Deleting organization #{new_resource.organization[:name]}") do
-        delete_org(new_resource.organization, grafana_options)
+      new_organization[:id] = org['id']
+      converge_by("Deleting organization #{new_organization[:name]}") do
+        delete_org(new_organization, grafana_options)
       end
     end
     break if exists

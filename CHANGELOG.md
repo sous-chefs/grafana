@@ -4,7 +4,7 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
-### 4.0.0-beta (Unreleased)
+### 4.0.0 (2019-03-24)
 
 - Migrate existing LWRP to Custom Resources
 - Create new config resources to be able to configure the grafana instance

@@ -30,6 +30,7 @@ For any core configuration resources, the base config resource is: `grafana_conf
 
 ## Resources
 
+* [grafana_config](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config.md)
 * [grafana_config_alerting](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_alerting.md)
 * [grafana_config_auth](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_auth.md)
 * [grafana_config_dashboards](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_dashboards.md)
@@ -39,6 +40,9 @@ For any core configuration resources, the base config resource is: `grafana_conf
 * [grafana_config_enterprise](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_enterprise.md)
 * [grafana_config_explore](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_explore.md)
 * [grafana_config_log](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_log.md)
+* [grafana_config_ldap](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_ldap.md)
+* [grafana_config_ldap_group_mappings](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_ldap_group_mappings.md)
+* [grafana_config_ldap_servers](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_ldap_servers.md)
 * [grafana_config_metrics](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_metrics.md)
 * [grafana_config_panels](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_panels.md)
 * [grafana_config_paths](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_paths.md)
@@ -49,7 +53,6 @@ For any core configuration resources, the base config resource is: `grafana_conf
 * [grafana_config_smtp](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_smtp.md)
 * [grafana_config_snapshots](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_snapshots.md)
 * [grafana_config_users](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_users.md)
-* [grafana_config](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config.md)
 * [grafana_dashboard](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_dashboard.md)
 * [grafana_datasource](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_datasource.md)
 * [grafana_install](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_install.md)

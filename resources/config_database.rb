@@ -27,7 +27,7 @@ property  :database_name,     String,         default: 'grafana'
 property  :user,              String,         default: 'root'
 property  :password,          String,         default: ''
 property  :max_idle_conn,     Integer,        default: 2
-property  :max_opem_conn,     Integer,        default: 0
+property  :max_open_conn,     Integer,        default: 0
 property  :conn_max_lifetime, Integer,        default: 14400
 property  :log_queries,       [true, false],  default: false
 property  :ssl_mode,          String,         default: 'disable', equal_to: %w(disable require verify-full true false skip-verify)
@@ -59,8 +59,8 @@ action :install do
       variables['grafana']['database']['password'] << new_resource.password.to_s unless new_resource.password.nil?
       variables['grafana']['database']['max_idle_conn'] ||= '' unless new_resource.max_idle_conn.nil?
       variables['grafana']['database']['max_idle_conn'] << new_resource.max_idle_conn.to_s unless new_resource.max_idle_conn.nil?
-      variables['grafana']['database']['max_opem_conn'] ||= '' unless new_resource.max_opem_conn.nil?
-      variables['grafana']['database']['max_opem_conn'] << new_resource.max_opem_conn.to_s unless new_resource.max_opem_conn.nil?
+      variables['grafana']['database']['max_open_conn'] ||= '' unless new_resource.max_open_conn.nil?
+      variables['grafana']['database']['max_open_conn'] << new_resource.max_open_conn.to_s unless new_resource.max_open_conn.nil?
       variables['grafana']['database']['conn_max_lifetime'] ||= '' unless new_resource.conn_max_lifetime.nil?
       variables['grafana']['database']['conn_max_lifetime'] << new_resource.conn_max_lifetime.to_s unless new_resource.conn_max_lifetime.nil?
       variables['grafana']['database']['log_queries'] ||= '' unless new_resource.log_queries.nil?

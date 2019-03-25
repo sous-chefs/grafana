@@ -13,6 +13,7 @@ This file is used to list changes made in each version of grafana.
 - Update repo location to new grafana repos (#220)
 - Add login_cookie_name property to config_auth resource
 - Add root_url property to config_server resource
+- Added documentation for all new resources
 
 ## 3.0.1 (2018-11-27)
 

@@ -4,6 +4,10 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+### 4.0.1 (2019-04-2)
+
+- Added support for Amazon Linux 2
+
 ### 4.0.0 (2019-03-24)
 
 - Migrate existing LWRP to Custom Resources

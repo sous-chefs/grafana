@@ -40,6 +40,7 @@ action :install do
       source new_resource.source
       cookbook new_resource.cookbook
 
+      variables['grafana'] ||= {}
       variables['grafana']['security'] ||= {}
       variables['grafana']['security']['admin_user'] ||= '' unless new_resource.admin_user.nil?
       variables['grafana']['security']['admin_user'] << new_resource.admin_user.to_s unless new_resource.admin_user.nil?

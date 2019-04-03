@@ -4,6 +4,10 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+### 4.0.2 (2019-04-3)
+
+- Fixing hash table issue in config_security resource
+
 ### 4.0.1 (2019-04-2)
 
 - Added support for Amazon Linux 2

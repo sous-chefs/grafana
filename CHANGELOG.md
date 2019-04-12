@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+- Fixes several issues in LDAP resources and template.
+
 ### 4.0.1 (2019-04-2)
 
 - Added support for Amazon Linux 2

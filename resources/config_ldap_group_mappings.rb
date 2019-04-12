@@ -39,11 +39,11 @@ action :install do
       variables['grafana']['ldap']['group_mappings'] ||= {}
       variables['grafana']['ldap']['group_mappings'][new_resource.group_dn] ||= {}
       variables['grafana']['ldap']['group_mappings'][new_resource.group_dn]['org_role'] ||= '' unless new_resource.org_role.nil?
-      variables['grafana']['ldap']['group_mappings'][new_resource.group_dn]['org_role'] << new_resource.org_role.to_s unless new_resource.org_role.nil?
+      variables['grafana']['ldap']['group_mappings'][new_resource.group_dn]['org_role'] = new_resource.org_role.to_s unless new_resource.org_role.nil?
       variables['grafana']['ldap']['group_mappings'][new_resource.group_dn]['grafana_admin'] ||= '' unless new_resource.grafana_admin.nil?
-      variables['grafana']['ldap']['group_mappings'][new_resource.group_dn]['grafana_admin'] << new_resource.grafana_admin.to_s unless new_resource.grafana_admin.nil?
+      variables['grafana']['ldap']['group_mappings'][new_resource.group_dn]['grafana_admin'] = new_resource.grafana_admin.to_s unless new_resource.grafana_admin.nil?
       variables['grafana']['ldap']['group_mappings'][new_resource.group_dn]['org_id'] ||= '' unless new_resource.org_id.nil?
-      variables['grafana']['ldap']['group_mappings'][new_resource.group_dn]['org_id'] << new_resource.org_id.to_s unless new_resource.org_id.nil?
+      variables['grafana']['ldap']['group_mappings'][new_resource.group_dn]['org_id'] = new_resource.org_id.to_s unless new_resource.org_id.nil?
 
       action :nothing
       delayed_action :create

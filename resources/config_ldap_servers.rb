@@ -70,11 +70,11 @@ action :install do
       variables['grafana']['ldap']['servers'][new_resource.host]['search_filter'] ||= '' unless new_resource.search_filter.nil?
       variables['grafana']['ldap']['servers'][new_resource.host]['search_filter'] << new_resource.search_filter.to_s unless new_resource.search_filter.nil?
       variables['grafana']['ldap']['servers'][new_resource.host]['search_base_dns'] ||= [] unless new_resource.search_base_dns.nil?
-      variables['grafana']['ldap']['servers'][new_resource.host]['search_base_dns'] << new_resource.search_base_dns unless new_resource.search_base_dns.nil?
+      variables['grafana']['ldap']['servers'][new_resource.host]['search_base_dns'] = new_resource.search_base_dns unless new_resource.search_base_dns.nil?
       variables['grafana']['ldap']['servers'][new_resource.host]['group_search_filter'] ||= '' unless new_resource.group_search_filter.nil?
       variables['grafana']['ldap']['servers'][new_resource.host]['group_search_filter'] << new_resource.group_search_filter.to_s unless new_resource.group_search_filter.nil?
       variables['grafana']['ldap']['servers'][new_resource.host]['group_search_base_dns'] ||= '' unless new_resource.group_search_base_dns.nil?
-      variables['grafana']['ldap']['servers'][new_resource.host]['group_search_base_dns'] << new_resource.group_search_base_dns.to_s unless new_resource.group_search_base_dns.nil?
+      variables['grafana']['ldap']['servers'][new_resource.host]['group_search_base_dns'] = new_resource.group_search_base_dns.to_s unless new_resource.group_search_base_dns.nil?
       variables['grafana']['ldap']['servers'][new_resource.host]['group_search_filter_user_attribute'] ||= '' unless new_resource.group_search_filter_user_attribute.nil?
       variables['grafana']['ldap']['servers'][new_resource.host]['group_search_filter_user_attribute'] << new_resource.group_search_filter_user_attribute.to_s unless new_resource.group_search_filter_user_attribute.nil?
 

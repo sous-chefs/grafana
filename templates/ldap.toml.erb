@@ -5,21 +5,15 @@
 # full documentation: http://docs.grafana.org/installation/configuration/
 #
 
-To troubleshoot and get more log info enable ldap debug logging in grafana.ini
-[log]
 <% if @grafana['ldap']['log_filters'] %>
+# To troubleshoot and get more log info enable ldap debug logging in grafana.ini
+[log]
 filters = <%= @grafana['ldap']['log_filters'] %>
 <% end %>
 
-# Map ldap groups to grafana org roles
 <% unless @grafana['ldap']['servers'].nil? %>
 <% @grafana['ldap']['servers'].each do | key, server | %>
-
-[[servers.group_mappings]]
-<% unless server['aa'].nil? -%>
-org_role = "<%= server['aa'] %>"
-<% end -%>
-
+# Map ldap groups to grafana org roles
 [[servers]]
 # Ldap server host (specify multiple hosts space separated)
 host = "<%= key %>"
@@ -57,14 +51,14 @@ bind_password = "<%= server['bind_password'] %>"
 search_filter = "<%= server['search_filter'] %>"
 <% end -%>
 <% unless server['search_base_dns'].nil? -%>
-search_base_dns = "<%= server['search_base_dns'] %>"
+search_base_dns = <%= server['search_base_dns'] %>
 <% end -%>
 
 <% unless server['group_search_filter'].nil? -%>
 group_search_filter = "<%= server['group_search_filter'] %>"
 <% end -%>
 <% unless server['group_search_base_dns'].nil? -%>
-group_search_base_dns = "<%= server['group_search_base_dns'] %>"
+group_search_base_dns = <%= server['group_search_base_dns'] %>
 <% end -%>
 <% unless server['group_search_filter_user_attribute'].nil? -%>
 group_search_filter_user_attribute = "<%= server['group_search_filter_user_attribute'] %>"
@@ -72,23 +66,22 @@ group_search_filter_user_attribute = "<%= server['group_search_filter_user_attri
 <% end # servers loop -%>
 <% end # servers unless -%>
 
-
 # Specify names of the ldap attributes your ldap uses
 [servers.attributes]
 <% if @grafana['ldap']['servers_attributes_name'] %>
-name = <%= @grafana['ldap']['servers_attributes_name'] %>
+name = "<%= @grafana['ldap']['servers_attributes_name'] %>"
 <% end %>
 <% if @grafana['ldap']['servers_attributes_surname'] %>
-surname = <%= @grafana['ldap']['servers_attributes_surname'] %>
+surname = "<%= @grafana['ldap']['servers_attributes_surname'] %>"
 <% end %>
 <% if @grafana['ldap']['servers_attributes_username'] %>
-username = <%= @grafana['ldap']['servers_attributes_username'] %>
+username = "<%= @grafana['ldap']['servers_attributes_username'] %>"
 <% end %>
 <% if @grafana['ldap']['servers_attributes_member_of'] %>
-member_of = <%= @grafana['ldap']['servers_attributes_member_of'] %>
+member_of = "<%= @grafana['ldap']['servers_attributes_member_of'] %>"
 <% end %>
 <% if @grafana['ldap']['servers_attributes_email'] %>
-email = <%= @grafana['ldap']['servers_attributes_email'] %>
+email = "<%= @grafana['ldap']['servers_attributes_email'] %>"
 <% end %>
 
 # Map ldap groups to grafana org roles

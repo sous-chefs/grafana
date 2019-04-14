@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## Unreleased
+### 4.0.2 (2019-04-14)
 
 - Fixes several issues in LDAP resources and template.
 

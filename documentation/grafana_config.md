@@ -39,5 +39,5 @@ grafana_config 'grafana' do
   owner 'grafana'
   group 'grafana'
   restart_on_upgrade true
- nd
+end
 ```

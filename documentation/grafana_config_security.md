@@ -36,7 +36,7 @@ grafana_config_security 'grafana'
 
 ```ruby
 grafana_config_security 'grafana' do
-  admin_username 'someOtherUsername'
+  admin_user 'someOtherUsername'
   admin_password 'MySuperSecretPassword'
   disable_gravatar true
   secret_key 'myNewLongStringaaaaaaaaaaaaaaa'

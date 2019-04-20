@@ -33,6 +33,6 @@ grafana_config_snapshots 'grafana'
 
 ```ruby
 grafana_config_snapshots 'grafana' do
-  enabled false
+  external_enabled false
 end
 ```

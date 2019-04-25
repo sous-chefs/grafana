@@ -52,6 +52,7 @@ For any core configuration resources, the base config resource is: `grafana_conf
 * [grafana_config_session](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_session.md)
 * [grafana_config_smtp](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_smtp.md)
 * [grafana_config_snapshots](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_snapshots.md)
+* [grafana\_config\_external\_image\_storage](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_external_image_storage.md)
 * [grafana_config_users](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_users.md)
 * [grafana_dashboard](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_dashboard.md)
 * [grafana_datasource](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_datasource.md)

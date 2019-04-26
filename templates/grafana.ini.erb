@@ -287,6 +287,33 @@ external_snapshot_name = <%= @grafana['snapshots']['external_snapshot_name'] %>
 snapshot_remove_expired = <%= @grafana['snapshots']['snapshot_remove_expired'] %>
 <% end %>
 <% end %>
+#################################### External Image Storage ###########################
+# currently AWS S3 is only supported
+<% if @grafana['external_image_storage'] %>
+[external_image_storage]
+provider = <%= @grafana['external_image_storage']['storage_provider'] %>
+
+# Define S3 as the external storage
+<% if @grafana['external_image_storage']['storage_provider'] == 's3' %>
+[external_image_storage.s3]
+region = <%= @grafana['external_image_storage']['region'] %>
+<% end %>
+<% if @grafana['external_image_storage']['bucket'] %>
+bucket = <%= @grafana['external_image_storage']['bucket'] %>
+<% end %>
+<% if @grafana['external_image_storage']['path'] %>
+path = <%= @grafana['external_image_storage']['path'] %>
+<% end %>
+<% if @grafana['external_image_storage']['bucket_url'] %>
+bucket_url = <%= @grafana['external_image_storage']['bucket_url'] %>
+<% end %>
+<% if @grafana['external_image_storage']['access_key'] %>
+access_key = <%= @grafana['external_image_storage']['access_key'] %>
+<% end %>
+<% if @grafana['external_image_storage']['access_key'] %>
+secret_key = <%= @grafana['external_image_storage']['secret_key'] %>
+<% end %>
+<% end %>
 #################################### Dashboards ##################
 <% if @grafana['dashboards'] %>
 [dashboards]

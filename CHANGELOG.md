@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+### Unreleased (2019-04-25)
+
+- Added feature to enable AWS S3 based external image storage.
+
 ### 4.0.2 (2019-04-14)
 
 - Fixes several issues in LDAP resources and template.

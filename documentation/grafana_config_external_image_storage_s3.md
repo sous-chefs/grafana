@@ -1,4 +1,4 @@
-¨[back to resource list](https://github.com/sous-chefs/grafana#resources)
+[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 ---
 

@@ -20,7 +20,7 @@ grafana_config_session 'Grafana'
 grafana_config_smtp 'Grafana'
 grafana_config_snapshots 'Grafana'
 grafana_config_users 'Grafana'
-grafana_config_external_image_storage 'Grafana' do
+grafana_config_external_image_storage_s3 'Grafana' do
   storage_provider 's3'
   bucket 'grafana-image-store'
   region 'us-east-1'

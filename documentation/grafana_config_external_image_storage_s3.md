@@ -1,10 +1,10 @@
-[back to resource list](https://github.com/sous-chefs/grafana#resources)
+¨[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 ---
 
 # grafana\_config\_external\_image\_storage
 
-Configures the core external\_image\_storage section of the configuration [(https://grafana.com/docs/installation/configuration/#external-image-storage)](https://grafana.com/docs/installation/configuration/#external-image-storage). Currently only AWS S3 is supported.
+Configures the core external\_image\_storage section of the configuration [(https://grafana.com/docs/installation/configuration/#external-image-storage)](https://grafana.com/docs/installation/configuration/#external-image-storage). This resource sets AWS S3 as the external image storage.
 
 Introduced: v4.0.3
 
@@ -16,8 +16,8 @@ Introduced: v4.0.3
 
 | Name                      | Type        |  Default                                  | Description                                               | Allowed Values
 | ------------------------- | ----------- | ----------------------------------------- | --------------------------------------------------------- | --------------- |
-| `storage_provider`        | String      | `s3`                                      | Set the provider here. Currently only AWS S3 is supported| s3
-| `region `                 | String      | `us-east-1`                               | Set the AWS region |
+| `storage_provider`        | String      | `s3`                                      | Set the provider here| s3
+| `region `                 | String      |                                           | Set the AWS region | Any AWS region e.g `us-east-1`, `us-west-2` etc.
 | `bucket`                  | String      |                                           | Set the S3 bucket name                     |
 | `bucket_url`              | String      |                                           | Bucket URL for S3. AWS region can be specified within URL or defaults to ‘us-east-1’, e.g. - http://grafana.s3.amazonaws.com/    (for backward compatibility, only works when no bucket or region are configured)      |
 | `path`                    | String      |                                           | Optional extra path inside bucket     | Valid path inside the S3 bucket
@@ -32,7 +32,7 @@ Introduced: v4.0.3
 
 
 ```ruby
-grafana_config_external_image_storage 'grafana' do
+grafana_config_external_image_storage_s3 'grafana' do
   storage_provider 's3'
   region 'us-east-1'
   bucket 'grafana-image-store'

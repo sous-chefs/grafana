@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-### 4.0.3 (2019-04-25)
+### Unreleased (2019-04-25)
 
 - Added feature to enable AWS S3 based external image storage.
 

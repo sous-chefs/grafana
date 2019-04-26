@@ -21,13 +21,13 @@
 property  :instance_name,           String,         name_property: true
 property  :conf_directory,          String,         default: '/etc/grafana'
 property  :config_file,             String,         default: lazy { ::File.join(conf_directory, 'grafana.ini') }
-property  :storage_provider,        String,         required: true, default: 's3'
-property  :region,                  String,         required: true, default: 'us-east-1'
-property  :bucket,                  String,         required: true
-property  :bucket_url,              String,         required: false
-property  :path,                    String,         required: false
-property  :access_key,              String,         required: false
-property  :secret_key,              String,         required: false
+property  :storage_provider,        String,         default: 's3'
+property  :region,                  String,         required: true
+property  :bucket,                  String
+property  :bucket_url,              String
+property  :path,                    String
+property  :access_key,              String
+property  :secret_key,              String
 property  :cookbook,                String,         default: 'grafana'
 property  :source,                  String,         default: 'grafana.ini.erb'
 
@@ -38,6 +38,7 @@ action :install do
       source new_resource.source
       cookbook new_resource.cookbook
 
+      Chef::Log.fatal('external_image_storage_s3 : Specify either bucket or bucket_url') if new_resource.bucket.nil? && new_resource.bucket_url.nil?
       variables['grafana']['external_image_storage'] ||= {}
       variables['grafana']['external_image_storage']['storage_provider'] ||= '' unless new_resource.storage_provider.nil?
       variables['grafana']['external_image_storage']['storage_provider'] << new_resource.storage_provider.to_s unless new_resource.storage_provider.nil?

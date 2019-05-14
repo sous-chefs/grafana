@@ -69,23 +69,23 @@ property  :grafanacom_client_id,                          String,         defaul
 property  :grafanacom_client_secret,                      String,         default: ''
 property  :grafanacom_scopes,                             String,         default: 'user:email'
 property  :grafanacom_allowed_organizations,              String,         default: ''
-property  :generic_oath_name,                             String,         default: 'OAuth'
-property  :generic_oath_enabled,                          [true, false],  default: false
-property  :generic_oath_allow_sign_up,                    [true, false],  default: true
-property  :generic_oath_client_id,                        String,         default: ''
-property  :generic_oath_client_secret,                    String,         default: ''
-property  :generic_oath_scopes,                           String,         default: 'user:email'
-property  :generic_oath_email_attribute_name,             String,         default: 'email:primary'
-property  :generic_oath_auth_url,                         String,         default: ''
-property  :generic_oath_token_url,                        String,         default: ''
-property  :generic_oath_api_url,                          String,         default: ''
-property  :generic_oath_team_ids,                         String,         default: ''
-property  :generic_oath_allowed_organizations,            String,         default: ''
-property  :generic_oath_tls_skip_verify_insecure,         [true, false],  default: false
-property  :generic_oath_tls_client_cert,                  String,         default: ''
-property  :generic_oath_tls_client_key,                   String,         default: ''
-property  :generic_oath_tls_client_ca,                    String,         default: ''
-property  :generic_oath_send_client_credentials_via_post, [true, false],  default: false
+property  :generic_oauth_name,                             String,         default: 'OAuth'
+property  :generic_oauth_enabled,                          [true, false],  default: false
+property  :generic_oauth_allow_sign_up,                    [true, false],  default: true
+property  :generic_oauth_client_id,                        String,         default: ''
+property  :generic_oauth_client_secret,                    String,         default: ''
+property  :generic_oauth_scopes,                           String,         default: 'user:email'
+property  :generic_oauth_email_attribute_name,             String,         default: 'email:primary'
+property  :generic_oauth_auth_url,                         String,         default: ''
+property  :generic_oauth_token_url,                        String,         default: ''
+property  :generic_oauth_api_url,                          String,         default: ''
+property  :generic_oauth_team_ids,                         String,         default: ''
+property  :generic_oauth_allowed_organizations,            String,         default: ''
+property  :generic_oauth_tls_skip_verify_insecure,         [true, false],  default: false
+property  :generic_oauth_tls_client_cert,                  String,         default: ''
+property  :generic_oauth_tls_client_key,                   String,         default: ''
+property  :generic_oauth_tls_client_ca,                    String,         default: ''
+property  :generic_oauth_send_client_credentials_via_post, [true, false],  default: false
 property  :basic_enabled,                                 [true, false],  default: true
 property  :proxy_enabled,                                 [true, false],  default: false
 property  :proxy_header_name,                             String,         default: 'X-WEBAUTH-USER'
@@ -131,41 +131,41 @@ action :install do
       variables['grafana']['auth_basic']['enabled'] ||= '' unless new_resource.basic_enabled.nil?
       variables['grafana']['auth_basic']['enabled'] << new_resource.basic_enabled.to_s unless new_resource.basic_enabled.nil?
 
-      variables['grafana']['auth_generic_oath'] ||= {}
-      variables['grafana']['auth_generic_oath']['name'] ||= '' unless new_resource.generic_oath_name.nil?
-      variables['grafana']['auth_generic_oath']['name'] << new_resource.generic_oath_name.to_s unless new_resource.generic_oath_name.nil?
-      variables['grafana']['auth_generic_oath']['enabled'] ||= '' unless new_resource.generic_oath_enabled.nil?
-      variables['grafana']['auth_generic_oath']['enabled'] << new_resource.generic_oath_enabled.to_s unless new_resource.generic_oath_enabled.nil?
-      variables['grafana']['auth_generic_oath']['allow_sign_up'] ||= '' unless new_resource.generic_oath_allow_sign_up.nil?
-      variables['grafana']['auth_generic_oath']['allow_sign_up'] << new_resource.generic_oath_allow_sign_up.to_s unless new_resource.generic_oath_allow_sign_up.nil?
-      variables['grafana']['auth_generic_oath']['client_id'] ||= '' unless new_resource.generic_oath_client_id.nil?
-      variables['grafana']['auth_generic_oath']['client_id'] << new_resource.generic_oath_client_id.to_s unless new_resource.generic_oath_client_id.nil?
-      variables['grafana']['auth_generic_oath']['client_secret'] ||= '' unless new_resource.generic_oath_client_secret.nil?
-      variables['grafana']['auth_generic_oath']['client_secret'] << new_resource.generic_oath_client_secret.to_s unless new_resource.generic_oath_client_secret.nil?
-      variables['grafana']['auth_generic_oath']['scopes'] ||= '' unless new_resource.generic_oath_scopes.nil?
-      variables['grafana']['auth_generic_oath']['scopes'] << new_resource.generic_oath_scopes.to_s unless new_resource.generic_oath_scopes.nil?
-      variables['grafana']['auth_generic_oath']['email_attribute_name'] ||= '' unless new_resource.generic_oath_email_attribute_name.nil?
-      variables['grafana']['auth_generic_oath']['email_attribute_name'] << new_resource.generic_oath_email_attribute_name.to_s unless new_resource.generic_oath_email_attribute_name.nil?
-      variables['grafana']['auth_generic_oath']['auth_url'] ||= '' unless new_resource.generic_oath_auth_url.nil?
-      variables['grafana']['auth_generic_oath']['auth_url'] << new_resource.generic_oath_auth_url.to_s unless new_resource.generic_oath_auth_url.nil?
-      variables['grafana']['auth_generic_oath']['token_url'] ||= '' unless new_resource.generic_oath_token_url.nil?
-      variables['grafana']['auth_generic_oath']['token_url'] << new_resource.generic_oath_token_url.to_s unless new_resource.generic_oath_token_url.nil?
-      variables['grafana']['auth_generic_oath']['api_url'] ||= '' unless new_resource.generic_oath_api_url.nil?
-      variables['grafana']['auth_generic_oath']['api_url'] << new_resource.generic_oath_api_url.to_s unless new_resource.generic_oath_api_url.nil?
-      variables['grafana']['auth_generic_oath']['team_ids'] ||= '' unless new_resource.generic_oath_team_ids.nil?
-      variables['grafana']['auth_generic_oath']['team_ids'] << new_resource.generic_oath_team_ids.to_s unless new_resource.generic_oath_team_ids.nil?
-      variables['grafana']['auth_generic_oath']['allowed_organizations'] ||= '' unless new_resource.generic_oath_allowed_organizations.nil?
-      variables['grafana']['auth_generic_oath']['allowed_organizations'] << new_resource.generic_oath_allowed_organizations.to_s unless new_resource.generic_oath_allowed_organizations.nil?
-      variables['grafana']['auth_generic_oath']['tls_skip_verify_insecure'] ||= '' unless new_resource.generic_oath_tls_skip_verify_insecure.nil?
-      variables['grafana']['auth_generic_oath']['tls_skip_verify_insecure'] << new_resource.generic_oath_tls_skip_verify_insecure.to_s unless new_resource.generic_oath_tls_skip_verify_insecure.nil?
-      variables['grafana']['auth_generic_oath']['tls_client_cert'] ||= '' unless new_resource.generic_oath_tls_client_cert.nil?
-      variables['grafana']['auth_generic_oath']['tls_client_cert'] << new_resource.generic_oath_tls_client_cert.to_s unless new_resource.generic_oath_tls_client_cert.nil?
-      variables['grafana']['auth_generic_oath']['tls_client_key'] ||= '' unless new_resource.generic_oath_tls_client_key.nil?
-      variables['grafana']['auth_generic_oath']['tls_client_key'] << new_resource.generic_oath_tls_client_key.to_s unless new_resource.generic_oath_tls_client_key.nil?
-      variables['grafana']['auth_generic_oath']['tls_client_ca'] ||= '' unless new_resource.generic_oath_tls_client_ca.nil?
-      variables['grafana']['auth_generic_oath']['tls_client_ca'] << new_resource.generic_oath_tls_client_ca.to_s unless new_resource.generic_oath_tls_client_ca.nil?
-      variables['grafana']['auth_generic_oath']['send_client_credentials_via_post'] ||= '' unless new_resource.generic_oath_send_client_credentials_via_post.nil?
-      variables['grafana']['auth_generic_oath']['send_client_credentials_via_post'] << new_resource.generic_oath_send_client_credentials_via_post.to_s unless new_resource.generic_oath_send_client_credentials_via_post.nil?
+      variables['grafana']['auth_generic_oauth'] ||= {}
+      variables['grafana']['auth_generic_oauth']['name'] ||= '' unless new_resource.generic_oauth_name.nil?
+      variables['grafana']['auth_generic_oauth']['name'] << new_resource.generic_oauth_name.to_s unless new_resource.generic_oauth_name.nil?
+      variables['grafana']['auth_generic_oauth']['enabled'] ||= '' unless new_resource.generic_oauth_enabled.nil?
+      variables['grafana']['auth_generic_oauth']['enabled'] << new_resource.generic_oauth_enabled.to_s unless new_resource.generic_oauth_enabled.nil?
+      variables['grafana']['auth_generic_oauth']['allow_sign_up'] ||= '' unless new_resource.generic_oauth_allow_sign_up.nil?
+      variables['grafana']['auth_generic_oauth']['allow_sign_up'] << new_resource.generic_oauth_allow_sign_up.to_s unless new_resource.generic_oauth_allow_sign_up.nil?
+      variables['grafana']['auth_generic_oauth']['client_id'] ||= '' unless new_resource.generic_oauth_client_id.nil?
+      variables['grafana']['auth_generic_oauth']['client_id'] << new_resource.generic_oauth_client_id.to_s unless new_resource.generic_oauth_client_id.nil?
+      variables['grafana']['auth_generic_oauth']['client_secret'] ||= '' unless new_resource.generic_oauth_client_secret.nil?
+      variables['grafana']['auth_generic_oauth']['client_secret'] << new_resource.generic_oauth_client_secret.to_s unless new_resource.generic_oauth_client_secret.nil?
+      variables['grafana']['auth_generic_oauth']['scopes'] ||= '' unless new_resource.generic_oauth_scopes.nil?
+      variables['grafana']['auth_generic_oauth']['scopes'] << new_resource.generic_oauth_scopes.to_s unless new_resource.generic_oauth_scopes.nil?
+      variables['grafana']['auth_generic_oauth']['email_attribute_name'] ||= '' unless new_resource.generic_oauth_email_attribute_name.nil?
+      variables['grafana']['auth_generic_oauth']['email_attribute_name'] << new_resource.generic_oauth_email_attribute_name.to_s unless new_resource.generic_oauth_email_attribute_name.nil?
+      variables['grafana']['auth_generic_oauth']['auth_url'] ||= '' unless new_resource.generic_oauth_auth_url.nil?
+      variables['grafana']['auth_generic_oauth']['auth_url'] << new_resource.generic_oauth_auth_url.to_s unless new_resource.generic_oauth_auth_url.nil?
+      variables['grafana']['auth_generic_oauth']['token_url'] ||= '' unless new_resource.generic_oauth_token_url.nil?
+      variables['grafana']['auth_generic_oauth']['token_url'] << new_resource.generic_oauth_token_url.to_s unless new_resource.generic_oauth_token_url.nil?
+      variables['grafana']['auth_generic_oauth']['api_url'] ||= '' unless new_resource.generic_oauth_api_url.nil?
+      variables['grafana']['auth_generic_oauth']['api_url'] << new_resource.generic_oauth_api_url.to_s unless new_resource.generic_oauth_api_url.nil?
+      variables['grafana']['auth_generic_oauth']['team_ids'] ||= '' unless new_resource.generic_oauth_team_ids.nil?
+      variables['grafana']['auth_generic_oauth']['team_ids'] << new_resource.generic_oauth_team_ids.to_s unless new_resource.generic_oauth_team_ids.nil?
+      variables['grafana']['auth_generic_oauth']['allowed_organizations'] ||= '' unless new_resource.generic_oauth_allowed_organizations.nil?
+      variables['grafana']['auth_generic_oauth']['allowed_organizations'] << new_resource.generic_oauth_allowed_organizations.to_s unless new_resource.generic_oauth_allowed_organizations.nil?
+      variables['grafana']['auth_generic_oauth']['tls_skip_verify_insecure'] ||= '' unless new_resource.generic_oauth_tls_skip_verify_insecure.nil?
+      variables['grafana']['auth_generic_oauth']['tls_skip_verify_insecure'] << new_resource.generic_oauth_tls_skip_verify_insecure.to_s unless new_resource.generic_oauth_tls_skip_verify_insecure.nil?
+      variables['grafana']['auth_generic_oauth']['tls_client_cert'] ||= '' unless new_resource.generic_oauth_tls_client_cert.nil?
+      variables['grafana']['auth_generic_oauth']['tls_client_cert'] << new_resource.generic_oauth_tls_client_cert.to_s unless new_resource.generic_oauth_tls_client_cert.nil?
+      variables['grafana']['auth_generic_oauth']['tls_client_key'] ||= '' unless new_resource.generic_oauth_tls_client_key.nil?
+      variables['grafana']['auth_generic_oauth']['tls_client_key'] << new_resource.generic_oauth_tls_client_key.to_s unless new_resource.generic_oauth_tls_client_key.nil?
+      variables['grafana']['auth_generic_oauth']['tls_client_ca'] ||= '' unless new_resource.generic_oauth_tls_client_ca.nil?
+      variables['grafana']['auth_generic_oauth']['tls_client_ca'] << new_resource.generic_oauth_tls_client_ca.to_s unless new_resource.generic_oauth_tls_client_ca.nil?
+      variables['grafana']['auth_generic_oauth']['send_client_credentials_via_post'] ||= '' unless new_resource.generic_oauth_send_client_credentials_via_post.nil?
+      variables['grafana']['auth_generic_oauth']['send_client_credentials_via_post'] << new_resource.generic_oauth_send_client_credentials_via_post.to_s unless new_resource.generic_oauth_send_client_credentials_via_post.nil?
 
       variables['grafana']['auth_github'] ||= {}
       variables['grafana']['auth_github']['enabled'] ||= '' unless new_resource.github_enabled.nil?

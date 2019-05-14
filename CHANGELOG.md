@@ -2,19 +2,23 @@
 
 This file is used to list changes made in each version of grafana.
 
-### 4.1.0 (2019-04-26)
+## 4.2.0 (2019-05-14)
+
+- Fixed misspelling of `oath` to `oauth`
+
+## 4.1.0 (2019-04-26)
 
 - Added feature to enable AWS S3 based external image storage.
 
-### 4.0.2 (2019-04-14)
+## 4.0.2 (2019-04-14)
 
 - Fixes several issues in LDAP resources and template.
 
-### 4.0.1 (2019-04-2)
+## 4.0.1 (2019-04-2)
 
 - Added support for Amazon Linux 2
 
-### 4.0.0 (2019-03-24)
+## 4.0.0 (2019-03-24)
 
 - Migrate existing LWRP to Custom Resources
 - Create new config resources to be able to configure the grafana instance
@@ -131,7 +135,7 @@ node['grafana']['file']['checksum']['rpm'] = '1b436b286bd464e65eeb2a9b393da09865
 
 - Update `Grafana` to `1.8.0`
 
-### **warning**
+## **warning**
 
 - Check for the presence of `node['grafana']['es_role']` and `node['grafana']['graphite_role']` instead of `node['grafana']['es_server']` and `node['grafana']['graphite_server']` to know if we should search and replace `default['grafana']['es_server']` and `default['grafana']['graphite_server']` (Jonathon W. Marshall) [#22](https://github.com/JonathanTron/chef-grafana/pull/22)
 
@@ -148,7 +152,7 @@ node['grafana']['file']['checksum']['rpm'] = '1b436b286bd464e65eeb2a9b393da09865
 - Update `Grafana` to `1.8.0-rc1`
 - Add `default['grafana']['window_title_prefix']` and `default['grafana']['search_max_results']` config attributes.
 
-### **warnings**
+## **warnings**
 
 - `Grafana 1.8.0-rc1` upgraded to `JQuery` to `2.1.1` and thus dropped support for `Internet Explorer 7 and 8`
 
@@ -174,11 +178,11 @@ node['grafana']['file']['checksum']['rpm'] = '1b436b286bd464e65eeb2a9b393da09865
 
 ## 1.2.0 (2014-07-11)
 
-### **breaking changes**
+## **breaking changes**
 
 - Update `ark` dependency to `>= 0.7.2` and deprecation warning by using `strip_component` (Grégoire Seux) [#15](https://github.com/JonathanTron/chef-grafana/pull/14)
 
-### **minor changes**
+## **minor changes**
 
 - Support newer `nginx` cookbook by specifying `template: false` when enabling the `grafana` site (Grégoire Seux) [#15](https://github.com/JonathanTron/chef-grafana/pull/14)
 

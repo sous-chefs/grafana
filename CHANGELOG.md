@@ -178,11 +178,11 @@ node['grafana']['file']['checksum']['rpm'] = '1b436b286bd464e65eeb2a9b393da09865
 
 ## 1.2.0 (2014-07-11)
 
-## **breaking changes**
+### breaking changes
 
 - Update `ark` dependency to `>= 0.7.2` and deprecation warning by using `strip_component` (Grégoire Seux) [#15](https://github.com/JonathanTron/chef-grafana/pull/14)
 
-## **minor changes**
+### minor changes
 
 - Support newer `nginx` cookbook by specifying `template: false` when enabling the `grafana` site (Grégoire Seux) [#15](https://github.com/JonathanTron/chef-grafana/pull/14)
 

@@ -7,7 +7,7 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 source_url       'https://github.com/sous-chefs/chef-grafana'
 issues_url       'https://github.com/sous-chefs/chef-grafana/issues'
 chef_version     '>= 13.0'
-version          '4.2.0'
+version          '4.3.0'
 
 supports 'debian'
 supports 'ubuntu'

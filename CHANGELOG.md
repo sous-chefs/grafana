@@ -2,9 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
-### Unreleased
+## 4.3.0 (2019-05-16)
 
 - Add API resource support for proxy_auth
+- Added PATCH support to the org library
 
 ## 4.2.0 (2019-05-14)
 

@@ -20,6 +20,7 @@ You can control Grafana dataSources via the `grafana_datasource`. Due to the var
 | `port`                | Integer     | `3000`        | The port grafana is running on|
 | `admin_user`          | String      | `admin`       | A grafana user with admin privileges|
 | `admin_password`      | String      | `admin`       | The grafana user's password|
+| `auth_proxy_header`   | String      | nil           | The HTTP authentication header used when `auth.proxy.enabled=true`. See [grafana_config_auth:proxy_header_name](grafana_config_auth.md)|
 | `datasource`          | Hash        | `{}`          | A Hash of the values to create the datasource. Examples below.|
 
 ## Examples

@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 4.3.0 (2019-05-16)
+
+- Aligned grafana_config_auth `login_cookie_name` default to rest of cookbook
+- Add API resource support for proxy_auth
+- Added PATCH support to the org library
+
 ## 4.2.0 (2019-05-14)
 
 - Fixed misspelling of `oath` to `oauth`

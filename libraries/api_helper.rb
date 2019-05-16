@@ -62,6 +62,8 @@ module GrafanaCookbook
     def do_request(grafana_options, payload = nil)
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
       request = case grafana_options[:method]
+                when 'Patch'
+                  Net::HTTP::Patch.new(grafana_options[:endpoint])
                 when 'Post'
                   Net::HTTP::Post.new(grafana_options[:endpoint])
                 when 'Put'

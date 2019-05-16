@@ -71,6 +71,37 @@ grafana_user 'j.smith' do
 end
 ```
 
+To add j.smith to 'Org. 1' as Admin and to 'Org. 2' as Viewer
+
+```
+grafana_user 'j.smith' do
+  user(
+    name: 'John Smith',
+    email: 'test@example.com',
+    password: 'test123',
+    isAdmin: true,
+    organizations: [
+      { name: 'Org. 1', role: 'Admin' },
+      { name: 'Org. 2', role: 'Viewer' }
+    ]
+  )
+  action :create
+end
+```
+
+To remove j.smith from Org. 2
+
+```
+grafana_user 'j.smith' do
+  user(
+    organizations: [
+      { name: 'Org. 2', role: 'DELETE' }
+    ]
+  )
+  action :update
+end
+```
+
 And finally to delete a user
 
 ```ruby

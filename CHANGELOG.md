@@ -4,6 +4,7 @@ This file is used to list changes made in each version of grafana.
 
 ### Unreleased
 
+- Aligned grafana_config_auth `login_cookie_name` default to rest of cookbook
 - Add API resource support for proxy_auth
 
 ## 4.2.0 (2019-05-14)

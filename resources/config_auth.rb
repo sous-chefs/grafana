@@ -20,7 +20,7 @@
 property  :instance_name,                                 String,         name_property: true
 property  :conf_directory,                                String,         default: '/etc/grafana'
 property  :config_file,                                   String,         default: lazy { ::File.join(conf_directory, 'grafana.ini') }
-property  :login_cookie_name,                             String,         default: 'grafana_session'
+property  :login_cookie_name,                             String,         default: 'grafana_sess'
 property  :disable_login_form,                            [true, false],  default: false
 property  :disable_signout_menu,                          [true, false],  default: false
 property  :signout_redirect_url,                          String,         default: ''

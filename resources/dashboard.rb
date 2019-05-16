@@ -25,6 +25,8 @@ property :admin_user,     String,   default: 'admin'
 property :admin_password, String,   default: 'admin'
 property :dashboard,      Hash,     default: {}
 
+property :auth_proxy_header, [String, nil], default: nil
+
 default_action :create
 
 include GrafanaCookbook::DashboardApi
@@ -36,6 +38,7 @@ action :create do
     port: new_resource.port,
     user: new_resource.admin_user,
     password: new_resource.admin_password,
+    auth_proxy_header: new_resource.auth_proxy_header,
   }
   # If dashboard's name, source, or cookbook is not provided as variable,
   # Let's use resource name for it
@@ -77,6 +80,7 @@ action :update do
     port: new_resource.port,
     user: new_resource.admin_user,
     password: new_resource.admin_password,
+    auth_proxy_header: new_resource.auth_proxy_header,
   }
 
   _select_org(new_resource, grafana_options)
@@ -94,6 +98,7 @@ action :delete do
     port: new_resource.port,
     user: new_resource.admin_user,
     password: new_resource.admin_password,
+    auth_proxy_header: new_resource.auth_proxy_header,
   }
   # If dashboard's name, source, or cookbook is not provided as variable,
   # Let's use resource name for it

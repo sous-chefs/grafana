@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+### Unreleased
+
+- Add API resource support for proxy_auth
+
 ## 4.2.0 (2019-05-14)
 
 - Fixed misspelling of `oath` to `oauth`

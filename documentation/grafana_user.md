@@ -22,6 +22,7 @@ More information about creating Grafana users via the HTTP API can be found [her
 | `port`                | Integer     | `3000`        | The port grafana is running on|
 | `admin_user`          | String      | `admin`       | A grafana user with admin privileges|
 | `admin_password`      | String      | `admin`       | The grafana user's password|
+| `auth_proxy_header`   | String      | nil           | The HTTP authentication header used when `auth.proxy.enabled=true`. See [grafana_config_auth:proxy_header_name](grafana_config_auth.md)|
 | `user`                | Hash        | `{}`          | A Hash of the values to create the user. Examples below.|
 
 ## Examples
@@ -66,6 +67,37 @@ grafana_user 'j.smith' do
     email: 'test@example.com',
     password: 'test1234',
     isAdmin: false
+  )
+  action :update
+end
+```
+
+To add j.smith to 'Org. 1' as Admin and to 'Org. 2' as Viewer
+
+```
+grafana_user 'j.smith' do
+  user(
+    name: 'John Smith',
+    email: 'test@example.com',
+    password: 'test123',
+    isAdmin: true,
+    organizations: [
+      { name: 'Org. 1', role: 'Admin' },
+      { name: 'Org. 2', role: 'Viewer' }
+    ]
+  )
+  action :create
+end
+```
+
+To remove j.smith from Org. 2
+
+```
+grafana_user 'j.smith' do
+  user(
+    organizations: [
+      { name: 'Org. 2', role: 'DELETE' }
+    ]
   )
   action :update
 end

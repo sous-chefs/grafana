@@ -22,6 +22,7 @@ More information about creating Grafana organizations via the HTTP API can be fo
 | `port`                | Integer     | `3000`        | The port grafana is running on|
 | `admin_user`          | String      | `admin`       | A grafana user with admin privileges|
 | `admin_password`      | String      | `admin`       | The grafana user's password|
+| `auth_proxy_header`   | String      | nil           | The HTTP authentication header used when `auth.proxy.enabled=true`. See [grafana_config_auth:proxy_header_name](grafana_config_auth.md)|
 | `organization`        | Hash        | `{}`          | A Hash of the values to create the organization. Examples below.|
 
 ## Examples

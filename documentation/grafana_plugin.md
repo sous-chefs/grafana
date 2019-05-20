@@ -8,9 +8,9 @@ This ressource will help you to manage grafana plugins.
 
 ## Actions
 
-- `:create`
+- `:install`
 - `:update`
-- `:delete`
+- `:remove`
 
 ## Properties
 

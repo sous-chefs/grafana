@@ -4,7 +4,7 @@
 
 # grafana_config_dashboards
 
-Configures the core dashboard section of the configuration (http://docs.grafana.org/installation/configuration/#dashboards)
+Configures the core dashboard section of the configuration <http://docs.grafana.org/installation/configuration/#dashboards>
 
 Introduced: v4.0.0
 

@@ -4,7 +4,7 @@
 
 # grafana_config
 
-Configures the core config section of the configuration (http://docs.grafana.org/installation/configuration/)
+Configures the core config section of the configuration <http://docs.grafana.org/installation/configuration/>
 This must be called before any other config resources
 
 Introduced: v4.0.0

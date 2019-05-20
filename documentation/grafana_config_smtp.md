@@ -4,7 +4,7 @@
 
 # grafana_config_smtp
 
-Configures the core smtp section of the configuration (http://docs.grafana.org/installation/configuration/#smtp)
+Configures the core smtp section of the configuration <http://docs.grafana.org/installation/configuration/#smtp>
 
 Introduced: v4.0.0
 

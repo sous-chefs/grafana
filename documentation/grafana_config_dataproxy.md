@@ -4,7 +4,7 @@
 
 # grafana_config_dataproxy
 
-Configures the core dataproxy section of the configuration (http://docs.grafana.org/installation/configuration/)
+Configures the core dataproxy section of the configuration <http://docs.grafana.org/installation/configuration/>
 
 Introduced: v4.0.0
 

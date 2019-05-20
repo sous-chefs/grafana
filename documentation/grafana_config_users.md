@@ -4,7 +4,7 @@
 
 # grafana_config_users
 
-Configures the core users section of the configuration (http://docs.grafana.org/installation/configuration/#users)
+Configures the core users section of the configuration <http://docs.grafana.org/installation/configuration/#users>
 
 Introduced: v4.0.0
 

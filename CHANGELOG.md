@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
+- Migrated to new circleci orb
+- Depreciated testing on fedora and opensuse
+
 ## 4.3.0 (2019-05-16)
 
 - Aligned grafana_config_auth `login_cookie_name` default to rest of cookbook

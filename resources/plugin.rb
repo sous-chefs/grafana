@@ -18,6 +18,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+property :grafana_cli_bin, String, default: '/usr/sbin/grafana-cli'
+
 default_action :install
 
 action :install do

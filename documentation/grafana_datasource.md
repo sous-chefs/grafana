@@ -4,7 +4,7 @@
 
 # grafana_datasource
 
-You can control Grafana dataSources via the `grafana_datasource`. Due to the varying nature of the potential data sources, the information used to create the datasource is consumed by the resource as a Hash (the `source` attribute). The examples should illustrate the flexibility. The full breadth of options are (or will be) documented on (http://docs.grafana.org/reference/http_api/#data-sources), however you can discover undocumented parameters by inspecting the HTTP requests your browser makes to the Grafana server.
+You can control Grafana dataSources via the `grafana_datasource`. Due to the varying nature of the potential data sources, the information used to create the datasource is consumed by the resource as a Hash (the `source` attribute). The examples should illustrate the flexibility. The full breadth of options are (or will be) documented on <http://docs.grafana.org/reference/http_api/#data-sources>, however you can discover undocumented parameters by inspecting the HTTP requests your browser makes to the Grafana server.
 
 ## Actions
 

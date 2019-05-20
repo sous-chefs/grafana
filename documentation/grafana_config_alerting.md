@@ -4,7 +4,7 @@
 
 # grafana_config_alerting
 
-Configures the core alerting section of the configuration (http://docs.grafana.org/installation/configuration/#alerting)
+Configures the core alerting section of the configuration <http://docs.grafana.org/installation/configuration/#alerting>
 
 Introduced: v4.0.0
 

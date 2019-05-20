@@ -4,7 +4,7 @@
 
 # grafana_config_ldap_group_mappings
 
-Configures ldap group mappings (http://docs.grafana.org/auth/ldap/#group-mappings)
+Configures ldap group mappings <http://docs.grafana.org/auth/ldap/#group-mappings>
 
 Introduced: v4.0.0
 

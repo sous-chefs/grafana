@@ -4,7 +4,7 @@
 
 # grafana_config_database
 
-Configures the core database section of the configuration (http://docs.grafana.org/installation/configuration/#database)
+Configures the core database section of the configuration <http://docs.grafana.org/installation/configuration/#database>
 
 Introduced: v4.0.0
 

@@ -4,7 +4,7 @@
 
 # grafana_config_panels
 
-Configures the core panels section of the configuration (http://docs.grafana.org/installation/configuration/#panels)
+Configures the core panels section of the configuration <http://docs.grafana.org/installation/configuration/#panels>
 
 Introduced: v4.0.0
 

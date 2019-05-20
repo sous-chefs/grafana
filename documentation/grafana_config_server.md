@@ -4,7 +4,7 @@
 
 # grafana_config_server
 
-Configures the core server section of the configuration (http://docs.grafana.org/installation/configuration/#server)
+Configures the core server section of the configuration <http://docs.grafana.org/installation/configuration/#server>
 
 Introduced: v4.0.0
 

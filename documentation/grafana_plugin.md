@@ -2,7 +2,7 @@
 
 ---
 
-# ### grafana_user
+# grafana_plugin
 
 This ressource will help you to manage grafana plugins.
 

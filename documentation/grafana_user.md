@@ -2,7 +2,7 @@
 
 ---
 
-# ### grafana_user
+# grafana_user
 
 This resource will allow you to create global users within Grafana. This resource is minimally viable and only supports the addition of global non-admin users. Contribution to the functionality would be appreciated.
 

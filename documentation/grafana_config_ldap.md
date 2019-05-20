@@ -4,7 +4,7 @@
 
 # grafana_config_ldap
 
-Configures ldap (http://docs.grafana.org/auth/ldap/)
+Configures ldap <http://docs.grafana.org/auth/ldap/>
 
 Introduced: v4.0.0
 

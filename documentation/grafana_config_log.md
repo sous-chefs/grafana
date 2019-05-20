@@ -4,7 +4,7 @@
 
 # grafana_config_log
 
-Configures the core log section of the configuration (http://docs.grafana.org/installation/configuration/#log)
+Configures the core log section of the configuration <http://docs.grafana.org/installation/configuration/#log>
 
 Introduced: v4.0.0
 

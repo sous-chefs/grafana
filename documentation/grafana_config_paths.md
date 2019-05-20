@@ -4,7 +4,7 @@
 
 # grafana_config_paths
 
-Configures the core paths section of the configuration (http://docs.grafana.org/installation/configuration/#paths)
+Configures the core paths section of the configuration <http://docs.grafana.org/installation/configuration/#paths>
 
 Introduced: v4.0.0
 

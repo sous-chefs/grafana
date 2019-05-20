@@ -4,7 +4,7 @@
 
 # grafana_config_security
 
-Configures the core security section of the configuration (http://docs.grafana.org/installation/configuration/#security)
+Configures the core security section of the configuration <http://docs.grafana.org/installation/configuration/#security>
 
 Introduced: v4.0.0
 

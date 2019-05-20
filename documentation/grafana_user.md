@@ -6,7 +6,7 @@
 
 This resource will allow you to create global users within Grafana. This resource is minimally viable and only supports the addition of global non-admin users. Contribution to the functionality would be appreciated.
 
-More information about creating Grafana users via the HTTP API can be found [here](http://docs.grafana.org/reference/http_api/#users).
+More information about creating Grafana users via the HTTP API can be found at [docs.grafana.org/reference/http_api](http://docs.grafana.org/reference/http_api/#users).
 
 ## Actions
 
@@ -74,7 +74,7 @@ end
 
 To add j.smith to 'Org. 1' as Admin and to 'Org. 2' as Viewer
 
-```
+```ruby
 grafana_user 'j.smith' do
   user(
     name: 'John Smith',
@@ -92,7 +92,7 @@ end
 
 To remove j.smith from Org. 2
 
-```
+```ruby
 grafana_user 'j.smith' do
   user(
     organizations: [

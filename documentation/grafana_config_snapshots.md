@@ -4,7 +4,7 @@
 
 # grafana_config_snapshots
 
-Configures the core snapshots section of the configuration (http://docs.grafana.org/installation/configuration/#snapshots)
+Configures the core snapshots section of the configuration <http://docs.grafana.org/installation/configuration/#snapshots>
 
 Introduced: v4.0.0
 

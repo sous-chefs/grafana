@@ -4,7 +4,7 @@
 
 # grafana_config_metrics
 
-Configures the core metrics section of the configuration (http://docs.grafana.org/installation/configuration/#metrics)
+Configures the core metrics section of the configuration <http://docs.grafana.org/installation/configuration/#metrics>
 
 Introduced: v4.0.0
 
@@ -20,7 +20,7 @@ Introduced: v4.0.0
 | `interval_seconds`        | Integer       | `10`                              | If set configures the username to use for basic authentication on the metrics endpoint.|
 | `basic_auth_username`     | String        |                                   | If set configures the password to use for basic authentication on the metrics endpoint.|
 | `basic_auth_password`     | String        |                                   | Flush/Write interval when sending metrics to external TSDB. Defaults to 10s.|
-| `graphite_address`        | String        |                                   | Format <Hostname or ip>:port                                              |
+| `graphite_address`        | String        |                                   | Format Hostname or ip:port                                              |
 | `graphite_prefix`         | String        | `prod.grafana.%(instance_name)s.` | Graphite metric prefix                                                    |
 | `conf_directory`          | String        | `/etc/grafana`                    | The directory where the Grafana configuration resides                     | Valid directory
 | `config_file`             | String        | `/etc/grafana/grafana.ini`        | The Grafana configuration file                                            | Valid file path

@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## unreleased
+
+- grafana_plugin now works
+
 ## 4.3.0 (2019-05-16)
 
 - Aligned grafana_config_auth `login_cookie_name` default to rest of cookbook

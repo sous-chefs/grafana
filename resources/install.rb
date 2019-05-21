@@ -25,6 +25,7 @@ property :key,              String, default:  'https://packages.grafana.com/gpg.
 property :rpm_key,          String, default:  'https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana'
 property :deb_distribution, String, default:  'stable'
 property :deb_components,   Array,  default:  ['main']
+property :include_repo      [TrueClass, FalseClass], default: true
 
 action :install do
   case node['platform_family']
@@ -46,6 +47,7 @@ action :install do
       key           new_resource.key
       cache_rebuild true
       trusted       false
+      only_if       { new_resource.include_repo }
     end
 
     # There is an issue on debian based systems which causes the error:
@@ -60,6 +62,7 @@ action :install do
       baseurl       repository
       gpgkey        "#{new_resource.key} #{new_resource.rpm_key}"
       gpgcheck      true
+      only_if       { new_resource.include_repo }
     end
 
     package 'grafana' do

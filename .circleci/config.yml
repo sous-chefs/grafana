@@ -33,3 +33,8 @@ workflows:
           suite: ldap
           requires:
             *lint_and_unit
+      - kitchen/dokken-single:
+          name: proxy
+          suite: proxy
+          requires:
+            *lint_and_unit

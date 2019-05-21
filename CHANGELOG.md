@@ -4,6 +4,7 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+- grafana_plugin now works
 - Migrated to new circleci orb
 - Depreciated testing on fedora and opensuse
 

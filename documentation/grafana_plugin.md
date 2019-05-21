@@ -2,23 +2,23 @@
 
 ---
 
-# ### grafana_user
+# grafana_plugin
 
 This ressource will help you to manage grafana plugins.
 
 ## Actions
 
-- `:create`
+- `:install`
 - `:update`
-- `:delete`
+- `:remove`
 
 ## Properties
 
-| Name                  | Type        |  Default                | Description                                               | Allowed Values
-| --------------------- | ----------- | ----------------------- | --------------------------------------------------------- | --------------- |
-| `name`                | String      |                         | Name of the plugin.|
-| `action`              | String      | `install`               | Valid actions are `install`, `update`, `remove`.|
-| `grafana_cli_bin`     | String      | `usr/sbin/grafana-cli`  | The path to the grafana-cli binary|
+| Name                  | Type        |  Default                 | Description                                               | Allowed Values
+| --------------------- | ----------- | ------------------------ | --------------------------------------------------------- | --------------- |
+| `name`                | String      |                          | Name of the plugin.|
+| `action`              | String      | `install`                | Valid actions are `install`, `update`, `remove`.|
+| `grafana_cli_bin`     | String      | `/usr/sbin/grafana-cli`  | The path to the grafana-cli binary|
 
 ## Examples
 

@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
+- after modifying plugins, grafana-server is restarted
+
 ## 4.4.0 (2019-05-21)
 
 - grafana_plugin now works

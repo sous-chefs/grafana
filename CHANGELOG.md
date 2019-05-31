@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 4.4.1 (2019-05-30)
+
+- New Grafana attribute allow_embedded can be set.
+
 ## 4.4.0 (2019-05-21)
 
 - grafana_plugin now works

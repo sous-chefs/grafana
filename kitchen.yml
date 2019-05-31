@@ -5,25 +5,54 @@ driver:
 provisioner:
   name: chef_zero
   product_name: chef
-  product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
+  product_version: 14
+  http_proxy: <%= ENV['http_proxy'] %>
+  https_proxy: <%= ENV['https_proxy'] %>
+  no_proxy: <%= ENV['no_proxy'] %>
   install_strategy: once
 
 client_rb:
   treat_deprecation_warnings_as_errors: true
+
 verifier:
   name: inspec
 
 platforms:
-  - name: ubuntu-16.04
-  - name: ubuntu-18.04
-  - name: centos-6
   - name: centos-7
 
 suites:
   - name: default
+    driver:
+      network:
+      - ["private_network", {ip: "192.168.56.107"}]
     run_list:
       - recipe[test::install]
-
   - name: ldap
     run_list:
       - recipe[test::ldap]
+
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    attributes:
+
+  # deprecations_as_errors: true
+
+  # environments_path: "../../environments"
+  # data_bags_path: "../../data_bags"
+  # nodes_path: "../../nodes"
+  # roles_path: "../../roles"
+
+  # client_rb: kitchen  
+
+# verifier:
+#   name: inspec
+
+# suites:
+#   - name: default
+#     run_list:
+#       - recipe[ssnc-metrictank::default]
+#     verifier:
+#       inspec_tests:
+#         - test/integration/default
+#             attributes:

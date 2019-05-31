@@ -267,6 +267,12 @@ data_source_proxy_whitelist = <%= @grafana['security']['data_source_proxy_whitel
 <% if @grafana['security']['disable_brute_force_login_protection'] %>
 disable_brute_force_login_protection = <%= @grafana['security']['disable_brute_force_login_protection'] %>
 <% end %>
+
+# allow grafana to exist in iframes
+<% if @grafana['security']['allow_embedding'] %>
+allow_embedding = <%= @grafana['security']['allow_embedding'] %>
+<% end %>
+
 <% end %>
 #################################### Snapshots ###########################
 <% if @grafana['snapshots'] %>

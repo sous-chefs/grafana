@@ -32,7 +32,7 @@ property  :data_source_proxy_whitelist,           String,         default: ''
 property  :disable_brute_force_login_protection,  [true, false],  default: false
 property  :cookbook,                              String,         default: 'grafana'
 property  :source,                                String,         default: 'grafana.ini.erb'
-property  :allow_embedding,                       String,         default: false
+property  :allow_embedding,                       [true, false],         default: false
 
 action :install do
   with_run_context :root do

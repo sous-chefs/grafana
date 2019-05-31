@@ -32,6 +32,7 @@ property  :data_source_proxy_whitelist,           String,         default: ''
 property  :disable_brute_force_login_protection,  [true, false],  default: false
 property  :cookbook,                              String,         default: 'grafana'
 property  :source,                                String,         default: 'grafana.ini.erb'
+property  :allow_embedding,                       [true, false],         default: false
 
 action :install do
   with_run_context :root do
@@ -59,7 +60,8 @@ action :install do
       variables['grafana']['security']['data_source_proxy_whitelist'] << new_resource.data_source_proxy_whitelist.to_s unless new_resource.data_source_proxy_whitelist.nil?
       variables['grafana']['security']['disable_brute_force_login_protection'] ||= '' unless new_resource.disable_brute_force_login_protection.nil?
       variables['grafana']['security']['disable_brute_force_login_protection'] << new_resource.disable_brute_force_login_protection.to_s unless new_resource.disable_brute_force_login_protection.nil?
-
+      variables['grafana']['security']['allow_embedding'] ||= '' unless new_resource.allow_embedding.nil?
+      variables['grafana']['security']['allow_embedding'] << new_resource.allow_embedding.to_s unless new_resource.allow_embedding.nil?
       action :nothing
       delayed_action :create
     end

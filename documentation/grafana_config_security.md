@@ -27,6 +27,7 @@ Introduced: v4.0.0
 | `config_file`                           | String      | `/etc/grafana/grafana.ini`  | The Grafana configuration file                          | Valid file path
 | `cookbook`                              | String      | `grafana`                   | Which cookbook to look in for the template              |
 | `source`                                | String      | `grafana.ini.erb`           | Name of the template                                    |
+| `allow_embedding`                       | true, false | `false`                     | Turn on iframe access
 
 ## Examples
 

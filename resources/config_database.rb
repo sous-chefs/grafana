@@ -52,7 +52,7 @@ action :install do
       variables['grafana']['database']['host'] ||= '' unless new_resource.host.nil?
       variables['grafana']['database']['host'] << new_resource.host.to_s unless new_resource.host.nil?
       variables['grafana']['database']['name'] ||= '' unless new_resource.database_name.nil?
-      variables['grafana']['database']['name'] << new_resource.name.to_s unless new_resource.database_name.nil?
+      variables['grafana']['database']['name'] << new_resource.database_name.to_s unless new_resource.database_name.nil?
       variables['grafana']['database']['user'] ||= '' unless new_resource.user.nil?
       variables['grafana']['database']['user'] << new_resource.user.to_s unless new_resource.user.nil?
       variables['grafana']['database']['password'] ||= '' unless new_resource.password.nil?

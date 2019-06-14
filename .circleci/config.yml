@@ -38,3 +38,8 @@ workflows:
           suite: proxy
           requires:
             *lint_and_unit
+      - kitchen/dokken-single:
+          name: plugins
+          suite: plugins
+          requires:
+            *lint_and_unit

@@ -23,6 +23,7 @@ Introduced: v4.0.0
 | `disable_gravatar`                      | true, false | `false`                     | disable gravatar profile images.                        | true, false
 | `data_source_proxy_whitelist`           | String      |                             | data source proxy whitelist                      |ip_or_domain:port separated by spaces
 | `disable_brute_force_login_protection`  | true, false | `false`                     | disable protection against brute force login attempts.  | true, false
+| `allow_embedding`                       | true, false | `false`                     | Allows grafana to be embedded in an iframe              | true, false
 | `conf_directory`                        | String      | `/etc/grafana`              | The directory where the Grafana configuration resides   | Valid directory
 | `config_file`                           | String      | `/etc/grafana/grafana.ini`  | The Grafana configuration file                          | Valid file path
 | `cookbook`                              | String      | `grafana`                   | Which cookbook to look in for the template              |

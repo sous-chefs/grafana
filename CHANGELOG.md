@@ -6,6 +6,7 @@ This file is used to list changes made in each version of grafana.
 
 - Allow custom database names
 - After modifying plugins, grafana-server is restarted
+- Added property for `enable_embedding` in `config_security`
 
 ## 4.4.0 (2019-05-21)
 

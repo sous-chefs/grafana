@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## Unreleased
+## 5.0.0 (2019-06-20)
 
 - Allow custom database names
 - After modifying plugins, grafana-server is restarted

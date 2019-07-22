@@ -24,3 +24,11 @@ describe service('grafana-server') do
   it { should be_enabled }
   it { should be_running }
 end
+
+describe json(content: http('http://localhost:3000/api/admin/settings',
+              auth: { user: 'admin', pass: 'admin' },
+              params: { format: 'html' },
+              method: 'GET',
+              headers: { 'Content-Type' => 'application/json' }).body) do
+  its(['auth.ldap', 'enabled']) { should eq 'true' }
+end

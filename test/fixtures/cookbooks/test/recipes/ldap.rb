@@ -2,6 +2,10 @@ grafana_install 'grafana'
 
 grafana_config 'Grafana'
 
+grafana_config_auth 'Grafana' do
+  ldap_enabled true
+end
+
 grafana_config_log 'Grafana'
 
 grafana_config_ldap 'Grafana'

@@ -59,6 +59,8 @@ action :install do
       variables['grafana']['ldap']['servers_attributes_email'] << new_resource.servers_attributes_email.to_s unless new_resource.servers_attributes_email.nil?
       action :nothing
       delayed_action :create
+      service 'grafana-server'
+      notifies :restart, 'service[grafana-server]'
     end
   end
 end

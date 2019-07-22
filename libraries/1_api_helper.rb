@@ -29,7 +29,7 @@ module GrafanaCookbook
       )
 
       # sorry for the fancy hackery - rubists are welcome to make this better
-      response['set-cookie'][/grafana_sess=(\w+);/, 1]
+      response['set-cookie'][/grafana_session=(\w+);/, 1]
     rescue BackendError
       nil
     end
@@ -72,7 +72,7 @@ module GrafanaCookbook
                 else
                   Net::HTTP::Get.new(grafana_options[:endpoint])
                 end
-      request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
+      request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_session=#{session_id};")
       request.add_field('Content-Type', 'application/json;charset=utf-8;')
       request.add_field('Accept', 'application/json')
       request.body = payload if payload

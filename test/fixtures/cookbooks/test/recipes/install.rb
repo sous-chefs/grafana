@@ -25,3 +25,9 @@ grafana_config_external_image_storage_s3 'Grafana' do
   bucket 'grafana-image-store'
   region 'us-east-1'
 end
+
+# Stall to allow service to be fully available before testing
+execute 'sleep 30' do
+  action :nothing
+  subscribes :run, 'service[grafana-server]', :immediately
+end

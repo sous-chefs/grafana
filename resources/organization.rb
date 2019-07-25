@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: grafana
+# Cookbook:: grafana
 # Resource:: organization
 #
-# Copyright 2014, Jonathan Tron
-# Copyright 2017, Andrei Skopenko
-# Copyright 2018, Sous Chefs
+# Copyright:: 2014, Jonathan Tron
+# Copyright:: 2017, Andrei Skopenko
+# Copyright:: 2018, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

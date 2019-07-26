@@ -4,9 +4,10 @@
 
 # grafana_config_session
 
-Configures the core session section of the configuration <http://docs.grafana.org/installation/configuration/#session>
+Configures the core session section of the configuration <http://docs.grafana.org/installation/configuration/#session>. Note, if you're using Grafana v6.2 or newer, cookie/session settings are in Remote Cache and Security. See <https://grafana.com/docs/installation/configuration/#remote-cache> and <https://grafana.com/docs/installation/configuration/#security>.
 
 Introduced: v4.0.0
+Removed: v6.2.0
 
 ## Actions
 
@@ -18,6 +19,7 @@ Introduced: v4.0.0
 | ------------------- | ----------- | ----------------------------------------- | ------------------------------------------------------- | --------------- |
 | `session_provider`  | String      | `file`                                    | Provider to use                                         |memory file redis mysql postgres memcache
 | `provider_config`   | String      | `sessions`                                | See <http://docs.grafana.org/installation/configuration/#session> |
+| `cookie_name`       | String      | `grafana_sess`                            | Session cookie name                           |
 | `cookie_secure`     | true, false | `false`                                   | Set to true if you host Grafana behind HTTPS only. Defaults to false. | true, false
 | `session_life_time` | Integer     | `86400`                                   | How long sessions lasts in seconds. Defaults to 86400 (24 hours).|
 | `gc_interval_time`  | Integer     | `86400`                                   | How often to garbase collect                            |

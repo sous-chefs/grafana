@@ -207,6 +207,23 @@ gc_interval_time = <%= @grafana['session']['gc_interval_time'] %>
 conn_max_lifetime = <%= @grafana['session']['conn_max_lifetime'] %>
 <% end %>
 <% end %>
+#################################### Remote Cache #############################
+<% if @grafana['remote_cache'] %>
+[remote_cache]
+# Either "redis", "memcached", "database" default is "database"
+<% if @grafana['remote_cache']['type'] %>
+type = <%= @grafana['remote_cache']['type'] %>
+<% end %>
+
+# The remote cache connection string.
+# Leave empty when using database since it will use the primary database.
+# Redis example config: addr=127.0.0.1:6379,pool_size=100,db=grafana
+# Memcache example: 127.0.0.1:11211
+<% if @grafana['remote_cache']['connstr'] %>
+connstr = <%= @grafana['remote_cache']['connstr'] %>
+<% end %>
+<% end %>
+
 #################################### Data proxy ###########################
 <% if @grafana['dataproxy'] %>
 [dataproxy]

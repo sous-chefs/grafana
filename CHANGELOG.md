@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## Unreleased
+## 5.1.0 (2019-07-26)
 
 - After modifying config files, grafana-server is restarted
 - Fixed session `provider`

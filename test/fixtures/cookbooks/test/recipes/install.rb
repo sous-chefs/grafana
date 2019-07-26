@@ -16,7 +16,10 @@ grafana_config_paths 'Grafana'
 grafana_config_quota 'Grafana'
 grafana_config_security 'Grafana'
 grafana_config_server 'Grafana'
-grafana_config_session 'Grafana'
+grafana_config_session 'Grafana' do
+  session_provider 'memory'
+end
+grafana_config_remote_cache 'Grafana'
 grafana_config_smtp 'Grafana'
 grafana_config_snapshots 'Grafana'
 grafana_config_users 'Grafana'

@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: grafana
+# Cookbook:: grafana
 # Resource:: config_alerting
 #
-# Copyright 2019, Sous Chefs
+# Copyright:: 2019, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -59,6 +59,8 @@ action :install do
       variables['grafana']['ldap']['servers_attributes_email'] << new_resource.servers_attributes_email.to_s unless new_resource.servers_attributes_email.nil?
       action :nothing
       delayed_action :create
+      service 'grafana-server'
+      notifies :restart, 'service[grafana-server]'
     end
   end
 end

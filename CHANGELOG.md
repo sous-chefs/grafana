@@ -4,8 +4,16 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+- After modifying config files, grafana-server is restarted
+- Fixed session `provider`
+- Added remote-cache config support
+
+## 5.0.0 (2019-06-20)
+
 - Allow custom database names
 - After modifying plugins, grafana-server is restarted
+- Added property for `enable_embedding` in `config_security`
+- Api helper will now retry for `EADDRNOTAVAIL`
 
 ## 4.4.0 (2019-05-21)
 

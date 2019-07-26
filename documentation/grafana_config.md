@@ -38,6 +38,6 @@ grafana_config 'grafana'
 grafana_config 'grafana' do
   owner 'grafana'
   group 'grafana'
-  restart_on_upgrade true
+  restart_on_upgrade 'true'
 end
 ```

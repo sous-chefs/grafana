@@ -4,6 +4,7 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+- After modifying config files, grafana-server is restarted
 - Fixed session `provider`
 - Added remote-cache config support
 

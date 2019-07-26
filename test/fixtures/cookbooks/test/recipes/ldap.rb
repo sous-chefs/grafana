@@ -2,6 +2,10 @@ grafana_install 'grafana'
 
 grafana_config 'Grafana'
 
+grafana_config_auth 'Grafana' do
+  ldap_enabled true
+end
+
 grafana_config_log 'Grafana'
 
 grafana_config_ldap 'Grafana'
@@ -25,4 +29,10 @@ end
 
 grafana_config_ldap_group_mappings 'cn=readers,dc=grafana,dc=org' do
   org_role      'Viewer'
+end
+
+# Stall to allow service to be fully available before testing
+execute 'sleep 30' do
+  action :nothing
+  subscribes :run, 'service[grafana-server]', :immediately
 end

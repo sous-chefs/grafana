@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 5.1.1 (2019-08-16)
+
+- Fixed `address` appearing as `basic_auth_password` for internal metrics
+
 ## 5.1.0 (2019-07-26)
 
 - After modifying config files, grafana-server is restarted

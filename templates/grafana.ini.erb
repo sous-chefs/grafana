@@ -967,7 +967,7 @@ basic_auth_password = <%= @grafana['metrics']['basic_auth_password'] %>
 [metrics.graphite]
 # Enable by setting the address setting (ex localhost:2003)
 <% if @grafana['metrics_graphite']['address'] %>
-basic_auth_password = <%= @grafana['metrics_graphite']['address'] %>
+address = <%= @grafana['metrics_graphite']['address'] %>
 <% end %>
 <% if @grafana['metrics_graphite']['prefix'] %>
 prefix = <%= @grafana['metrics_graphite']['prefix'] %>

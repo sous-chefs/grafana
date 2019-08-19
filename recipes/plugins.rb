@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: grafana
+# Cookbook:: grafana
 # Recipe:: nginx
 #
-# Copyright 2016, Anthony RABIER
+# Copyright:: 2016, Anthony RABIER
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

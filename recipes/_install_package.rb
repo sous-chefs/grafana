@@ -1,9 +1,9 @@
 #
-# Cookbook Name:: grafana
+# Cookbook:: grafana
 # Recipe:: _install_package
 #
-# Copyright 2015, Michael Lanyon
-# Copyright 2017, Andrei Skopenko
+# Copyright:: 2015, Michael Lanyon
+# Copyright:: 2017, Andrei Skopenko
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

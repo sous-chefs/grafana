@@ -33,7 +33,7 @@ property  :source,                        String, default: 'ldap.toml.erb'
 
 action :install do
   service 'grafana-server' do
-    action :enable
+    action :nothing
     subscribes :restart, "template[#{new_resource.config_file}]", :immediately
   end
 
@@ -59,8 +59,6 @@ action :install do
       variables['grafana']['ldap']['servers_attributes_email'] << new_resource.servers_attributes_email.to_s unless new_resource.servers_attributes_email.nil?
       action :nothing
       delayed_action :create
-      service 'grafana-server'
-      notifies :restart, 'service[grafana-server]'
     end
   end
 end

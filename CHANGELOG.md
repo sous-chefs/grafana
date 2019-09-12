@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## UNRELEASED
+## Unreleased
 
 - Fixed type specification of group_search_dns to be Array instead
   of incorrect String previously.

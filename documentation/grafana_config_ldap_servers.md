@@ -2,7 +2,7 @@
 
 ---
 
-# grafana_config_ldap_group_mappings
+# grafana_config_ldap_servers
 
 Configures ldap servers <http://docs.grafana.org/auth/ldap/#grafana-ldap-configuration>
 
@@ -29,7 +29,7 @@ Introduced: v4.0.0
 | `search_filter`                       | String        | `(cn=%s)`                | User search filter |
 | `search_base_dns`                     | Array         |                          | An array of base dns to search through |
 | `group_search_filter`                 | String        |                          | POSIX, Group search filter, to retrieve the groups of which the user is a member  |
-| `group_search_base_dns`               | String        |                          | POSIX, An array of the base DNs to search through for groups. Typically uses ou=groups |
+| `group_search_base_dns`               | Array         |                          | POSIX, An array of the base DNs to search through for groups. Typically uses ou=groups |
 | `group_search_filter_user_attribute`  | String        |                          | POSIX, the %s in the search filter will be replaced with the attribute defined below |
 | `conf_directory`                      | String        | `/etc/grafana`           | The directory where the Grafana configuration resides                     | Valid directory
 | `config_file`                         | String        | `/etc/grafana/ldap.toml` | The Grafana configuration file                                            | Valid file path

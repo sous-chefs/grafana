@@ -35,7 +35,7 @@ property  :bind_password,                       String,                   defaul
 property  :search_filter,                       String,                   default: '(cn=%s)'
 property  :search_base_dns,                     Array,                    default: []
 property  :group_search_filter,                 String
-property  :group_search_base_dns,               String
+property  :group_search_base_dns,               Array, default: []
 property  :group_search_filter_user_attribute,  String
 property  :cookbook,                            String,                   default: 'grafana'
 property  :source,                              String,                   default: 'ldap.toml.erb'

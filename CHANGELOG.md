@@ -2,10 +2,11 @@
 
 This file is used to list changes made in each version of grafana.
 
-## Unreleased
+## 6.0.0
 
 - Fixed type specification of group_search_dns to be Array instead
   of incorrect String previously.
+- Cookstyle fixes around `long_description` and header formats
 
 ## 5.1.1 (2019-08-16)
 

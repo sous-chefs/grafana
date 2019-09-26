@@ -20,7 +20,7 @@ Introduced: v4.0.0
 | ------------------------------------------------ | -------------  | --------------------------- | ------------------------------------------------------------------  | --------------- |
 | `login_cookie_name`                               | String        | `grafana_session`           | The name of the Grafana session cookie.|
 | `disable_login_form`                              | True, False   | `false`                     | Set to true to disable (hide) the login form, useful if you use OAuth | true, false
-| `disable_signout_menu`                            | String        | `false`                     | Set to true to disable the signout link in the side menu. useful if you use auth.proxy | true, false
+| `disable_signout_menu`                            | True, False   | `false`                     | Set to true to disable the signout link in the side menu. useful if you use auth.proxy | true, false
 | `:signout_redirect_url`                           | String        |                             | URL to redirect the user to after sign out                          |
 | `:oauth_auto_login`                               | True, False   | `false`                     | Set to true to attempt login with OAuth automatically, skipping the login screen| true, false
 | `:anonymous_enabled`                              | True, False   | `false`                     | enable anonymous access                                             | true, false

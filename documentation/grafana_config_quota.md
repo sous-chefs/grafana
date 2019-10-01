@@ -2,7 +2,7 @@
 
 ---
 
-# grafana_config_quotas
+# grafana_config_quota
 
 Configures the core quotas section of the configuration <http://docs.grafana.org/installation/configuration/>
 
@@ -35,11 +35,11 @@ Introduced: v4.0.0
 ## Examples
 
 ```ruby
-grafana_config_quotas 'grafana'
+grafana_config_quota 'grafana'
 ```
 
 ```ruby
-grafana_config_quotas 'grafana' do
+grafana_config_quota 'grafana' do
   enabled true
   org_user 50
   org_dashboard 200

@@ -32,7 +32,6 @@ property  :static_root_path,  String,         default: 'public'
 property  :enable_gzip,       [true, false],  default: false
 property  :cert_file,         String,         default: ''
 property  :cert_key,          String,         default: ''
-property  :router_logging,    String,         default: '/tmp/grafana.sock'
 property  :cookbook,          String,         default: 'grafana'
 property  :source,            String,         default: 'grafana.ini.erb'
 

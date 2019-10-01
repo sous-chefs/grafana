@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## UNRELEASED
+
+- Removed misconfigured duplicate router_logging String property from config_server resource
+
 ## 6.0.0
 
 - Fixed type specification of group_search_dns to be Array instead

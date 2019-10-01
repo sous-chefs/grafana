@@ -4,7 +4,7 @@ This file is used to list changes made in each version of grafana.
 
 ## UNRELEASED
 
-- Removed misconfigured duplicate router_logging String property in config_server resource.
+- Removed misconfigured duplicate router_logging String property from config_server resource
 
 ## 6.0.0
 

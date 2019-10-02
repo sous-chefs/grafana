@@ -2,9 +2,9 @@
 
 ---
 
-# grafana\_config\_external\_image\_storage
+# grafana_config_external_image_storage_s3
 
-Configures the core external\_image\_storage section of the configuration [(https://grafana.com/docs/installation/configuration/#external-image-storage)](https://grafana.com/docs/installation/configuration/#external-image-storage). This resource sets AWS S3 as the external image storage.
+Configures the core external_image_storage section of the configuration [(https://grafana.com/docs/installation/configuration/#external-image-storage)](https://grafana.com/docs/installation/configuration/#external-image-storage). This resource sets AWS S3 as the external image storage.
 
 Introduced: v4.0.3
 

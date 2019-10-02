@@ -22,8 +22,8 @@ Introduced: v4.0.0
 | `password`          | String      |                                           | In case of SMTP auth.                                   |
 | `cert_file`         | String      |                                           | File path to a cert file                                |
 | `key_file`          | String      |                                           | File path to a key file                                 |
-| `skip_verify`       | true, false | `false`                                   |Address used when sending out emails                     | true, false
-| `from_address`      | String      | `"admin@grafana-#{node['hostname']}.#{node['domain'].nil? ? 'local' : node['domain']}"`| Connection Max Lifetime (seconds, 14400 = 4 hours)      |
+| `skip_verify`       | true, false | `false`                                   | Verify SSL for smtp server                              | true, false
+| `from_address`      | String      | `"admin@grafana-#{node['hostname']}.#{node['domain'].nil? ? 'local' : node['domain']}"`| Address used when sending out emails |
 | `from_name`         | String      | `Grafana`                                 | Name to be used when sending out emails                 |
 | `ehlo_identity`     | String      |                                           | Name to be used as client identity for EHLO in SMTP dialog|
 | `conf_directory`    | String      | `/etc/grafana`                            | The directory where the Grafana configuration resides   | Valid directory

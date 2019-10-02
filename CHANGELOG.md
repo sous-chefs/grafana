@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## UNRELEASED
+## 6.0.1
 
 - Removed misconfigured duplicate router_logging String property from config_server resource
 - Now correct Grafana version can be specified for installing/upgrading

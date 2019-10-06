@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 7.0.0
+
+- Resolves issue with service restarts using external service resources
+
 ## 6.0.1
 
 - Removed misconfigured duplicate router_logging String property from config_server resource

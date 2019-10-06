@@ -5,6 +5,7 @@ This file is used to list changes made in each version of grafana.
 ## 7.0.0
 
 - Resolves issue with service restarts using external service resources
+- Resolved the latest cookstyle issues
 
 ## 6.0.1
 

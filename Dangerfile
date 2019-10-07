@@ -5,7 +5,7 @@
 # Warnings will be issued for:
 #    Pull request with more than 400 lines of code changed
 #    Pull reqest that change more than 5 lines without test changes
-# failureures will be issued for:
+# Failures will be issued for:
 #    Pull request without summary
 #    Pull requests with code changes without changelog entry
 

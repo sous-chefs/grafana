@@ -18,22 +18,23 @@
 #
 # Configures the installed grafana instance
 
-property  :instance_name,     String,         name_property: true
-property  :conf_directory,    String,         default: '/etc/grafana'
-property  :config_file,       String,         default: lazy { ::File.join(conf_directory, 'grafana.ini') }
-property  :protocol,          String,         default: 'http', equal_to: %w(http https socket)
-property  :http_addr,         String,         default: ''
-property  :http_port,         Integer,        default: 3000
-property  :domain,            String,         default: node['hostname']
-property  :root_url,          String,         default: '%(protocol)s://%(domain)s:%(http_port)s/'
-property  :enforce_domain,    [true, false],  default: false
-property  :router_logging,    [true, false],  default: false
-property  :static_root_path,  String,         default: 'public'
-property  :enable_gzip,       [true, false],  default: false
-property  :cert_file,         String,         default: ''
-property  :cert_key,          String,         default: ''
-property  :cookbook,          String,         default: 'grafana'
-property  :source,            String,         default: 'grafana.ini.erb'
+property  :instance_name,        String,         name_property: true
+property  :conf_directory,       String,         default: '/etc/grafana'
+property  :config_file,          String,         default: lazy { ::File.join(conf_directory, 'grafana.ini') }
+property  :protocol,             String,         default: 'http', equal_to: %w(http https socket)
+property  :http_addr,            String,         default: ''
+property  :http_port,            Integer,        default: 3000
+property  :domain,               String,         default: node['hostname']
+property  :root_url,             String,         default: '%(protocol)s://%(domain)s:%(http_port)s/'
+property  :serve_from_sub_path,  [true, false],  default: false
+property  :enforce_domain,       [true, false],  default: false
+property  :router_logging,       [true, false],  default: false
+property  :static_root_path,     String,         default: 'public'
+property  :enable_gzip,          [true, false],  default: false
+property  :cert_file,            String,         default: ''
+property  :cert_key,             String,         default: ''
+property  :cookbook,             String,         default: 'grafana'
+property  :source,               String,         default: 'grafana.ini.erb'
 
 action :install do
   with_run_context :root do
@@ -53,6 +54,8 @@ action :install do
       variables['grafana']['server']['domain'] << new_resource.domain.to_s unless new_resource.domain.nil?
       variables['grafana']['server']['root_url'] ||= '' unless new_resource.root_url.nil?
       variables['grafana']['server']['root_url'] << new_resource.root_url.to_s unless new_resource.root_url.nil?
+      variables['grafana']['server']['serve_from_sub_path'] ||= '' unless new_resource.serve_from_sub_path.nil?
+      variables['grafana']['server']['serve_from_sub_path'] << new_resource.serve_from_sub_path.to_s unless new_resource.serve_from_sub_path.nil?
       variables['grafana']['server']['enforce_domain'] ||= '' unless new_resource.enforce_domain.nil?
       variables['grafana']['server']['enforce_domain'] << new_resource.enforce_domain.to_s unless new_resource.enforce_domain.nil?
       variables['grafana']['server']['router_logging'] ||= '' unless new_resource.router_logging.nil?

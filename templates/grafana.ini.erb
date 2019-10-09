@@ -80,6 +80,11 @@ enforce_domain = <%= @grafana['server']['enforce_domain'] %>
 root_url = <%= @grafana['server']['root_url'] %>
 <% end %>
 
+# Serve from subpath. Available only in grafana from version 6.3 and above.
+<% if @grafana['server']['serve_from_sub_path'] %>
+serve_from_sub_path = <%= @grafana['server']['serve_from_sub_path'] %>
+<% end %>
+
 # Log web requests
 <% if @grafana['server']['router_logging'] %>
 router_logging = <%= @grafana['server']['router_logging'] %>

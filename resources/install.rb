@@ -53,6 +53,7 @@ action :install do
     # this will allow grafana to be installed on 16.04 without compromising security of other systems
     package 'grafana' do
       options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --allow-unauthenticated'
+      version new_resource.version if new_resource.version
     end
   when 'rhel', 'amazon'
     yum_repository 'grafana' do

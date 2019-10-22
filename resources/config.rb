@@ -42,11 +42,6 @@ action :install do
     mode  '0750'
   end
 
-  service 'grafana-server' do
-    action :enable
-    subscribes :restart, "template[#{::File.join(new_resource.env_directory, 'grafana-server')}]", :immediately
-  end
-
   directory "/usr/share/#{new_resource.owner}" do
     owner     new_resource.owner
     group     new_resource.group
@@ -82,8 +77,6 @@ action :install do
 
       action :nothing
       delayed_action :create
-      service 'grafana-server'
-      notifies :restart, 'service[grafana-server]'
     end
   end
 end

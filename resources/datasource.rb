@@ -81,7 +81,7 @@ action :update do
   datasources = get_datasource_list(grafana_options)
   exists = false
 
-  # Check wether we have to update datasource's login
+  # Check whether we have to update datasource's login
   old_name = if new_datasource[:name] != new_resource.name
                new_resource.name
              else

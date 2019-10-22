@@ -2,6 +2,31 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 7.1.0
+
+- Add option for `serve_from_sub_path` in grafana_config_server
+
+## 7.0.0
+
+- Resolves issue with service restarts using external service resources
+- Resolved the latest cookstyle issues
+
+## 6.0.1
+
+- Removed misconfigured duplicate router_logging String property from config_server resource
+- Now correct Grafana version can be specified for installing/upgrading
+  on Debian based systems.
+
+## 6.0.0
+
+- Fixed type specification of group_search_dns to be Array instead
+  of incorrect String previously.
+- Cookstyle fixes around `long_description` and header formats
+
+## 5.1.1 (2019-08-16)
+
+- Fixed `address` appearing as `basic_auth_password` for internal metrics
+
 ## 5.1.0 (2019-07-26)
 
 - After modifying config files, grafana-server is restarted

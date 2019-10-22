@@ -27,7 +27,7 @@ property  :group,               String,             default: 'grafana'
 property  :restart_on_upgrade,  [String, Boolean],  default: false
 property  :conf_directory,      String,             default: '/etc/grafana'
 property  :config_file,         String,             default: lazy {::File.join(conf_directory, 'grafana.ini')}
-property  :app_mode,            String,             default: 'production', equal_to:  %w(production development)
+property  :app_mode,            String,             default: 'production', equal_to: %w(production development)
 property  :cookbook,            String,             default: 'grafana'
 property  :source,              String,             default: 'grafana.ini.erb'
 

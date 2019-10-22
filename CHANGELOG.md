@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 7.1.1
+
+- Fix issue with wrong setting being configured in the log section
+
 ## 7.1.0
 
 - Add option for `serve_from_sub_path` in grafana_config_server

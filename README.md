@@ -8,7 +8,7 @@
 
 ## Description
 
-This cookbook provides a complete installation and configuration of Grafana. This includes the ability to manage dashboards, datasources, organizations, plugins and users with Chef using Custom Resources.
+This cookbook provides a complete installation and configuration of Grafana. This includes the ability to manage dashboards, datasources, organizations, plugins and users with Chef via Custom Resources.
 
 ## Maintainers
 

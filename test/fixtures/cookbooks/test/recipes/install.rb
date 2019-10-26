@@ -39,9 +39,8 @@ grafana_config_writer 'Grafana' do
   sensitive false
 end
 
-
 # Stall to allow service to be fully available before testing
-# execute 'sleep 30' do
-#   action :nothing
-#   subscribes :run, 'service[grafana-server]', :immediately
-# end
+execute 'sleep 30' do
+  action :nothing
+  subscribes :run, 'service[grafana-server]', :immediately
+end

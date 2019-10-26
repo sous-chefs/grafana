@@ -5,8 +5,6 @@ service 'grafana-server' do
   subscribes :restart, ['template[/etc/grafana/grafana.ini]', 'template[/etc/grafana/ldap.toml]'], :delayed
 end
 
-directory '/etc/grafana'
-
 grafana_config 'Grafana'
 
 grafana_config_writer 'Grafana' do

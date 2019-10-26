@@ -23,9 +23,9 @@ property  :remote_cache_type,   String,         default: 'database', equal_to: %
 property  :remote_cache_config, String,         default: ''
 
 action :install do
-  variables['grafana']['remote_cache'] ||= {}
-  variables['grafana']['remote_cache']['type'] ||= '' unless new_resource.remote_cache_type.nil?
-  variables['grafana']['remote_cache']['type'] << new_resource.remote_cache_type.to_s unless new_resource.remote_cache_type.nil?
-  variables['grafana']['remote_cache']['connstr'] ||= '' unless new_resource.remote_cache_config.nil?
-  variables['grafana']['remote_cache']['connstr'] << new_resource.remote_cache_config.to_s unless new_resource.remote_cache_config.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['remote_cache'] ||= {}
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['remote_cache']['type'] ||= '' unless new_resource.remote_cache_type.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['remote_cache']['type'] << new_resource.remote_cache_type.to_s unless new_resource.remote_cache_type.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['remote_cache']['connstr'] ||= '' unless new_resource.remote_cache_config.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['remote_cache']['connstr'] << new_resource.remote_cache_config.to_s unless new_resource.remote_cache_config.nil?
 end

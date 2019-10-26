@@ -34,6 +34,12 @@ grafana_config_external_image_storage_s3 'Grafana' do
   region 'us-east-1'
 end
 
+grafana_config_writer 'Grafana' do
+  # In test we turn of sensitive so we can get better logs
+  sensitive false
+end
+
+
 # Stall to allow service to be fully available before testing
 # execute 'sleep 30' do
 #   action :nothing

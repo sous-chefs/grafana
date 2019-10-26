@@ -34,8 +34,14 @@ grafana_config_ldap_group_mappings 'Grafana' do
   org_id        1
 end
 
-grafana_config_ldap_group_mappings 'cn=readers,dc=grafana,dc=org' do
-  org_role      'Viewer'
+grafana_config_ldap_group_mappings 'Grafana' do
+  group_dn  'cn=readers,dc=grafana,dc=org'
+  org_role  'Viewer'
+end
+
+grafana_config_writer 'Grafana' do
+  # In test we turn of sensitive so we can get better logs
+  sensitive false
 end
 
 # Stall to allow service to be fully available before testing

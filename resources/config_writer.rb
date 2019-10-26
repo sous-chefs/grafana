@@ -22,7 +22,7 @@ action :install do
     source new_resource.ldap_source
     cookbook new_resource.cookbook
     variables(
-      grafana: node.run_state['sous-chefs'][new_resource.instance_name]['ldap']
+      ldap: node.run_state['sous-chefs'][new_resource.instance_name]['ldap']
     )
     not_if { node.run_state['sous-chefs'][new_resource.instance_name]['ldap'].nil? }
     sensitive new_resource.sensitive

@@ -5,14 +5,14 @@
 # full documentation: http://docs.grafana.org/installation/configuration/
 #
 
-<% if @grafana['ldap']['log_filters'] %>
+<% if @ldap['log_filters'] %>
 # To troubleshoot and get more log info enable ldap debug logging in grafana.ini
 [log]
-filters = <%= @grafana['ldap']['log_filters'] %>
+filters = <%= @ldap['log_filters'] %>
 <% end %>
 
-<% unless @grafana['ldap']['servers'].nil? %>
-<% @grafana['ldap']['servers'].each do | key, server | %>
+<% unless @ldap['servers'].nil? %>
+<% @ldap['servers'].each do | key, server | %>
 # Map ldap groups to grafana org roles
 [[servers]]
 # Ldap server host (specify multiple hosts space separated)
@@ -68,25 +68,25 @@ group_search_filter_user_attribute = "<%= server['group_search_filter_user_attri
 
 # Specify names of the ldap attributes your ldap uses
 [servers.attributes]
-<% if @grafana['ldap']['servers_attributes_name'] %>
-name = "<%= @grafana['ldap']['servers_attributes_name'] %>"
+<% if @ldap['servers_attributes_name'] %>
+name = "<%= @ldap['servers_attributes_name'] %>"
 <% end %>
-<% if @grafana['ldap']['servers_attributes_surname'] %>
-surname = "<%= @grafana['ldap']['servers_attributes_surname'] %>"
+<% if @ldap['servers_attributes_surname'] %>
+surname = "<%= @ldap['servers_attributes_surname'] %>"
 <% end %>
-<% if @grafana['ldap']['servers_attributes_username'] %>
-username = "<%= @grafana['ldap']['servers_attributes_username'] %>"
+<% if @ldap['servers_attributes_username'] %>
+username = "<%= @ldap['servers_attributes_username'] %>"
 <% end %>
-<% if @grafana['ldap']['servers_attributes_member_of'] %>
-member_of = "<%= @grafana['ldap']['servers_attributes_member_of'] %>"
+<% if @ldap['servers_attributes_member_of'] %>
+member_of = "<%= @ldap['servers_attributes_member_of'] %>"
 <% end %>
-<% if @grafana['ldap']['servers_attributes_email'] %>
-email = "<%= @grafana['ldap']['servers_attributes_email'] %>"
+<% if @ldap['servers_attributes_email'] %>
+email = "<%= @ldap['servers_attributes_email'] %>"
 <% end %>
 
 # Map ldap groups to grafana org roles
-<% unless @grafana['ldap']['group_mappings'].nil? %>
-<% @grafana['ldap']['group_mappings'].each do | key, group | %>
+<% unless @ldap['group_mappings'].nil? %>
+<% @ldap['group_mappings'].each do | key, group | %>
 
 [[servers.group_mappings]]
 group_dn = "<%= key %>"

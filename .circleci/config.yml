@@ -1,9 +1,9 @@
 ---
-lint_and_unit: &lint_and_unit
-  - delivery
-  - danger
-  - lint-yaml
-  - lint-markdown
+# lint_and_unit: &lint_and_unit
+#   - delivery
+#   - danger
+#   - lint-yaml
+#   - lint-markdown
 version: 2.1
 orbs:
   kitchen: sous-chefs/kitchen@2
@@ -22,4 +22,4 @@ workflows:
       - kitchen/dokken-single:
           name: basic-centos-7
           suite: basic-centos-7
-          requires: *lint_and_unit
+        #   requires: *lint_and_unit

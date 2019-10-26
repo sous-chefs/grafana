@@ -63,20 +63,7 @@ action :install do
     mode '0644'
   end
 
-  with_run_context :root do
-    edit_resource(:template, new_resource.config_file) do |new_resource|
-      node.run_state['grafana'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
-      source new_resource.source
-      cookbook new_resource.cookbook
-      variables['grafana'] ||= {}
-
-      variables['grafana']['instance_name'] ||= '' unless new_resource.instance_name.nil?
-      variables['grafana']['instance_name'] << new_resource.instance_name.to_s unless new_resource.instance_name.nil?
-      variables['grafana']['app_mode'] ||= '' unless new_resource.app_mode.nil?
-      variables['grafana']['app_mode'].<< new_resource.app_mode.to_s unless new_resource.app_mode.nil?
-
-      action :nothing
-      delayed_action :create
-    end
-  end
+  node.run_state['sous-chefs'][new_resource.instance_name]['instance_name'] = new_resource.instance_name unless new_resource.instance_name.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['app_mode'] = new_resource.app_mode unless new_resource.app_mode.nil?
 end
+  

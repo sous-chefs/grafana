@@ -6,3 +6,5 @@ service 'grafana-server' do
 end
 
 grafana_config 'Grafana'
+
+grafana_config_writer 'Grafana'

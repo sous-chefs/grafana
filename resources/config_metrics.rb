@@ -27,21 +27,19 @@ property  :graphite_address,    String,         default: ''
 property  :graphite_prefix,     String,         default: 'prod.grafana.%(instance_name)s.'
 
 action :install do
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['metrics'] ||= {}
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['metrics']['enabled'] ||= '' unless new_resource.enabled.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['metrics']['enabled'] << new_resource.enabled.to_s unless new_resource.enabled.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['metrics']['interval_seconds'] ||= '' unless new_resource.interval_seconds.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['metrics']['interval_seconds'] << new_resource.interval_seconds.to_s unless new_resource.interval_seconds.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['metrics']['basic_auth_username'] ||= '' unless new_resource.basic_auth_username.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['metrics']['basic_auth_username'] << new_resource.basic_auth_username.to_s unless new_resource.basic_auth_username.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['metrics']['basic_auth_password'] ||= '' unless new_resource.basic_auth_password.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['metrics']['basic_auth_password'] << new_resource.basic_auth_password.to_s unless new_resource.basic_auth_password.nil?
 
-      node.run_state['sous-chefs'][new_resource.instance_name]['metrics'] ||= {}
-      node.run_state['sous-chefs'][new_resource.instance_name]['metrics']['enabled'] ||= '' unless new_resource.enabled.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['metrics']['enabled'] << new_resource.enabled.to_s unless new_resource.enabled.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['metrics']['interval_seconds'] ||= '' unless new_resource.interval_seconds.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['metrics']['interval_seconds'] << new_resource.interval_seconds.to_s unless new_resource.interval_seconds.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['metrics']['basic_auth_username'] ||= '' unless new_resource.basic_auth_username.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['metrics']['basic_auth_username'] << new_resource.basic_auth_username.to_s unless new_resource.basic_auth_username.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['metrics']['basic_auth_password'] ||= '' unless new_resource.basic_auth_password.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['metrics']['basic_auth_password'] << new_resource.basic_auth_password.to_s unless new_resource.basic_auth_password.nil?
-
-      node.run_state['sous-chefs'][new_resource.instance_name]['metrics_graphite'] ||= {}
-      node.run_state['sous-chefs'][new_resource.instance_name]['metrics_graphite']['address'] ||= '' unless new_resource.graphite_address.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['metrics_graphite']['address'] << new_resource.graphite_address.to_s unless new_resource.graphite_address.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['metrics_graphite']['prefix'] ||= '' unless new_resource.graphite_prefix.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['metrics_graphite']['prefix'] << new_resource.graphite_prefix.to_s unless new_resource.graphite_prefix.nil?
-
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['metrics_graphite'] ||= {}
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['metrics_graphite']['address'] ||= '' unless new_resource.graphite_address.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['metrics_graphite']['address'] << new_resource.graphite_address.to_s unless new_resource.graphite_address.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['metrics_graphite']['prefix'] ||= '' unless new_resource.graphite_prefix.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['metrics_graphite']['prefix'] << new_resource.graphite_prefix.to_s unless new_resource.graphite_prefix.nil?
 end

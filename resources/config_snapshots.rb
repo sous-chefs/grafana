@@ -25,14 +25,13 @@ property  :external_snapshot_name,  String,         default: 'Publish to snapsho
 property  :snapshot_remove_expired, [true, false],  default: true
 
 action :install do
-      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots'] ||= {}
-      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots']['external_enabled'] ||= '' unless new_resource.external_enabled.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots']['external_enabled'] << new_resource.external_enabled.to_s unless new_resource.external_enabled.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots']['external_snapshot_url'] ||= '' unless new_resource.external_snapshot_url.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots']['external_snapshot_url'] << new_resource.external_snapshot_url.to_s unless new_resource.external_snapshot_url.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots']['external_snapshot_name'] ||= '' unless new_resource.external_snapshot_name.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots']['external_snapshot_name'] << new_resource.external_snapshot_name.to_s unless new_resource.external_snapshot_name.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots']['snapshot_remove_expired'] ||= '' unless new_resource.snapshot_remove_expired.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots']['snapshot_remove_expired'] << new_resource.snapshot_remove_expired.to_s unless new_resource.snapshot_remove_expired.nil?
-
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots'] ||= {}
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots']['external_enabled'] ||= '' unless new_resource.external_enabled.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots']['external_enabled'] << new_resource.external_enabled.to_s unless new_resource.external_enabled.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots']['external_snapshot_url'] ||= '' unless new_resource.external_snapshot_url.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots']['external_snapshot_url'] << new_resource.external_snapshot_url.to_s unless new_resource.external_snapshot_url.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots']['external_snapshot_name'] ||= '' unless new_resource.external_snapshot_name.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots']['external_snapshot_name'] << new_resource.external_snapshot_name.to_s unless new_resource.external_snapshot_name.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots']['snapshot_remove_expired'] ||= '' unless new_resource.snapshot_remove_expired.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots']['snapshot_remove_expired'] << new_resource.snapshot_remove_expired.to_s unless new_resource.snapshot_remove_expired.nil?
 end

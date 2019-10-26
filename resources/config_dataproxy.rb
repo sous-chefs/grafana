@@ -22,10 +22,7 @@ property  :instance_name,   String,         name_property: true
 property  :logging,         [true, false],  default: false
 
 action :install do
-  with_run_context :root do
-
-      node.run_state['sous-chefs'][new_resource.instance_name]['dataproxy'] ||= {}
-      node.run_state['sous-chefs'][new_resource.instance_name]['dataproxy']['logging'] ||= '' unless new_resource.logging.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['dataproxy']['logging'] << new_resource.logging.to_s unless new_resource.logging.nil?
-
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['dataproxy'] ||= {}
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['dataproxy']['logging'] ||= '' unless new_resource.logging.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['dataproxy']['logging'] << new_resource.logging.to_s unless new_resource.logging.nil?
 end

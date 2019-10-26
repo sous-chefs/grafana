@@ -33,30 +33,29 @@ property  :cert_file,            String,         default: ''
 property  :cert_key,             String,         default: ''
 
 action :install do
-      node.run_state['sous-chefs'][new_resource.instance_name]['server'] ||= {}
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['protocol'] ||= '' unless new_resource.protocol.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['protocol'] << new_resource.protocol.to_s unless new_resource.protocol.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['http_addr'] ||= '' unless new_resource.http_addr.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['http_addr'] << new_resource.http_addr.to_s unless new_resource.http_addr.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['http_port'] ||= '' unless new_resource.http_port.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['http_port'] << new_resource.http_port.to_s unless new_resource.http_port.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['domain'] ||= '' unless new_resource.domain.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['domain'] << new_resource.domain.to_s unless new_resource.domain.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['root_url'] ||= '' unless new_resource.root_url.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['root_url'] << new_resource.root_url.to_s unless new_resource.root_url.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['serve_from_sub_path'] ||= '' unless new_resource.serve_from_sub_path.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['serve_from_sub_path'] << new_resource.serve_from_sub_path.to_s unless new_resource.serve_from_sub_path.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['enforce_domain'] ||= '' unless new_resource.enforce_domain.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['enforce_domain'] << new_resource.enforce_domain.to_s unless new_resource.enforce_domain.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['router_logging'] ||= '' unless new_resource.router_logging.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['router_logging'] << new_resource.router_logging.to_s unless new_resource.router_logging.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['static_root_path'] ||= '' unless new_resource.static_root_path.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['static_root_path'] << new_resource.static_root_path.to_s unless new_resource.static_root_path.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['enable_gzip'] ||= '' unless new_resource.enable_gzip.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['enable_gzip'] << new_resource.enable_gzip.to_s unless new_resource.enable_gzip.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['cert_file'] ||= '' unless new_resource.cert_file.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['cert_file'] << new_resource.cert_file.to_s unless new_resource.cert_file.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['cert_key'] ||= '' unless new_resource.cert_key.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['server']['cert_key'] << new_resource.cert_key.to_s unless new_resource.cert_key.nil?
-
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server'] ||= {}
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['protocol'] ||= '' unless new_resource.protocol.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['protocol'] << new_resource.protocol.to_s unless new_resource.protocol.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['http_addr'] ||= '' unless new_resource.http_addr.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['http_addr'] << new_resource.http_addr.to_s unless new_resource.http_addr.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['http_port'] ||= '' unless new_resource.http_port.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['http_port'] << new_resource.http_port.to_s unless new_resource.http_port.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['domain'] ||= '' unless new_resource.domain.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['domain'] << new_resource.domain.to_s unless new_resource.domain.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['root_url'] ||= '' unless new_resource.root_url.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['root_url'] << new_resource.root_url.to_s unless new_resource.root_url.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['serve_from_sub_path'] ||= '' unless new_resource.serve_from_sub_path.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['serve_from_sub_path'] << new_resource.serve_from_sub_path.to_s unless new_resource.serve_from_sub_path.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['enforce_domain'] ||= '' unless new_resource.enforce_domain.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['enforce_domain'] << new_resource.enforce_domain.to_s unless new_resource.enforce_domain.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['router_logging'] ||= '' unless new_resource.router_logging.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['router_logging'] << new_resource.router_logging.to_s unless new_resource.router_logging.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['static_root_path'] ||= '' unless new_resource.static_root_path.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['static_root_path'] << new_resource.static_root_path.to_s unless new_resource.static_root_path.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['enable_gzip'] ||= '' unless new_resource.enable_gzip.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['enable_gzip'] << new_resource.enable_gzip.to_s unless new_resource.enable_gzip.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['cert_file'] ||= '' unless new_resource.cert_file.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['cert_file'] << new_resource.cert_file.to_s unless new_resource.cert_file.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['cert_key'] ||= '' unless new_resource.cert_key.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['server']['cert_key'] << new_resource.cert_key.to_s unless new_resource.cert_key.nil?
 end

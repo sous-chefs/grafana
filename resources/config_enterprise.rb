@@ -22,9 +22,7 @@ property  :instance_name,   String, name_property: true
 property  :license_path,    String, default: ''
 
 action :install do
-
-      node.run_state['sous-chefs'][new_resource.instance_name]['enterprise'] ||= {}
-      node.run_state['sous-chefs'][new_resource.instance_name]['enterprise']['license_path'] ||= '' unless new_resource.license_path.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['enterprise']['license_path'] << new_resource.license_path.to_s unless new_resource.license_path.nil?
-
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['enterprise'] ||= {}
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['enterprise']['license_path'] ||= '' unless new_resource.license_path.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['enterprise']['license_path'] << new_resource.license_path.to_s unless new_resource.license_path.nil?
 end

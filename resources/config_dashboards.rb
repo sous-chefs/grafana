@@ -22,9 +22,7 @@ property  :instance_name,     String,   name_property: true
 property  :versions_to_keep,  Integer,  default: 20
 
 action :install do
-
-      node.run_state['sous-chefs'][new_resource.instance_name]['dashboards'] ||= {}
-      node.run_state['sous-chefs'][new_resource.instance_name]['dashboards']['versions_to_keep'] ||= '' unless new_resource.versions_to_keep.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['dashboards']['versions_to_keep'] << new_resource.versions_to_keep.to_s unless new_resource.versions_to_keep.nil?
-
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['dashboards'] ||= {}
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['dashboards']['versions_to_keep'] ||= '' unless new_resource.versions_to_keep.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['dashboards']['versions_to_keep'] << new_resource.versions_to_keep.to_s unless new_resource.versions_to_keep.nil?
 end

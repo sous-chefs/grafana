@@ -31,27 +31,25 @@ property  :disable_brute_force_login_protection,  [true, false],  default: false
 property  :allow_embedding,                       [true, false],  default: false
 
 action :install do
-
-      variables['grafana']['security'] ||= {}
-      variables['grafana']['security']['admin_user'] ||= '' unless new_resource.admin_user.nil?
-      variables['grafana']['security']['admin_user'] << new_resource.admin_user.to_s unless new_resource.admin_user.nil?
-      variables['grafana']['security']['admin_password'] ||= '' unless new_resource.admin_password.nil?
-      variables['grafana']['security']['admin_password'] << new_resource.admin_password.to_s unless new_resource.admin_password.nil?
-      variables['grafana']['security']['secret_key'] ||= '' unless new_resource.secret_key.nil?
-      variables['grafana']['security']['secret_key'] << new_resource.secret_key.to_s unless new_resource.secret_key.nil?
-      variables['grafana']['security']['login_remember_days'] ||= '' unless new_resource.login_remember_days.nil?
-      variables['grafana']['security']['login_remember_days'] << new_resource.login_remember_days.to_s unless new_resource.login_remember_days.nil?
-      variables['grafana']['security']['cookie_username'] ||= '' unless new_resource.cookie_username.nil?
-      variables['grafana']['security']['cookie_username'] << new_resource.cookie_username.to_s unless new_resource.cookie_username.nil?
-      variables['grafana']['security']['cookie_remember_name'] ||= '' unless new_resource.cookie_remember_name.nil?
-      variables['grafana']['security']['cookie_remember_name'] << new_resource.cookie_remember_name.to_s unless new_resource.cookie_remember_name.nil?
-      variables['grafana']['security']['disable_gravatar'] ||= '' unless new_resource.disable_gravatar.nil?
-      variables['grafana']['security']['disable_gravatar'] << new_resource.disable_gravatar.to_s unless new_resource.disable_gravatar.nil?
-      variables['grafana']['security']['data_source_proxy_whitelist'] ||= '' unless new_resource.data_source_proxy_whitelist.nil?
-      variables['grafana']['security']['data_source_proxy_whitelist'] << new_resource.data_source_proxy_whitelist.to_s unless new_resource.data_source_proxy_whitelist.nil?
-      variables['grafana']['security']['disable_brute_force_login_protection'] ||= '' unless new_resource.disable_brute_force_login_protection.nil?
-      variables['grafana']['security']['disable_brute_force_login_protection'] << new_resource.disable_brute_force_login_protection.to_s unless new_resource.disable_brute_force_login_protection.nil?
-      variables['grafana']['security']['allow_embedding'] ||= '' unless new_resource.allow_embedding.nil?
-      variables['grafana']['security']['allow_embedding'] << new_resource.allow_embedding.to_s unless new_resource.allow_embedding.nil?
-
+  variables['grafana']['security'] ||= {}
+  variables['grafana']['security']['admin_user'] ||= '' unless new_resource.admin_user.nil?
+  variables['grafana']['security']['admin_user'] << new_resource.admin_user.to_s unless new_resource.admin_user.nil?
+  variables['grafana']['security']['admin_password'] ||= '' unless new_resource.admin_password.nil?
+  variables['grafana']['security']['admin_password'] << new_resource.admin_password.to_s unless new_resource.admin_password.nil?
+  variables['grafana']['security']['secret_key'] ||= '' unless new_resource.secret_key.nil?
+  variables['grafana']['security']['secret_key'] << new_resource.secret_key.to_s unless new_resource.secret_key.nil?
+  variables['grafana']['security']['login_remember_days'] ||= '' unless new_resource.login_remember_days.nil?
+  variables['grafana']['security']['login_remember_days'] << new_resource.login_remember_days.to_s unless new_resource.login_remember_days.nil?
+  variables['grafana']['security']['cookie_username'] ||= '' unless new_resource.cookie_username.nil?
+  variables['grafana']['security']['cookie_username'] << new_resource.cookie_username.to_s unless new_resource.cookie_username.nil?
+  variables['grafana']['security']['cookie_remember_name'] ||= '' unless new_resource.cookie_remember_name.nil?
+  variables['grafana']['security']['cookie_remember_name'] << new_resource.cookie_remember_name.to_s unless new_resource.cookie_remember_name.nil?
+  variables['grafana']['security']['disable_gravatar'] ||= '' unless new_resource.disable_gravatar.nil?
+  variables['grafana']['security']['disable_gravatar'] << new_resource.disable_gravatar.to_s unless new_resource.disable_gravatar.nil?
+  variables['grafana']['security']['data_source_proxy_whitelist'] ||= '' unless new_resource.data_source_proxy_whitelist.nil?
+  variables['grafana']['security']['data_source_proxy_whitelist'] << new_resource.data_source_proxy_whitelist.to_s unless new_resource.data_source_proxy_whitelist.nil?
+  variables['grafana']['security']['disable_brute_force_login_protection'] ||= '' unless new_resource.disable_brute_force_login_protection.nil?
+  variables['grafana']['security']['disable_brute_force_login_protection'] << new_resource.disable_brute_force_login_protection.to_s unless new_resource.disable_brute_force_login_protection.nil?
+  variables['grafana']['security']['allow_embedding'] ||= '' unless new_resource.allow_embedding.nil?
+  variables['grafana']['security']['allow_embedding'] << new_resource.allow_embedding.to_s unless new_resource.allow_embedding.nil?
 end

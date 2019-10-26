@@ -62,13 +62,13 @@ action :install do
     cookbook new_resource.cookbook
     mode '0644'
   end
-  
+
   # Node run state is not like attributes and you need to declare types as
   # you walk down the tree
   node.run_state['sous-chefs'] ||= {}
   node.run_state['sous-chefs'][new_resource.instance_name] ||= {}
+  node.run_state['sous-chefs'][new_resource.instance_name]['config'] ||= {}
 
-  node.run_state['sous-chefs'][new_resource.instance_name]['instance_name'] = new_resource.instance_name unless new_resource.instance_name.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['app_mode'] = new_resource.app_mode unless new_resource.app_mode.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['instance_name'] = new_resource.instance_name unless new_resource.instance_name.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['app_mode'] = new_resource.app_mode unless new_resource.app_mode.nil?
 end
-  

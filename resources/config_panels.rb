@@ -22,9 +22,7 @@ property  :instance_name,   String,         name_property: true
 property  :enable_alpha,    [true, false],  default: false
 
 action :install do
-
-      node.run_state['sous-chefs'][new_resource.instance_name]['panels'] ||= {}
-      node.run_state['sous-chefs'][new_resource.instance_name]['panels']['enable_alpha'] ||= '' unless new_resource.enable_alpha.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['panels']['enable_alpha'] << new_resource.enable_alpha.to_s unless new_resource.enable_alpha.nil?
-
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['panels'] ||= {}
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['panels']['enable_alpha'] ||= '' unless new_resource.enable_alpha.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['panels']['enable_alpha'] << new_resource.enable_alpha.to_s unless new_resource.enable_alpha.nil?
 end

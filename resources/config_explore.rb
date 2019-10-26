@@ -22,9 +22,7 @@ property  :instance_name,   String,         name_property: true
 property  :enabled,         [true, false],  default: false
 
 action :install do
-
-      node.run_state['sous-chefs'][new_resource.instance_name]['explore'] ||= {}
-      node.run_state['sous-chefs'][new_resource.instance_name]['explore']['enabled'] ||= '' unless new_resource.enabled.nil?
-      node.run_state['sous-chefs'][new_resource.instance_name]['explore']['enabled'] << new_resource.enabled.to_s unless new_resource.enabled.nil?
-
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['explore'] ||= {}
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['explore']['enabled'] ||= '' unless new_resource.enabled.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['explore']['enabled'] << new_resource.enabled.to_s unless new_resource.enabled.nil?
 end

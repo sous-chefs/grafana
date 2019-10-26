@@ -20,6 +20,15 @@ workflows:
     #   - kitchen/delivery:
     #       name: delivery
       - kitchen/dokken-single:
+          name: default-centos-7
+          suite: default-centos-7
+      - kitchen/dokken-single:
+          name: ldap-centos-7
+          suite: ldap-centos-7
+      - kitchen/dokken-single:
           name: basic-centos-7
           suite: basic-centos-7
+      - kitchen/dokken-single:
+          name: plugins-centos-7
+          suite: plugins-centos-7
         #   requires: *lint_and_unit

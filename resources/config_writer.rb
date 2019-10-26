@@ -11,7 +11,7 @@ property  :service_name,        String,                   default: 'grafana-serv
 action :install do
   service new_resource.service_name do
     action [:enable]
-    subscribes [:start, :restart], ['template[/etc/grafana/grafana.ini]', 'template[/etc/grafana/ldap.toml]'], :immediately
+    subscribes :restart, ['template[/etc/grafana/grafana.ini]', 'template[/etc/grafana/ldap.toml]'], :immediately
   end
 
   template ::File.join(new_resource.config_file) do

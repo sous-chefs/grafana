@@ -15,7 +15,8 @@ grafana_config_log 'Grafana'
 
 grafana_config_ldap 'Grafana'
 
-grafana_config_ldap_servers '127.0.0.1' do
+grafana_config_ldap_servers 'Grafana' do
+  host            '127.0.0.1'
   port            389
   use_ssl         false
   start_tls       false
@@ -26,7 +27,8 @@ grafana_config_ldap_servers '127.0.0.1' do
   search_base_dns %w( dc=grafana,dc=org )
 end
 
-grafana_config_ldap_group_mappings 'cn=admins,dc=grafana,dc=org' do
+grafana_config_ldap_group_mappings 'Grafana' do
+  group_dn      'cn=admins,dc=grafana,dc=org'
   org_role      'Admin'
   grafana_admin true
   org_id        1

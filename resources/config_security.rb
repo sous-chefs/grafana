@@ -19,8 +19,6 @@
 # Configures the installed grafana instance
 
 property  :instance_name,                         String,         name_property: true
-property  :conf_directory,                        String,         default: '/etc/grafana'
-property  :config_file,                           String,         default: lazy { ::File.join(conf_directory, 'grafana.ini') }
 property  :admin_user,                            String,         default: 'admin'
 property  :admin_password,                        String,         default: 'admin'
 property  :secret_key,                            String,         default: 'SW2YcwTIb9zpOOhoPsMm'
@@ -31,15 +29,8 @@ property  :disable_gravatar,                      [true, false],  default: false
 property  :data_source_proxy_whitelist,           String,         default: ''
 property  :disable_brute_force_login_protection,  [true, false],  default: false
 property  :allow_embedding,                       [true, false],  default: false
-property  :cookbook,                              String,         default: 'grafana'
-property  :source,                                String,         default: 'grafana.ini.erb'
 
 action :install do
-  with_run_context :root do
-    edit_resource(:template, new_resource.config_file) do |new_resource|
-      node.run_state['grafana'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
-      source new_resource.source
-      cookbook new_resource.cookbook
 
       variables['grafana']['security'] ||= {}
       variables['grafana']['security']['admin_user'] ||= '' unless new_resource.admin_user.nil?
@@ -63,8 +54,4 @@ action :install do
       variables['grafana']['security']['allow_embedding'] ||= '' unless new_resource.allow_embedding.nil?
       variables['grafana']['security']['allow_embedding'] << new_resource.allow_embedding.to_s unless new_resource.allow_embedding.nil?
 
-      action :nothing
-      delayed_action :create
-    end
-  end
 end

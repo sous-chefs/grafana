@@ -19,28 +19,15 @@
 # Configures the installed grafana instance
 
 property  :instance_name,             String,         name_property: true
-property  :conf_directory,            String,         default: '/etc/grafana'
-property  :config_file,               String,         default: lazy { ::File.join(conf_directory, 'grafana.ini') }
 property  :welcome_email_on_sign_up,  [true, false],  default: false
 property  :templates_pattern,         String,         default: 'emails/*.html'
-property  :cookbook,                  String,         default: 'grafana'
-property  :source,                    String,         default: 'grafana.ini.erb'
 
 action :install do
-  with_run_context :root do
-    edit_resource(:template, new_resource.config_file) do |new_resource|
-      node.run_state['grafana'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
-      source new_resource.source
-      cookbook new_resource.cookbook
 
-      variables['grafana']['emails'] ||= {}
-      variables['grafana']['emails']['welcome_email_on_sign_up'] ||= '' unless new_resource.welcome_email_on_sign_up.nil?
-      variables['grafana']['emails']['welcome_email_on_sign_up'] << new_resource.welcome_email_on_sign_up.to_s unless new_resource.welcome_email_on_sign_up.nil?
-      variables['grafana']['emails']['templates_pattern'] ||= '' unless new_resource.templates_pattern.nil?
-      variables['grafana']['emails']['templates_pattern'] << new_resource.templates_pattern.to_s unless new_resource.templates_pattern.nil?
+      node.run_state['sous-chefs'][new_resource.instance_name]['emails'] ||= {}
+      node.run_state['sous-chefs'][new_resource.instance_name]['emails']['welcome_email_on_sign_up'] ||= '' unless new_resource.welcome_email_on_sign_up.nil?
+      node.run_state['sous-chefs'][new_resource.instance_name]['emails']['welcome_email_on_sign_up'] << new_resource.welcome_email_on_sign_up.to_s unless new_resource.welcome_email_on_sign_up.nil?
+      node.run_state['sous-chefs'][new_resource.instance_name]['emails']['templates_pattern'] ||= '' unless new_resource.templates_pattern.nil?
+      node.run_state['sous-chefs'][new_resource.instance_name]['emails']['templates_pattern'] << new_resource.templates_pattern.to_s unless new_resource.templates_pattern.nil?
 
-      action :nothing
-      delayed_action :create
-    end
-  end
 end

@@ -19,35 +19,20 @@
 # Configures the installed grafana instance
 
 property  :instance_name,           String,         name_property: true
-property  :conf_directory,          String,         default: '/etc/grafana'
-property  :config_file,             String,         default: lazy { ::File.join(conf_directory, 'grafana.ini') }
 property  :external_enabled,        [true, false],  default: true
 property  :external_snapshot_url,   String,         default: 'https://snapshots-origin.raintank.io'
 property  :external_snapshot_name,  String,         default: 'Publish to snapshot.raintank.io'
 property  :snapshot_remove_expired, [true, false],  default: true
-# This matches the name given by Grafana's config file
-property  :cookbook,                String,         default: 'grafana'
-property  :source,                  String,         default: 'grafana.ini.erb'
 
 action :install do
-  with_run_context :root do
-    edit_resource(:template, new_resource.config_file) do |new_resource|
-      node.run_state['grafana'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
-      source new_resource.source
-      cookbook new_resource.cookbook
+      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots'] ||= {}
+      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots']['external_enabled'] ||= '' unless new_resource.external_enabled.nil?
+      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots']['external_enabled'] << new_resource.external_enabled.to_s unless new_resource.external_enabled.nil?
+      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots']['external_snapshot_url'] ||= '' unless new_resource.external_snapshot_url.nil?
+      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots']['external_snapshot_url'] << new_resource.external_snapshot_url.to_s unless new_resource.external_snapshot_url.nil?
+      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots']['external_snapshot_name'] ||= '' unless new_resource.external_snapshot_name.nil?
+      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots']['external_snapshot_name'] << new_resource.external_snapshot_name.to_s unless new_resource.external_snapshot_name.nil?
+      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots']['snapshot_remove_expired'] ||= '' unless new_resource.snapshot_remove_expired.nil?
+      node.run_state['sous-chefs'][new_resource.instance_name]['snapshots']['snapshot_remove_expired'] << new_resource.snapshot_remove_expired.to_s unless new_resource.snapshot_remove_expired.nil?
 
-      variables['grafana']['snapshots'] ||= {}
-      variables['grafana']['snapshots']['external_enabled'] ||= '' unless new_resource.external_enabled.nil?
-      variables['grafana']['snapshots']['external_enabled'] << new_resource.external_enabled.to_s unless new_resource.external_enabled.nil?
-      variables['grafana']['snapshots']['external_snapshot_url'] ||= '' unless new_resource.external_snapshot_url.nil?
-      variables['grafana']['snapshots']['external_snapshot_url'] << new_resource.external_snapshot_url.to_s unless new_resource.external_snapshot_url.nil?
-      variables['grafana']['snapshots']['external_snapshot_name'] ||= '' unless new_resource.external_snapshot_name.nil?
-      variables['grafana']['snapshots']['external_snapshot_name'] << new_resource.external_snapshot_name.to_s unless new_resource.external_snapshot_name.nil?
-      variables['grafana']['snapshots']['snapshot_remove_expired'] ||= '' unless new_resource.snapshot_remove_expired.nil?
-      variables['grafana']['snapshots']['snapshot_remove_expired'] << new_resource.snapshot_remove_expired.to_s unless new_resource.snapshot_remove_expired.nil?
-
-      action :nothing
-      delayed_action :create
-    end
-  end
 end

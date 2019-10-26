@@ -23,6 +23,7 @@ end
 describe ini('/etc/grafana/grafana.ini') do
   its('app_mode') { should eq 'production' }
   its('instance_name') { should eq 'Grafana' }
+end
 
 describe service('grafana-server') do
   it { should be_enabled }

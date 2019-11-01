@@ -18,10 +18,6 @@ Introduced: v6.2.0
 | ------------------- | ----------- | ----------------------------------------- | ------------------------------------------------------- | --------------- |
 | `remote_cache_type` | String      | `database`                                | Provider to use                                         |redis memcached database
 | `remote_cache_config`   | String      |                                       | See <https://grafana.com/docs/installation/configuration/#connstr> |
-| `conf_directory`    | String      | `/etc/grafana`                            | The directory where the Grafana configuration resides   | Valid directory
-| `config_file`       | String      | `/etc/grafana/grafana.ini`                | The Grafana configuration file                          | Valid file path
-| `cookbook`          | String      | `grafana`                                 | Which cookbook to look in for the template              |
-| `source`            | String      | `grafana.ini.erb`                         | Name of the template                                    |
 
 ## Examples
 

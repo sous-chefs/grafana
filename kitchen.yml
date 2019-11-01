@@ -31,3 +31,7 @@ suites:
   - name: plugins
     run_list:
       - recipe[test::plugins]
+
+  - name: basic
+    run_list:
+      - recipe[test::basic]

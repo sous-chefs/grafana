@@ -20,10 +20,6 @@ Introduced: v4.0.0
 | `org_role`        | String        | `Viewer`                 | Assign users of group_dn the organization role | Admin Editor Viewer
 | `grafana_admin`   | true, false   | `false`                  | When true makes user of group_dn Grafana server admin. A Grafana server admin has admin access over all organizations and users. Available in Grafana v5.3 and above|
 | `org_id`          | Integer       | `1`                      | The Grafana organization database id. Setting this allows for multiple group_dn’s to be assigned to the same org_role provided the org_id differs |
-| `conf_directory`  | String        | `/etc/grafana`           | The directory where the Grafana configuration resides                     | Valid directory
-| `config_file`     | String        | `/etc/grafana/ldap.toml` | The Grafana configuration file                                            | Valid file path
-| `cookbook`        | String        | `grafana`                | Which cookbook to look in for the template                                |
-| `source`          | String        | `ldap.toml.erb`          | Name of the template                                                      |
 
 ## Examples
 

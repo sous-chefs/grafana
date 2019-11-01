@@ -19,8 +19,6 @@
 # Configures the installed grafana instance
 
 property  :instance_name,           String,         name_property: true
-property  :conf_directory,          String,         default: '/etc/grafana'
-property  :config_file,             String,         default: lazy { ::File.join(conf_directory, 'grafana.ini') }
 property  :storage_provider,        String,         default: 's3'
 property  :region,                  String,         required: true
 property  :bucket,                  String
@@ -28,35 +26,22 @@ property  :bucket_url,              String
 property  :path,                    String
 property  :access_key,              String
 property  :secret_key,              String
-property  :cookbook,                String,         default: 'grafana'
-property  :source,                  String,         default: 'grafana.ini.erb'
 
 action :install do
-  with_run_context :root do
-    edit_resource(:template, new_resource.config_file) do |new_resource|
-      node.run_state['grafana'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
-      source new_resource.source
-      cookbook new_resource.cookbook
-
-      Chef::Log.fatal('external_image_storage_s3 : Specify either bucket or bucket_url') if new_resource.bucket.nil? && new_resource.bucket_url.nil?
-      variables['grafana']['external_image_storage'] ||= {}
-      variables['grafana']['external_image_storage']['storage_provider'] ||= '' unless new_resource.storage_provider.nil?
-      variables['grafana']['external_image_storage']['storage_provider'] << new_resource.storage_provider.to_s unless new_resource.storage_provider.nil?
-      variables['grafana']['external_image_storage']['region'] ||= '' unless new_resource.region.nil?
-      variables['grafana']['external_image_storage']['region'] << new_resource.region.to_s unless new_resource.region.nil?
-      variables['grafana']['external_image_storage']['bucket'] ||= '' unless new_resource.bucket.nil?
-      variables['grafana']['external_image_storage']['bucket'] << new_resource.bucket.to_s unless new_resource.bucket.nil?
-      variables['grafana']['external_image_storage']['bucket_url'] ||= '' unless new_resource.bucket_url.nil?
-      variables['grafana']['external_image_storage']['bucket_url'] << new_resource.bucket_url.to_s unless new_resource.bucket_url.nil?
-      variables['grafana']['external_image_storage']['path'] ||= '' unless new_resource.path.nil?
-      variables['grafana']['external_image_storage']['path'] << new_resource.path.to_s unless new_resource.path.nil?
-      variables['grafana']['external_image_storage']['access_key'] ||= '' unless new_resource.access_key.nil?
-      variables['grafana']['external_image_storage']['access_key'] << new_resource.access_key.to_s unless new_resource.access_key.nil?
-      variables['grafana']['external_image_storage']['secret_key'] ||= '' unless new_resource.secret_key.nil?
-      variables['grafana']['external_image_storage']['secret_key'] << new_resource.secret_key.to_s unless new_resource.secret_key.nil?
-
-      action :nothing
-      delayed_action :create
-    end
-  end
+  Chef::Log.fatal('external_image_storage_s3 : Specify either bucket or bucket_url') if new_resource.bucket.nil? && new_resource.bucket_url.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['external_image_storage'] ||= {}
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['external_image_storage']['storage_provider'] ||= '' unless new_resource.storage_provider.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['external_image_storage']['storage_provider'] << new_resource.storage_provider.to_s unless new_resource.storage_provider.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['external_image_storage']['region'] ||= '' unless new_resource.region.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['external_image_storage']['region'] << new_resource.region.to_s unless new_resource.region.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['external_image_storage']['bucket'] ||= '' unless new_resource.bucket.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['external_image_storage']['bucket'] << new_resource.bucket.to_s unless new_resource.bucket.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['external_image_storage']['bucket_url'] ||= '' unless new_resource.bucket_url.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['external_image_storage']['bucket_url'] << new_resource.bucket_url.to_s unless new_resource.bucket_url.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['external_image_storage']['path'] ||= '' unless new_resource.path.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['external_image_storage']['path'] << new_resource.path.to_s unless new_resource.path.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['external_image_storage']['access_key'] ||= '' unless new_resource.access_key.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['external_image_storage']['access_key'] << new_resource.access_key.to_s unless new_resource.access_key.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['external_image_storage']['secret_key'] ||= '' unless new_resource.secret_key.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['external_image_storage']['secret_key'] << new_resource.secret_key.to_s unless new_resource.secret_key.nil?
 end

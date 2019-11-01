@@ -2,7 +2,7 @@ grafana_install 'grafana'
 
 service 'grafana-server' do
   action [:enable, :start]
-  subscribes :restart, ['template[/etc/grafana/grafana.ini]', 'template[/etc/grafana/ldap.toml]'], :delayed
+  subscribes :restart, ['template[/etc/grafana/grafana.ini]', 'template[/etc/grafana/ldap.toml]'], :immediately
 end
 
 grafana_config 'Grafana'
@@ -34,8 +34,13 @@ grafana_config_external_image_storage_s3 'Grafana' do
   region 'us-east-1'
 end
 
+grafana_config_writer 'Grafana' do
+  # In test we turn of sensitive so we can get better logs
+  sensitive false
+end
+
 # Stall to allow service to be fully available before testing
-# execute 'sleep 30' do
-#   action :nothing
-#   subscribes :run, 'service[grafana-server]', :immediately
-# end
+execute 'sleep 30' do
+  action :nothing
+  subscribes :run, 'service[grafana-server]', :immediately
+end

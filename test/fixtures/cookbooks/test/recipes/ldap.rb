@@ -2,7 +2,7 @@ grafana_install 'grafana'
 
 service 'grafana-server' do
   action [:enable, :start]
-  subscribes :restart, ['template[/etc/grafana/grafana.ini]', 'template[/etc/grafana/ldap.toml]'], :delayed
+  subscribes :restart, ['template[/etc/grafana/grafana.ini]', 'template[/etc/grafana/ldap.toml]'], :immediately
 end
 
 grafana_config 'Grafana'
@@ -15,7 +15,8 @@ grafana_config_log 'Grafana'
 
 grafana_config_ldap 'Grafana'
 
-grafana_config_ldap_servers '127.0.0.1' do
+grafana_config_ldap_servers 'Grafana' do
+  host            '127.0.0.1'
   port            389
   use_ssl         false
   start_tls       false
@@ -26,14 +27,21 @@ grafana_config_ldap_servers '127.0.0.1' do
   search_base_dns %w( dc=grafana,dc=org )
 end
 
-grafana_config_ldap_group_mappings 'cn=admins,dc=grafana,dc=org' do
+grafana_config_ldap_group_mappings 'Grafana' do
+  group_dn      'cn=admins,dc=grafana,dc=org'
   org_role      'Admin'
   grafana_admin true
   org_id        1
 end
 
-grafana_config_ldap_group_mappings 'cn=readers,dc=grafana,dc=org' do
-  org_role      'Viewer'
+grafana_config_ldap_group_mappings 'Grafana' do
+  group_dn  'cn=readers,dc=grafana,dc=org'
+  org_role  'Viewer'
+end
+
+grafana_config_writer 'Grafana' do
+  # In test we turn of sensitive so we can get better logs
+  sensitive false
 end
 
 # Stall to allow service to be fully available before testing

@@ -2,6 +2,20 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 8.0.0
+
+- Changed `ldap_config_servers` `host` property from name property to required property
+- Changed `ldap_config_group_mappings` `group_dn` property from name_property to required property
+- Added `instance_name` to above resources as name property
+- Changed ldap config template from @grafana['ldap'] to @LDAP
+- Removed the requirement to handle services outside of resources, `config_writer` now restarts when requested
+- Removed config directory from all config resource
+- Removed config file from all config resource
+- Removed cookbook from all config resource
+- Removed source from all config resource
+- Added resource called config_writer to output the config file
+- Added sensitive flag on config_writer
+
 ## 7.1.1
 
 - Fix issue with wrong setting being configured in the log section

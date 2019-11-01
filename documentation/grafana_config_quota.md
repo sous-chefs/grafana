@@ -27,10 +27,6 @@ Introduced: v4.0.0
 | `global_dashboard`        | Integer     | `-1`                        | global limit of dashboards.                             |
 | `global_api_key`          | Integer     | `-1`                        | global limit of api_keys.                               |
 | `global_session`          | Integer     | `-1`                        | global limit on number of logged in users.              |
-| `conf_directory`          | String      | `/etc/grafana`              | The directory where the Grafana configuration resides   | Valid directory
-| `config_file`             | String      | `/etc/grafana/grafana.ini`  | The Grafana configuration file                          | Valid file path
-| `cookbook`                | String      | `grafana`                   | Which cookbook to look in for the template              |
-| `source`                  | String      | `grafana.ini.erb`           | Name of the template                                    |
 
 ## Examples
 

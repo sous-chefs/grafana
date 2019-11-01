@@ -29,11 +29,7 @@ Introduced: v4.0.0
 | `ca_cert_path`            |  String       |                             | The path to the CA certificate to use.                                    |
 | `client_key_path`         |  String       |                             | The path to the client key. Only if server requires client authentication |
 | `server_cert_name`        |  String       |                             | The path to the client cert. Only if server requires client authentication|
-| `path`                    |  String       | `grafana.db`                | Only applicable for sqlite3 database. The file path where the database will be stored.|
-| `conf_directory`          | String        | `/etc/grafana`              | The directory where the Grafana configuration resides                     | Valid directory
-| `config_file`             | String        | `/etc/grafana/grafana.ini`  | The Grafana configuration file                                            | Valid file path
-| `cookbook`                | String        | `grafana`                   | Which cookbook to look in for the template                                |
-| `source`                  | String        | `grafana.ini.erb`           | Name of the template                                                      |
+| `path`                    |  String       | `grafana.db`                | Only applicable for sqlite3 database. The file path where the database will be|
 
 ## Examples
 

@@ -31,10 +31,6 @@ Introduced: v4.0.0
 | `group_search_filter`                 | String        |                          | POSIX, Group search filter, to retrieve the groups of which the user is a member  |
 | `group_search_base_dns`               | Array         |                          | POSIX, An array of the base DNs to search through for groups. Typically uses ou=groups |
 | `group_search_filter_user_attribute`  | String        |                          | POSIX, the %s in the search filter will be replaced with the attribute defined below |
-| `conf_directory`                      | String        | `/etc/grafana`           | The directory where the Grafana configuration resides                     | Valid directory
-| `config_file`                         | String        | `/etc/grafana/ldap.toml` | The Grafana configuration file                                            | Valid file path
-| `cookbook`                            | String        | `grafana`                | Which cookbook to look in for the template                                |
-| `source`                              | String        | `ldap.toml.erb`          | Name of the template                                                      |
 
 ## Examples
 

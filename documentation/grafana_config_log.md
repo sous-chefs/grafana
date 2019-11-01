@@ -34,10 +34,6 @@ Introduced: v4.0.0
 | `syslog_address`          | String        |                             | Syslog network type and address. This can be udp, tcp, or unix. If left blank, the default unix endpoints will be used.  |
 | `syslog_facility`         | String        |                             | Syslog facility                                                           |user, daemon and local0 through local7
 | `syslog_tag`              | String        |                             | Syslog tag. By default, the process' argv[0] is used                      |
-| `conf_directory`          | String        | `/etc/grafana`              | The directory where the Grafana configuration resides                     | Valid directory
-| `config_file`             | String        | `/etc/grafana/grafana.ini`  | The Grafana configuration file                                            | Valid file path
-| `cookbook`                | String        | `grafana`                   | Which cookbook to look in for the template                                |
-| `source`                  | String        | `grafana.ini.erb`           | Name of the template                                                      |
 
 ## Examples
 

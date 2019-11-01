@@ -22,10 +22,6 @@ Introduced: v4.0.0
 | `interval_seconds`        | Integer       | `10`                              | Flush/Write interval when sending metrics to external TSDB. Defaults to 10s.|
 | `graphite_address`        | String        |                                   | Format Hostname or ip:port                                                |
 | `graphite_prefix`         | String        | `prod.grafana.%(instance_name)s.` | Graphite metric prefix                                                    |
-| `conf_directory`          | String        | `/etc/grafana`                    | The directory where the Grafana configuration resides                     | Valid directory
-| `config_file`             | String        | `/etc/grafana/grafana.ini`        | The Grafana configuration file                                            | Valid file path
-| `cookbook`                | String        | `grafana`                         | Which cookbook to look in for the template                                |
-| `source`                  | String        | `grafana.ini.erb`                 | Name of the template                                                      |
 
 ## Examples
 

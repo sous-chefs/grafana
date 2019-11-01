@@ -23,10 +23,6 @@ Introduced: v4.0.3
 | `path`                    | String      |                                           | Optional extra path inside bucket     | Valid path inside the S3 bucket
 | `access_key`              | String      |                                           | Access key for the aws account to use. It should have permissions to run `s3:PutObject` and `s3:PutObjectAcl` actionson the S3 bucket. Works along with `secret_key`. If not specified IAM instance profile is used instead by default.| Valid AWS secret key
 | `secret_key`              | String      |                                           | Secret key for the aws account to use. If not specified IAM instance profile is used instead by default.| Valid AWS access key
-| `conf_directory`          | String      | `/etc/grafana`                            | The directory where the Grafana configuration resides     | Valid directory
-| `config_file`             | String      | `/etc/grafana/grafana.ini`                | The Grafana configuration file                            | Valid file path
-| `cookbook`                | String      | `grafana`                                 | Which cookbook to look in for the template                |
-| `source`                  | String      | `grafana.ini.erb`                         | Name of the template                                      |
 
 ## Examples
 

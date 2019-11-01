@@ -19,8 +19,6 @@
 # Configures the installed grafana instance
 
 property  :instance_name,             String,         name_property: true
-property  :conf_directory,            String,         default: '/etc/grafana'
-property  :config_file,               String,         default: lazy { ::File.join(conf_directory, 'grafana.ini') }
 property  :allow_sign_up,             [true, false],  default: false
 property  :allow_org_create,          [true, false],  default: false
 property  :auto_assign_org,           [true, false],  default: true
@@ -33,8 +31,6 @@ property  :external_manage_link_url,  String,         default: ''
 property  :external_manage_link_name, String,         default: ''
 property  :external_manage_info,      String,         default: ''
 property  :viewers_can_edit,          [true, false],  default: false
-property  :cookbook,                  String,         default: 'grafana'
-property  :source,                    String,         default: 'grafana.ini.erb'
 
 action :install do
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['users'] ||= {}

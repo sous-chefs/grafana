@@ -29,7 +29,7 @@ Introduced: v4.0.0
 | `ca_cert_path`            |  String       |                             | The path to the CA certificate to use.                                    |
 | `client_key_path`         |  String       |                             | The path to the client key. Only if server requires client authentication |
 | `server_cert_name`        |  String       |                             | The path to the client cert. Only if server requires client authentication|
-| `path`                    |  String       | `grafana.db`                | Only applicable for sqlite3 database. The file path where the database will be|
+| `path`                    |  String       | `grafana.db`                | Only applicable for sqlite3 database. The file path where the database will be stored |
 
 ## Examples
 

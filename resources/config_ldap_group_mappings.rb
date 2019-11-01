@@ -22,13 +22,9 @@
 
 property  :instance_name,                 String,                   name_property: true
 property  :group_dn,                      String,                   required: true
-property  :conf_directory,                String,                   default: '/etc/grafana'
-property  :config_file,                   String,                   default: lazy { ::File.join(conf_directory, 'ldap.toml') }
 property  :org_role,                      String,                   default: 'Viewer'
 property  :grafana_admin,                 [TrueClass, FalseClass],  default: false
 property  :org_id,                        Integer,                  default: 1
-property  :cookbook,                      String,                   default: 'grafana'
-property  :source,                        String,                   default: 'ldap.toml.erb'
 
 action :install do
   node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['group_mappings'] ||= {}

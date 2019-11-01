@@ -1,15 +1,11 @@
-grafana_install 'grafana'
-
-service 'grafana-server' do
-  action [:enable, :start]
-  subscribes :restart, ['template[/etc/grafana/grafana.ini]', 'template[/etc/grafana/ldap.toml]'], :immediately
-end
-
+grafana_install 'Grafana'
 grafana_config 'Grafana'
 grafana_config_auth 'Grafana' do
   # for api testing
   anonymous_enabled true
 end
+
+grafana_config_writer 'Grafana'
 
 grafana_plugin 'grafana-clock-panel' do
   action :install

@@ -18,22 +18,22 @@
 #
 # Configures the installed grafana instance
 
-property  :instance_name,     String,         name_property: true
-property  :type,              String,         default: 'sqlite3', equal_to: %w(mysql postgres sqlite3)
-property  :host,              String,         default: '127.0.0.1:3306'
-property  :database_name,     String,         default: 'grafana'
-property  :user,              String,         default: 'root'
-property  :password,          String,         default: ''
-property  :max_idle_conn,     Integer,        default: 2
-property  :max_open_conn,     Integer,        default: 0
-property  :conn_max_lifetime, Integer,        default: 14400
-property  :log_queries,       [true, false],  default: false
-property  :ssl_mode,          String,         default: 'disable', equal_to: %w(disable require verify-full true false skip-verify)
-property  :ca_cert_path,      String,         default: ''
-property  :client_key_path,   String,         default: ''
-property  :client_cert_path,  String,         default: ''
-property  :server_cert_name,  String,         default: ''
-property  :path,              String,         default: 'grafana.db'
+property  :instance_name,     String,                   name_property: true
+property  :type,              Symbol,                   default: :sqlite3, equal_to: %i( mysql postgres sqlite3 )
+property  :host,              String,                   default: '127.0.0.1:3306'
+property  :database_name,     String,                   default: 'grafana'
+property  :user,              String,                   default: 'root'
+property  :password,          String,                   default: ''
+property  :max_idle_conn,     Integer,                  default: 2
+property  :max_open_conn,     Integer,                  default: 0
+property  :conn_max_lifetime, Integer,                  default: 14400
+property  :log_queries,       [TrueClass, FalseClass],  default: false
+property  :ssl_mode,          [Symbol, TrueClass, FalseClass], default: :disable, equal_to: [ :disable, :require, :'verify-full', true, false, :'skip-verify' ]
+property  :ca_cert_path,      String,                   default: ''
+property  :client_key_path,   String,                   default: ''
+property  :client_cert_path,  String,                   default: ''
+property  :server_cert_name,  String,                   default: ''
+property  :path,              String,                   default: 'grafana.db'
 
 action :install do
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['database'] ||= {}

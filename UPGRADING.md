@@ -10,6 +10,11 @@ Add the `grafana_config_writer` to the end of your config resources, this will c
 Change `ldap_config_servers` `host` property from the name property to a normal property (required)
 Change `ldap_config_group_mappings` `group_dn` property fromthe name property to a normal property (required)
 Added `instance_name` to above resources as name property, this should line up across all config resources
+Change `grafana_config_database` property `type` to a symbol
+Change `grafana_config_database` property `ssl_mode` to a symbol or true/false
+Change `grafana_config_remote_cache` property `remote_cache_type` to a symbol
+Change `grafana_config_server` property `protocol` to a symbol
+Change `grafana_config_session` property `session_provider` to a symbol
 
 ## 7.0.0
 

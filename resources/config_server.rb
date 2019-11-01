@@ -19,7 +19,7 @@
 # Configures the installed grafana instance
 
 property  :instance_name,        String,         name_property: true
-property  :protocol,             String,         default: 'http', equal_to: %w(http https socket)
+property  :protocol,             Symbol,         default: :http, equal_to: %i( http https socket )
 property  :http_addr,            String,         default: ''
 property  :http_port,            Integer,        default: 3000
 property  :domain,               String,         default: node['hostname']

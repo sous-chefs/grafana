@@ -26,10 +26,6 @@ Introduced: v4.0.0
 | `from_address`      | String      | `"admin@grafana-#{node['hostname']}.#{node['domain'].nil? ? 'local' : node['domain']}"`| Address used when sending out emails |
 | `from_name`         | String      | `Grafana`                                 | Name to be used when sending out emails                 |
 | `ehlo_identity`     | String      |                                           | Name to be used as client identity for EHLO in SMTP dialog|
-| `conf_directory`    | String      | `/etc/grafana`                            | The directory where the Grafana configuration resides   | Valid directory
-| `config_file`       | String      | `/etc/grafana/grafana.ini`                | The Grafana configuration file                          | Valid file path
-| `cookbook`          | String      | `grafana`                                 | Which cookbook to look in for the template              |
-| `source`            | String      | `grafana.ini.erb`                         | Name of the template                                    |
 
 ## Examples
 

@@ -14,13 +14,9 @@ Introduced: v4.0.0
 
 ## Properties
 
-| Name                      | Type          |  Default                    | Description                                                               | Allowed Values
-| ------------------------- | ------------- | --------------------------- | ------------------------------------------------------------------------- | --------------- |
-| `versions_to_keep`        |  Integer      | `5`                         | Number dashboard versions to keep (per dashboard).                        |
-| `conf_directory`          |  String       | `/etc/grafana`              | The directory where the Grafana configuration resides                     | Valid directory
-| `config_file`             |  String       | `/etc/grafana/grafana.ini`  | The Grafana configuration file                                            | Valid file path
-| `cookbook`                | String        | `grafana`                   | Which cookbook to look in for the template                                |
-| `source`                  | String        | `grafana.ini.erb`           | Name of the template                                                      |
+| Name                      | Type          |  Default                    | Description                                        | Allowed Values  |
+| ------------------------- | ------------- | --------------------------- | -------------------------------------------------- | --------------- |
+| `versions_to_keep`        |  Integer      | `5`                         | Number dashboard versions to keep (per dashboard). | |
 
 ## Examples
 

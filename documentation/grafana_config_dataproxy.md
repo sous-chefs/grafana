@@ -17,10 +17,6 @@ Introduced: v4.0.0
 | Name                      | Type          |  Default                    | Description                                                               | Allowed Values
 | ------------------------- | ------------- | --------------------------- | ------------------------------------------------------------------------- | --------------- |
 | `logging`                 | true, false   | `false`                     | This enables data proxy logging                        | true, false
-| `conf_directory`          |  String       | `/etc/grafana`              | The directory where the Grafana configuration resides                     | Valid directory
-| `config_file`             |  String       | `/etc/grafana/grafana.ini`  | The Grafana configuration file                                            | Valid file path
-| `cookbook`                | String        | `grafana`                   | Which cookbook to look in for the template                                |
-| `source`                  | String        | `grafana.ini.erb`           | Name of the template                                                      |
 
 ## Examples
 

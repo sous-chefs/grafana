@@ -28,10 +28,6 @@ Introduced: v4.0.0
 | `external_manage_link_name`|String      |                             | External user management                                  |
 | `external_manage_info`    | String      |                             | External user management                                  |
 | `viewers_can_edit`        | true, false | `false`                     | Viewers can edit/inspect dashboard settings in the browser| true, false
-| `conf_directory`          | String      | `/etc/grafana`              | The directory where the Grafana configuration resides     | Valid directory
-| `config_file`             | String      | `/etc/grafana/grafana.ini`  | The Grafana configuration file                            | Valid file path
-| `cookbook`                | String      | `grafana`                   | Which cookbook to look in for the template                |
-| `source`                  | String      | `grafana.ini.erb`           | Name of the template                                      |
 
 ## Examples
 

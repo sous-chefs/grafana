@@ -1,5 +1,16 @@
 # Upgrading
 
+## 8.0.0
+
+ensure your `instance_name` (Name property) lines up across all `grafana_config_*` and `grafana_config` resources
+Remove any resources of type `service` of `grafana-server`
+Remove any `source`, `cookbook`, `config_file` and `config_directory` overrides from all `grafana_config_*` resources
+Remove any `cookbook` and `config_directory` overrides from the `grafana_config` resource
+Add the `grafana_config_writer` to the end of your config resources, this will create the config file on disk and restart grafana to allow any api calls to work straight after
+Change `ldap_config_servers` `host` property from the name property to a normal property (required)
+Change `ldap_config_group_mappings` `group_dn` property fromthe name property to a normal property (required)
+Added `instance_name` to above resources as name property, this should line up across all config resources
+
 ## 7.0.0
 
 Create a resource for `service` of `grafana-server` and subscribe to changes to config files

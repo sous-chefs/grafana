@@ -21,10 +21,6 @@ Introduced: v4.0.0
 | `error_or_timeout`        |  String       | `alerting`                  | Default setting for new alert rules                                       |
 | `nodata_or_nullvalues`    |  String       | `no_data`                   | Default setting for how Grafana handles nodata or null values in alerting |
 | `concurrent_render_limit` |  Integer      | `5`                         | Maximum nuqmber of renders at the same time                               |
-| `conf_directory`          |  String       | `/etc/grafana`              | The directory where the Grafana configuration resides                     | Valid directory
-| `config_file`             |  String       | `/etc/grafana/grafana.ini`  | The Grafana configuration file                                            | Valid file path
-| `cookbook`                | String        | `grafana`                   | Which cookbook to look in for the template                                |
-| `source`                  | String        | `grafana.ini.erb`           | Name of the template                                                      |
 
 ## Examples
 

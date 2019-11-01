@@ -28,10 +28,6 @@ Introduced: v4.0.0
 | `enable_gzip`       | true, false | `false`                                   | Set this option to true to enable HTTP compression.  | true, false
 | `cert_file`         | String      |                                           | Path to the certificate file (if protocol is set to https).  |
 | `cert_key`          | String      |                                           | Path to the certificate key file (if protocol is set to https).  |
-| `conf_directory`    | String      | `/etc/grafana`                            | The directory where the Grafana configuration resides   | Valid directory
-| `config_file`       | String      | `/etc/grafana/grafana.ini`                | The Grafana configuration file                          | Valid file path
-| `cookbook`          | String      | `grafana`                                 | Which cookbook to look in for the template              |
-| `source`            | String      | `grafana.ini.erb`                         | Name of the template                                    |
 
 ## Examples
 

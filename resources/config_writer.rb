@@ -5,7 +5,7 @@ property  :config_file,         String,                   default: lazy { ::File
 property  :config_file_ldap,    String,                   default: lazy { ::File.join(conf_directory, 'ldap.toml') }
 property  :cookbook,            String,                   default: 'grafana'
 property  :source,              String,                   default: 'grafana.ini.erb'
-property  :ldap_source,         String,                   default: 'ldap.toml.erb'
+property  :source_ldap,         String,                   default: 'ldap.toml.erb'
 property  :service_name,        String,                   default: 'grafana-server'
 
 action :install do
@@ -25,7 +25,7 @@ action :install do
   end
 
   template ::File.join(new_resource.config_file_ldap) do
-    source new_resource.ldap_source
+    source new_resource.source_ldap
     cookbook new_resource.cookbook
     variables(
       ldap: node.run_state['sous-chefs'][new_resource.instance_name]['ldap']

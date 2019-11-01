@@ -22,10 +22,6 @@ Introduced: v4.0.0
 | `servers_attributes_username`   | String        | `cn`                        | Specify names of the ldap attributes your ldap uses                       |
 | `servers_attributes_member_of`  | String        | `memberOf`                  | Specify names of the ldap attributes your ldap uses                       |
 | `servers_attributes_email`      | String        | `email`                     | Specify names of the ldap attributes your ldap uses                       |
-| `conf_directory`                | String        | `/etc/grafana`              | The directory where the Grafana configuration resides                     | Valid directory
-| `config_file`                   | String        | `/etc/grafana/ldap.toml`    | The Grafana configuration file                                            | Valid file path
-| `cookbook`                      | String        | `grafana`                   | Which cookbook to look in for the template                                |
-| `source`                        | String        | `ldap.toml.erb`             | Name of the template                                                      |
 
 ## Examples
 

@@ -95,7 +95,3 @@ Introduced: v4.0.0
 | `:ldap_enabled`                                   | True, False   | `false`                     | Set to `true` to enable LDAP integration (http://docs.grafana.org/auth/ldap/)| true, false
 | `:ldap_config_file`                               | String        | `/etc/grafana/ldap.toml`    | Path to the LDAP specific configuration file                        |
 | `:ldap_allow_sign_up`                             | True, False   | `true`                      | Allow sign up should almost always be true (default) to allow new Grafana users to be created| true, false
-| `conf_directory`                                  | String        | `/etc/grafana`              | The directory where the Grafana configuration resides| Valid directory
-| `config_file`                                     | String        | `/etc/grafana/grafana.ini`  | The Grafana configuration file                                      | Valid file path
-| `cookbook`                                        | String        | `grafana`                   | Which cookbook to look in for the template                          |
-| `source`                                          | String        | `grafana.ini.erb`           | Name of the template                                                |

@@ -18,10 +18,6 @@ Introduced: v4.0.0
 | ------------------------- | ------------- | --------------------------- | ------------------------------------------------------------------------- | --------------- |
 | `welcome_email_on_sign_up`| true, false   | `false`                     | Sends emails on signup                                                    | true, false
 | `templates_pattern`       | String        | `emails/*.html`             | E-mail templates                                                          |
-| `conf_directory`          | String        | `/etc/grafana`              | The directory where the Grafana configuration resides                     | Valid directory
-| `config_file`             | String        | `/etc/grafana/grafana.ini`  | The Grafana configuration file                                            | Valid file path
-| `cookbook`                | String        | `grafana`                   | Which cookbook to look in for the template                                |
-| `source`                  | String        | `grafana.ini.erb`           | Name of the template                                                      |
 
 ## Examples
 

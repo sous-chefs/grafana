@@ -80,6 +80,11 @@ enforce_domain = <%= @grafana['server']['enforce_domain'] %>
 root_url = <%= @grafana['server']['root_url'] %>
 <% end %>
 
+# Serve from subpath. Available only in grafana from version 6.3 and above.
+<% if @grafana['server']['serve_from_sub_path'] %>
+serve_from_sub_path = <%= @grafana['server']['serve_from_sub_path'] %>
+<% end %>
+
 # Log web requests
 <% if @grafana['server']['router_logging'] %>
 router_logging = <%= @grafana['server']['router_logging'] %>
@@ -752,12 +757,12 @@ templates_pattern = <%= @grafana['emails']['templates_pattern'] %>
 # Either "console", "file", "syslog". Default is console and file
 # Use space to separate multiple modes, e.g. "console file"
 <% if @grafana['log']['mode'] %>
-templates_pattern = <%= @grafana['log']['mode'] %>
+mode = <%= @grafana['log']['mode'] %>
 <% end %>
 
 # Either "debug", "info", "warn", "error", "critical", default is "info"
 <% if @grafana['log']['level'] %>
-templates_pattern = <%= @grafana['log']['level'] %>
+level = <%= @grafana['log']['level'] %>
 <% end %>
 
 # optional settings to set different levels for specific loggers. Ex filters = sqlstore:debug
@@ -967,7 +972,7 @@ basic_auth_password = <%= @grafana['metrics']['basic_auth_password'] %>
 [metrics.graphite]
 # Enable by setting the address setting (ex localhost:2003)
 <% if @grafana['metrics_graphite']['address'] %>
-basic_auth_password = <%= @grafana['metrics_graphite']['address'] %>
+address = <%= @grafana['metrics_graphite']['address'] %>
 <% end %>
 <% if @grafana['metrics_graphite']['prefix'] %>
 prefix = <%= @grafana['metrics_graphite']['prefix'] %>

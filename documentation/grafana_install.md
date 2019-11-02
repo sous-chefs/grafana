@@ -21,11 +21,20 @@ Installs Grafana from the repositories, this will setup the correct apt/yum repo
 | `deb_distribution`    |  String     | `stable`                                                  | Deb Distribution|
 | `deb_components`      |  Array      | `['main']`                                                | Deb Components|
 
+## Notes
+
+After install please create a `service` resource for `grafana-server` so it can restart on config changes
+
 ## Examples
 
 Installs Latest Grafana from official repository:
 
 ```ruby
-grafana_install 'grafana' do
+grafana_install 'grafana'
+
+service 'grafana-server' do
+  action [:enable, :start]
+  subscribes :restart, ['template[/etc/grafana/grafana.ini]', 'template[/etc/grafana/ldap.toml]'], :delayed
 end
+
 ```

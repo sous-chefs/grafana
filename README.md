@@ -8,7 +8,7 @@
 
 ## Description
 
-This cookbook provides a complete installation and configuration of Grafana. This includes the ability to manage dashboards, datasources, organizations, plugins and users with Chef using Custom Resources.
+This cookbook provides a complete installation and configuration of Grafana. This includes the ability to manage dashboards, datasources, organizations, plugins and users with Chef via Custom Resources.
 
 ## Maintainers
 
@@ -53,7 +53,7 @@ For any core configuration resources, the base config resource is: `grafana_conf
 - [grafana_config_metrics](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_metrics.md)
 - [grafana_config_panels](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_panels.md)
 - [grafana_config_paths](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_paths.md)
-- [grafana_config_quotas](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_quotas.md)
+- [grafana_config_quota](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_quota.md)
 - [grafana_config_security](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_security.md)
 - [grafana_config_server](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_server.md)
 - [grafana_config_session](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_session.md)
@@ -61,6 +61,7 @@ For any core configuration resources, the base config resource is: `grafana_conf
 - [grafana_config_snapshots](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_snapshots.md)
 - [grafana\_config\_external\_image\_storage\_s3](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_external_image_storage_s3.md)
 - [grafana_config_users](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_users.md)
+- [grafana_config_writer](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_writer.md)
 - [grafana_dashboard](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_dashboard.md)
 - [grafana_datasource](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_datasource.md)
 - [grafana_install](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_install.md)

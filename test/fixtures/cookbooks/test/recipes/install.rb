@@ -17,7 +17,7 @@ grafana_config_quota 'Grafana'
 grafana_config_security 'Grafana'
 grafana_config_server 'Grafana'
 grafana_config_session 'Grafana' do
-  session_provider 'memory'
+  session_provider :memory
 end
 grafana_config_remote_cache 'Grafana'
 grafana_config_smtp 'Grafana'
@@ -29,8 +29,7 @@ grafana_config_external_image_storage_s3 'Grafana' do
   region 'us-east-1'
 end
 
-# Stall to allow service to be fully available before testing
-execute 'sleep 30' do
-  action :nothing
-  subscribes :run, 'service[grafana-server]', :immediately
+grafana_config_writer 'Grafana' do
+  # In test we turn of sensitive so we can get better logs
+  sensitive false
 end

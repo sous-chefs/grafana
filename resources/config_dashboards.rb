@@ -19,25 +19,10 @@
 # Configures the installed grafana instance
 
 property  :instance_name,     String,   name_property: true
-property  :conf_directory,    String,   default: '/etc/grafana'
-property  :config_file,       String,   default: lazy { ::File.join(conf_directory, 'grafana.ini') }
 property  :versions_to_keep,  Integer,  default: 20
-property  :cookbook,          String,   default: 'grafana'
-property  :source,            String,   default: 'grafana.ini.erb'
 
 action :install do
-  with_run_context :root do
-    edit_resource(:template, new_resource.config_file) do |new_resource|
-      node.run_state['grafana'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
-      source new_resource.source
-      cookbook new_resource.cookbook
-
-      variables['grafana']['dashboards'] ||= {}
-      variables['grafana']['dashboards']['versions_to_keep'] ||= '' unless new_resource.versions_to_keep.nil?
-      variables['grafana']['dashboards']['versions_to_keep'] << new_resource.versions_to_keep.to_s unless new_resource.versions_to_keep.nil?
-
-      action :nothing
-      delayed_action :create
-    end
-  end
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['dashboards'] ||= {}
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['dashboards']['versions_to_keep'] ||= '' unless new_resource.versions_to_keep.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['dashboards']['versions_to_keep'] << new_resource.versions_to_keep.to_s unless new_resource.versions_to_keep.nil?
 end

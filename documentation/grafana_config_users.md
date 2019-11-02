@@ -23,15 +23,11 @@ Introduced: v4.0.0
 | `auto_assign_org_role`    | String      | `Viewer`                    | The role new users will be assigned for the main organization|
 | `verify_email_enabled`    | true, false | `false`                     |  Require email validation before sign up completes        | true, false
 | `login_hint`              | String      | `email or username`         | Login hint text                                           |
-| `default_theme`           | String      | `dark`                      | Default user theme                                        | dark light
+| `default_theme`           | Symbol      | `dark`                      | Default user theme                                        | dark light
 | `external_manage_link_url`| String      |                             | External user management                                  |
 | `external_manage_link_name`|String      |                             | External user management                                  |
 | `external_manage_info`    | String      |                             | External user management                                  |
 | `viewers_can_edit`        | true, false | `false`                     | Viewers can edit/inspect dashboard settings in the browser| true, false
-| `conf_directory`          | String      | `/etc/grafana`              | The directory where the Grafana configuration resides     | Valid directory
-| `config_file`             | String      | `/etc/grafana/grafana.ini`  | The Grafana configuration file                            | Valid file path
-| `cookbook`                | String      | `grafana`                   | Which cookbook to look in for the template                |
-| `source`                  | String      | `grafana.ini.erb`           | Name of the template                                      |
 
 ## Examples
 
@@ -45,6 +41,6 @@ grafana_config_users 'grafana' do
   allow_org_create true
   auto_assign_org false
   verify_email_enabled true
-  default_theme 'light'
+  default_theme :light
 end
 ```

@@ -20,7 +20,7 @@ Introduced: v4.0.0
 | ------------------------------------------------ | -------------  | --------------------------- | ------------------------------------------------------------------  | --------------- |
 | `login_cookie_name`                               | String        | `grafana_session`           | The name of the Grafana session cookie.|
 | `disable_login_form`                              | True, False   | `false`                     | Set to true to disable (hide) the login form, useful if you use OAuth | true, false
-| `disable_signout_menu`                            | String        | `false`                     | Set to true to disable the signout link in the side menu. useful if you use auth.proxy | true, false
+| `disable_signout_menu`                            | True, False   | `false`                     | Set to true to disable the signout link in the side menu. useful if you use auth.proxy | true, false
 | `:signout_redirect_url`                           | String        |                             | URL to redirect the user to after sign out                          |
 | `:oauth_auto_login`                               | True, False   | `false`                     | Set to true to attempt login with OAuth automatically, skipping the login screen| true, false
 | `:anonymous_enabled`                              | True, False   | `false`                     | enable anonymous access                                             | true, false
@@ -95,7 +95,3 @@ Introduced: v4.0.0
 | `:ldap_enabled`                                   | True, False   | `false`                     | Set to `true` to enable LDAP integration (http://docs.grafana.org/auth/ldap/)| true, false
 | `:ldap_config_file`                               | String        | `/etc/grafana/ldap.toml`    | Path to the LDAP specific configuration file                        |
 | `:ldap_allow_sign_up`                             | True, False   | `true`                      | Allow sign up should almost always be true (default) to allow new Grafana users to be created| true, false
-| `conf_directory`                                  | String        | `/etc/grafana`              | The directory where the Grafana configuration resides| Valid directory
-| `config_file`                                     | String        | `/etc/grafana/grafana.ini`  | The Grafana configuration file                                      | Valid file path
-| `cookbook`                                        | String        | `grafana`                   | Which cookbook to look in for the template                          |
-| `source`                                          | String        | `grafana.ini.erb`           | Name of the template                                                |

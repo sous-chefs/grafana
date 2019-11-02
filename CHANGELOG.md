@@ -2,7 +2,63 @@
 
 This file is used to list changes made in each version of grafana.
 
-## Unreleased
+## 8.0.0
+
+- Changed `ldap_config_servers` `host` property from name property to required property
+- Changed `ldap_config_group_mappings` `group_dn` property from name_property to required property
+- Added `instance_name` to above resources as name property
+- Changed ldap config template from @grafana['ldap'] to @LDAP
+- Changed `grafana_config_database`
+  - Property `type` now expects a symbol
+  - Property `ssl_mode` now expects a symbol or true/false
+- Changed `grafana_config_remote_cache`
+  - Property `remote_cache_type` now expects a symbol
+- Changed `grafana_config_server`
+  - Property `protocol` now expects a symbol
+- Changed `grafana_config_session`
+  - Property `session_provider` now expects a symbol
+- Changed `grafana_config_users`
+  - Property `default_theme` now expects a symbol
+
+- Removed the requirement to handle services outside of resources, `config_writer` now restarts when requested
+- Removed config directory from all config resource
+- Removed config file from all config resource
+- Removed cookbook from all config resource
+- Removed source from all config resource
+
+- Added resource called config_writer to output the config file
+- Added sensitive flag on config_writer
+
+## 7.1.1
+
+- Fix issue with wrong setting being configured in the log section
+
+## 7.1.0
+
+- Add option for `serve_from_sub_path` in grafana_config_server
+
+## 7.0.0
+
+- Resolves issue with service restarts using external service resources
+- Resolved the latest cookstyle issues
+
+## 6.0.1
+
+- Removed misconfigured duplicate router_logging String property from config_server resource
+- Now correct Grafana version can be specified for installing/upgrading
+  on Debian based systems.
+
+## 6.0.0
+
+- Fixed type specification of group_search_dns to be Array instead
+  of incorrect String previously.
+- Cookstyle fixes around `long_description` and header formats
+
+## 5.1.1 (2019-08-16)
+
+- Fixed `address` appearing as `basic_auth_password` for internal metrics
+
+## 5.1.0 (2019-07-26)
 
 - After modifying config files, grafana-server is restarted
 - Fixed session `provider`

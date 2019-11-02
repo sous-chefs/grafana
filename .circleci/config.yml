@@ -1,4 +1,12 @@
 ---
+jobs:
+  final:
+    docker:
+      - image: bash:latest
+    steps:
+      - run:
+          name: Finish cooking
+          command: echo "Finished cooking"
 lint_and_unit: &lint_and_unit
   - delivery
   - danger
@@ -131,3 +139,33 @@ workflows:
           name: basic-amazonlinux
           suite: basic-amazonlinux
           requires: *lint_and_unit
+      - final:
+          requires:
+            - default-debian-8
+            - default-debian-9
+            - default-centos-6
+            - default-centos-7
+            - default-ubuntu-1604
+            - default-ubuntu-1804
+            - default-amazonlinux
+            - ldap-debian-8
+            - ldap-debian-9
+            - ldap-centos-6
+            - ldap-centos-7
+            - ldap-ubuntu-1604
+            - ldap-ubuntu-1804
+            - ldap-amazonlinux
+            - plugins-debian-8
+            - plugins-debian-9
+            - plugins-centos-6
+            - plugins-centos-7
+            - plugins-ubuntu-1604
+            - plugins-ubuntu-1804
+            - plugins-amazonlinux
+            - basic-debian-8
+            - basic-debian-9
+            - basic-centos-6
+            - basic-centos-7
+            - basic-ubuntu-1604
+            - basic-ubuntu-1804
+            - basic-amazonlinux

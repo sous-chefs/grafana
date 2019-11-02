@@ -8,11 +8,24 @@ This file is used to list changes made in each version of grafana.
 - Changed `ldap_config_group_mappings` `group_dn` property from name_property to required property
 - Added `instance_name` to above resources as name property
 - Changed ldap config template from @grafana['ldap'] to @LDAP
+- Changed `grafana_config_database`
+  - Property `type` now expects a symbol
+  - Property `ssl_mode` now expects a symbol or true/false
+- Changed `grafana_config_remote_cache`
+  - Property `remote_cache_type` now expects a symbol
+- Changed `grafana_config_server`
+  - Property `protocol` now expects a symbol
+- Changed `grafana_config_session`
+  - Property `session_provider` now expects a symbol
+- Changed `grafana_config_users`
+  - Property `default_theme` now expects a symbol
+
 - Removed the requirement to handle services outside of resources, `config_writer` now restarts when requested
 - Removed config directory from all config resource
 - Removed config file from all config resource
 - Removed cookbook from all config resource
 - Removed source from all config resource
+
 - Added resource called config_writer to output the config file
 - Added sensitive flag on config_writer
 

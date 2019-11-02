@@ -26,7 +26,7 @@ property  :auto_assign_org_id,        Integer,        default: 1
 property  :auto_assign_org_role,      String,         default: 'Viewer'
 property  :verify_email_enabled,      [true, false],  default: false
 property  :login_hint,                String,         default: 'email or username'
-property  :default_theme,             String,         default: 'dark', equal_to: %w(dark light)
+property  :default_theme,             Symbol,         default: :dark, equal_to: %i( dark light )
 property  :external_manage_link_url,  String,         default: ''
 property  :external_manage_link_name, String,         default: ''
 property  :external_manage_info,      String,         default: ''

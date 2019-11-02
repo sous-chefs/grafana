@@ -23,7 +23,7 @@ Introduced: v4.0.0
 | `auto_assign_org_role`    | String      | `Viewer`                    | The role new users will be assigned for the main organization|
 | `verify_email_enabled`    | true, false | `false`                     |  Require email validation before sign up completes        | true, false
 | `login_hint`              | String      | `email or username`         | Login hint text                                           |
-| `default_theme`           | String      | `dark`                      | Default user theme                                        | dark light
+| `default_theme`           | Symbol      | `dark`                      | Default user theme                                        | dark light
 | `external_manage_link_url`| String      |                             | External user management                                  |
 | `external_manage_link_name`|String      |                             | External user management                                  |
 | `external_manage_info`    | String      |                             | External user management                                  |
@@ -41,6 +41,6 @@ grafana_config_users 'grafana' do
   allow_org_create true
   auto_assign_org false
   verify_email_enabled true
-  default_theme 'light'
+  default_theme :light
 end
 ```

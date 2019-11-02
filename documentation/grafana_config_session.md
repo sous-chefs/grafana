@@ -17,7 +17,7 @@ Removed: v6.2.0
 
 | Name                | Type        |  Default                                  | Description                                             | Allowed Values
 | ------------------- | ----------- | ----------------------------------------- | ------------------------------------------------------- | --------------- |
-| `session_provider`  | String      | `file`                                    | Provider to use                                         |memory file redis mysql postgres memcache
+| `session_provider`  | Symbol      | `file`                                    | Provider to use                                         |memory file redis mysql postgres memcache
 | `provider_config`   | String      | `sessions`                                | See <http://docs.grafana.org/installation/configuration/#session> |
 | `cookie_name`       | String      | `grafana_sess`                            | Session cookie name                           |
 | `cookie_secure`     | true, false | `false`                                   | Set to true if you host Grafana behind HTTPS only. Defaults to false. | true, false
@@ -34,6 +34,6 @@ grafana_config_session 'grafana'
 ```ruby
 grafana_config_session 'grafana' do
   cookie_secure true
-  session_provider 'redis'
+  session_provider :redis
 end
 ```

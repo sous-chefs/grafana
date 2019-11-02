@@ -20,7 +20,7 @@
 
 property  :instance_name,     String,         name_property: true
 # using session_provider due to: ArgumentError: Property `provider` of resource `` overwrites an existing method.
-property  :session_provider,  String,         default: 'file', equal_to: %w(memory file redis mysql postgres memcache)
+property  :session_provider,  Symbol,         default: :file, equal_to: %i( memory file redis mysql postgres memcache )
 property  :provider_config,   String,         default: 'sessions'
 property  :cookie_name,       String,         default: 'grafana_sess'
 property  :cookie_secure,     [true, false],  default: false

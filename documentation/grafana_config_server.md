@@ -16,7 +16,7 @@ Introduced: v4.0.0
 
 | Name                | Type        |  Default                                  | Description                                             | Allowed Values
 | ------------------- | ----------- | ----------------------------------------- | ------------------------------------------------------- | --------------- |
-| `protocol`          | String      | `http`                                    | Protocol to use                                         |http https socket
+| `protocol`          | Symbol      | `http`                                    | Protocol to use                                         |http https socket
 | `http_addr`         | String      |                                           | The IP address to bind to. If empty will bind to all interfaces|
 | `http_port`         | Integer     | `3000`                                    | The port to bind to, Privilaged ports will need you to add additional permissions|
 | `domain`            | String      | `node['hostname']`                        | This setting is only used in as a part of the root_url setting |
@@ -37,7 +37,7 @@ grafana_config_server 'grafana'
 
 ```ruby
 grafana_config_server 'grafana' do
-  protocol 'http'
+  protocol :http
   root_url 'grafana.example.com'
   enable_gzip true
 end

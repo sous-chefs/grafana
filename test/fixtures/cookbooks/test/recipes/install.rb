@@ -17,7 +17,7 @@ grafana_config_quota 'Grafana'
 grafana_config_security 'Grafana'
 grafana_config_server 'Grafana'
 grafana_config_session 'Grafana' do
-  session_provider 'memory'
+  session_provider :memory
 end
 grafana_config_remote_cache 'Grafana'
 grafana_config_smtp 'Grafana'

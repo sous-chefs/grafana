@@ -28,6 +28,9 @@ suites:
     run_list:
       - recipe[test::ldap]
 
+  - name: proxy
+    run_list:
+      - recipe[test::proxy]
   - name: plugins
     run_list:
       - recipe[test::plugins]

@@ -84,6 +84,34 @@ workflows:
           suite: ldap-amazonlinux
           requires: *lint_and_unit
       - kitchen/dokken-single:
+          name: proxy-debian-8
+          suite: proxy-debian-8
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: proxy-debian-9
+          suite: proxy-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: proxy-centos-6
+          suite: proxy-centos-6
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: proxy-centos-7
+          suite: proxy-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: proxy-ubuntu-1604
+          suite: proxy-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: proxy-ubuntu-1804
+          suite: proxy-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: proxy-amazonlinux
+          suite: proxy-amazonlinux
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
           name: plugins-debian-8
           suite: plugins-debian-8
           requires: *lint_and_unit
@@ -155,6 +183,13 @@ workflows:
             - ldap-ubuntu-1604
             - ldap-ubuntu-1804
             - ldap-amazonlinux
+            - proxy-debian-8
+            - proxy-debian-9
+            - proxy-centos-6
+            - proxy-centos-7
+            - proxy-ubuntu-1604
+            - proxy-ubuntu-1804
+            - proxy-amazonlinux
             - plugins-debian-8
             - plugins-debian-9
             - plugins-centos-6

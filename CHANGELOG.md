@@ -8,6 +8,8 @@ This file is used to list changes made in each version of grafana.
 - Changed `ldap_config_group_mappings` `group_dn` property from name_property to required property
 - Added `instance_name` to above resources as name property
 - Changed ldap config template from @grafana['ldap'] to @LDAP
+- Changed `grafana_config`
+  - Property `restart_on_upgrade` now expects `true` or `false`
 - Changed `grafana_config_database`
   - Property `type` now expects a symbol
   - Property `ssl_mode` now expects a symbol or true/false

@@ -15,6 +15,7 @@ Change `grafana_config_database` property `ssl_mode` to a symbol or true/false
 Change `grafana_config_remote_cache` property `remote_cache_type` to a symbol
 Change `grafana_config_server` property `protocol` to a symbol
 Change `grafana_config_session` property `session_provider` to a symbol
+Change `grafana_config` property `restart_on_upgrade` to `true` or `false`
 
 ## 7.0.0
 

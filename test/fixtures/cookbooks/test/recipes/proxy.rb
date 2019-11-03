@@ -13,6 +13,8 @@ grafana_config_auth 'Grafana' do
   login_cookie_name 'grafana_sess'
 end
 
+grafana_config_writer 'Grafana'
+
 grafana_user 'j.smith' do
   auth_proxy_header auth_header
   user(

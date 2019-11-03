@@ -20,14 +20,14 @@
 #
 # Configures the installed grafana instance
 
-property  :instance_name,       String, name_property: true
-property  :env_directory,       String, default: '/etc/default'
-property  :owner,               String, default: 'grafana'
-property  :group,               String, default: 'grafana'
-property  :restart_on_upgrade,  String, default: 'false'
-property  :conf_directory,      String, default: '/etc/grafana'
-property  :app_mode,            String, default: 'production', equal_to: %w(production development)
-property  :cookbook,            String, default: 'grafana'
+property  :instance_name,       String,                   name_property: true
+property  :env_directory,       String,                   default: '/etc/default'
+property  :owner,               String,                   default: 'grafana'
+property  :group,               String,                   default: 'grafana'
+property  :restart_on_upgrade,  [TrueClass, FalseClass],  default: false
+property  :conf_directory,      String,                   default: '/etc/grafana'
+property  :app_mode,            String,                   default: 'production', equal_to: %w(production development)
+property  :cookbook,            String,                   default: 'grafana'
 
 action :install do
   user new_resource.owner
@@ -55,7 +55,7 @@ action :install do
       grafana_home: "/usr/share/#{new_resource.owner}",
       conf_dir: new_resource.conf_directory,
       pid_dir: '/var/run/grafana',
-      restart_on_upgrade: new_resource.restart_on_upgrade
+      restart_on_upgrade: new_resource.restart_on_upgrade.to_s
     )
     cookbook new_resource.cookbook
     mode '0644'

@@ -21,7 +21,7 @@ Introduced: v4.0.0
 | `env_directory`       | String      | `/etc/default`              | Environment settings directory                            | Valid directory
 | `owner`               | String      | `grafana`                   | User to run as                                            |
 | `group`               | String      | `grafana`                   | Group to run as                                           |
-| `restart_on_upgrade`  | String      | `false`                     | Restart the server on package upgrade                     |
+| `restart_on_upgrade`  | true, false      | `false`                     | Restart the server on package upgrade                     |
 | `app_mode`            | String      | `production`                | Application Mode                                          | production development
 | `conf_directory`      | String      | `/etc/grafana`              | The directory where the Grafana configuration resides     | Valid directory
 | `cookbook`            | String      | `grafana`                   | Which cookbook to look in for the template                |
@@ -36,6 +36,6 @@ grafana_config 'grafana'
 grafana_config 'grafana' do
   owner 'grafana'
   group 'grafana'
-  restart_on_upgrade 'true'
+  restart_on_upgrade true
 end
 ```

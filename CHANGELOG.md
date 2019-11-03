@@ -30,6 +30,8 @@ This file is used to list changes made in each version of grafana.
 
 - Added resource called config_writer to output the config file
 - Added sensitive flag on config_writer
+- Added additional tests around `grafana_user` with `proxy` authentication
+- Added additional tests around all api resources under the `configuration` kitchen tests
 
 ## 7.1.1
 

@@ -28,6 +28,11 @@ workflows:
       - kitchen/delivery:
           name: delivery
       - kitchen/dokken-single:
+          name: proxy
+          suite: proxy
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
           name: default-debian-8
           suite: default-debian-8
           requires: *lint_and_unit

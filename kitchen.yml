@@ -38,3 +38,7 @@ suites:
   - name: basic
     run_list:
       - recipe[test::basic]
+
+  - name: configure
+    run_list:
+      - recipe[test::configure]

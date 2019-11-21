@@ -7,13 +7,13 @@ module GrafanaCookbook
       dashboard_source_file = find_dashboard_source_file dashboard
       dashboard_options = {
         'dashboard' => JSON.parse(File.read(dashboard_source_file)),
-        'overwrite' => dashboard[:overwrite]
+        'overwrite' => dashboard[:overwrite],
       }
-      if !dashboard[:folder].nil? and !dashboard[:folder].empty?
+      if !dashboard[:folder].nil? && !dashboard[:folder].empty?
         folder = get_folder_by_name(dashboard[:folder], grafana_options)
         if !folder.nil?
           Chef::Log.info("Inserting dashbord to folder #{dashboard[:folder]} with ID #{get_folder_id(folder)}")
-          dashboard_options.merge!({'folderId' => get_folder_id(folder)})
+          dashboard_options.merge!('folderId' => get_folder_id(folder))
         else
           Chef::Log.error("Unable to find folder #{dashboard[:folder]} for dashboard #{dashboard_options[:title]}")
         end

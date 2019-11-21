@@ -52,7 +52,7 @@ action :create do
 
   same_folder_name = get_folder_by_name(new_resource.dashboard[:name], grafana_options)
 
-  if ((not same_folder_name.nil?) and same_folder_name.key?(:message) and same_folder_name[:message] != "Not found") or ((not same_folder_name.nil?) and same_folder_name.key?('url') and same_folder_name['url'].include?("/dashboards/f/"))
+  if (!same_folder_name.nil? && same_folder_name.key?(:message) && same_folder_name[:message] != 'Not found') || (!same_folder_name.nil? && same_folder_name.key?('url') && same_folder_name['url'].include?('/dashboards/f/'))
     Chef::Log.error "Folder exist with same name '#{get_folder_title(same_folder_name)}'"
     return
   end

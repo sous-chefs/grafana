@@ -22,7 +22,7 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'FolderApi::update_folder unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/folders/' + get_folder_uid(folder)
 
-      folder_obj = do_request(grafana_options, folder.to_json)
+      # folder_obj = do_request(grafana_options, folder.to_json)
       update_folder_permissions(folder, grafana_options) if folder[:permissions]
     rescue BackendError
       nil

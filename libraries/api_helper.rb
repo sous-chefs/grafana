@@ -176,9 +176,9 @@ module GrafanaCookbook
       grafana_options[:unknown_code_msg] = 'FolderApi::get_folder_by_uid unchecked response code: %{code}'
       grafana_options[:endpoint] = '/api/folders'
 
-      folder_list = Array.new
+      folder_list = []
       Array(do_request(grafana_options)).each do |folder|
-        folder_list.insert(-1, get_folder(folder,grafana_options))
+        folder_list.insert(-1, get_folder(folder, grafana_options))
       end
       folder_list
     end
@@ -214,7 +214,7 @@ module GrafanaCookbook
     # Fetch the json representation of the folder
     # curl -G --cookie "grafana_user=admin; grafana_sess=997bcbbf1c60fcf0;" http://localhost:3000/api/folders/10
     def get_folder_by_name(folder_name, grafana_options)
-      return_folder =  get_folders(grafana_options).select { |folder,value| get_folder_title(folder) == folder_name}
+      return_folder = get_folders(grafana_options).select { |folder, _value| get_folder_title(folder) == folder_name }
       return_folder[0]
     end
 
@@ -223,8 +223,6 @@ module GrafanaCookbook
         folder[:uid]
       elsif folder.key?('uid')
         folder['uid']
-      else
-        nil
       end
     end
 
@@ -233,8 +231,6 @@ module GrafanaCookbook
         folder[:id]
       elsif folder.key?('id')
         folder['id']
-      else
-        nil
       end
     end
 
@@ -243,8 +239,6 @@ module GrafanaCookbook
         folder[:title]
       elsif folder.key?('title')
         folder['title']
-      else
-        nil
       end
     end
 

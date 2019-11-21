@@ -94,7 +94,6 @@ end
 Folder's overwrite property is not mandatory but stongly recommended
 More information about Grafana folder's permission via the HTTP API can be found [here](http://docs.grafana.org/http_api/folder_permissions/).
 
-
 And finally to delete a folder
 
 ```ruby

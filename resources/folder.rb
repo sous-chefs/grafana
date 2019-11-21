@@ -3,7 +3,7 @@ property :host,           String,   default: 'localhost'
 property :port,           Integer,  default: 3000
 property :admin_user,     String,   default: 'admin'
 property :admin_password, String,   default: 'admin'
-property :folder,     Hash,     default: {}
+property :folder,         Hash,     default: {}
 
 default_action :create
 
@@ -24,9 +24,9 @@ action :create do
     new_resource.folder[:title] = new_resource.name
   end
 
-  same_dashboard_name = get_dashboard({name: new_resource.folder[:title]}, grafana_options)
+  same_dashboard_name = get_dashboard({ name: new_resource.folder[:title] }, grafana_options)
 
-  if ((not same_dashboard_name.nil?) and same_dashboard_name.key?(:message) and same_dashboard_name[:message] != "Not found") or ((not same_dashboard_name.nil?) and same_dashboard_name.key?('meta') and same_dashboard_name.key?('dashboard') and same_dashboard_name['meta'].key?('url') and same_dashboard_name['dashboard'].key?('uid') and same_dashboard_name['meta']['url'].include?("/d/" + same_dashboard_name['dashboard']['uid']))
+  if (!same_dashboard_name.nil? && same_dashboard_name.key?(:message) && same_dashboard_name[:message] != 'Not found') || (!same_dashboard_name.nil? && same_dashboard_name.key?('meta') && same_dashboard_name.key?('dashboard') && same_dashboard_name['meta'].key?('url') && same_dashboard_name['dashboard'].key?('uid') && same_dashboard_name['meta']['url'].include?('/d/' + same_dashboard_name['dashboard']['uid']))
     Chef::Log.error "A dashboard exist with same name '#{same_dashboard_name['dashboard']['title']}'"
     return
   end

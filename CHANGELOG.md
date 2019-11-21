@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 8.1.0 (Unreleased)
+
+- Generate Folder and folder permissions using Custom Resources
+
 ## 8.0.0
 
 - Changed `ldap_config_servers` `host` property from name property to required property

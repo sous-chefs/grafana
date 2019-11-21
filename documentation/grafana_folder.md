@@ -44,7 +44,7 @@ The default action is also to create folder.
 To update folder's details
 
 ```ruby
-grafana_user 'old_name' do
+grafana_folder 'old_name' do
   folder(
     overwrite: true,
     title: 'new_name'
@@ -62,7 +62,7 @@ Editor: "Permission": 2
 Admin:  "Permission": 4
 
 ```ruby
-grafana_user 'old_name' do
+grafana_folder 'old_name' do
   folder(
     overwrite: true,
     title: 'new_name',
@@ -97,7 +97,7 @@ More information about Grafana folder's permission via the HTTP API can be found
 And finally to delete a folder
 
 ```ruby
-grafana_user 'grafana' do
+grafana_folder 'grafana' do
   action :delete
 end
 ```

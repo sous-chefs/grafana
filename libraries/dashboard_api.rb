@@ -15,7 +15,7 @@ module GrafanaCookbook
           Chef::Log.info("Inserting dashbord to folder #{dashboard[:folder]} with ID #{get_folder_id(folder)}")
           dashboard_options.merge!('folderId' => get_folder_id(folder))
         else
-          Chef::Log.error("Unable to find folder #{dashboard[:folder]} for dashboard #{dashboard_options[:title]}")
+          Chef::Log.error("Unable to find folder #{dashboard[:folder]} for dashboard #{dashboard_options[:name]}")
         end
       end
 
@@ -58,11 +58,11 @@ module GrafanaCookbook
       dash_json = JSON.parse(File.read(dashboard_source_file))
 
       dash_json_title = slug_dashboard_or_folder_name(dash_json['title'])
-      Chef::Log.info("dash_json['title'] = #{dash_json['title']}, dash_json_title = #{dash_json_title}, dashboard_options[:name] = #{dashboard_options[:name]}")
+
       if dash_json_title != dashboard_options[:name]
         raise "dashboard_sanity failure: the resource name (#{dashboard_options[:name]}) "\
              "did not match the \"title\" in the json (#{dash_json_title}) or is not a valid Grafana slug. "\
-             'See http://docs.grafana.org/reference/http_api/#get-dashboard for more details.'\
+             'See http://docs.grafana.org/reference/http_api/#get-dashboard for more details.'
       end
     rescue BackendError
       nil

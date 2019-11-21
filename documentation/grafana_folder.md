@@ -38,7 +38,7 @@ grafana_folder 'grafana' do
 end
 ```
 
-Folder's title property is not mandatory. Default goes to resource name.
+Folder's title property is not mandatory. Defaultsto resource name.
 The default action is also to create folder.
 
 To update folder's details
@@ -47,13 +47,15 @@ To update folder's details
 grafana_folder 'old_name' do
   folder(
     overwrite: true,
+    version: 1,
     title: 'new_name'
   )
   action :update
 end
 ```
 
-Folder's overwrite property is not mandatory but stongly recommended
+Folder's overwrite property is not mandatory. Defaults to true if version is not specified.
+Folder's version property is not mandatory.
 
 The permission works as follow:
 
@@ -91,7 +93,6 @@ grafana_folder 'old_name' do
 end
 ```
 
-Folder's overwrite property is not mandatory but stongly recommended
 More information about Grafana folder's permission via the HTTP API can be found [here](http://docs.grafana.org/http_api/folder_permissions/).
 
 And finally to delete a folder

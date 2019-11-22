@@ -4,7 +4,7 @@
 
 # grafana_folder
 
-This resource will allow you to create global folder within Grafana. This resource is minimally viable and only supports the addition of global non-admin users. Contribution to the functionality would be appreciated.
+This resource will allow you to create a global folder within Grafana. This resource is minimally viable and only supports the addition of global non-admin users. Contribution to the functionality would be appreciated.
 
 More information about creating Grafana folder via the HTTP API can be found [here](http://docs.grafana.org/http_api/folder/#folder-api).
 
@@ -38,7 +38,7 @@ grafana_folder 'grafana' do
 end
 ```
 
-Folder's title property is not mandatory. Defaultsto resource name.
+Folder's title property is not mandatory. Defaults to resource name.
 The default action is also to create folder.
 
 To update folder's details

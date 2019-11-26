@@ -107,12 +107,58 @@ cookbook_file "#{Chef::Config['file_cache_path']}/grafana/dashboards/sample-dash
   action :create
 end
 
+cookbook_file "#{Chef::Config['file_cache_path']}/grafana/dashboards/sample-dashboard-folder.json" do
+  source 'sample-dashboard-folder.json'
+  owner 'root'
+  group 'grafana'
+  mode '0755'
+  action :create
+end
+
 grafana_dashboard 'sample-dashboard' do
   auth_proxy_header auth_header
   dashboard(
     path: "#{Chef::Config['file_cache_path']}/grafana/dashboards/sample-dashboard.json",
     overwrite: true,
     organization: 'Sous-Chefs'
+  )
+  action [:create, :update]
+end
+
+grafana_folder 'StayOrganized' do
+  folder(
+    overwrite: true,
+    title: 'StayOrganized',
+    permissions: {
+      items: [
+        {
+          "role": 'Viewer',
+          "permission": 1,
+        },
+        {
+          "role": 'Editor',
+          "permission": 2,
+        },
+      ],
+    }
+  )
+  action :create
+end
+
+grafana_folder 'StayOrganized' do
+  folder(
+    title: 'StayOrganized2'
+  )
+  action :update
+end
+
+grafana_dashboard 'sample-dashboard-folder' do
+  auth_proxy_header auth_header
+  dashboard(
+    path: "#{Chef::Config['file_cache_path']}/grafana/dashboards/sample-dashboard-folder.json",
+    overwrite: true,
+    organization: 'Sous-Chefs',
+    folder: 'StayOrganized2'
   )
   action [:create, :update]
 end

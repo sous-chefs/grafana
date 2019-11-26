@@ -31,6 +31,7 @@ default_action :create
 
 include GrafanaCookbook::DashboardApi
 include GrafanaCookbook::OrganizationApi
+include GrafanaCookbook::FolderApi
 
 action :create do
   grafana_options = {
@@ -48,6 +49,13 @@ action :create do
     cookbook: cookbook_name,
   }
   new_dashboard.merge!(new_resource.dashboard)
+
+  same_folder_name = get_folder_by_name(new_resource.dashboard[:name], grafana_options)
+
+  if (!same_folder_name.nil? && same_folder_name.key?(:message) && same_folder_name[:message] != 'Not found') || (!same_folder_name.nil? && same_folder_name.key?('url') && same_folder_name['url'].include?('/dashboards/f/'))
+    Chef::Log.error "Folder exist with same name '#{get_folder_title(same_folder_name)}'"
+    return
+  end
 
   _select_org(new_resource, grafana_options)
 

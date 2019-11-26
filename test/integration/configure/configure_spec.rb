@@ -94,3 +94,34 @@ end
 describe json(command: "curl http://localhost:3000/api/dashboards/db/sample-dashboard --header #{curl_auth_headers}") do
   its(%w(meta slug)) { should eq 'sample-dashboard' }
 end
+
+# TODO: Find a way to validate the dashboard is in the right folder
+describe json(command: "curl http://localhost:3000/api/dashboards/db/sample-dashboard-folder --header #{curl_auth_headers}") do
+  its(%w(meta slug)) { should eq 'sample-dashboard-folder' }
+end
+
+describe http('http://localhost:3000/api/folders', headers: auth_headers) do
+  its('status') { should eq 200 }
+
+  let(:json) { JSON.parse(subject.body) }
+  let(:example_folder) { json.find { |folder| folder['title'] == 'StayOrganized2' } }
+  it do
+    expect(example_folder).to include(
+      'title' => 'StayOrganized2'
+    )
+  end
+end
+
+# TODO: Find a way to validate the perms are correct
+# describe http("http://localhost:3000/api/folders#{example_folder[:uid]}/permissions", headers: auth_headers) do
+#   its('status') { should eq 200 }
+
+#   let(:json) { JSON.parse(subject.body) }
+#   let(:example_folder_perm) { json.find { |perm| perm['role'] == 'Viewer' } }
+#   it do
+#     expect(example_folder_perm).to include(
+#       'role' => 'Viewer',
+#       'permission' => 1
+#     )
+#   end
+# end

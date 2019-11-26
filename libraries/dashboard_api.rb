@@ -9,6 +9,15 @@ module GrafanaCookbook
         'dashboard' => JSON.parse(File.read(dashboard_source_file)),
         'overwrite' => dashboard[:overwrite],
       }
+      if !dashboard[:folder].nil? && !dashboard[:folder].empty?
+        folder = get_folder_by_name(dashboard[:folder], grafana_options)
+        if !folder.nil?
+          Chef::Log.info("Inserting dashbord to folder #{dashboard[:folder]} with ID #{get_folder_id(folder)}")
+          dashboard_options.merge!('folderId' => get_folder_id(folder))
+        else
+          Chef::Log.error("Unable to find folder #{dashboard[:folder]} for dashboard #{dashboard_options[:name]}")
+        end
+      end
 
       grafana_options[:method] = 'Post'
       grafana_options[:success_msg] = 'Dashboard creation was successful.'
@@ -48,7 +57,8 @@ module GrafanaCookbook
       end
       dash_json = JSON.parse(File.read(dashboard_source_file))
 
-      dash_json_title = dash_json['title'].tr('.', '-').tr(' ', '-').downcase
+      dash_json_title = slug_dashboard_or_folder_name(dash_json['title'])
+
       if dash_json_title != dashboard_options[:name]
         raise "dashboard_sanity failure: the resource name (#{dashboard_options[:name]}) "\
              "did not match the \"title\" in the json (#{dash_json_title}) or is not a valid Grafana slug. "\
@@ -64,7 +74,7 @@ module GrafanaCookbook
       grafana_options[:method] = 'Get'
       grafana_options[:success_msg] = 'Dashboard deletion was successful.'
       grafana_options[:unknown_code_msg] = 'DashboardApi::delete_dashboard unchecked response code: %{code}'
-      grafana_options[:endpoint] = '/api/dashboards/db/' + dashboard[:name]
+      grafana_options[:endpoint] = '/api/dashboards/db/' + slug_dashboard_or_folder_name(dashboard[:name])
 
       dash = do_request(grafana_options)
 

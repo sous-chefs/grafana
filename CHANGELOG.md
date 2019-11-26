@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## 8.1.0 (Unreleased)
+## 8.1.0 (2019-11-26)
 
 - Generate Folder and folder permissions using Custom Resources
 

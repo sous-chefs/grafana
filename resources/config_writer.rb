@@ -21,7 +21,7 @@ action :install do
       grafana: node.run_state['sous-chefs'][new_resource.instance_name]['config']
     )
     not_if { node.run_state['sous-chefs'][new_resource.instance_name]['config'].nil? }
-    sensitive new_resource.sensitive
+    sensitive new_resource.is_sensitive
   end
 
   template ::File.join(new_resource.config_file_ldap) do
@@ -31,6 +31,6 @@ action :install do
       ldap: node.run_state['sous-chefs'][new_resource.instance_name]['ldap']
     )
     not_if { node.run_state['sous-chefs'][new_resource.instance_name]['ldap'].nil? }
-    sensitive new_resource.sensitive
+    sensitive new_resource.is_sensitive
   end
 end

@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## 8.1.1 (Unreleased)
+## 8.1.1 (2019-12-22)
 
 - Fix sensitive property of config_writer resource
 

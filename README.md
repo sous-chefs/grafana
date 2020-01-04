@@ -25,6 +25,7 @@ This cookbook officially supports and is tested against the following platforms:
 - Ubuntu >= 16.04
 - Debian >= 8
 - CentOS/Redhat >= 6
+- Amazon Linux >= 2
 
 PRs are welcome to add support for additional platforms.
 

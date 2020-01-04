@@ -18,6 +18,7 @@ platforms:
   - name: ubuntu-18.04
   - name: centos-6
   - name: centos-7
+  - name: amazonlinux-2
 
 suites:
   - name: default

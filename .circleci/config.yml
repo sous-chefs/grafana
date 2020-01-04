@@ -56,6 +56,10 @@ workflows:
           suite: default-amazonlinux
           requires: *lint_and_unit
       - kitchen/dokken-single:
+          name: default-amazonlinux2
+          suite: default-amazonlinux2
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
           name: ldap-debian-8
           suite: ldap-debian-8
           requires: *lint_and_unit
@@ -82,6 +86,10 @@ workflows:
       - kitchen/dokken-single:
           name: ldap-amazonlinux
           suite: ldap-amazonlinux
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: ldap-amazonlinux2
+          suite: ldap-amazonlinux2
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: proxy-debian-8
@@ -112,6 +120,10 @@ workflows:
           suite: proxy-amazonlinux
           requires: *lint_and_unit
       - kitchen/dokken-single:
+          name: proxy-amazonlinux2
+          suite: proxy-amazonlinux2
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
           name: plugins-debian-8
           suite: plugins-debian-8
           requires: *lint_and_unit
@@ -138,6 +150,10 @@ workflows:
       - kitchen/dokken-single:
           name: plugins-amazonlinux
           suite: plugins-amazonlinux
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: plugins-amazonlinux2
+          suite: plugins-amazonlinux2
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: basic-debian-8
@@ -168,6 +184,10 @@ workflows:
           suite: basic-amazonlinux
           requires: *lint_and_unit
       - kitchen/dokken-single:
+          name: basic-amazonlinux2
+          suite: basic-amazonlinux2
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
           name: configure-debian-8
           suite: configure-debian-8
           requires: *lint_and_unit
@@ -195,6 +215,10 @@ workflows:
           name: configure-amazonlinux
           suite: configure-amazonlinux
           requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: configure-amazonlinux2
+          suite: configure-amazonlinux2
+          requires: *lint_and_unit
       - final:
           requires:
             - default-debian-8
@@ -204,6 +228,7 @@ workflows:
             - default-ubuntu-1604
             - default-ubuntu-1804
             - default-amazonlinux
+            - default-amazonlinux2
             - ldap-debian-8
             - ldap-debian-9
             - ldap-centos-6
@@ -211,6 +236,7 @@ workflows:
             - ldap-ubuntu-1604
             - ldap-ubuntu-1804
             - ldap-amazonlinux
+            - ldap-amazonlinux2
             - proxy-debian-8
             - proxy-debian-9
             - proxy-centos-6
@@ -225,6 +251,7 @@ workflows:
             - plugins-ubuntu-1604
             - plugins-ubuntu-1804
             - plugins-amazonlinux
+            - plugins-amazonlinux2
             - basic-debian-8
             - basic-debian-9
             - basic-centos-6
@@ -232,6 +259,7 @@ workflows:
             - basic-ubuntu-1604
             - basic-ubuntu-1804
             - basic-amazonlinux
+            - basic-amazonlinux2
             - configure-debian-8
             - configure-debian-9
             - configure-centos-6
@@ -239,3 +267,4 @@ workflows:
             - configure-ubuntu-1604
             - configure-ubuntu-1804
             - configure-amazonlinux
+            - configure-amazonlinux2

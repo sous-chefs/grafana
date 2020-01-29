@@ -1,7 +1,7 @@
 # Grafana Cookbook
 
 [![Cookbook Version](https://img.shields.io/cookbook/v/grafana.svg?style=flat)](https://supermarket.chef.io/cookbooks/grafana)
-[![CircleCI](https://img.shields.io/circleci/project/github/sous-chefs/grafana/master.svg)](https://circleci.com/gh/sous-chefs/grafana)
+[![CI State](https://github.com/sous-chefs/grafana/workflows/ci/badge.svg)](https://github.com/sous-chefs/grafana/actions?query=workflow%3Aci)
 [![OpenCollective](https://opencollective.com/sous-chefs/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)

@@ -8,6 +8,8 @@ Configures the core log section of the configuration <http://docs.grafana.org/in
 
 Introduced: v4.0.0
 
+Note: While this configures the log settings Grafana sets the location of the logs using [paths](https://grafana.com/docs/grafana/latest/installation/configuration/#logs). You can edit the path using the [grafana_config_paths](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_paths.md) resource.
+
 ## Actions
 
 `:create`

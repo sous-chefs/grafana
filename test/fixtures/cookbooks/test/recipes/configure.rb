@@ -140,14 +140,16 @@ grafana_folder 'StayOrganized' do
           "permission": 2,
         },
       ],
-    }
+    },
+    organization: 'Sous-Chefs'
   )
   action :create
 end
 
 grafana_folder 'StayOrganized' do
   folder(
-    title: 'StayOrganized2'
+    title: 'StayOrganized2',
+    organization: 'Sous-Chefs'
   )
   action :update
 end

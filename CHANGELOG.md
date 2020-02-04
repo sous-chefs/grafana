@@ -6,6 +6,11 @@ This file is used to list changes made in each version of grafana.
 
 - Migrate to Github Actions
 
+## 8.1.2
+
+- Bugfix for grafana_folder resource
+- Add organization support to grafana_folder
+
 ## 8.1.1 (2019-12-22)
 
 - Fix sensitive property of config_writer resource

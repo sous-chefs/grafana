@@ -5,10 +5,13 @@ property :admin_user,     String,   default: 'admin'
 property :admin_password, String,   default: 'admin'
 property :folder,         Hash,     default: {}
 
+property :auth_proxy_header, [String, nil], default: nil
+
 default_action :create
 
 include GrafanaCookbook::FolderApi
 include GrafanaCookbook::DashboardApi
+include GrafanaCookbook::OrganizationApi
 
 action :create do
   grafana_options = {
@@ -16,6 +19,7 @@ action :create do
     port: new_resource.port,
     user: new_resource.admin_user,
     password: new_resource.admin_password,
+    auth_proxy_header: new_resource.auth_proxy_header,
   }
   # If folder's name is not provided as variable,
   # Let's use resource name for it
@@ -23,6 +27,8 @@ action :create do
     title: new_resource.name,
   }
   new_folder.merge!(new_resource.folder)
+
+  _select_org(new_resource, grafana_options)
 
   same_dashboard_name = get_dashboard({ name: new_folder[:title] }, grafana_options)
 
@@ -47,6 +53,7 @@ action :update do
     port: new_resource.port,
     user: new_resource.admin_user,
     password: new_resource.admin_password,
+    auth_proxy_header: new_resource.auth_proxy_header,
   }
   # If folder's name is not provided as variable,
   # Let's use resource name for it
@@ -55,6 +62,8 @@ action :update do
   }
   new_folder.merge!(new_resource.folder)
   new_folder[:overwrite] = true unless new_folder[:version]
+
+  _select_org(new_resource, grafana_options)
 
   # Check wether we have to update folder's names
   update_folder = new_folder[:title] != new_resource.name
@@ -83,6 +92,7 @@ action :delete do
     port: new_resource.port,
     user: new_resource.admin_user,
     password: new_resource.admin_password,
+    auth_proxy_header: new_resource.auth_proxy_header,
   }
   # If folder's name is not provided as variable,
   # Let's use resource name for it
@@ -91,6 +101,8 @@ action :delete do
   }
   new_folder.merge!(new_resource.folder)
 
+  _select_org(new_resource, grafana_options)
+
   folder = get_folder_by_name(new_folder[:title], grafana_options)
 
   new_folder[:id] = get_folder_id(folder)
@@ -98,4 +110,29 @@ action :delete do
   converge_by("Deleting folder #{new_folder[:title]}") do
     delete_folder(new_folder, grafana_options)
   end
+end
+
+def _check_org!(folder, orgs)
+  return if orgs.length <= 1 || folder.key?(:organization)
+  raise 'More than one organization, so organization is mandatory for a folder'
+end
+
+def _select_org(new_resource, grafana_options)
+  # check, if we have multiple orgs, then the org is mandatory
+  orgs = get_orgs_list(grafana_options)
+  _check_org! new_resource.folder, orgs
+
+  # don't do anything if an organization is not selected
+  return unless new_resource.folder.key?(:organization)
+
+  # Find organization by name
+  selected_org = orgs.detect do |org|
+    org['name'] == new_resource.folder[:organization]
+  end
+
+  # If organization is provided select it
+  unless selected_org
+    raise "Could not find organization #{new_resource.folder[:organization]}"
+  end
+  select_org(selected_org, grafana_options)
 end

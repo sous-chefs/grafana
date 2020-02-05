@@ -2,14 +2,11 @@
 
 This file is used to list changes made in each version of grafana.
 
-## unreleased
-
-- Migrate to Github Actions
-
-## 8.1.2
+## 8.2.0
 
 - Bugfix for grafana_folder resource
 - Add organization support to grafana_folder
+- Migrate CI system to Github Actions
 
 ## 8.1.1 (2019-12-22)
 

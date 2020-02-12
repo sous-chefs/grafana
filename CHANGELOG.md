@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 8.3.0
+
+- Adds role mapping to generic oauth resource <https://grafana.com/docs/grafana/latest/auth/generic-oauth/#role-mapping>
+
 ## 8.2.0
 
 - Bugfix for grafana_folder resource

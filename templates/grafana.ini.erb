@@ -660,6 +660,9 @@ tls_client_ca = <%= @grafana['auth_generic_oauth']['tls_client_ca'] %>
 <% if @grafana['auth_generic_oauth']['send_client_credentials_via_post'] %>
 send_client_credentials_via_post = <%= @grafana['auth_generic_oauth']['send_client_credentials_via_post'] %>
 <% end %>
+<% if @grafana['auth_generic_oauth']['role_attribute_path'] %>
+role_attribute_path = <%= @grafana['auth_generic_oauth']['role_attribute_path'] %>
+<% end %>
 <% end %>
 #################################### Basic Auth ##########################
 <% if @grafana['auth_basic'] %>

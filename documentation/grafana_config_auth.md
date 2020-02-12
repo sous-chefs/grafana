@@ -67,23 +67,24 @@ Introduced: v4.0.0
 | `:grafanacom_client_secret`                       | String        |                             | Grafana.com Authentication                                          |
 | `:grafanacom_scopes`                              | String        | `user:email`                | Grafana.com Authentication                                          |
 | `:grafanacom_allowed_organizations`               | String        |                             | Grafana.com Authentication                                          |
-| `:generic_oauth_name`                              | String        | `OAuth`                     | <http://docs.grafana.org/auth/generic-oauth/>                         |
-| `:generic_oauth_enabled`                           | True, False   | `false`                     | Enable Generic OAuth                                                | true, false
-| `:generic_oauth_allow_sign_up`                     | True, False   | `true`                      | <http://docs.grafana.org/auth/generic-oauth/>                         | true, false
-| `:generic_oauth_client_id`                         | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
-| `:generic_oauth_client_secret`                     | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
-| `:generic_oauth_scopes`                            | String        | `user:email`                | <http://docs.grafana.org/auth/generic-oauth/>                         |
-| `:generic_oauth_email_attribute_name`              | String        | `email:primary`             | <http://docs.grafana.org/auth/generic-oauth/>                         |
-| `:generic_oauth_auth_url`                          | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
-| `:generic_oauth_token_url`                         | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
-| `:generic_oauth_api_url`                           | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
-| `:generic_oauth_team_ids`                          | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
-| `:generic_oauth_allowed_organizations`             | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
-| `:generic_oauth_tls_skip_verify_insecure`          | True, False   | `false`                     | <http://docs.grafana.org/auth/generic-oauth/>                         | true, false
-| `:generic_oauth_tls_client_cert`                   | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
-| `:generic_oauth_tls_client_key`                    | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
-| `:generic_oauth_tls_client_ca`                     | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
-| `:generic_oauth_send_client_credentials_via_post`  | True, False   | `false`                     | <http://docs.grafana.org/auth/generic-oauth/>                         | true, false
+| `:generic_oauth_name`                             | String        | `OAuth`                     | <http://docs.grafana.org/auth/generic-oauth/>                         |
+| `:generic_oauth_enabled`                          | True, False   | `false`                     | Enable Generic OAuth                                                | true, false
+| `:generic_oauth_allow_sign_up`                    | True, False   | `true`                      | <http://docs.grafana.org/auth/generic-oauth/>                         | true, false
+| `:generic_oauth_client_id`                        | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
+| `:generic_oauth_client_secret`                    | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
+| `:generic_oauth_scopes`                           | String        | `user:email`                | <http://docs.grafana.org/auth/generic-oauth/>                         |
+| `:generic_oauth_email_attribute_name`             | String        | `email:primary`             | <http://docs.grafana.org/auth/generic-oauth/>                         |
+| `:generic_oauth_auth_url`                         | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
+| `:generic_oauth_token_url`                        | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
+| `:generic_oauth_api_url`                          | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
+| `:generic_oauth_team_ids`                         | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
+| `:generic_oauth_allowed_organizations`            | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
+| `:generic_oauth_tls_skip_verify_insecure`         | True, False   | `false`                     | <http://docs.grafana.org/auth/generic-oauth/>                         | true, false
+| `:generic_oauth_tls_client_cert`                  | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
+| `:generic_oauth_tls_client_key`                   | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
+| `:generic_oauth_tls_client_ca`                    | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
+| `:generic_oauth_send_client_credentials_via_post` | True, False   | `false`                     | <http://docs.grafana.org/auth/generic-oauth/>                         | true, false
+| `:generic_oauth_role_attribute_path`              | String        |                             | <http://docs.grafana.org/auth/generic-oauth/>                         |
 | `:basic_enabled`                                  | True, False   | `true`                      | Basic auth is enabled by default and works with the built in Grafana user password authentication system and LDAP authentication integration| true, false
 | `:proxy_enabled`                                  | True, False   | `false`                     | Defaults to false, but set to true to enable this feature (http://docs.grafana.org/auth/auth-proxy/)| true, false
 | `:proxy_header_name`                              | String        | `X-WEBAUTH-USER`            | HTTP Header name that will contain the username or email            |

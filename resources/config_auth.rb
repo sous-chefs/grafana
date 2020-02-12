@@ -79,6 +79,7 @@ property  :generic_oauth_token_url,                        String,         defau
 property  :generic_oauth_api_url,                          String,         default: ''
 property  :generic_oauth_team_ids,                         String,         default: ''
 property  :generic_oauth_allowed_organizations,            String,         default: ''
+property  :generic_oauth_role_attribute_path,              String,         default: ''
 property  :generic_oauth_tls_skip_verify_insecure,         [true, false],  default: false
 property  :generic_oauth_tls_client_cert,                  String,         default: ''
 property  :generic_oauth_tls_client_key,                   String,         default: ''
@@ -156,6 +157,8 @@ action :install do
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_generic_oauth']['tls_client_ca'] << new_resource.generic_oauth_tls_client_ca.to_s unless new_resource.generic_oauth_tls_client_ca.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_generic_oauth']['send_client_credentials_via_post'] ||= '' unless new_resource.generic_oauth_send_client_credentials_via_post.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_generic_oauth']['send_client_credentials_via_post'] << new_resource.generic_oauth_send_client_credentials_via_post.to_s unless new_resource.generic_oauth_send_client_credentials_via_post.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_generic_oauth']['role_attribute_path'] ||= '' unless new_resource.generic_oauth_role_attribute_path.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_generic_oauth']['role_attribute_path'] << new_resource.generic_oauth_role_attribute_path.to_s unless new_resource.generic_oauth_role_attribute_path.nil?
 
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_github'] ||= {}
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_github']['enabled'] ||= '' unless new_resource.github_enabled.nil?

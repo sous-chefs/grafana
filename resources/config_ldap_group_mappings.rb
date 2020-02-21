@@ -23,7 +23,7 @@
 property  :instance_name,                 String,                   name_property: true
 property  :group_dn,                      String,                   required: true
 property  :org_role,                      String,                   default: 'Viewer'
-property  :grafana_admin,                 [TrueClass, FalseClass],  default: false
+property  :grafana_admin,                 [true, false],            default: false
 property  :org_id,                        Integer,                  default: 1
 
 action :install do

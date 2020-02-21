@@ -23,9 +23,9 @@
 property  :instance_name,                       String,                   name_property: true
 property  :host,                                String,                   required: true
 property  :port,                                Integer,                  default: 389
-property  :use_ssl,                             [TrueClass, FalseClass],  default: false
-property  :start_tls,                           [TrueClass, FalseClass],  default: false
-property  :ssl_skip_verify,                     [TrueClass, FalseClass],  default: false
+property  :use_ssl,                             [true, false],            default: false
+property  :start_tls,                           [true, false],            default: false
+property  :ssl_skip_verify,                     [true, false],            default: false
 property  :root_ca_cert,                        String
 property  :client_cert,                         String
 property  :client_key,                          String

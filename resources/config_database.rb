@@ -27,7 +27,7 @@ property  :password,          String,                   default: ''
 property  :max_idle_conn,     Integer,                  default: 2
 property  :max_open_conn,     Integer,                  default: 0
 property  :conn_max_lifetime, Integer,                  default: 14400
-property  :log_queries,       [TrueClass, FalseClass],  default: false
+property  :log_queries,       [true, false],            default: false
 property  :ssl_mode,          [Symbol, TrueClass, FalseClass], default: :disable, equal_to: [ :disable, :require, :'verify-full', true, false, :'skip-verify' ]
 property  :ca_cert_path,      String,                   default: ''
 property  :client_key_path,   String,                   default: ''

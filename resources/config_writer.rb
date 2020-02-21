@@ -1,5 +1,5 @@
 property  :instance_name,       String,                   name_property: true
-property  :is_sensitive,        [TrueClass, FalseClass],  default: true
+property  :is_sensitive,        [true, false],            default: true
 property  :conf_directory,      String,                   default: '/etc/grafana'
 property  :config_file,         String,                   default: lazy { ::File.join(conf_directory, 'grafana.ini') }
 property  :config_file_ldap,    String,                   default: lazy { ::File.join(conf_directory, 'ldap.toml') }

@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 8.4.0
+
+- Allow multiple LDAP mapping with the same group_dn
+
 ## 8.3.0
 
 - Adds role mapping to generic oauth resource <https://grafana.com/docs/grafana/latest/auth/generic-oauth/#role-mapping>

@@ -23,16 +23,16 @@
 property  :instance_name,                 String,                   name_property: true
 property  :group_dn,                      String,                   required: true
 property  :org_role,                      String,                   default: 'Viewer'
-property  :grafana_admin,                 [TrueClass, FalseClass],  default: false
+property  :grafana_admin,                 [true, false],            default: false
 property  :org_id,                        Integer,                  default: 1
 
 action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['group_mappings'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['group_mappings'][new_resource.group_dn] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['group_mappings'][new_resource.group_dn]['org_role'] ||= '' unless new_resource.org_role.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['group_mappings'][new_resource.group_dn]['org_role'] = new_resource.org_role.to_s unless new_resource.org_role.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['group_mappings'][new_resource.group_dn]['grafana_admin'] ||= '' unless new_resource.grafana_admin.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['group_mappings'][new_resource.group_dn]['grafana_admin'] = new_resource.grafana_admin.to_s unless new_resource.grafana_admin.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['group_mappings'][new_resource.group_dn]['org_id'] ||= '' unless new_resource.org_id.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['group_mappings'][new_resource.group_dn]['org_id'] = new_resource.org_id.to_s unless new_resource.org_id.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['group_mappings'] ||= []
+  mapping = {
+    'group_dn' => new_resource.group_dn.to_s,
+    'org_role' => (new_resource.org_role || '').to_s,
+    'grafana_admin' => (new_resource.grafana_admin || '').to_s,
+    'org_id' => (new_resource.org_id || '').to_s,
+  }
+  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['group_mappings'] << mapping
 end

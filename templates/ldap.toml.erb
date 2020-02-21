@@ -86,18 +86,13 @@ email = "<%= @ldap['servers_attributes_email'] %>"
 
 # Map ldap groups to grafana org roles
 <% unless @ldap['group_mappings'].nil? %>
-<% @ldap['group_mappings'].each do | key, group | %>
+<% @ldap['group_mappings'].each do | group | %>
 
 [[servers.group_mappings]]
-group_dn = "<%= key %>"
-<% unless group['org_role'].nil? -%>
-org_role = "<%= group['org_role'] %>"
-<% end -%>
-<% unless group['org_id'].nil? -%>
-org_id = <%= group['org_id'] %>
-<% end -%>
-<% unless group['grafana_admin'].nil? -%>
-grafana_admin = <%= group['grafana_admin'] %>
-<% end -%>
+<% group.each do |k, v| %>
+<% next if v.nil? %>
+<%= k.to_s %> = "<%= v.to_s %>"
+<% end %>
+
 <% end # group_mappings loop -%>
 <% end # group_mappings unless -%>

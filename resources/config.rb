@@ -24,7 +24,7 @@ property  :instance_name,       String,                   name_property: true
 property  :env_directory,       String,                   default: '/etc/default'
 property  :owner,               String,                   default: 'grafana'
 property  :group,               String,                   default: 'grafana'
-property  :restart_on_upgrade,  [TrueClass, FalseClass],  default: false
+property  :restart_on_upgrade,  [true, false],            default: false
 property  :conf_directory,      String,                   default: '/etc/grafana'
 property  :app_mode,            String,                   default: 'production', equal_to: %w(production development)
 property  :cookbook,            String,                   default: 'grafana'

@@ -91,7 +91,7 @@ email = "<%= @ldap['servers_attributes_email'] %>"
 [[servers.group_mappings]]
 <% group.each do |k, v| %>
 <% next if v.nil? %>
-<%= k.to_s %>=<%= v.to_s %>
+<%= k.to_s %> = <%= v.to_s %>
 <% end %>
 
 <% end # group_mappings loop -%>

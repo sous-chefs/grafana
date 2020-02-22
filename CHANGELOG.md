@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 8.4.1
+
+- Bugfix: fix the value types in the ldap.toml file
+
 ## 8.4.0
 
 - Allow multiple LDAP mapping with the same group_dn

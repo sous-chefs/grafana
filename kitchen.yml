@@ -31,6 +31,7 @@ suites:
   - name: proxy
     run_list:
       - recipe[test::proxy]
+
   - name: plugins
     run_list:
       - recipe[test::plugins]

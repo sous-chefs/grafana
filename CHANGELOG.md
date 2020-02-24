@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 8.4.2
+
+- Bugfix: fix the value types in the ldap.toml file
+- Add tests to make sure ldap.toml file is matching requirements
+
 ## 8.4.1
 
 - Bugfix: fix the value types in the ldap.toml file

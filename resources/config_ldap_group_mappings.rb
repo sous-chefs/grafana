@@ -29,10 +29,10 @@ property  :org_id,                        Integer,                  default: 1
 action :install do
   node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['group_mappings'] ||= []
   mapping = {
-    'group_dn' => new_resource.group_dn.to_s,
-    'org_role' => (new_resource.org_role || '').to_s,
-    'grafana_admin' => (new_resource.grafana_admin || '').to_s,
-    'org_id' => (new_resource.org_id || '').to_s,
+    'group_dn' => new_resource.group_dn,
+    'org_role' => new_resource.org_role,
+    'grafana_admin' => new_resource.grafana_admin,
+    'org_id' => new_resource.org_id,
   }
   node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['group_mappings'] << mapping
 end

@@ -29,7 +29,7 @@ module GrafanaCookbook
       )
 
       # sorry for the fancy hackery - rubists are welcome to make this better
-      response['set-cookie'][/grafana_sess=(\w+);/, 1]
+      response['set-cookie'][/#{GrafanaCookbook::CookieHelper.cookie_name}=(\w+);/, 1]
     rescue BackendError
       nil
     end
@@ -77,7 +77,7 @@ module GrafanaCookbook
         request.add_field(grafana_options[:auth_proxy_header], grafana_options[:user])
       else
         session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
-        request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; grafana_sess=#{session_id};")
+        request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; #{GrafanaCookbook::CookieHelper.cookie_name}=#{session_id};")
       end
       request.add_field('Content-Type', 'application/json;charset=utf-8;')
       request.add_field('Accept', 'application/json')
@@ -141,7 +141,7 @@ module GrafanaCookbook
       if message
         Chef::Log.error message
       else
-        Chef::Log.error 'Invalid grafana_user and grafana_sess.'
+        Chef::Log.error "Invalid grafana_user and #{GrafanaCookbook::CookieHelper.cookie_name}."
       end
       raise BackendError
     end

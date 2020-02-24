@@ -10,7 +10,7 @@ grafana_config_auth 'Grafana' do
   proxy_header_name auth_header
   proxy_header_property 'username'
   proxy_whitelist '127.0.0.1, ::1'
-  login_cookie_name 'grafana_sess'
+  login_cookie_name 'grafana_session'
 end
 
 grafana_config_writer 'Grafana'

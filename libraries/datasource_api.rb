@@ -3,7 +3,7 @@ module GrafanaCookbook
     include GrafanaCookbook::ApiHelper
 
     # Uses the HTTP API and session-based authentication to add a Grafana datasource
-    # Here's a sample curl statement: curl 'http://localhost/api/datasources' -X PUT -H 'Content-Type: application/json;charset=utf-8' -H 'Cookie: grafana_sess=807f6bf34a80787e; grafana_user=admin;'
+    # Here's a sample curl statement: curl 'http://localhost/api/datasources' -X PUT -H 'Content-Type: application/json;charset=utf-8' -H 'Cookie: grafana_session=807f6bf34a80787e; grafana_user=admin;'
     # --data '{"name":"not-influxdb","type":"influxdb_08","url":"http://10.0.0.6:8086","access":"direct","database":"grafana","user":"root","password":"root"}'
     # Params:
     # +datasource+:: This is a hash of the options used to create the new datasource
@@ -57,7 +57,7 @@ module GrafanaCookbook
     end
 
     # Get a list of all the existing datasources within Grafana
-    # curl -G http://localhost:3000/api/datasources --cookie "grafana_user=admin; grafana_sess=5945ea31879f4779"
+    # curl -G http://localhost:3000/api/datasources --cookie "grafana_user=admin; grafana_session=5945ea31879f4779"
     # Params:
     # +grafana_options+:: A hash of the host, port, user, and password
     def get_datasource_list(grafana_options)

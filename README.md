@@ -62,12 +62,17 @@ For any core configuration resources, the base config resource is: `grafana_conf
 - [grafana\_config\_external\_image\_storage\_s3](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_external_image_storage_s3.md)
 - [grafana_config_users](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_users.md)
 - [grafana_config_writer](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_writer.md)
+- [grafana_cookie_name](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_cookie_name.md)
 - [grafana_dashboard](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_dashboard.md)
 - [grafana_datasource](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_datasource.md)
 - [grafana_install](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_install.md)
 - [grafana_organization](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_organization.md)
 - [grafana_plugin](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_plugin.md)
 - [grafana_user](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_user.md)
+
+## Note on default session cookie name change
+
+The default cookie name changed from Grafana [5.4.5](https://github.com/grafana/grafana/blob/v5.4.5/pkg/setting/setting.go#L743) to [6.0.0](https://github.com/grafana/grafana/blob/v6.0.0/pkg/setting/setting.go#L664).  The name change was from `grafana_sess` to `grafana_session`.  This cookbook now defaults to `grafana_session`.  This can be a breaking change, so please be aware of this.  Please see the [`grafana_cookie_name` documentation](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_cookie_name.md) for details
 
 ## Contributors
 

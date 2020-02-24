@@ -22,20 +22,21 @@ property  :instance_name,     String,         name_property: true
 # using session_provider due to: ArgumentError: Property `provider` of resource `` overwrites an existing method.
 property  :session_provider,  Symbol,         default: :file, equal_to: %i( memory file redis mysql postgres memcache )
 property  :provider_config,   String,         default: 'sessions'
-property  :cookie_name,       String,         default: 'grafana_sess'
+property  :cookie_name,       String,         required: false
 property  :cookie_secure,     [true, false],  default: false
 property  :session_life_time, Integer,        default: 86400
 property  :gc_interval_time,  Integer,        default: 86400
 property  :conn_max_lifetime, Integer,        default: 14400
 
 action :install do
+  cookie_name = new_resource.cookie_name || GrafanaCookbook::CookieHelper.cookie_name
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['session'] ||= {}
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['session']['provider'] ||= '' unless new_resource.session_provider.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['session']['provider'] << new_resource.session_provider.to_s unless new_resource.session_provider.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['session']['provider_config'] ||= '' unless new_resource.provider_config.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['session']['provider_config'] << new_resource.provider_config.to_s unless new_resource.provider_config.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['session']['cookie_name'] ||= '' unless new_resource.cookie_name.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['session']['cookie_name'] << new_resource.cookie_name.to_s unless new_resource.cookie_name.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['session']['cookie_name'] ||= '' unless cookie_name.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['session']['cookie_name'] << cookie_name.to_s unless cookie_name.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['session']['cookie_secure'] ||= '' unless new_resource.cookie_secure.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['session']['cookie_secure'] << new_resource.cookie_secure.to_s unless new_resource.cookie_secure.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['session']['session_life_time'] ||= '' unless new_resource.session_life_time.nil?

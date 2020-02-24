@@ -68,7 +68,7 @@ module GrafanaCookbook
       nil
     end
 
-    # curl -G --cookie "grafana_user=admin; grafana_sess=5eca2376d310627f;" http://localhost:3000/api/users
+    # curl -G --cookie "grafana_user=admin; grafana_session=5eca2376d310627f;" http://localhost:3000/api/users
     def get_user_list(grafana_options)
       grafana_options[:method] = 'Get'
       grafana_options[:success_msg] = 'The list of users has been successfully retrieved.'

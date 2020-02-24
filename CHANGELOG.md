@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 8.5.0
+
+- Adding support for change to Grafana session cookie name.  See README for details
+
 ## 8.4.2
 
 - Bugfix: fix the value types in the ldap.toml file

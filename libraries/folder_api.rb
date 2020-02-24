@@ -3,7 +3,7 @@ module GrafanaCookbook
     include GrafanaCookbook::ApiHelper
 
     # Fetch the json representation of the folder
-    # curl -G --cookie "grafana_user=admin; grafana_sess=997bcbbf1c60fcf0;" http://localhost:3000/api/folders/nErXDvCkzz
+    # curl -G --cookie "grafana_user=admin; grafana_session=997bcbbf1c60fcf0;" http://localhost:3000/api/folders/nErXDvCkzz
     def get_folders(grafana_options)
       grafana_options[:method] = 'Get'
       grafana_options[:success_msg] = 'Folder deletion was successful.'
@@ -18,7 +18,7 @@ module GrafanaCookbook
     end
 
     # Fetch the json representation of the folder
-    # curl -G --cookie "grafana_user=admin; grafana_sess=997bcbbf1c60fcf0;" http://localhost:3000/api/folders/nErXDvCkzz
+    # curl -G --cookie "grafana_user=admin; grafana_session=997bcbbf1c60fcf0;" http://localhost:3000/api/folders/nErXDvCkzz
     def get_folder(folder, grafana_options)
       grafana_options[:method] = 'Get'
       grafana_options[:success_msg] = 'Folder deletion was successful.'
@@ -32,7 +32,7 @@ module GrafanaCookbook
     end
 
     # Fetch the json representation of the folder
-    # curl -G --cookie "grafana_user=admin; grafana_sess=997bcbbf1c60fcf0;" http://localhost:3000/api/folders/10
+    # curl -G --cookie "grafana_user=admin; grafana_session=997bcbbf1c60fcf0;" http://localhost:3000/api/folders/10
     def get_folder_by_id(folder, grafana_options)
       grafana_options[:method] = 'Get'
       grafana_options[:success_msg] = 'Folder deletion was successful.'
@@ -46,7 +46,7 @@ module GrafanaCookbook
     end
 
     # Fetch the json representation of the folder
-    # curl -G --cookie "grafana_user=admin; grafana_sess=997bcbbf1c60fcf0;" http://localhost:3000/api/folders/10
+    # curl -G --cookie "grafana_user=admin; grafana_session=997bcbbf1c60fcf0;" http://localhost:3000/api/folders/10
     def get_folder_by_name(folder_name, grafana_options)
       return_folder = get_folders(grafana_options).select { |folder, _value| get_folder_title(folder) == folder_name }
       return_folder[0]

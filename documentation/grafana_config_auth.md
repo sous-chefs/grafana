@@ -18,7 +18,7 @@ Introduced: v4.0.0
 
 | Name                                              | Type          |  Default                    | Description                                                         | Allowed Values
 | ------------------------------------------------ | -------------  | --------------------------- | ------------------------------------------------------------------  | --------------- |
-| `login_cookie_name`                               | String        | `grafana_session`           | The name of the Grafana session cookie.|
+| `login_cookie_name`                               | String        | `nil`                       | Session cookie name,  default changed at Grafana 6.0.0 so programatically determining default in install action |
 | `disable_login_form`                              | True, False   | `false`                     | Set to true to disable (hide) the login form, useful if you use OAuth | true, false
 | `disable_signout_menu`                            | True, False   | `false`                     | Set to true to disable the signout link in the side menu. useful if you use auth.proxy | true, false
 | `:signout_redirect_url`                           | String        |                             | URL to redirect the user to after sign out                          |

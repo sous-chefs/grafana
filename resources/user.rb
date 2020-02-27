@@ -25,7 +25,7 @@ property :admin_user,     String,   default: 'admin'
 property :admin_password, String,   default: 'admin'
 property :user,           Hash,     default: {}
 
-property :auth_proxy_header, [String, nil], default: nil
+property :auth_proxy_header, [String, nil]
 
 default_action :create
 

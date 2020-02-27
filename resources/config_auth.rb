@@ -18,7 +18,7 @@
 # Configures the installed grafana instance
 
 property  :instance_name,                                 String,         name_property: true
-property  :login_cookie_name,                             String,         default: 'grafana_sess'
+property  :login_cookie_name,                             String,         required: false
 property  :disable_login_form,                            [true, false],  default: false
 property  :disable_signout_menu,                          [true, false],  default: false
 property  :signout_redirect_url,                          String,         default: ''
@@ -98,9 +98,10 @@ property  :ldap_config_file,                              String,         defaul
 property  :ldap_allow_sign_up,                            [true, false],  default: true
 
 action :install do
+  login_cookie_name = new_resource.login_cookie_name || GrafanaCookbook::CookieHelper.cookie_name
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth']['login_cookie_name'] ||= '' unless new_resource.login_cookie_name.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth']['login_cookie_name'] << new_resource.login_cookie_name.to_s unless new_resource.login_cookie_name.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth']['login_cookie_name'] ||= '' unless login_cookie_name.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth']['login_cookie_name'] << login_cookie_name.to_s unless login_cookie_name.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth']['disable_login_form'] ||= '' unless new_resource.disable_login_form.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth']['disable_login_form'] << new_resource.disable_login_form.to_s unless new_resource.disable_login_form.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth']['disable_signout_menu'] ||= '' unless new_resource.disable_signout_menu.nil?

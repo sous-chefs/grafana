@@ -35,6 +35,8 @@ We supply many different configuration resources, these all rely on the base con
 For any LDAP the base config resource is: `grafana_config_ldap`
 For any core configuration resources, the base config resource is: `grafana_config`
 
+**NOTE**: Inorder to write the above configuration resources to the disk use [grafana_config_writer](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_writer.md) at the end.
+
 ## Resources
 
 - [grafana_config](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config.md)

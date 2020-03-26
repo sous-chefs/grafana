@@ -23,6 +23,7 @@ Introduced: v4.0.0
 | `disable_signout_menu`                            | True, False   | `false`                     | Set to true to disable the signout link in the side menu. useful if you use auth.proxy | true, false
 | `:signout_redirect_url`                           | String        |                             | URL to redirect the user to after sign out                          |
 | `:oauth_auto_login`                               | True, False   | `false`                     | Set to true to attempt login with OAuth automatically, skipping the login screen| true, false
+| `:login_maximum_lifetime_days`                     | Integer       | `nil`                       | The number of days to set the session cookie lifetime to if auth enabled |
 | `:anonymous_enabled`                              | True, False   | `false`                     | enable anonymous access                                             | true, false
 | `:anonymous_org_name`                             | String        | `Main Org.`                 | specify organization name that should be used for unauthenticated users|
 | `:anonymous_org_role`                             | String        | `Viewer`                    | specify role for unauthenticated users                              |

@@ -4,7 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## 8.6.0
 
-- Add in support for 'cookie_secure' configuration option to security config.
+- Add in support for `cookie_secure` configuration option to security config.
+- Add in support for `login_maximum_lifetime_days` config option to set the cookie lifetime in days
 
 ## 8.5.0
 

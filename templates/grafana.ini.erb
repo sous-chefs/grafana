@@ -295,6 +295,11 @@ disable_brute_force_login_protection = <%= @grafana['security']['disable_brute_f
 allow_embedding = <%= @grafana['security']['allow_embedding'] %>
 <% end %>
 
+# secure the session cookie if running behind https
+<% if @grafana['security']['cookie_secure'] %>
+cookie_secure = <%= @grafana['security']['cookie_secure'] %>
+<% end %>
+
 <% end %>
 #################################### Snapshots ###########################
 <% if @grafana['snapshots'] %>

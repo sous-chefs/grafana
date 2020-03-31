@@ -43,3 +43,7 @@ suites:
   - name: configure
     run_list:
       - recipe[test::configure]
+
+  - name: azuread
+    run_list:
+      - recipe[test::azuread]

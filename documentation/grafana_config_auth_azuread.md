@@ -14,15 +14,15 @@ Introduced: v6.7.0
 
 ## Properties
 
-| Name                                              | Type          |  Default                    | Description                                                         | Allowed Values
-| ------------------------------------------------  | ------------- | --------------------------- | ------------------------------------------------------------------  | --------------- |
-| `:azuread_name`                                   | String        | `AzureAD`                   | <https://grafana.com/docs/grafana/latest/auth/azuread/>             |
-| `:azuread_enabled`                                | True, False   | `false`                     | Enable AzureAD Auth                                                 | true, false
-| `:azuread_allow_sign_up`                          | True, False   | `true`                      | <https://grafana.com/docs/grafana/latest/auth/azuread/>             | true, false
-| `:azuread_client_id`                              | String        |                             | <https://grafana.com/docs/grafana/latest/auth/azuread/>             |
-| `:azuread_client_secret`                          | String        |                             | <https://grafana.com/docs/grafana/latest/auth/azuread/>             |
-| `:azuread_scopes`                                 | String        | `openid email profile`      | <https://grafana.com/docs/grafana/latest/auth/azuread/>             |
-| `:azuread_auth_url`                               | String        |                             | <https://grafana.com/docs/grafana/latest/auth/azuread/>             |
-| `:azuread_token_url`                              | String        |                             | <https://grafana.com/docs/grafana/latest/auth/azuread/>             |
-| `:azuread_allowed_domains`                        | String        |                             | <https://grafana.com/docs/grafana/latest/auth/azuread/>             |
-| `:azuread_allowed_roles`                          | String        |                             | <https://grafana.com/docs/grafana/latest/auth/azuread/>             |
+| Name                                      | Type          |  Default                    | Description                                                         | Allowed Values
+| ------------------------------------------| ------------- | --------------------------- | ------------------------------------------------------------------  | --------------- |
+| `:auth_name`                              | String        | `AzureAD`                   | <https://grafana.com/docs/grafana/latest/auth/azuread/>             |
+| `:enabled`                                | True, False   | `false`                     | Enable AzureAD Auth                                                 | true, false
+| `:allow_sign_up`                          | True, False   | `true`                      | <https://grafana.com/docs/grafana/latest/auth/azuread/>             | true, false
+| `:client_id`                              | String        |                             | <https://grafana.com/docs/grafana/latest/auth/azuread/>             |
+| `:client_secret`                          | String        |                             | <https://grafana.com/docs/grafana/latest/auth/azuread/>             |
+| `:scopes`                                 | String        | `openid email profile`      | <https://grafana.com/docs/grafana/latest/auth/azuread/>             |
+| `:auth_url`                               | String        |                             | <https://grafana.com/docs/grafana/latest/auth/azuread/>             |
+| `:token_url`                              | String        |                             | <https://grafana.com/docs/grafana/latest/auth/azuread/>             |
+| `:allowed_domains`                        | String        |                             | <https://grafana.com/docs/grafana/latest/auth/azuread/>             |
+| `:allowed_roles`                          | String        |                             | <https://grafana.com/docs/grafana/latest/auth/azuread/>             |

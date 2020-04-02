@@ -53,6 +53,7 @@ jobs:
           - 'plugins'
           - 'basic'
           - 'configure'
+          - 'azuread'
       fail-fast: false
 
     steps:

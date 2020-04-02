@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 8.7.0
+
+- Add in support for Azure AD authentication <https://grafana.com/docs/grafana/latest/auth/azuread/>
+
 ## 8.6.0
 
 - Add in support for `cookie_secure` configuration option to security config.

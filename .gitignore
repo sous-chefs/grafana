@@ -1,4 +1,3 @@
-foodcritic/
 *.rbc
 .config
 coverage
@@ -43,6 +42,8 @@ vendor/
 .coverage/
 .zero-knife.rb
 Policyfile.lock.json
+Cheffile.lock
+.librarian/
 
 # vagrant stuff
 .vagrant/

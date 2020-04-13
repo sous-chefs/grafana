@@ -1,4 +1,3 @@
-foodcritic/
 *.rbc
 .config
 coverage
@@ -38,7 +37,7 @@ doc/
 # chef stuff
 Berksfile.lock
 .kitchen
-.kitchen.local.yml
+kitchen.local.yml
 vendor/
 .coverage/
 .zero-knife.rb
@@ -47,4 +46,3 @@ Policyfile.lock.json
 # vagrant stuff
 .vagrant/
 .vagrant.d/
-.kitchen/

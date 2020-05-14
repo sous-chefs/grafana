@@ -24,6 +24,7 @@ Introduced: v4.0.0
 | `data_source_proxy_whitelist`           | String      |                             | data source proxy whitelist                      |ip_or_domain:port separated by spaces
 | `disable_brute_force_login_protection`  | true, false | `false`                     | disable protection against brute force login attempts.  | true, false
 | `allow_embedding`                       | true, false | `false`                     | Allows grafana to be embedded in an iframe              | true, false
+| `cookie_secure`                         | true, false | `false`                     | Secures cookies if running behind https                 | true, false
 
 ## Examples
 

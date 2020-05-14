@@ -295,6 +295,11 @@ disable_brute_force_login_protection = <%= @grafana['security']['disable_brute_f
 allow_embedding = <%= @grafana['security']['allow_embedding'] %>
 <% end %>
 
+# secure the session cookie if running behind https
+<% if @grafana['security']['cookie_secure'] %>
+cookie_secure = <%= @grafana['security']['cookie_secure'] %>
+<% end %>
+
 <% end %>
 #################################### Snapshots ###########################
 <% if @grafana['snapshots'] %>
@@ -437,6 +442,12 @@ signout_redirect_url = <%= @grafana['auth']['signout_redirect_url'] %>
 <% if @grafana['auth']['oauth_auto_login'] %>
 oauth_auto_login = <%= @grafana['auth']['oauth_auto_login'] %>
 <% end %>
+
+<% if @grafana['auth']['login_maximum_lifetime_days'] %>
+# Set the cookie lifetime in days
+login_maximum_lifetime_days = <%= @grafana['auth']['login_maximum_lifetime_days'] %>
+<% end %>
+
 <% end %>
 #################################### Anonymous Auth ######################
 <% if @grafana['auth_anonymous'] %>
@@ -707,6 +718,40 @@ config_file = <%= @grafana['auth_ldap']['config_file'] %>
 <% end %>
 <% if @grafana['auth_ldap']['allow_sign_up'] %>
 allow_sign_up = <%= @grafana['auth_ldap']['allow_sign_up'] %>
+<% end %>
+<% end %>
+#################################### Auth AzureAD #######################
+<% if @grafana['auth_azuread'] %>
+[auth.azuread]
+<% if @grafana['auth_azuread']['name'] %>
+name = <%= @grafana['auth_azuread']['name'] %>
+<% end %>
+<% if @grafana['auth_azuread']['enabled'] %>
+enabled = <%= @grafana['auth_azuread']['enabled'] %>
+<% end %>
+<% if @grafana['auth_azuread']['allow_sign_up'] %>
+allow_sign_up = <%= @grafana['auth_azuread']['allow_sign_up'] %>
+<% end %>
+<% if @grafana['auth_azuread']['client_id'] %>
+client_id = <%= @grafana['auth_azuread']['client_id'] %>
+<% end %>
+<% if @grafana['auth_azuread']['client_secret'] %>
+client_secret = <%= @grafana['auth_azuread']['client_secret'] %>
+<% end %>
+<% if @grafana['auth_azuread']['scopes'] %>
+scopes = <%= @grafana['auth_azuread']['scopes'] %>
+<% end %>
+<% if @grafana['auth_azuread']['auth_url'] %>
+auth_url = <%= @grafana['auth_azuread']['auth_url'] %>
+<% end %>
+<% if @grafana['auth_azuread']['token_url'] %>
+token_url = <%= @grafana['auth_azuread']['token_url'] %>
+<% end %>
+<% if @grafana['auth_azuread']['allowed_domains'] %>
+allowed_domains = <%= @grafana['auth_azuread']['allowed_domains'] %>
+<% end %>
+<% if @grafana['auth_azuread']['allowed_groups'] %>
+allowed_groups = <%= @grafana['auth_azuread']['allowed_groups'] %>
 <% end %>
 <% end %>
 #################################### SMTP / Emailing #####################

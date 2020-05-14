@@ -2,6 +2,15 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 8.7.0
+
+- Add in support for Azure AD authentication <https://grafana.com/docs/grafana/latest/auth/azuread/>
+
+## 8.6.0
+
+- Add in support for `cookie_secure` configuration option to security config.
+- Add in support for `login_maximum_lifetime_days` config option to set the cookie lifetime in days
+
 ## 8.5.0
 
 - Adding support for change to Grafana session cookie name.  See README for details

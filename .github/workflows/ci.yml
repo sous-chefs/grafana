@@ -46,6 +46,7 @@ jobs:
           - 'ubuntu-1604'
           - 'ubuntu-1804'
           - 'amazonlinux'
+          - 'amazonlinux-2'
         suite:
           - 'default'
           - 'ldap'

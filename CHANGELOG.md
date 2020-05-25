@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 8.8.0
+
+- Add in support for configuring rendering service
+
 ## 8.7.1
 
 - Fixes bug in dashboard library where request would return nil

@@ -987,6 +987,16 @@ nodata_or_nullvalues = <%= @grafana['alerting']['nodata_or_nullvalues'] %>
 concurrent_render_limit = <%= @grafana['alerting']['concurrent_render_limit'] %>
 <% end %>
 <% end %>
+#################################### Rendering ###########################
+<% if @grafana['rendering'] %>
+[rendering]
+<% if @grafana['rendering']['server_url'] %>
+server_url = <%= @grafana['rendering']['server_url'] %>
+<% end %>
+<% if @grafana['rendering']['callback_url'] %>
+callback_url = <%= @grafana['rendering']['callback_url'] %>
+<% end %>
+<% end %>
 #################################### Explore #############################
 <% if @grafana['explore'] %>
 [explore]

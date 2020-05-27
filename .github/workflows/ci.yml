@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@master
       - name: Run Markdown Lint
         uses: actionshub/markdownlint@master
-  
+
   md-links:
     runs-on: ubuntu-latest
     steps:

@@ -33,6 +33,13 @@ jobs:
         uses: actions/checkout@master
       - name: Run Markdown Lint
         uses: actionshub/markdownlint@master
+  
+  md-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: markdown-link-check
+        uses: gaurav-nelson/github-action-markdown-link-check@1.0.2
+
 
   dokken:
     needs: [mdl, yamllint, delivery]

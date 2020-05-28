@@ -6,7 +6,7 @@
 
 This resource will allow you to create organizations within Grafana.
 
-More information about creating Grafana organizations via the HTTP API can be found at <https://grafana.com/docs/reference/http_api/#organisation>.
+More information about creating Grafana organizations via the HTTP API can be found at <https://grafana.com/docs/grafana/latest/http_api/org/>.
 
 ## Actions
 

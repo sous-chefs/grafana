@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
+- resolved cookstyle error: resources/config_server.rb:25:59 refactor: `ChefCorrectness/LazyEvalNodeAttributeDefaults`
+
 ## 8.8.0
 
 - Add in support for configuring rendering service

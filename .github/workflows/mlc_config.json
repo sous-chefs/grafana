@@ -1,0 +1,10 @@
+{
+    "ignorePatterns": [
+        {
+            "pattern": "^https://grafana.s3.amazonaws.com"
+        },
+        {
+            "pattern": "^http://grafana.domain/"
+        }
+    ]
+}

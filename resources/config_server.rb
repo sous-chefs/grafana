@@ -22,7 +22,7 @@ property  :instance_name,        String,         name_property: true
 property  :protocol,             Symbol,         default: :http, equal_to: %i( http https socket )
 property  :http_addr,            String,         default: ''
 property  :http_port,            Integer,        default: 3000
-property  :domain,               String,         default: node['hostname']
+property  :domain,               String,         default: lazy { node['hostname'] }
 property  :root_url,             String,         default: '%(protocol)s://%(domain)s:%(http_port)s/'
 property  :serve_from_sub_path,  [true, false],  default: false
 property  :enforce_domain,       [true, false],  default: false

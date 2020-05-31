@@ -2,6 +2,16 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
+- Adds support for Ubuntu 20.04
+- resolved cookstyle error: resources/config_server.rb:25:59 refactor: `ChefCorrectness/LazyEvalNodeAttributeDefaults`
+- Removes support for Ubuntu 16.04
+- Removes support for centos 6
+- Removes support for amazonlinux 1
+- Improved stability in flakey tests using chef_sleep
+- Minimum chef version is now 15.5
+
 ## 8.8.0
 
 - Add in support for configuring rendering service

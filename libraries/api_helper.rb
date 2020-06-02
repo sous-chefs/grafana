@@ -118,7 +118,7 @@ module GrafanaCookbook
       when nil
         handle_response_conn_refused
       else
-        handle_response_unknown request, response.code, messages[:unknown_code]
+        handle_response_unknown request, response, messages[:unknown_code]
       end
     end
 
@@ -159,11 +159,11 @@ module GrafanaCookbook
       raise BackendError, 'Connection to Grafana refused. Please ensure Grafana is running.'
     end
 
-    def handle_response_unknown(request, code, message)
+    def handle_response_unknown(request, response, message)
       if message
-        Chef::Log.error(format(message, code: code))
+        Chef::Log.error(format(message, code: response.code))
       else
-        Chef::Log.error "Response code '#{code}' not handled when sending #{request_message request}"
+        Chef::Log.error "Response code '#{response.code}' not handled when sending #{request_message request} \n #{response.body}"
       end
       raise BackendError
     end

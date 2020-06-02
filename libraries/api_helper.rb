@@ -161,7 +161,7 @@ module GrafanaCookbook
 
     def handle_response_unknown(request, response, message)
       if message
-        Chef::Log.error(format(message, code: response.code))
+        Chef::Log.error("#{format(message, code: response.code)} \n #{response.body}" )
       else
         Chef::Log.error "Response code '#{response.code}' not handled when sending #{request_message request} \n #{response.body}"
       end

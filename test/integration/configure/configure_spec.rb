@@ -112,6 +112,11 @@ describe http('http://localhost:3000/api/folders', headers: auth_headers) do
   end
 end
 
+describe json(command: "curl http://localhost:3000/api/admin/setings --header #{curl_auth_headers}") do
+  its(%w(dashboards min_refresh_interval)) { should eq '4s' }
+  its(%w(dashboards versions_to_keep)) { should eq '2' }
+end
+
 # TODO: Find a way to validate the perms are correct
 # describe http("http://localhost:3000/api/folders#{example_folder[:uid]}/permissions", headers: auth_headers) do
 #   its('status') { should eq 200 }

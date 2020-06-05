@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unrelased
+
+- Add in support for `min_refresh_interval` configuration to dashboard config. 
+
 ## 8.8.0
 
 - Add in support for configuring rendering service

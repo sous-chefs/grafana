@@ -1,5 +1,9 @@
 # Upgrading
 
+## 9.0.0
+
+Ensure you are on chef 15.5 or greater as we are now using `chef_sleep` in tests
+
 ## 8.0.0
 
 ensure your `instance_name` (Name property) lines up across all `grafana_config_*` and `grafana_config` resources

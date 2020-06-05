@@ -28,24 +28,11 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
 
-  - name: centos-6
-    driver:
-      image: dokken/centos-6
-      platform: rhel
-      pid_one_command: /sbin/init
-
   - name: centos-7
     driver:
       image: dokken/centos-7
       platform: rhel
       pid_one_command: /usr/lib/systemd/systemd
-
-  - name: ubuntu-16.04
-    driver:
-      image: dokken/ubuntu-16.04
-      pid_one_command: /bin/systemd
-      intermediate_instructions:
-        - RUN /usr/bin/apt-get update
 
   - name: ubuntu-18.04
     driver:
@@ -54,7 +41,9 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
 
-  - name: amazonlinux
+  - name: ubuntu-20.04
     driver:
-      image: dokken/amazonlinux
-      pid_one_command: /sbin/init
+      image: dokken/ubuntu-16.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update

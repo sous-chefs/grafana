@@ -4,6 +4,7 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+- Add in support for `min_refresh_interval` configuration to dashboard config.
 - Adds support for Ubuntu 20.04
 - resolved cookstyle error: resources/config_server.rb:25:59 refactor: `ChefCorrectness/LazyEvalNodeAttributeDefaults`
 - Removes support for Ubuntu 16.04

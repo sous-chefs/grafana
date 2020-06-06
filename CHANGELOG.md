@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## Unreleased
+## 9.1.0
 
 - Add in support for `min_refresh_interval` configuration to dashboard config.
 - Adds support for Ubuntu 20.04

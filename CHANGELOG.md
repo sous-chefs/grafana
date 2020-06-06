@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
+- Added support for centos-8
+- Added support for debian-10
+- Added support for amazonlinux-2
+- Removes support for debian-8
+
 ## 9.1.0
 
 - Add in support for `min_refresh_interval` configuration to dashboard config.

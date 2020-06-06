@@ -113,7 +113,7 @@ describe http('http://localhost:3000/api/folders', headers: auth_headers) do
 end
 
 describe json(content: http('http://localhost:3000/api/admin/settings', auth: { user: 'admin', pass: 'admin' }, params: { format: 'html' }, method: 'GET', headers: { 'Content-Type' => 'application/json' }).body) do
-  its(%w(dashboards min_refresh_interval)) { should eq '4s' }
+  its(%w(dashboards min_refresh_interval)) { should eq '3s' }
   its(%w(dashboards versions_to_keep)) { should eq '2' }
 end
 

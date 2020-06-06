@@ -5,6 +5,10 @@ This file is used to list changes made in each version of grafana.
 ## Unreleased
 
 - Fixed tests to not require `chef_sleep`
+- Added support for centos-8
+- Added support for debian-10
+- Added support for amazonlinux-2
+- Removes support for debian-8
 
 ## 9.1.0
 

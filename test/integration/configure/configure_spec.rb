@@ -91,12 +91,17 @@ describe json(command: "curl http://localhost:3000/api/datasources --header #{cu
   its([1, 'database']) { should eq 'metrics' }
 end
 
-describe json(command: "curl http://localhost:3000/api/dashboards/db/sample-dashboard --header #{curl_auth_headers}") do
+describe json(content: http('http://localhost:3000/api/dashboards/db/sample-dashboard', auth: { user: 'admin', pass: 'admin' },
+  method: 'GET',
+  headers: { 'Content-Type' => 'application/json' }).body) do
   its(%w(meta slug)) { should eq 'sample-dashboard' }
 end
 
 # TODO: Find a way to validate the dashboard is in the right folder
-describe json(command: "curl http://localhost:3000/api/dashboards/db/sample-dashboard-folder --header #{curl_auth_headers}") do
+
+describe json(content: http('http://localhost:3000/api/dashboards/db/sample-dashboard-folder', auth: { user: 'admin', pass: 'admin' },
+  method: 'GET',
+  headers: { 'Content-Type' => 'application/json' }).body) do
   its(%w(meta slug)) { should eq 'sample-dashboard-folder' }
 end
 
@@ -112,7 +117,10 @@ describe http('http://localhost:3000/api/folders', headers: auth_headers) do
   end
 end
 
-describe json(content: http('http://localhost:3000/api/admin/settings', auth: { user: 'admin', pass: 'admin' }, params: { format: 'html' }, method: 'GET', headers: { 'Content-Type' => 'application/json' }).body) do
+describe json(content: http('http://localhost:3000/api/admin/settings', auth: { user: 'admin', pass: 'admin' },
+  params: { format: 'html' },
+  method: 'GET',
+  headers: { 'Content-Type' => 'application/json' }).body) do
   its(%w(dashboards min_refresh_interval)) { should eq '3s' }
   its(%w(dashboards versions_to_keep)) { should eq '2' }
 end

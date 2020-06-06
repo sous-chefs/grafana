@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
+- Fixed tests to not require `chef_sleep`
+
 ## 9.1.0
 
 - Add in support for `min_refresh_interval` configuration to dashboard config.

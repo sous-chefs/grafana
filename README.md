@@ -38,6 +38,7 @@ For any core configuration resources, the base config resource is: `grafana_conf
 **NOTE**: Inorder to write the above configuration resources to the disk use [grafana_config_writer](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_writer.md) at the end.
 
 ## Resources
+
 - [grafana_config](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config.md)
 - [grafana_config_alerting](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_alerting.md)
 - [grafana_config_auth](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_auth.md)

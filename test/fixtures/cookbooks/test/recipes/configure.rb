@@ -14,6 +14,11 @@ grafana_config_auth 'Grafana' do
   login_cookie_name 'grafana_session'
 end
 
+grafana_config_dashboards 'Grafana' do
+  versions_to_keep 2
+  min_refresh_interval '3s'
+end
+
 grafana_config_writer 'Grafana'
 
 # Needed for some inspec tests

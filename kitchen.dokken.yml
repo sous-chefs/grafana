@@ -14,13 +14,6 @@ provisioner:
   install_strategy: once
 
 platforms:
-  - name: debian-8
-    driver:
-      image: dokken/debian-8
-      pid_one_command: /bin/systemd
-      intermediate_instructions:
-        - RUN /usr/bin/apt-get update
-
   - name: debian-9
     driver:
       image: dokken/debian-9
@@ -28,11 +21,12 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
 
-  - name: centos-6
+  - name: debian-10
     driver:
-      image: dokken/centos-6
-      platform: rhel
-      pid_one_command: /sbin/init
+      image: dokken/debian-10
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
 
   - name: centos-7
     driver:
@@ -40,12 +34,11 @@ platforms:
       platform: rhel
       pid_one_command: /usr/lib/systemd/systemd
 
-  - name: ubuntu-16.04
+  - name: centos-8
     driver:
-      image: dokken/ubuntu-16.04
-      pid_one_command: /bin/systemd
-      intermediate_instructions:
-        - RUN /usr/bin/apt-get update
+      image: dokken/centos-8
+      platform: rhel
+      pid_one_command: /usr/lib/systemd/systemd
 
   - name: ubuntu-18.04
     driver:
@@ -54,7 +47,14 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
 
-  - name: amazonlinux
+  - name: ubuntu-20.04
     driver:
-      image: dokken/amazonlinux
-      pid_one_command: /sbin/init
+      image: dokken/ubuntu-16.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+
+  - name: amazonlinux-2
+    driver:
+      image: dokken/amazonlinux-2
+      pid_one_command: /usr/lib/systemd/systemd

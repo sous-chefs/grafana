@@ -2,6 +2,42 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
+- Fixed tests to not require `chef_sleep`
+- Added support for centos-8
+- Added support for debian-10
+- Added support for amazonlinux-2
+- Removes support for debian-8
+
+## 9.1.0
+
+- Add in support for `min_refresh_interval` configuration to dashboard config.
+- Adds support for Ubuntu 20.04
+- resolved cookstyle error: resources/config_server.rb:25:59 refactor: `ChefCorrectness/LazyEvalNodeAttributeDefaults`
+- Removes support for Ubuntu 16.04
+- Removes support for centos 6
+- Removes support for amazonlinux 1
+- Improved stability in flakey tests using chef_sleep
+- Minimum chef version is now 15.5
+
+## 8.8.0
+
+- Add in support for configuring rendering service
+
+## 8.7.1
+
+- Fixes bug in dashboard library where request would return nil
+
+## 8.7.0
+
+- Add in support for Azure AD authentication <https://grafana.com/docs/grafana/latest/auth/azuread/>
+
+## 8.6.0
+
+- Add in support for `cookie_secure` configuration option to security config.
+- Add in support for `login_maximum_lifetime_days` config option to set the cookie lifetime in days
+
 ## 8.5.0
 
 - Adding support for change to Grafana session cookie name.  See README for details

@@ -78,7 +78,7 @@ module GrafanaCookbook
 
       dash = do_request(grafana_options)
 
-      return if dash['message'] == 'Dashboard not found'
+      return if dash.nil? || dash['message'] == 'Dashboard not found'
       dash
     end
 

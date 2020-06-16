@@ -17,12 +17,13 @@ Introduced: v4.0.0
 ## Properties
 
 | Name                                              | Type          |  Default                    | Description                                                         | Allowed Values
-| ------------------------------------------------ | -------------  | --------------------------- | ------------------------------------------------------------------  | --------------- |
+| ------------------------------------------------  | ------------- | --------------------------- | ------------------------------------------------------------------  | --------------- |
 | `login_cookie_name`                               | String        | `nil`                       | Session cookie name,  default changed at Grafana 6.0.0 so programatically determining default in install action |
 | `disable_login_form`                              | True, False   | `false`                     | Set to true to disable (hide) the login form, useful if you use OAuth | true, false
 | `disable_signout_menu`                            | True, False   | `false`                     | Set to true to disable the signout link in the side menu. useful if you use auth.proxy | true, false
 | `:signout_redirect_url`                           | String        |                             | URL to redirect the user to after sign out                          |
 | `:oauth_auto_login`                               | True, False   | `false`                     | Set to true to attempt login with OAuth automatically, skipping the login screen| true, false
+| `:login_maximum_lifetime_days`                    | Integer       | `nil`                       | The number of days to set the session cookie lifetime to if auth enabled |
 | `:anonymous_enabled`                              | True, False   | `false`                     | enable anonymous access                                             | true, false
 | `:anonymous_org_name`                             | String        | `Main Org.`                 | specify organization name that should be used for unauthenticated users|
 | `:anonymous_org_role`                             | String        | `Viewer`                    | specify role for unauthenticated users                              |
@@ -90,7 +91,7 @@ Introduced: v4.0.0
 | `:proxy_header_name`                              | String        | `X-WEBAUTH-USER`            | HTTP Header name that will contain the username or email            |
 | `:proxy_header_property`                          | String        | `username`                  | HTTP Header property, defaults to `username` but can also be `email`|
 | `:proxy_auto_sign_up`                             | True, False   |  `true`                     | Set to `true` to enable auto sign up of users who do not exist in Grafana DB. Defaults to `true`.| true, false
-| `:proxy_ldap_sync_ttl`                            |  Integer      | `60`                        | If combined with Grafana LDAP integration define sync interval      |
+| `:proxy_ldap_sync_ttl`                            | Integer       | `60`                        | If combined with Grafana LDAP integration define sync interval      |
 | `:proxy_whitelist`                                | String        |                             | Limit where auth proxy requests come from by configuring a list of IP addresses|
 | `:proxy_headers`                                  | String        |                             | Optionally define more headers to sync other user attributes        |
 | `:ldap_enabled`                                   | True, False   | `false`                     | Set to `true` to enable LDAP integration (http://docs.grafana.org/auth/ldap/)| true, false

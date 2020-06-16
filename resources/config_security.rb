@@ -29,6 +29,7 @@ property  :disable_gravatar,                      [true, false],  default: false
 property  :data_source_proxy_whitelist,           String,         default: ''
 property  :disable_brute_force_login_protection,  [true, false],  default: false
 property  :allow_embedding,                       [true, false],  default: false
+property  :cookie_secure,                         [true, false],  default: false
 
 action :install do
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['security'] ||= {}
@@ -52,4 +53,6 @@ action :install do
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['security']['disable_brute_force_login_protection'] << new_resource.disable_brute_force_login_protection.to_s unless new_resource.disable_brute_force_login_protection.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['security']['allow_embedding'] ||= '' unless new_resource.allow_embedding.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['security']['allow_embedding'] << new_resource.allow_embedding.to_s unless new_resource.allow_embedding.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['security']['cookie_secure'] ||= '' unless new_resource.cookie_secure.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['security']['cookie_secure'] << new_resource.cookie_secure.to_s unless new_resource.cookie_secure.nil?
 end

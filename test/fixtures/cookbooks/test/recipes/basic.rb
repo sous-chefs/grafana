@@ -6,4 +6,3 @@ grafana_config_writer 'Grafana' do
   # In test we turn of sensitive so we can get better logs
   sensitive false
 end
-

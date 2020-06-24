@@ -19,29 +19,32 @@
 # limitations under the License.
 
 property :grafana_cli_bin, String, default: '/usr/sbin/grafana-cli'
+property :plugin_url, String
 
 default_action :install
 
 action :install do
   plugin_name = new_resource.name
   binary = new_resource.grafana_cli_bin
+  plugin_url = new_resource.plugin_url
   raise "#{plugin_name} is not available" unless ::GrafanaCookbook::Plugin.available?(plugin_name, binary)
   service 'grafana-server'
   execute "Installing plugin #{plugin_name}" do
-    command ::GrafanaCookbook::Plugin.build_cli_cmd(plugin_name, 'install', binary)
-    not_if { GrafanaCookbook::Plugin.installed?(new_resource.name, new_resource.grafana_cli_bin) }
-    notifies :restart, 'service[grafana-server]'
+    command ::GrafanaCookbook::Plugin.build_cli_cmd(plugin_name, 'install', binary, plugin_url)
+    not_if { GrafanaCookbook::Plugin.installed?(plugin_name, binary) }
+    notifies :restart, 'service[grafana-server]', :delayed
   end
 end
 
 action :update do
   plugin_name = new_resource.name
   binary = new_resource.grafana_cli_bin
-  if GrafanaCookbook::Plugin.installed?(new_resource.name, new_resource.grafana_cli_bin)
+  plugin_url = new_resource.plugin_url
+  if GrafanaCookbook::Plugin.installed?(plugin_name, binary)
     service 'grafana-server'
     execute "Updating plugin #{plugin_name}" do
-      command ::GrafanaCookbook::Plugin.build_cli_cmd(plugin_name, 'update', binary)
-      notifies :restart, 'service[grafana-server]'
+      command ::GrafanaCookbook::Plugin.build_cli_cmd(plugin_name, 'update', binary, plugin_url)
+      notifies :restart, 'service[grafana-server]', :delayed
     end
   else
     Chef::Log.warn "Impossible to upgrade plugin #{plugin_name} because it is not installed. We will install it."
@@ -55,7 +58,7 @@ action :remove do
   service 'grafana-server'
   execute "Removing plugin #{name}" do
     command ::GrafanaCookbook::Plugin.build_cli_cmd(plugin_name, 'remove', binary)
-    only_if { GrafanaCookbook::Plugin.installed?(new_resource.name, new_resource.grafana_cli_bin) }
-    notifies :restart, 'service[grafana-server]'
+    only_if { GrafanaCookbook::Plugin.installed?(plugin_name, binary) }
+    notifies :restart, 'service[grafana-server]', :delayed
   end
 end

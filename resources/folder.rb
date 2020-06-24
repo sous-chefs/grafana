@@ -76,8 +76,10 @@ action :update do
   # TODO: Actually validate permissions need updating
   # permissions = get_folder_permissions(folder, grafana_options)
   update_perms = true
-
-  if update_folder || update_perms
+  if folder.nil?
+    Chef::Log.warn "Impossible to update folder #{new_folder[:title]} because it does not exist. We will create it."
+    run_action(:create)
+  elsif update_folder || update_perms
     new_folder[:id] = get_folder_id(folder)
     new_folder[:uid] = get_folder_uid(folder)
     converge_by("Updating folder #{new_folder[:title]}") do

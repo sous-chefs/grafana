@@ -82,6 +82,31 @@ module GrafanaCookbook
       dash
     end
 
+    def get_all_dashboards(grafana_options)
+      dashboards = {}
+      get_orgs_list(grafana_options).each do |org|
+        select_org(org, grafana_options)
+
+        dash_grafana_options = grafana_options
+        dash_grafana_options[:method] = 'Get'
+        dash_grafana_options[:success_msg] = 'Dashboard deletion was successful.'
+        dash_grafana_options[:unknown_code_msg] = 'DashboardApi::delete_dashboard unchecked response code: %{code}'
+        dash_grafana_options[:endpoint] = '/api/search?query=&type=dash-db'
+
+        org_dashboards_list = do_request(dash_grafana_options)
+
+        org_dashboards = []
+        org_dashboards_list.each do |dash|
+          dash = dash.transform_keys(&:to_sym)
+          dash[:name] = dash[:title] unless dash[:name]
+          org_dashboards << get_dashboard(dash, grafana_options)
+        end
+
+        dashboards.merge!(org['name'] => org_dashboards)
+      end
+      dashboards
+    end
+
     private
 
     def lookup_paths(dashboard_options)

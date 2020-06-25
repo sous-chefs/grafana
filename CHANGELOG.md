@@ -9,6 +9,13 @@ This file is used to list changes made in each version of grafana.
 - Added support for debian-10
 - Added support for amazonlinux-2
 - Removes support for debian-8
+- Added support to retrieve org id by name
+- Added support for backing up datasources and dashboards to file
+- Added support for custom plugin URLs
+- Added support for creating dashboards from template file
+- Fixes bug that didn't create folder when using action update and it did not exist yet
+- Fixes bug where installing a lot of plugins would cause grafana systemd service to fail to start
+- Removes unecessary restart on plugin install
 
 ## 9.1.0
 

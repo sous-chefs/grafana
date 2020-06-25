@@ -105,6 +105,12 @@ describe json(content: http('http://localhost:3000/api/dashboards/db/sample-dash
   its(%w(meta slug)) { should eq 'sample-dashboard-folder' }
 end
 
+describe json(content: http('http://localhost:3000/api/dashboards/db/sample-dashboard-template', auth: { user: 'admin', pass: 'admin' },
+  method: 'GET',
+  headers: { 'Content-Type' => 'application/json' }).body) do
+  its(%w(meta slug)) { should eq 'sample-dashboard-template' }
+end
+
 describe http('http://localhost:3000/api/folders', headers: auth_headers) do
   its('status') { should eq 200 }
 

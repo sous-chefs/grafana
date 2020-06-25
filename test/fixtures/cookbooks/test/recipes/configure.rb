@@ -176,8 +176,8 @@ grafana_dashboard_template 'sample-dashboard-template' do
   organization 'Sous-Chefs'
   folder 'StayOrganized2'
 
-  template_source 'dashboards/sample-dashboard-template.json.erb'
-  template_cookbook template[:cookbook]
+  template_source 'sample-dashboard-template.json.erb'
+  template_cookbook 'test'
 
   template_vars(
     random_walk: 'injected value'

@@ -20,6 +20,8 @@ This resource will allow you to backup all Grafana dashboards to a folder by org
 | `admin_password`      |  String     | `admin`       | The grafana user's password|
 | `auth_proxy_header`   | String      | nil           | The HTTP authentication header used when `auth.proxy.enabled=true`. See [grafana_config_auth:proxy_header_name](grafana_config_auth.md)|
 | `backup_path`         |  String     | `/etc/grafana/backup/dashboards` | Path to store the backup |
+| `clean_folder`        |  True, False| True | Delete the backup folder before saving dashboards from grafana |
+| `sensitive`           |  True, False| True | Do not show the json output of dashboards when backing up |
 
 ## Examples
 

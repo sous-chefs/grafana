@@ -5,6 +5,8 @@ property :admin_password,     String,   default: 'admin'
 property :auth_proxy_header,  String
 
 property :backup_path, String, default: '/etc/grafana/backup/dashboards'
+property :clean_folder, [true, false], default: true
+property :sensitive, [true, false], default: true
 
 default_action :create
 
@@ -20,6 +22,14 @@ action :create do
     auth_proxy_header: new_resource.auth_proxy_header,
   }
 
+  directory "#{new_resource.backup_path}" do
+    recursive true
+
+    only_if { new_resource.clean_folder }
+
+    action :delete
+  end
+
   get_all_dashboards(grafana_options).each do |org_id, dashboards|
     directory "#{new_resource.backup_path}/#{org_id}" do
       recursive true
@@ -27,6 +37,9 @@ action :create do
     dashboards.each do |dash|
       file "#{new_resource.backup_path}/#{org_id}/#{dash['meta']['slug']}.json" do
         content JSON.pretty_generate(dash)
+
+        sensitive new_resource.sensitive
+
         action :create
       end
     end

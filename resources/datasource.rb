@@ -100,6 +100,12 @@ action :update do
     end
     break if exists
   end
+
+  # If not found, let's create it
+  unless exists
+    Chef::Log.warn "Impossible to update datasource #{new_datasource[:name]} because it does not exist. We will create it."
+    run_action(:create)
+  end
 end
 
 action :delete do

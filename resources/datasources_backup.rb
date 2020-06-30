@@ -24,9 +24,7 @@ action :create do
 
   directory "#{new_resource.backup_path}" do
     recursive true
-
     only_if { new_resource.clean_folder }
-
     action :delete
   end
 
@@ -37,9 +35,7 @@ action :create do
     datasources.each do |ds|
       file "#{new_resource.backup_path}/#{org_id}/#{ds['name']}.json" do
         content JSON.pretty_generate(ds)
-
         sensitive new_resource.sensitive
-
         action :create
       end
     end

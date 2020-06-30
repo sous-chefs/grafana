@@ -11,8 +11,10 @@ grafana_plugin 'grafana-clock-panel' do
   action :install
 end
 
+# TODO: change URL to point to master after merging
 grafana_plugin 'yesoreyeram-boomtable-panel' do
-  plugin_url 'https://github.com/axelrtgs/yesoreyeram-boomtable-panel/archive/feature/sorting.zip'
+  plugin_url 'https://raw.githubusercontent.com/sous-chefs/grafana/feature/resources/test/fixtures/cookbooks/test/files/plugin-test.zip'
+  action :update
 end
 
 # Tests are failing as the server has not fully become available when tests run

@@ -32,7 +32,6 @@ action :delete do
     auth_proxy_header new_resource.auth_proxy_header
     admin_user new_resource.admin_user
     admin_password new_resource.admin_password
-
     action :delete
   end
 end
@@ -52,7 +51,6 @@ action_class do
       source new_resource.template_source
       cookbook new_resource.template_cookbook
       backup false
-
       variables new_resource.template_vars
     end
 
@@ -70,9 +68,7 @@ action_class do
       auth_proxy_header new_resource.auth_proxy_header
       admin_user new_resource.admin_user
       admin_password new_resource.admin_password
-
       dashboard dashboard_hash
-
       action dashboard_action
     end
   end

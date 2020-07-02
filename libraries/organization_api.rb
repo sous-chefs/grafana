@@ -164,5 +164,15 @@ module GrafanaCookbook
     rescue BackendError
       nil
     end
+
+    def get_organization_id(organization, grafana_options)
+      return organization if organization.is_a? Numeric
+
+      @orgs ||= get_orgs_list(grafana_options)
+
+      @orgs.find { |o| o['name'] == organization }['id']
+    rescue BackendError
+      nil
+    end
   end
 end

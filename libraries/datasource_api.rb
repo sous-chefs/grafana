@@ -68,5 +68,15 @@ module GrafanaCookbook
 
       Array(do_request(grafana_options))
     end
+
+    def get_all_datasources(grafana_options)
+      datasources = {}
+      get_orgs_list(grafana_options).each do |org|
+        select_org(org, grafana_options)
+
+        datasources.merge!(org['name'] => get_datasource_list(grafana_options))
+      end
+      datasources
+    end
   end
 end

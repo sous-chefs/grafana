@@ -11,9 +11,8 @@ grafana_plugin 'grafana-clock-panel' do
   action :install
 end
 
-# TODO: change URL to point to master after merging
 grafana_plugin 'yesoreyeram-boomtable-panel' do
-  plugin_url 'https://raw.githubusercontent.com/sous-chefs/grafana/feature/resources/test/fixtures/cookbooks/test/files/plugin-test.zip'
+  plugin_url 'https://raw.githubusercontent.com/sous-chefs/grafana/master/test/fixtures/cookbooks/test/files/plugin-test.zip'
   action :update
 end
 

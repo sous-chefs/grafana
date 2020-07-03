@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## Unreleased
+## 9.1.0
 
 - Fixed tests to not require `chef_sleep`
 - Added support for centos-8

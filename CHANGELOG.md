@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
+- Added support for HTTPS endpoint
+
 ## 9.2.1
 
 - Fixed tests to not require `chef_sleep`

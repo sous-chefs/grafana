@@ -13,6 +13,7 @@ module GrafanaCookbook
     def login(host, port, user, password)
       http = Net::HTTP.new(host, port)
       request = Net::HTTP::Post.new('/login')
+      http.use_ssl = true if port == 443
       request.add_field('Content-Type', 'application/json;charset=utf-8')
       request.body = { 'User' => user, 'email' => '', 'Password' => password }.to_json
 
@@ -61,6 +62,7 @@ module GrafanaCookbook
     # +grafana_options+:: A hash of the host, port, user, and password as well as request parameters
     def do_request(grafana_options, payload = nil)
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
+      http.use_ssl = true if port == 443
       request = case grafana_options[:method]
                 when 'Patch'
                   Net::HTTP::Patch.new(grafana_options[:endpoint])

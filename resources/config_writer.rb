@@ -7,13 +7,13 @@ property  :cookbook,            String,                   default: 'grafana'
 property  :source,              String,                   default: 'grafana.ini.erb'
 property  :source_ldap,         String,                   default: 'ldap.toml.erb'
 property  :service_name,        String,                   default: 'grafana-server'
-property  :service_restart,     [true, false],            default: true
+property  :service_enable,      [true, false],            default: true
 
 action :install do
   service new_resource.service_name do
     action [:enable]
     subscribes :restart, ['template[/etc/grafana/grafana.ini]', 'template[/etc/grafana/ldap.toml]'], :immediately
-    only_if { new_resource.service_restart }
+    only_if { new_resource.service_enable }
   end
 
   template ::File.join(new_resource.config_file) do

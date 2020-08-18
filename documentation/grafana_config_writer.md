@@ -25,7 +25,7 @@ Introduced: v8.0.0
 | `source`              | String      | `grafana.ini.erb`           | Name of the template                                      |
 | `source_ldap`         | String      | `ldap.toml.erb`             | Name of the template for ldap                             |
 | `service_name`        | String      | `grafana-server`            | Name of the service to restart when config changes        |
-
+| `service_enable`      | TrueClass, FalseClass| `true`             | Flag to enable service                                    | `true`, `false`
 ## Examples
 
 ```ruby

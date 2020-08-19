@@ -20,6 +20,7 @@ This resource currently makes the same assumptions that grafana_dashboard does s
 | --------------------- | ----------- | ------------------------- | --------------------------------------------------------- | --------------- |
 | `host`                |  String     | `localhost`               | The host grafana is running on|
 | `port`                |  Integer    | `3000`                    | The port grafana is running on|
+| `url_path_prefix`     |  String     | nil                       | The url_path_prefix grafana is available from when running behind the proxy (ex. '/grafana')|
 | `admin_user`          |  String     | `admin`                   | A grafana user with admin privileges|
 | `admin_password`      |  String     | `admin`                   | The grafana user's password|
 | `auth_proxy_header`   |  String     | nil                       | The HTTP authentication header used when `auth.proxy.enabled=true`. See [grafana_config_auth:proxy_header_name](grafana_config_auth.md)|

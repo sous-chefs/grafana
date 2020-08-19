@@ -1,5 +1,6 @@
 property :host,               String,   default: 'localhost'
 property :port,               Integer,  default: 3000
+property :url_path_prefix,    [String, nil], default: nil
 property :admin_user,         String,   default: 'admin'
 property :admin_password,     String,   default: 'admin'
 property :auth_proxy_header,  String
@@ -29,6 +30,7 @@ action :delete do
   grafana_dashboard new_resource.name do
     host new_resource.host
     port new_resource.port
+    url_path_prefix new_resource.url_path_prefix
     auth_proxy_header new_resource.auth_proxy_header
     admin_user new_resource.admin_user
     admin_password new_resource.admin_password
@@ -65,6 +67,7 @@ action_class do
     grafana_dashboard new_resource.name do
       host new_resource.host
       port new_resource.port
+      url_path_prefix new_resource.url_path_prefix
       auth_proxy_header new_resource.auth_proxy_header
       admin_user new_resource.admin_user
       admin_password new_resource.admin_password

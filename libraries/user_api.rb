@@ -29,7 +29,7 @@ module GrafanaCookbook
     def update_user_password(user, grafana_options)
       # Test user login with provided password.
       # If it succeeds, no need to update password
-      user_session_id = login(grafana_options[:host], grafana_options[:port], user[:login], user[:password])
+      user_session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:url_path_prefix], user[:login], user[:password])
       return if user_session_id
 
       # If it fails, that means we have to change password

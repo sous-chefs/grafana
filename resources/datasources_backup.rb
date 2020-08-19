@@ -1,5 +1,6 @@
 property :host,               String,   default: 'localhost'
 property :port,               Integer,  default: 3000
+property :url_path_prefix,    [String, nil], default: nil
 property :admin_user,         String,   default: 'admin'
 property :admin_password,     String,   default: 'admin'
 property :auth_proxy_header,  String
@@ -17,6 +18,7 @@ action :create do
   grafana_options = {
     host: new_resource.host,
     port: new_resource.port,
+    url_path_prefix: new_resource.url_path_prefix,
     user: new_resource.admin_user,
     password: new_resource.admin_password,
     auth_proxy_header: new_resource.auth_proxy_header,

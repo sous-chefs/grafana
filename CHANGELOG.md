@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## Unreleased
+## 9.3.0 - 2020-08-19
 
 - Added support for use of config_writer to only generate config file when grafana is not present on host
 

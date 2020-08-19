@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
+- Added support for use of config_writer to only generate config file when grafana is not present on host
+
 ## 9.2.1
 
 - Fixed tests to not require `chef_sleep`

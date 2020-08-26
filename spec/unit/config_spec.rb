@@ -61,5 +61,34 @@ platforms.each do |platform|
         is_expected.to render_file('/etc/grafana/grafana.ini').with_content(/serve_from_sub_path/)
       end
     end
+
+    context 'do not enable grafana service' do
+      recipe do
+        grafana_config 'config' do
+        end
+
+        grafana_config_writer 'config' do
+          service_enable false
+        end
+      end
+
+      it('should not enable service') do
+        is_expected.to_not enable_service('grafana-server')
+      end
+    end
+
+    context 'default grafana service enabled' do
+      recipe do
+        grafana_config 'config' do
+        end
+
+        grafana_config_writer 'config' do
+        end
+      end
+
+      it('should enable service') do
+        is_expected.to enable_service('grafana-server')
+      end
+    end
   end
 end

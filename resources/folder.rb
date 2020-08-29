@@ -1,7 +1,7 @@
 # To learn more about Custom Resources, see https://docs.chef.io/custom_resources.html
 property :host,           String,   default: 'localhost'
 property :port,           Integer,  default: 3000
-property :url_path_prefix, [String, nil], default: nil
+property :url_path_prefix, String
 property :admin_user,     String,   default: 'admin'
 property :admin_password, String,   default: 'admin'
 property :folder,         Hash,     default: {}

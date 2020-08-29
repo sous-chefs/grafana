@@ -6,6 +6,7 @@ This file is used to list changes made in each version of grafana.
 
 - Added support for HTTPS endpoint
 - Added support for endpoints with url_path_prefix
+- Fixed url_path_prefix property definition in resources
 
 ## 9.3.0 - 2020-08-19
 

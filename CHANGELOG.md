@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## Unreleased
+## 9.4.0 - 2020-08-31
 
 - Added support for HTTPS endpoint
 - Added support for endpoints with url_path_prefix

@@ -62,7 +62,7 @@ module GrafanaCookbook
     # +grafana_options+:: A hash of the host, port, user, and password as well as request parameters
     def do_request(grafana_options, payload = nil)
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
-      http.use_ssl = true if port == 443
+      http.use_ssl = true if grafana_options[:port] == 443
       endpoint = grafana_options[:url_path_prefix].to_s + grafana_options[:endpoint]
       request = case grafana_options[:method]
                 when 'Patch'

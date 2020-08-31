@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## Unreleased
+## 9.4.1 - 2020-08-31
 
 - Bugfix for undefined port variable (#381)
 

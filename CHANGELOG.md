@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
+- Bugfix for undefined port variable (#381)
+
 ## 9.4.0 - 2020-08-31
 
 - Added support for HTTPS endpoint

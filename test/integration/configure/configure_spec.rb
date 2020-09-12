@@ -43,6 +43,13 @@ describe json(command: "curl http://localhost:3000/api/org --header #{curl_auth_
   its('id') { should eq 2 }
 end
 
+auth_body = '{"user":"admin","password":"admin"}'
+describe http('http://localhost:3000/login', method: 'POST', headers: { 'Content-Type' => 'application/json' }, data: auth_body) do
+  its('status') { should eq 200 }
+  its('body') { should cmp /Logged in/ }
+  its('headers.set-cookie') { should cmp /SameSite=Lax/ }
+end
+
 describe http('http://localhost:3000/api/users', headers: auth_headers) do
   its('status') { should eq 200 }
 

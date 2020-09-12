@@ -30,6 +30,7 @@ property  :data_source_proxy_whitelist,           String,         default: ''
 property  :disable_brute_force_login_protection,  [true, false],  default: false
 property  :allow_embedding,                       [true, false],  default: false
 property  :cookie_secure,                         [true, false],  default: false
+property  :cookie_samesite,                       String,         default: 'lax'
 
 action :install do
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['security'] ||= {}
@@ -55,4 +56,6 @@ action :install do
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['security']['allow_embedding'] << new_resource.allow_embedding.to_s unless new_resource.allow_embedding.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['security']['cookie_secure'] ||= '' unless new_resource.cookie_secure.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['security']['cookie_secure'] << new_resource.cookie_secure.to_s unless new_resource.cookie_secure.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['security']['cookie_samesite'] ||= '' unless new_resource.cookie_samesite.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['security']['cookie_samesite'] << new_resource.cookie_samesite.to_s unless new_resource.cookie_samesite.nil?
 end

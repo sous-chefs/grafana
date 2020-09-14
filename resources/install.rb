@@ -33,7 +33,7 @@ action :install do
   when 'debian'
     repository = "#{new_resource.repo}/deb"
   when 'rhel', 'amazon'
-    repository = "#{new_resource.repo}/rpm"
+    repository = "#{new_resource.repo}"
   end
 
   case node['platform_family']

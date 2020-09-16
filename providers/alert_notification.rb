@@ -111,8 +111,8 @@ action :delete do
 end
 
 def _legacy_http_semantic
-  return false if node['grafana']['version'] == 'latest'
-  Gem::Version.new(node['grafana']['version']) < Gem::Version.new('2.0.3')
+  return false if GrafanaCookbook::CookieHelper.grafana_version == 'latest'
+  Gem::Version.new(GrafanaCookbook::CookieHelper.grafana_version) < Gem::Version.new('2.0.3')
 end
 
 def _check_org!(alert_notification, orgs)

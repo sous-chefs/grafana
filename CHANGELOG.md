@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
+- Added support for cookie_samesite settings (#383)
+
 ## 9.4.1 - 2020-08-31
 
 - Bugfix for undefined port variable (#381)

@@ -2,8 +2,9 @@
 
 This file is used to list changes made in each version of grafana.
 
-## Unreleased 
--  Removed duplicate attribute (#389)
+## Unreleased
+
+- Removed duplicate attribute (#389)
 
 ## 9.5.0 - 2020-10-05
 

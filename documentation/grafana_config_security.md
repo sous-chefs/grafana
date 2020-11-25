@@ -25,6 +25,7 @@ Introduced: v4.0.0
 | `disable_brute_force_login_protection`  | true, false | `false`                     | disable protection against brute force login attempts.  | true, false
 | `allow_embedding`                       | true, false | `false`                     | Allows grafana to be embedded in an iframe              | true, false
 | `cookie_secure`                         | true, false | `false`                     | Secures cookies if running behind https                 | true, false
+| `cookie_samesite`                       | String      | `lax`                       | Sets `SameSite` cookie and Prevents the browser from sending this cookie along with CSS attacks.|
 
 ## Examples
 

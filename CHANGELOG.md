@@ -2,6 +2,55 @@
 
 This file is used to list changes made in each version of grafana.
 
+## 9.5.1 - 2020-11-18
+
+- Removed duplicate attribute (#389)
+
+## 9.5.0 - 2020-10-05
+
+- Added support for cookie_samesite settings (#383)
+
+## 9.4.1 - 2020-08-31
+
+- Bugfix for undefined port variable (#381)
+
+## 9.4.0 - 2020-08-31
+
+- Added support for HTTPS endpoint
+- Added support for endpoints with url_path_prefix
+- Fixed url_path_prefix property definition in resources
+
+## 9.3.0 - 2020-08-19
+
+- Added support for use of config_writer to only generate config file when grafana is not present on host
+
+## 9.2.1
+
+- Fixed tests to not require `chef_sleep`
+- Added support for centos-8
+- Added support for debian-10
+- Added support for amazonlinux-2
+- Removes support for debian-8
+- Added support to retrieve org id by name
+- Added support for backing up datasources and dashboards to file
+- Added support for custom plugin URLs
+- Added support for creating dashboards from template file
+- Fixes bug that didn't create folder when using action update and it did not exist yet
+- Fixes bug that didn't create datasource when using action update and it did not exist yet
+- Fixes bug where installing a lot of plugins would cause grafana systemd service to fail to start
+- Removes unecessary restart on plugin install
+
+## 9.1.0
+
+- Add in support for `min_refresh_interval` configuration to dashboard config.
+- Adds support for Ubuntu 20.04
+- resolved cookstyle error: resources/config_server.rb:25:59 refactor: `ChefCorrectness/LazyEvalNodeAttributeDefaults`
+- Removes support for Ubuntu 16.04
+- Removes support for centos 6
+- Removes support for amazonlinux 1
+- Improved stability in flakey tests using chef_sleep
+- Minimum chef version is now 15.5
+
 ## 8.8.0
 
 - Add in support for configuring rendering service

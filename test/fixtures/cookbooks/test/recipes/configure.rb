@@ -14,6 +14,11 @@ grafana_config_auth 'Grafana' do
   login_cookie_name 'grafana_session'
 end
 
+grafana_config_dashboards 'Grafana' do
+  versions_to_keep 2
+  min_refresh_interval '3s'
+end
+
 grafana_config_writer 'Grafana'
 
 # Needed for some inspec tests
@@ -163,4 +168,28 @@ grafana_dashboard 'sample-dashboard-folder' do
     folder: 'StayOrganized2'
   )
   action [:create, :update]
+end
+
+grafana_dashboard_template 'sample-dashboard-template' do
+  auth_proxy_header auth_header
+
+  organization 'Sous-Chefs'
+  folder 'StayOrganized2'
+
+  template_source 'sample-dashboard-template.json.erb'
+  template_cookbook 'test'
+
+  template_vars(
+    random_walk: 'injected value'
+  )
+
+  action [:create, :update]
+end
+
+grafana_dashboards_backup 'Backup Dashboards to File' do
+  auth_proxy_header auth_header
+end
+
+grafana_datasources_backup 'Backup Datasources to File' do
+  auth_proxy_header auth_header
 end

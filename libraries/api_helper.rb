@@ -10,9 +10,10 @@ module GrafanaCookbook
     # +port+:: The port grafana is running on
     # +user+:: A grafana user with admin privileges
     # +password+:: The grafana user's password
-    def login(host, port, user, password)
+    def login(host, port, url_path_prefix, user, password)
       http = Net::HTTP.new(host, port)
-      request = Net::HTTP::Post.new('/login')
+      request = Net::HTTP::Post.new(url_path_prefix.to_s + '/login')
+      http.use_ssl = true if port == 443
       request.add_field('Content-Type', 'application/json;charset=utf-8')
       request.body = { 'User' => user, 'email' => '', 'Password' => password }.to_json
 
@@ -61,22 +62,24 @@ module GrafanaCookbook
     # +grafana_options+:: A hash of the host, port, user, and password as well as request parameters
     def do_request(grafana_options, payload = nil)
       http = Net::HTTP.new(grafana_options[:host], grafana_options[:port])
+      http.use_ssl = true if grafana_options[:port] == 443
+      endpoint = grafana_options[:url_path_prefix].to_s + grafana_options[:endpoint]
       request = case grafana_options[:method]
                 when 'Patch'
-                  Net::HTTP::Patch.new(grafana_options[:endpoint])
+                  Net::HTTP::Patch.new(endpoint)
                 when 'Post'
-                  Net::HTTP::Post.new(grafana_options[:endpoint])
+                  Net::HTTP::Post.new(endpoint)
                 when 'Put'
-                  Net::HTTP::Put.new(grafana_options[:endpoint])
+                  Net::HTTP::Put.new(endpoint)
                 when 'Delete'
-                  Net::HTTP::Delete.new(grafana_options[:endpoint])
+                  Net::HTTP::Delete.new(endpoint)
                 else
-                  Net::HTTP::Get.new(grafana_options[:endpoint])
+                  Net::HTTP::Get.new(endpoint)
                 end
       if grafana_options[:auth_proxy_header]
         request.add_field(grafana_options[:auth_proxy_header], grafana_options[:user])
       else
-        session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:user], grafana_options[:password])
+        session_id = login(grafana_options[:host], grafana_options[:port], grafana_options[:url_path_prefix], grafana_options[:user], grafana_options[:password])
         request.add_field('Cookie', "grafana_user=#{grafana_options[:user]}; #{GrafanaCookbook::CookieHelper.cookie_name}=#{session_id};")
       end
       request.add_field('Content-Type', 'application/json;charset=utf-8;')

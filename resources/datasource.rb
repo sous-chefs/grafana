@@ -21,6 +21,7 @@
 
 property :host,           String,   default: 'localhost'
 property :port,           Integer,  default: 3000
+property :url_path_prefix, String
 property :admin_user,     String,   default: 'admin'
 property :admin_password, String,   default: 'admin'
 property :datasource,     Hash,     default: {}
@@ -36,6 +37,7 @@ action :create do
   grafana_options = {
     host: new_resource.host,
     port: new_resource.port,
+    url_path_prefix: new_resource.url_path_prefix,
     user: new_resource.admin_user,
     password: new_resource.admin_password,
     auth_proxy_header: new_resource.auth_proxy_header,
@@ -67,6 +69,7 @@ action :update do
   grafana_options = {
     host: new_resource.host,
     port: new_resource.port,
+    url_path_prefix: new_resource.url_path_prefix,
     user: new_resource.admin_user,
     password: new_resource.admin_password,
     auth_proxy_header: new_resource.auth_proxy_header,
@@ -100,12 +103,19 @@ action :update do
     end
     break if exists
   end
+
+  # If not found, let's create it
+  unless exists
+    Chef::Log.warn "Impossible to update datasource #{new_datasource[:name]} because it does not exist. We will create it."
+    run_action(:create)
+  end
 end
 
 action :delete do
   grafana_options = {
     host: new_resource.host,
     port: new_resource.port,
+    url_path_prefix: new_resource.url_path_prefix,
     user: new_resource.admin_user,
     password: new_resource.admin_password,
     auth_proxy_header: new_resource.auth_proxy_header,

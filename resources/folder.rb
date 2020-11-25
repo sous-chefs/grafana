@@ -1,6 +1,7 @@
 # To learn more about Custom Resources, see https://docs.chef.io/custom_resources.html
 property :host,           String,   default: 'localhost'
 property :port,           Integer,  default: 3000
+property :url_path_prefix, String
 property :admin_user,     String,   default: 'admin'
 property :admin_password, String,   default: 'admin'
 property :folder,         Hash,     default: {}
@@ -17,6 +18,7 @@ action :create do
   grafana_options = {
     host: new_resource.host,
     port: new_resource.port,
+    url_path_prefix: new_resource.url_path_prefix,
     user: new_resource.admin_user,
     password: new_resource.admin_password,
     auth_proxy_header: new_resource.auth_proxy_header,
@@ -51,6 +53,7 @@ action :update do
   grafana_options = {
     host: new_resource.host,
     port: new_resource.port,
+    url_path_prefix: new_resource.url_path_prefix,
     user: new_resource.admin_user,
     password: new_resource.admin_password,
     auth_proxy_header: new_resource.auth_proxy_header,
@@ -76,8 +79,10 @@ action :update do
   # TODO: Actually validate permissions need updating
   # permissions = get_folder_permissions(folder, grafana_options)
   update_perms = true
-
-  if update_folder || update_perms
+  if folder.nil?
+    Chef::Log.warn "Impossible to update folder #{new_folder[:title]} because it does not exist. We will create it."
+    run_action(:create)
+  elsif update_folder || update_perms
     new_folder[:id] = get_folder_id(folder)
     new_folder[:uid] = get_folder_uid(folder)
     converge_by("Updating folder #{new_folder[:title]}") do
@@ -90,6 +95,7 @@ action :delete do
   grafana_options = {
     host: new_resource.host,
     port: new_resource.port,
+    url_path_prefix: new_resource.url_path_prefix,
     user: new_resource.admin_user,
     password: new_resource.admin_password,
     auth_proxy_header: new_resource.auth_proxy_header,

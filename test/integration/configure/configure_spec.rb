@@ -43,6 +43,13 @@ describe json(command: "curl http://localhost:3000/api/org --header #{curl_auth_
   its('id') { should eq 2 }
 end
 
+auth_body = '{"user":"admin","password":"admin"}'
+describe http('http://localhost:3000/login', method: 'POST', headers: { 'Content-Type' => 'application/json' }, data: auth_body) do
+  its('status') { should eq 200 }
+  its('body') { should cmp /Logged in/ }
+  its('headers.set-cookie') { should cmp /SameSite=Lax/ }
+end
+
 describe http('http://localhost:3000/api/users', headers: auth_headers) do
   its('status') { should eq 200 }
 
@@ -91,13 +98,24 @@ describe json(command: "curl http://localhost:3000/api/datasources --header #{cu
   its([1, 'database']) { should eq 'metrics' }
 end
 
-describe json(command: "curl http://localhost:3000/api/dashboards/db/sample-dashboard --header #{curl_auth_headers}") do
+describe json(content: http('http://localhost:3000/api/dashboards/db/sample-dashboard', auth: { user: 'admin', pass: 'admin' },
+  method: 'GET',
+  headers: { 'Content-Type' => 'application/json' }).body) do
   its(%w(meta slug)) { should eq 'sample-dashboard' }
 end
 
 # TODO: Find a way to validate the dashboard is in the right folder
-describe json(command: "curl http://localhost:3000/api/dashboards/db/sample-dashboard-folder --header #{curl_auth_headers}") do
+
+describe json(content: http('http://localhost:3000/api/dashboards/db/sample-dashboard-folder', auth: { user: 'admin', pass: 'admin' },
+  method: 'GET',
+  headers: { 'Content-Type' => 'application/json' }).body) do
   its(%w(meta slug)) { should eq 'sample-dashboard-folder' }
+end
+
+describe json(content: http('http://localhost:3000/api/dashboards/db/sample-dashboard-template', auth: { user: 'admin', pass: 'admin' },
+  method: 'GET',
+  headers: { 'Content-Type' => 'application/json' }).body) do
+  its(%w(meta slug)) { should eq 'sample-dashboard-template' }
 end
 
 describe http('http://localhost:3000/api/folders', headers: auth_headers) do
@@ -110,6 +128,14 @@ describe http('http://localhost:3000/api/folders', headers: auth_headers) do
       'title' => 'StayOrganized2'
     )
   end
+end
+
+describe json(content: http('http://localhost:3000/api/admin/settings', auth: { user: 'admin', pass: 'admin' },
+  params: { format: 'html' },
+  method: 'GET',
+  headers: { 'Content-Type' => 'application/json' }).body) do
+  its(%w(dashboards min_refresh_interval)) { should eq '3s' }
+  its(%w(dashboards versions_to_keep)) { should eq '2' }
 end
 
 # TODO: Find a way to validate the perms are correct

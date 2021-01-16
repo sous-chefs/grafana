@@ -10,7 +10,7 @@ Introduced: v4.0.3
 
 ## Actions
 
-`:create`
+`:install`
 
 ## Properties
 

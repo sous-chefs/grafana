@@ -12,7 +12,7 @@ property  :service_enable,      [true, false],            default: true
 action :install do
   service new_resource.service_name do
     action [:enable]
-    subscribes :restart, ['template[/etc/grafana/grafana.ini]', 'template[/etc/grafana/ldap.toml]'], :immediately
+    subscribes :restart, ["template[#{new_resource.config_file}]", "template[#{new_resource.config_file_ldap}]"], :immediately
     only_if { new_resource.service_enable }
   end
 

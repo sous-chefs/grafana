@@ -12,7 +12,7 @@ Note: While this configures the log settings Grafana sets the location of the lo
 
 ## Actions
 
-`:create`
+`:install`
 
 ## Properties
 

@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
 ## 9.5.2 - *2021-01-16*
 
 - Fixed docuemntation showing the incorrect action

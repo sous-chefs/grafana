@@ -6,7 +6,7 @@
 
 Configures the core plugins section of the configuration <http://docs.grafana.org/installation/configuration/#plugins>
 
-Introduced: v4.0.0
+Introduced: v9.5.2
 
 ## Actions
 

@@ -4,7 +4,7 @@
 
 # grafana_config_plugins
 
-Configures the core plugins section of the configuration <http://docs.grafana.org/installation/configuration/#plugins>
+Configures the core plugins section of the configuration <https://grafana.com/docs/grafana/latest/administration/configuration/#plugins-1>
 
 Introduced: v9.5.2
 
@@ -16,7 +16,7 @@ Introduced: v9.5.2
 
 | Name                      | Type          |  Default                    | Description                                                               |
 | ------------------------- | ------------- | --------------------------- | ------------------------------------------------------------------------- |
-| `allow_loading_unsigned_plugins` | String | `''` | Enter a comma-separated list of plugin identifiers to identify<br />plugins that are allowed to be loaded even if they lack a valid signature. |
+| `allow_loading_unsigned_plugins` | String | `''` | <https://grafana.com/docs/grafana/latest/administration/configuration/#allow_loading_unsigned_plugins> |
 
 ## Examples
 

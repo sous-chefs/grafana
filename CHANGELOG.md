@@ -3,12 +3,12 @@
 This file is used to list changes made in each version of grafana.
 
 ## Unreleased
+- Added `allow_loading_unsigned_plugins` management
 
 ## 9.5.2 - *2021-01-16*
 
 - Fixed docuemntation showing the incorrect action
 - Fixed a bug where ldap and grafana had hard coded paths.
-- Added `allow_loading_unsigned_plugins` management
 
 ## 9.5.1 - 2020-11-18
 

@@ -50,7 +50,7 @@ suites:
   - name: azuread
     run_list:
       - recipe[test::azuread]
-  
+
   - name: config_plugins
     run_list:
       - recipe[test::config_plugins]

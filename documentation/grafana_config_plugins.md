@@ -16,12 +16,12 @@ Introduced: v9.6.0
 
 | Name                      | Type          |  Default                    | Description                                                               |
 | ------------------------- | ------------- | --------------------------- | ------------------------------------------------------------------------- |
-| `allow_loading_unsigned_plugins` | String | `''` | <https://grafana.com/docs/grafana/latest/administration/configuration/#allow_loading_unsigned_plugins> |
+| `allow_loading_unsigned_plugins` | Array | `[]` | <https://grafana.com/docs/grafana/latest/administration/configuration/#allow_loading_unsigned_plugins> |
 
 ## Examples
 
 ```ruby
 grafana_config_plugins 'grafana' do
-  allow_loading_unsigned_plugins 'plugin_name'
+  allow_loading_unsigned_plugins %w( plugin_name )
 end
 ```

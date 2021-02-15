@@ -19,10 +19,10 @@
 # Configures the [plugins] section of the grafana config file
 
 property  :instance_name, String, name_property: true
-property  :allow_loading_unsigned_plugins, String, default: ''
+property  :allow_loading_unsigned_plugins, Array, default: []
 
 action :install do
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins'] ||= {}
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins']['allow_loading_unsigned_plugins'] ||= '' unless new_resource.allow_loading_unsigned_plugins.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins']['allow_loading_unsigned_plugins'] << new_resource.allow_loading_unsigned_plugins.to_s unless new_resource.allow_loading_unsigned_plugins.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins']['allow_loading_unsigned_plugins'] << new_resource.allow_loading_unsigned_plugins.join(',') unless new_resource.allow_loading_unsigned_plugins.nil?
 end

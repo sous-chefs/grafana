@@ -3,7 +3,7 @@ require 'spec_helper'
 platforms = %w(debian ubuntu centos)
 platforms.each do |platform|
   describe "grafana_ on #{platform}" do
-    step_into :grafana_config, :grafana_install, :grafana_config_enterprise, :grafana_config_server, :grafana_config_writer
+    step_into :grafana_config, :grafana_install, :grafana_config_enterprise, :grafana_config_server, :grafana_config_paths, :grafana_config_plugins, :grafana_config_writer
     platform platform
 
     context 'create config with enterprise license key' do

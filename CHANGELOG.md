@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
 ## 9.6.0 - *2021-02-17*
 
 - Added `allow_loading_unsigned_plugins` management

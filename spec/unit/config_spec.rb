@@ -3,7 +3,7 @@ require 'spec_helper'
 platforms = %w(debian ubuntu centos)
 platforms.each do |platform|
   describe "grafana_ on #{platform}" do
-    step_into :grafana_config, :grafana_install, :grafana_config_enterprise, :grafana_config_server, :grafana_config_writer
+    step_into :grafana_config, :grafana_install, :grafana_config_enterprise, :grafana_config_server, :grafana_config_paths, :grafana_config_plugins, :grafana_config_writer
     platform platform
 
     context 'create config with enterprise license key' do
@@ -88,6 +88,26 @@ platforms.each do |platform|
 
       it('should enable service') do
         is_expected.to enable_service('grafana-server')
+      end
+    end
+
+    context 'allow_loading_unsigned_plugins management' do
+      recipe do
+        grafana_install 'grafana'
+
+        grafana_config 'grafana'
+
+        grafana_config_paths 'grafana'
+
+        grafana_config_plugins 'grafana' do
+          allow_loading_unsigned_plugins %w( my-test-plugin,my-second-plugin )
+        end
+
+        grafana_config_writer 'grafana'
+      end
+
+      it('should contain my-test-plugin,my-second-plugin') do
+        is_expected.to render_file('/etc/grafana/grafana.ini').with_content(/my-test-plugin,my-second-plugin/)
       end
     end
   end

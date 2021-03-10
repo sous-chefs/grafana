@@ -22,7 +22,7 @@ Introduced: v7.0
 | `:allow_sign_up`                          | True, False   | `true`                                               | <https://grafana.com/docs/grafana/latest/auth/okta/>             | true, false
 | `:client_id`                              | String        |                                                      | <https://grafana.com/docs/grafana/latest/auth/okta/>             |
 | `:client_secret`                          | String        |                                                      | <https://grafana.com/docs/grafana/latest/auth/okta/>             |
-| `:scopes`                                 | String        |                                                      | <https://grafana.com/docs/grafana/latest/auth/okta/>             |
+| `:scopes`                                 | Array         |                                                      | <https://grafana.com/docs/grafana/latest/auth/okta/>             |
 | `:auth_url`                               | String        |                                                      | <https://grafana.com/docs/grafana/latest/auth/okta/>             |
 | `:token_url`                              | String        |                                                      | <https://grafana.com/docs/grafana/latest/auth/okta/>             |
 | `:api_url`                                | String        |                                                      | <https://grafana.com/docs/grafana/latest/auth/okta/>             |

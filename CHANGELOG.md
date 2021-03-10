@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased 
+
+- Add Okta auth support - [@mbaitelman](https://github.com/mbaitelman)
+
 ## 9.5.1 - 2020-11-18
 
 - Removed duplicate attribute (#389)

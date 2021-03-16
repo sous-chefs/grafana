@@ -6,6 +6,15 @@ This file is used to list changes made in each version of grafana.
 
 - Add Okta auth support - [@mbaitelman](https://github.com/mbaitelman)
 
+## 9.6.0 - *2021-02-17*
+
+- Added `allow_loading_unsigned_plugins` management
+
+## 9.5.2 - *2021-01-16*
+
+- Fixed docuemntation showing the incorrect action
+- Fixed a bug where ldap and grafana had hard coded paths.
+
 ## 9.5.1 - 2020-11-18
 
 - Removed duplicate attribute (#389)

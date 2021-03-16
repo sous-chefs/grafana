@@ -1097,6 +1097,13 @@ enable_alpha = <%= @grafana['panels']['enable_alpha'] %>
 <% end %>
 <% end %>
 
+<% if @grafana['plugins'] %>
+[plugins]
+<% if @grafana['plugins']['allow_loading_unsigned_plugins'] %>
+allow_loading_unsigned_plugins = <%= @grafana['plugins']['allow_loading_unsigned_plugins'] %>
+<% end %>
+<% end %>
+
 <% if @grafana['enterprise'] %>
 [enterprise]
 <% if @grafana['enterprise']['license_path'] %>

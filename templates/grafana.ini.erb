@@ -274,6 +274,9 @@ cookie_username = <%= @grafana['security']['cookie_username'] %>
 <% if @grafana['security']['cookie_remember_name'] %>
 cookie_remember_name = <%= @grafana['security']['cookie_remember_name'] %>
 <% end %>
+<% if @grafana['security']['cookie_samesite'] %>
+cookie_samesite = <%= @grafana['security']['cookie_samesite'] %>
+<% end %>
 
 # disable gravatar profile images
 <% if @grafana['security']['disable_gravatar'] %>

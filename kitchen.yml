@@ -4,13 +4,12 @@ driver:
 
 provisioner:
   name: chef_zero
+  deprecations_as_errors: true
   product_name: chef
   chef_license: accept-no-persist
   product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
-  install_strategy: once
-  enforce_idempotency: true
-  multiple_converge: 2
-  deprecations_as_errors: true
+  install_strategy: always
+  chef_log_level: <%= ENV['CHEF_LOG_LEVEL'] || 'auto' %>
 
 verifier:
   name: inspec

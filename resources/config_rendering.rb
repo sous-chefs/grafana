@@ -24,10 +24,14 @@ property  :instance_name, String, name_property: true
 property  :server_url,    String, default: 'http://localhost:8081/render'
 property  :callback_url,  String, default: 'http://localhost:3000/'
 
+action_class do
+  include GrafanaCookbook::ConfigHelper
+end
+
 action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['rendering'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['rendering']['server_url'] ||= '' unless new_resource.server_url.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['rendering']['server_url'] << new_resource.server_url.to_s unless new_resource.server_url.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['rendering']['callback_url'] ||= '' unless new_resource.callback_url.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['rendering']['callback_url'] << new_resource.callback_url.to_s unless new_resource.callback_url.nil?
+  resource_properties.each do |rp|
+    next if nil_or_empty?(new_resource.send(rp))
+
+    run_state_config_set(rp.to_s, new_resource.send(rp))
+  end
 end

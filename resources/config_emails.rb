@@ -24,10 +24,14 @@ property  :instance_name,             String,         name_property: true
 property  :welcome_email_on_sign_up,  [true, false],  default: false
 property  :templates_pattern,         String,         default: 'emails/*.html'
 
+action_class do
+  include GrafanaCookbook::ConfigHelper
+end
+
 action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['emails'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['emails']['welcome_email_on_sign_up'] ||= '' unless new_resource.welcome_email_on_sign_up.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['emails']['welcome_email_on_sign_up'] << new_resource.welcome_email_on_sign_up.to_s unless new_resource.welcome_email_on_sign_up.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['emails']['templates_pattern'] ||= '' unless new_resource.templates_pattern.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['emails']['templates_pattern'] << new_resource.templates_pattern.to_s unless new_resource.templates_pattern.nil?
+  resource_properties.each do |rp|
+    next if nil_or_empty?(new_resource.send(rp))
+
+    run_state_config_set(rp.to_s, new_resource.send(rp))
+  end
 end

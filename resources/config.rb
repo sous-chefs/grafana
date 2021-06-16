@@ -31,6 +31,10 @@ property  :conf_directory,      String,                   default: '/etc/grafana
 property  :app_mode,            String,                   default: 'production', equal_to: %w(production development)
 property  :cookbook,            String,                   default: 'grafana'
 
+action_class do
+  include GrafanaCookbook::ConfigHelper
+end
+
 action :install do
   user new_resource.owner
 
@@ -63,12 +67,9 @@ action :install do
     mode '0644'
   end
 
-  # Node run state is not like attributes and you need to declare types as
-  # you walk down the tree
-  node.run_state['sous-chefs'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config'] ||= {}
+  resource_properties.each do |rp|
+    next if nil_or_empty?(new_resource.send(rp))
 
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['instance_name'] = new_resource.instance_name unless new_resource.instance_name.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['app_mode'] = new_resource.app_mode unless new_resource.app_mode.nil?
+    run_state_config_set(rp.to_s, new_resource.send(rp))
+  end
 end

@@ -37,36 +37,14 @@ property  :client_cert_path,  String,                   default: ''
 property  :server_cert_name,  String,                   default: ''
 property  :path,              String,                   default: 'grafana.db'
 
+action_class do
+  include GrafanaCookbook::ConfigHelper
+end
+
 action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['type'] ||= '' unless new_resource.type.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['type'] << new_resource.type.to_s unless new_resource.type.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['host'] ||= '' unless new_resource.host.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['host'] << new_resource.host.to_s unless new_resource.host.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['name'] ||= '' unless new_resource.database_name.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['name'] << new_resource.database_name.to_s unless new_resource.database_name.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['user'] ||= '' unless new_resource.user.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['user'] << new_resource.user.to_s unless new_resource.user.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['password'] ||= '' unless new_resource.password.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['password'] << new_resource.password.to_s unless new_resource.password.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['max_idle_conn'] ||= '' unless new_resource.max_idle_conn.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['max_idle_conn'] << new_resource.max_idle_conn.to_s unless new_resource.max_idle_conn.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['max_open_conn'] ||= '' unless new_resource.max_open_conn.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['max_open_conn'] << new_resource.max_open_conn.to_s unless new_resource.max_open_conn.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['conn_max_lifetime'] ||= '' unless new_resource.conn_max_lifetime.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['conn_max_lifetime'] << new_resource.conn_max_lifetime.to_s unless new_resource.conn_max_lifetime.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['log_queries'] ||= '' unless new_resource.log_queries.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['log_queries'] << new_resource.log_queries.to_s unless new_resource.log_queries.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['ssl_mode'] ||= '' unless new_resource.ssl_mode.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['ssl_mode'] << new_resource.ssl_mode.to_s unless new_resource.ssl_mode.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['ca_cert_path'] ||= '' unless new_resource.ca_cert_path.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['ca_cert_path'] << new_resource.ca_cert_path.to_s unless new_resource.ca_cert_path.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['client_key_path'] ||= '' unless new_resource.client_key_path.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['client_key_path'] << new_resource.client_key_path.to_s unless new_resource.client_key_path.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['client_cert_path'] ||= '' unless new_resource.client_cert_path.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['client_cert_path'] << new_resource.client_cert_path.to_s unless new_resource.client_cert_path.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['server_cert_name'] ||= '' unless new_resource.server_cert_name.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['server_cert_name'] << new_resource.server_cert_name.to_s unless new_resource.server_cert_name.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['path'] ||= '' unless new_resource.path.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['database']['path'] << new_resource.path.to_s unless new_resource.path.nil?
+  resource_properties.each do |rp|
+    next if nil_or_empty?(new_resource.send(rp))
+
+    run_state_config_set(rp.to_s, new_resource.send(rp))
+  end
 end

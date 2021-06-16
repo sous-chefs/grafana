@@ -23,8 +23,14 @@ unified_mode true
 property  :instance_name, String, name_property: true
 property  :allow_loading_unsigned_plugins, Array, default: []
 
+action_class do
+  include GrafanaCookbook::ConfigHelper
+end
+
 action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins']['allow_loading_unsigned_plugins'] ||= '' unless new_resource.allow_loading_unsigned_plugins.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins']['allow_loading_unsigned_plugins'] << new_resource.allow_loading_unsigned_plugins.join(',') unless new_resource.allow_loading_unsigned_plugins.nil?
+  resource_properties.each do |rp|
+    next if nil_or_empty?(new_resource.send(rp))
+
+    run_state_config_set(rp.to_s, new_resource.send(rp))
+  end
 end

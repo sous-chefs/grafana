@@ -26,14 +26,14 @@ property  :external_snapshot_url,   String,         default: 'https://snapshots-
 property  :external_snapshot_name,  String,         default: 'Publish to snapshot.raintank.io'
 property  :snapshot_remove_expired, [true, false],  default: true
 
+action_class do
+  include GrafanaCookbook::ConfigHelper
+end
+
 action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots']['external_enabled'] ||= '' unless new_resource.external_enabled.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots']['external_enabled'] << new_resource.external_enabled.to_s unless new_resource.external_enabled.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots']['external_snapshot_url'] ||= '' unless new_resource.external_snapshot_url.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots']['external_snapshot_url'] << new_resource.external_snapshot_url.to_s unless new_resource.external_snapshot_url.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots']['external_snapshot_name'] ||= '' unless new_resource.external_snapshot_name.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots']['external_snapshot_name'] << new_resource.external_snapshot_name.to_s unless new_resource.external_snapshot_name.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots']['snapshot_remove_expired'] ||= '' unless new_resource.snapshot_remove_expired.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['snapshots']['snapshot_remove_expired'] << new_resource.snapshot_remove_expired.to_s unless new_resource.snapshot_remove_expired.nil?
+  resource_properties.each do |rp|
+    next if nil_or_empty?(new_resource.send(rp))
+
+    run_state_config_set(rp.to_s, new_resource.send(rp))
+  end
 end

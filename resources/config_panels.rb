@@ -23,8 +23,14 @@ unified_mode true
 property  :instance_name,   String,         name_property: true
 property  :enable_alpha,    [true, false],  default: false
 
+action_class do
+  include GrafanaCookbook::ConfigHelper
+end
+
 action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['panels'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['panels']['enable_alpha'] ||= '' unless new_resource.enable_alpha.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['panels']['enable_alpha'] << new_resource.enable_alpha.to_s unless new_resource.enable_alpha.nil?
+  resource_properties.each do |rp|
+    next if nil_or_empty?(new_resource.send(rp))
+
+    run_state_config_set(rp.to_s, new_resource.send(rp))
+  end
 end

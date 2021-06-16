@@ -4,6 +4,10 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+- Set resource configuration Hash programmatically
+- Automatic config Hash path creation
+- Automatic resource property fetching
+
 ## 9.7.1 - *2021-08-30*
 
 - Standardise files with files in sous-chefs/repo-management

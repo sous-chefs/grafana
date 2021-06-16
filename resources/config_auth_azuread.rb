@@ -31,26 +31,14 @@ property  :token_url,                              String,         default: ''
 property  :allowed_domains,                        String,         default: ''
 property  :allowed_groups,                         String,         default: ''
 
+action_class do
+  include GrafanaCookbook::ConfigHelper
+end
+
 action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['name'] ||= '' unless new_resource.auth_name.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['name'] << new_resource.auth_name.to_s unless new_resource.auth_name.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['enabled'] ||= '' unless new_resource.enabled.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['enabled'] << new_resource.enabled.to_s unless new_resource.enabled.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['allow_sign_up'] ||= '' unless new_resource.allow_sign_up.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['allow_sign_up'] << new_resource.allow_sign_up.to_s unless new_resource.allow_sign_up.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['client_id'] ||= '' unless new_resource.client_id.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['client_id'] << new_resource.client_id.to_s unless new_resource.client_id.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['client_secret'] ||= '' unless new_resource.client_secret.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['client_secret'] << new_resource.client_secret.to_s unless new_resource.client_secret.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['scopes'] ||= '' unless new_resource.scopes.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['scopes'] << new_resource.scopes.to_s unless new_resource.scopes.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['auth_url'] ||= '' unless new_resource.auth_url.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['auth_url'] << new_resource.auth_url.to_s unless new_resource.auth_url.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['token_url'] ||= '' unless new_resource.token_url.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['token_url'] << new_resource.token_url.to_s unless new_resource.token_url.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['allowed_domains'] ||= '' unless new_resource.allowed_domains.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['allowed_domains'] << new_resource.allowed_domains.to_s unless new_resource.allowed_domains.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['allowed_groups'] ||= '' unless new_resource.allowed_groups.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['auth_azuread']['allowed_groups'] << new_resource.allowed_groups.to_s unless new_resource.allowed_groups.nil?
+  resource_properties.each do |rp|
+    next if nil_or_empty?(new_resource.send(rp))
+
+    run_state_config_set(rp.to_s, new_resource.send(rp))
+  end
 end

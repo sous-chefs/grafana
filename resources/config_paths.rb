@@ -27,16 +27,14 @@ property  :logs,                String, default: '/var/log/grafana'
 property  :plugins,             String, default: '/var/lib/grafana/plugins'
 property  :provisioning,        String, default: 'conf/provisioning'
 
+action_class do
+  include GrafanaCookbook::ConfigHelper
+end
+
 action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['data'] ||= '' unless new_resource.data.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['data'] << new_resource.data.to_s unless new_resource.data.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['temp_data_lifetime'] ||= '' unless new_resource.temp_data_lifetime.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['temp_data_lifetime'] << new_resource.temp_data_lifetime.to_s unless new_resource.temp_data_lifetime.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['logs'] ||= '' unless new_resource.logs.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['logs'] << new_resource.logs.to_s unless new_resource.logs.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['plugins'] ||= '' unless new_resource.plugins.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['plugins'] << new_resource.plugins.to_s unless new_resource.plugins.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['provisioning'] ||= '' unless new_resource.provisioning.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['provisioning'] << new_resource.provisioning.to_s unless new_resource.provisioning.nil?
+  resource_properties.each do |rp|
+    next if nil_or_empty?(new_resource.send(rp))
+
+    run_state_config_set(rp.to_s, new_resource.send(rp))
+  end
 end

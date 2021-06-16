@@ -27,16 +27,14 @@ property  :error_or_timeout,        String,         default: 'alerting'
 property  :nodata_or_nullvalues,    String,         default: 'no_data'
 property  :concurrent_render_limit, Integer,        default: 5
 
+action_class do
+  include GrafanaCookbook::ConfigHelper
+end
+
 action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting']['enabled'] ||= '' unless new_resource.enabled.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting']['enabled'] << new_resource.enabled.to_s unless new_resource.enabled.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting']['execute_alerts'] ||= '' unless new_resource.execute_alerts.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting']['execute_alerts'] << new_resource.execute_alerts.to_s unless new_resource.execute_alerts.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting']['error_or_timeout'] ||= '' unless new_resource.error_or_timeout.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting']['error_or_timeout'] << new_resource.error_or_timeout.to_s unless new_resource.error_or_timeout.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting']['nodata_or_nullvalues'] ||= '' unless new_resource.nodata_or_nullvalues.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting']['nodata_or_nullvalues'] << new_resource.nodata_or_nullvalues.to_s unless new_resource.nodata_or_nullvalues.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting']['concurrent_render_limit'] ||= '' unless new_resource.concurrent_render_limit.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting']['concurrent_render_limit'] << new_resource.concurrent_render_limit.to_s unless new_resource.concurrent_render_limit.nil?
+  resource_properties.each do |rp|
+    next if nil_or_empty?(new_resource.send(rp))
+
+    run_state_config_set(rp.to_s, new_resource.send(rp))
+  end
 end

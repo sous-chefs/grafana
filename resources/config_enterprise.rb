@@ -23,8 +23,14 @@ unified_mode true
 property  :instance_name,   String, name_property: true
 property  :license_path,    String, default: ''
 
+action_class do
+  include GrafanaCookbook::ConfigHelper
+end
+
 action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['enterprise'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['enterprise']['license_path'] ||= '' unless new_resource.license_path.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['enterprise']['license_path'] << new_resource.license_path.to_s unless new_resource.license_path.nil?
+  resource_properties.each do |rp|
+    next if nil_or_empty?(new_resource.send(rp))
+
+    run_state_config_set(rp.to_s, new_resource.send(rp))
+  end
 end

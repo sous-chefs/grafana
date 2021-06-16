@@ -24,10 +24,14 @@ property  :instance_name,     String,   name_property: true
 property  :versions_to_keep,  Integer,  default: 20
 property  :min_refresh_interval, String, default: '5s'
 
+action_class do
+  include GrafanaCookbook::ConfigHelper
+end
+
 action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['dashboards'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['dashboards']['versions_to_keep'] ||= '' unless new_resource.versions_to_keep.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['dashboards']['versions_to_keep'] << new_resource.versions_to_keep.to_s unless new_resource.versions_to_keep.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['dashboards']['min_refresh_interval'] ||= '' unless new_resource.min_refresh_interval.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['dashboards']['min_refresh_interval'] << new_resource.min_refresh_interval.to_s unless new_resource.min_refresh_interval.nil?
+  resource_properties.each do |rp|
+    next if nil_or_empty?(new_resource.send(rp))
+
+    run_state_config_set(rp.to_s, new_resource.send(rp))
+  end
 end

@@ -32,26 +32,14 @@ property  :from_address,    String,         default: "admin@grafana-#{node['host
 property  :from_name,       String,         default: 'Grafana'
 property  :ehlo_identity,   String,         default: ''
 
+action_class do
+  include GrafanaCookbook::ConfigHelper
+end
+
 action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['enabled'] ||= '' unless new_resource.enabled.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['enabled'] << new_resource.enabled.to_s unless new_resource.enabled.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['host'] ||= '' unless new_resource.host.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['host'] << new_resource.host.to_s unless new_resource.host.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['user'] ||= '' unless new_resource.user.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['user'] << new_resource.user.to_s unless new_resource.user.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['password'] ||= '' unless new_resource.password.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['password'] << new_resource.password.to_s unless new_resource.password.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['cert_file'] ||= '' unless new_resource.cert_file.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['cert_file'] << new_resource.cert_file.to_s unless new_resource.cert_file.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['key_file'] ||= '' unless new_resource.key_file.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['key_file'] << new_resource.key_file.to_s unless new_resource.key_file.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['skip_verify'] ||= '' unless new_resource.skip_verify.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['skip_verify'] << new_resource.skip_verify.to_s unless new_resource.skip_verify.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['from_address'] ||= '' unless new_resource.from_address.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['from_address'] << new_resource.from_address.to_s unless new_resource.from_address.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['from_name'] ||= '' unless new_resource.from_name.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['from_name'] << new_resource.from_name.to_s unless new_resource.from_name.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['ehlo_identity'] ||= '' unless new_resource.ehlo_identity.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['smtp']['ehlo_identity'] << new_resource.ehlo_identity.to_s unless new_resource.ehlo_identity.nil?
+  resource_properties.each do |rp|
+    next if nil_or_empty?(new_resource.send(rp))
+
+    run_state_config_set(rp.to_s, new_resource.send(rp))
+  end
 end

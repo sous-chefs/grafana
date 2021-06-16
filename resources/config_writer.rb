@@ -11,6 +11,10 @@ property  :source_ldap,         String,                   default: 'ldap.toml.er
 property  :service_name,        String,                   default: 'grafana-server'
 property  :service_enable,      [true, false],            default: true
 
+action_class do
+  include GrafanaCookbook::ConfigHelper
+end
+
 action :install do
   service new_resource.service_name do
     action [:enable]
@@ -18,13 +22,15 @@ action :install do
     only_if { new_resource.service_enable }
   end
 
+  Chef::Log.debug("Run state content: #{pp node.run_state}")
+
   template ::File.join(new_resource.config_file) do
     source new_resource.source
     cookbook new_resource.cookbook
     variables(
-      grafana: node.run_state['sous-chefs'][new_resource.instance_name]['config']
+      grafana: node.run_state.dig('sous-chefs', new_resource.instance_name, 'config')
     )
-    not_if { node.run_state['sous-chefs'][new_resource.instance_name]['config'].nil? }
+    not_if { nil_or_empty?(node.run_state.dig('sous-chefs', new_resource.instance_name, 'config')) }
     sensitive new_resource.is_sensitive
   end
 
@@ -32,9 +38,9 @@ action :install do
     source new_resource.source_ldap
     cookbook new_resource.cookbook
     variables(
-      ldap: node.run_state['sous-chefs'][new_resource.instance_name]['ldap']
+      ldap: node.run_state.dig('sous-chefs', new_resource.instance_name, 'ldap')
     )
-    not_if { node.run_state['sous-chefs'][new_resource.instance_name]['ldap'].nil? }
+    not_if { nil_or_empty?(node.run_state.dig('sous-chefs', new_resource.instance_name, 'ldap')) }
     sensitive new_resource.is_sensitive
   end
 end

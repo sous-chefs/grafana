@@ -39,35 +39,14 @@ property  :group_search_base_dns,               Array,                    defaul
 property  :group_search_filter,                 String
 property  :group_search_filter_user_attribute,  String
 
+action_class do
+  include GrafanaCookbook::ConfigHelper
+end
+
 action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['port'] ||= '' unless new_resource.port.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['port'] << new_resource.port.to_s unless new_resource.port.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['use_ssl'] ||= '' unless new_resource.use_ssl.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['use_ssl'] << new_resource.use_ssl.to_s
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['start_tls'] ||= '' unless new_resource.start_tls.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['start_tls'] << new_resource.start_tls.to_s
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['ssl_skip_verify'] ||= '' unless new_resource.ssl_skip_verify.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['ssl_skip_verify'] << new_resource.ssl_skip_verify.to_s
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['root_ca_cert'] ||= '' unless new_resource.root_ca_cert.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['root_ca_cert'] << new_resource.root_ca_cert.to_s unless new_resource.root_ca_cert.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['client_cert'] ||= '' unless new_resource.client_cert.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['client_cert'] << new_resource.client_cert.to_s unless new_resource.client_cert.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['client_key'] ||= '' unless new_resource.client_key.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['client_key'] << new_resource.client_key.to_s unless new_resource.client_key.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['bind_dn'] ||= '' unless new_resource.bind_dn.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['bind_dn'] << new_resource.bind_dn.to_s unless new_resource.bind_dn.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['bind_password'] ||= '' unless new_resource.bind_password.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['bind_password'] << new_resource.bind_password.to_s unless new_resource.bind_password.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['search_filter'] ||= '' unless new_resource.search_filter.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['search_filter'] << new_resource.search_filter.to_s unless new_resource.search_filter.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['search_base_dns'] ||= [] unless new_resource.search_base_dns.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['search_base_dns'] = new_resource.search_base_dns unless new_resource.search_base_dns.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['group_search_filter'] ||= '' unless new_resource.group_search_filter.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['group_search_filter'] << new_resource.group_search_filter.to_s unless new_resource.group_search_filter.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['group_search_base_dns'] ||= '' unless new_resource.group_search_base_dns.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['group_search_base_dns'] = new_resource.group_search_base_dns.to_s unless new_resource.group_search_base_dns.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['group_search_filter_user_attribute'] ||= '' unless new_resource.group_search_filter_user_attribute.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['servers'][new_resource.host]['group_search_filter_user_attribute'] << new_resource.group_search_filter_user_attribute.to_s unless new_resource.group_search_filter_user_attribute.nil?
+  resource_properties.each do |rp|
+    next if nil_or_empty?(new_resource.send(rp))
+
+    run_state_config_set(rp.to_s, new_resource.send(rp), new_resource.instance_name, 'ldap', 'servers', new_resource.host)
+  end
 end

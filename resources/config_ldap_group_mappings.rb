@@ -28,13 +28,17 @@ property  :org_role,                      String,                   default: 'Vi
 property  :grafana_admin,                 [true, false],            default: false
 property  :org_id,                        Integer,                  default: 1
 
+action_class do
+  include GrafanaCookbook::ConfigHelper
+end
+
 action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['group_mappings'] ||= []
   mapping = {
     'group_dn' => new_resource.group_dn,
     'org_role' => new_resource.org_role,
     'grafana_admin' => new_resource.grafana_admin,
     'org_id' => new_resource.org_id,
   }
-  node.run_state['sous-chefs'][new_resource.instance_name]['ldap']['group_mappings'] << mapping
+
+  run_state_config_push('group_mappings', mapping, new_resource.instance_name, 'ldap')
 end

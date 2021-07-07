@@ -18,6 +18,8 @@
 #
 # Configures the [plugins] section of the grafana config file
 
+unified_mode true
+
 property  :instance_name, String, name_property: true
 property  :allow_loading_unsigned_plugins, Array, default: []
 

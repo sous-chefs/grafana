@@ -1,3 +1,5 @@
+unified_mode true
+
 property  :instance_name,       String,                   name_property: true
 property  :is_sensitive,        [true, false],            default: true
 property  :conf_directory,      String,                   default: '/etc/grafana'

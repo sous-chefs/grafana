@@ -18,6 +18,8 @@
 #
 # Configures the installed grafana instance
 
+unified_mode true
+
 property  :instance_name,        String,         name_property: true
 property  :protocol,             Symbol,         default: :http, equal_to: %i( http https socket )
 property  :http_addr,            String,         default: ''

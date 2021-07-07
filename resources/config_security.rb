@@ -18,6 +18,8 @@
 #
 # Configures the installed grafana instance
 
+unified_mode true
+
 property  :instance_name,                         String,         name_property: true
 property  :admin_user,                            String,         default: 'admin'
 property  :admin_password,                        String,         default: 'admin'

@@ -18,6 +18,8 @@
 #
 # Configures the installed grafana instance
 
+unified_mode true
+
 property  :instance_name,   String,         name_property: true
 property  :logging,         [true, false],  default: false
 

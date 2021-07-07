@@ -1,3 +1,6 @@
+
+unified_mode true
+
 property :host,               String,   default: 'localhost'
 property :port,               Integer,  default: 3000
 property :url_path_prefix,    String

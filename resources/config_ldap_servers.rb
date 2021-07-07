@@ -20,6 +20,8 @@
 # See https://raw.githubusercontent.com/grafana/grafana/master/conf/ldap.toml
 # Expects config_ldap to have been called before this
 
+unified_mode true
+
 property  :instance_name,                       String,                   name_property: true
 property  :host,                                String,                   required: true
 property  :port,                                Integer,                  default: 389

@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+- Enable `unified_mode` for all resources
+
 ## 9.6.2 - *2021-06-01*
 
 ## 9.6.1 - *2021-05-11*

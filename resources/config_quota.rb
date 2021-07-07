@@ -17,6 +17,8 @@
 #
 # Configures the installed grafana instance
 
+unified_mode true
+
 property  :instance_name,     String,         name_property: true
 property  :enabled,           [true, false],  default: false
 property  :org_user,          Integer,        default: 10

@@ -20,6 +20,8 @@
 #
 # Configures the installed grafana instance
 
+unified_mode true
+
 property  :instance_name,       String,                   name_property: true
 property  :env_directory,       String,                   default: '/etc/default'
 property  :owner,               String,                   default: 'grafana'

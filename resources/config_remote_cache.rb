@@ -18,6 +18,8 @@
 #
 # Configures the installed grafana instance
 
+unified_mode true
+
 property  :instance_name,       String,         name_property: true
 property  :remote_cache_type,   Symbol,         default: :database, equal_to: %i( redis memcached database )
 property  :remote_cache_config, String,         default: ''

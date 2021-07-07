@@ -17,6 +17,8 @@
 #
 # Configures the installed grafana instance
 
+unified_mode true
+
 property  :instance_name,                                  String,         name_property: true
 property  :login_cookie_name,                              String,         required: false
 property  :disable_login_form,                             [true, false],  default: false

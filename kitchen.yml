@@ -4,7 +4,7 @@ driver:
 
 provisioner:
   name: chef_zero
-  product_name: cinc
+  product_name: chef
   product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
   install_strategy: once
   enforce_idempotency: true

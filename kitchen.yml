@@ -4,7 +4,7 @@ driver:
 
 provisioner:
   name: chef_zero
-  product_name: chef
+  product_name: cinc
   product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
   install_strategy: once
   enforce_idempotency: true
@@ -27,18 +27,28 @@ suites:
   - name: default
     run_list:
       - recipe[test::install]
+      - recipe[test::sleep]
 
   - name: ldap
     run_list:
       - recipe[test::ldap]
+      - recipe[test::sleep]
 
   - name: proxy
     run_list:
       - recipe[test::proxy]
+    provisioner:
+      enforce_idempotency: false
+      multiple_converge: 1
+
 
   - name: plugins
     run_list:
       - recipe[test::plugins]
+      - recipe[test::sleep]
+    provisioner:
+      enforce_idempotency: false
+      multiple_converge: 1
 
   - name: basic
     run_list:
@@ -47,10 +57,14 @@ suites:
   - name: configure
     run_list:
       - recipe[test::configure]
+    provisioner:
+      enforce_idempotency: false
+      multiple_converge: 1
 
   - name: azuread
     run_list:
       - recipe[test::azuread]
+      - recipe[test::sleep]
 
   - name: config_plugins
     run_list:

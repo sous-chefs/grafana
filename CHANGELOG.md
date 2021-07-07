@@ -8,7 +8,11 @@ This file is used to list changes made in each version of grafana.
 
 ## 9.6.2 - *2021-06-01*
 
+- Standardise cookbook files
+
 ## 9.6.1 - *2021-05-11*
+
+- Standardise cookbook files
 
 ## 9.6.0 - *2021-02-17*
 

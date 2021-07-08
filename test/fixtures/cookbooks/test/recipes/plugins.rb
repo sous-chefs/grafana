@@ -5,8 +5,6 @@ grafana_config_auth 'Grafana' do
   anonymous_enabled true
 end
 
-grafana_config_writer 'Grafana'
-
 grafana_plugin 'grafana-clock-panel' do
   action :install
 end

@@ -20,6 +20,8 @@
 
 unified_mode true
 
+use 'partial/_config_file'
+
 property  :instance_name,     String,                   name_property: true
 property  :type,              Symbol,                   default: :sqlite3, equal_to: %i( mysql postgres sqlite3 )
 property  :host,              String,                   default: '127.0.0.1:3306'

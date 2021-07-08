@@ -20,6 +20,8 @@
 
 unified_mode true
 
+use 'partial/_config_file'
+
 property  :instance_name,   String,         name_property: true
 property  :logging,         [true, false],  default: false
 

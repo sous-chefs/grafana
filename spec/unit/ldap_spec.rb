@@ -38,9 +38,6 @@ platforms.each do |platform|
           group_dn  'cn=readers,dc=grafana,dc=org'
           org_role  'Viewer'
         end
-
-        grafana_config_writer 'Grafana' do
-        end
       end
 
       it('should render config file') do

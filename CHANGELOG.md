@@ -7,6 +7,8 @@ This file is used to list changes made in each version of grafana.
 - Set resource configuration Hash programmatically
 - Automatic config Hash path creation
 - Automatic resource property fetching
+- Automatic config template resource generation
+- Add service resource
 
 ## 9.7.1 - *2021-08-30*
 

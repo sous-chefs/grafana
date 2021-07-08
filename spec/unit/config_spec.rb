@@ -3,7 +3,7 @@ require 'spec_helper'
 platforms = %w(debian ubuntu centos)
 platforms.each do |platform|
   describe "grafana_ on #{platform}" do
-    step_into :grafana_config, :grafana_install, :grafana_config_enterprise, :grafana_config_server, :grafana_config_paths, :grafana_config_plugins, :grafana_config_writer
+    step_into :grafana_config, :grafana_install, :grafana_config_enterprise, :grafana_config_server, :grafana_config_paths, :grafana_config_plugins, :grafana_service
     platform platform
 
     context 'create config with enterprise license key' do
@@ -15,9 +15,6 @@ platforms.each do |platform|
 
         grafana_config_enterprise 'config' do
           license_path 'license.txt'
-        end
-
-        grafana_config_writer 'config' do
         end
       end
 
@@ -31,9 +28,6 @@ platforms.each do |platform|
         grafana_install 'package'
 
         grafana_config 'config' do
-        end
-
-        grafana_config_writer 'config' do
         end
       end
 
@@ -52,9 +46,6 @@ platforms.each do |platform|
         grafana_config_server 'config' do
           serve_from_sub_path true
         end
-
-        grafana_config_writer 'config' do
-        end
       end
 
       it('should contain serve_from_sub_path') do
@@ -67,8 +58,8 @@ platforms.each do |platform|
         grafana_config 'config' do
         end
 
-        grafana_config_writer 'config' do
-          service_enable false
+        grafana_service 'config' do
+          action :disable
         end
       end
 
@@ -82,7 +73,8 @@ platforms.each do |platform|
         grafana_config 'config' do
         end
 
-        grafana_config_writer 'config' do
+        grafana_service '' do
+          action :enable
         end
       end
 
@@ -102,8 +94,6 @@ platforms.each do |platform|
         grafana_config_plugins 'grafana' do
           allow_loading_unsigned_plugins %w( my-test-plugin,my-second-plugin )
         end
-
-        grafana_config_writer 'grafana'
       end
 
       it('should contain my-test-plugin,my-second-plugin') do

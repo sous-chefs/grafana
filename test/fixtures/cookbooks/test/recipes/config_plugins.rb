@@ -8,4 +8,6 @@ grafana_config_plugins 'Grafana' do
   allow_loading_unsigned_plugins %w( my-test-plugin )
 end
 
-grafana_config_writer 'Grafana'
+grafana_service 'grafana' do
+  action %i(enable start)
+end

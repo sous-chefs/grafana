@@ -20,6 +20,8 @@
 
 unified_mode true
 
+use 'partial/_config_file'
+
 property  :instance_name,       String,         name_property: true
 property  :enabled,             [true, false],  default: true
 property  :interval_seconds,    Integer,        default: 10
@@ -33,7 +35,7 @@ action_class do
 
   RESOURCE_PROPERTIES = {
     'metrics' => %i(enabled interval_seconds basic_auth_username basic_auth_password),
-    'metrics_graphite' => %i(address prefix),
+    'metrics_graphite' => %i(graphite_address graphite_prefix),
   }.freeze
 end
 
@@ -42,7 +44,8 @@ action :install do
     properties.each do |rp|
       next if nil_or_empty?(new_resource.send(rp))
 
-      run_state_config_set(rp.to_s, new_resource.send(rp), new_resource.instance_name, 'config', type)
+      property_prefix = "#{type.delete_prefix('metrics_')}_"
+      run_state_config_set(rp.to_s.delete_prefix(property_prefix), new_resource.send(rp), new_resource.instance_name, 'config', type)
     end
   end
 end

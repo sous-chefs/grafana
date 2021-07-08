@@ -28,3 +28,7 @@ grafana_user 'j.smith' do
   )
   action %i(create update)
 end
+
+grafana_service 'grafana' do
+  action %i(enable start)
+end

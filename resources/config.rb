@@ -22,14 +22,13 @@
 
 unified_mode true
 
+use 'partial/_config_file'
+
 property  :instance_name,       String,                   name_property: true
 property  :env_directory,       String,                   default: '/etc/default'
-property  :owner,               String,                   default: 'grafana'
-property  :group,               String,                   default: 'grafana'
 property  :restart_on_upgrade,  [true, false],            default: false
 property  :conf_directory,      String,                   default: '/etc/grafana'
 property  :app_mode,            String,                   default: 'production', equal_to: %w(production development)
-property  :cookbook,            String,                   default: 'grafana'
 
 action_class do
   include GrafanaCookbook::ConfigHelper
@@ -54,16 +53,16 @@ action :install do
   end
 
   template ::File.join(new_resource.env_directory, 'grafana-server') do
-    source 'grafana-env.erb'
+    source new_resource.source_env
+    cookbook new_resource.cookbook
     variables(
       grafana_user: new_resource.owner,
-      grafana_group: new_resource.group,
+      grafana_grouppp: new_resource.group,
       grafana_home: "/usr/share/#{new_resource.owner}",
       conf_dir: new_resource.conf_directory,
       pid_dir: '/var/run/grafana',
       restart_on_upgrade: new_resource.restart_on_upgrade.to_s
     )
-    cookbook new_resource.cookbook
     mode '0644'
   end
 

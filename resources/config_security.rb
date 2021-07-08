@@ -20,6 +20,8 @@
 
 unified_mode true
 
+use 'partial/_config_file'
+
 property  :instance_name,                         String,         name_property: true
 property  :admin_user,                            String,         default: 'admin'
 property  :admin_password,                        String,         default: 'admin'

@@ -20,6 +20,8 @@
 
 unified_mode true
 
+use 'partial/_config_file'
+
 property  :instance_name, String, name_property: true
 property  :server_url,    String, default: 'http://localhost:8081/render'
 property  :callback_url,  String, default: 'http://localhost:3000/'

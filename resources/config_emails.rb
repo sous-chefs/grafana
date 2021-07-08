@@ -20,6 +20,8 @@
 
 unified_mode true
 
+use 'partial/_config_file'
+
 property  :instance_name,             String,         name_property: true
 property  :welcome_email_on_sign_up,  [true, false],  default: false
 property  :templates_pattern,         String,         default: 'emails/*.html'

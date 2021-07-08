@@ -22,9 +22,12 @@ unified_mode true
 property :service_name, String,
           default: 'grafana-server'
 
+property :delay_start, [true, false],
+          default: true
+
 action_class do
   def do_service_action(resource_action)
-    if %i(start restart reload).include?(resource_action)
+    if %i(start restart reload).include?(resource_action) && new_resource.delay_start
       declare_resource(:service, new_resource.service_name) do
         supports status: true, restart: true, reload: true
 

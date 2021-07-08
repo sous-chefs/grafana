@@ -16,6 +16,11 @@ grafana_config_auth 'Grafana' do
   login_cookie_name 'grafana_session'
 end
 
+grafana_service 'grafana' do
+  action %i(enable start)
+  delay_start false
+end
+
 grafana_user 'j.smith' do
   auth_proxy_header auth_header
   user(
@@ -28,8 +33,4 @@ grafana_user 'j.smith' do
     ]
   )
   action %i(create update)
-end
-
-grafana_service 'grafana' do
-  action %i(enable start)
 end

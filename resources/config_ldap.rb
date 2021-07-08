@@ -41,4 +41,7 @@ action :install do
 
     run_state_config_set(rp.to_s, new_resource.send(rp), new_resource.instance_name, 'ldap')
   end
+
+  # Log filters go in the main config file
+  run_state_config_set(rp.to_s, new_resource.log_filters, new_resource.instance_name, 'config', 'log') unless nil_or_empty?(new_resource.log_filters)
 end

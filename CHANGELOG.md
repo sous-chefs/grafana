@@ -9,6 +9,7 @@ This file is used to list changes made in each version of grafana.
 - Automatic resource property fetching
 - Automatic config template resource generation
 - Add service resource
+- Add LDAP log filters to the main config file
 
 ## 9.7.1 - *2021-08-30*
 

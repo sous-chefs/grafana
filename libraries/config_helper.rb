@@ -16,7 +16,8 @@ module GrafanaCookbook
       config_hash = run_state_config_path_init(*path)
       Chef::Log.debug("Setting config key #{key}, value #{value} on path node.run_state['sous-chefs']#{path.map { |p| "['#{p}']" }.join}")
 
-      config_hash[key] = value
+      config_hash[key] ||= ''
+      config_hash[key].concat(value.to_s)
 
       init_config_writer
     end

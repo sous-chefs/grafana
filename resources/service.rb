@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+unified_mode true
+
 property :service_name, String,
           default: 'grafana-server'
 

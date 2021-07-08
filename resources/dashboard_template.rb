@@ -17,8 +17,6 @@ property :template_cookbook,  String
 property :organization,       String
 property :folder,             String
 
-default_action :create
-
 action :create do
   templated_dashboard(:create)
 end

@@ -5,7 +5,7 @@ license          'Apache-2.0'
 description      'Installs/Configures Grafana Server'
 source_url       'https://github.com/sous-chefs/grafana'
 issues_url       'https://github.com/sous-chefs/grafana/issues'
-chef_version     '>= 15.5'
+chef_version     '>= 16.0'
 version          '9.7.1'
 
 supports 'debian'

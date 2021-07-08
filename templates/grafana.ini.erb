@@ -1065,3 +1065,9 @@ allow_loading_unsigned_plugins = <%= @grafana['plugins']['allow_loading_unsigned
 license_path = <%= @grafana['enterprise']['license_path'] %>
 <% end %>
 <% end %>
+
+<% if @grafana['extra_options'] %>
+# Extra Options
+<% require 'inifile' %>
+<%= ::IniFile::new(:content => @grafana['extra_options']).to_s %>
+<% end %>

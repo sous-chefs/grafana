@@ -28,7 +28,7 @@ property  :source_ldap,         String,                   default: 'ldap.toml.er
 property  :source_env,          String,                   default: 'grafana-env.erb'
 property  :owner,               String,                   default: 'root'
 property  :group,               String,                   default: 'grafana'
-property  :mode,                String,                   default: '0640'
+property  :filemode,            String,                   default: '0640'
 
 action_class do
   include GrafanaCookbook::ConfigHelper

@@ -35,10 +35,6 @@ action_class do
 end
 
 action :install do
-  user new_resource.owner
-
-  group new_resource.group
-
   directory new_resource.conf_directory do
     owner new_resource.owner
     group new_resource.group
@@ -57,7 +53,7 @@ action :install do
     cookbook new_resource.cookbook
     variables(
       grafana_user: new_resource.owner,
-      grafana_grouppp: new_resource.group,
+      grafana_group: new_resource.group,
       grafana_home: "/usr/share/#{new_resource.owner}",
       conf_dir: new_resource.conf_directory,
       pid_dir: '/var/run/grafana',

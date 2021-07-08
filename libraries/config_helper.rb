@@ -45,7 +45,11 @@ module GrafanaCookbook
     def init_config_writer
       return false if config_writers_exist?
 
-      Chef::Log.debug("Run state content: #{pp node.run_state}")
+      Chef::Log.debug("Run state content: #{node.run_state}")
+
+      declare_resource(:chef_gem, 'inifile') do
+        compile_time true
+      end
 
       declare_resource(:template, ::File.join(new_resource.config_file)) do
         source new_resource.source
@@ -53,7 +57,7 @@ module GrafanaCookbook
 
         owner new_resource.owner
         group new_resource.group
-        mode new_resource.mode
+        mode new_resource.filemode
 
         sensitive new_resource.sensitive
 
@@ -71,7 +75,7 @@ module GrafanaCookbook
 
         owner new_resource.owner
         group new_resource.group
-        mode new_resource.mode
+        mode new_resource.filemode
 
         sensitive new_resource.sensitive
 

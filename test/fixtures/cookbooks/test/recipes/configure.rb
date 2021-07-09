@@ -21,6 +21,8 @@ end
 
 grafana_config_writer 'Grafana'
 
+include_recipe 'test::sleep'
+
 # Needed for some inspec tests
 package 'curl'
 

@@ -38,6 +38,7 @@ suites:
     run_list:
       - recipe[test::proxy]
     provisioner:
+      # grafana_user update not idempotent
       enforce_idempotency: false
       multiple_converge: 1
 

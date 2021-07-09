@@ -4,13 +4,13 @@ driver:
   # because Docker and SystemD
   privileged: true
   chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
-  env: [CHEF_LICENSE=accept-no-persist]
 
 transport:
   name: dokken
 
 provisioner:
   name: dokken
+  chef_license: accept-no-persist
 
 platforms:
   - name: debian-9

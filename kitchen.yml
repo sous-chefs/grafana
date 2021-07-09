@@ -5,6 +5,7 @@ driver:
 provisioner:
   name: chef_zero
   product_name: chef
+  chef_license: accept-no-persist
   product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
   install_strategy: once
   enforce_idempotency: true
@@ -48,6 +49,7 @@ suites:
       - recipe[test::plugins]
       - recipe[test::sleep]
     provisioner:
+      # grafana_plugin with url not idempotent
       enforce_idempotency: false
       multiple_converge: 1
 
@@ -59,6 +61,7 @@ suites:
     run_list:
       - recipe[test::configure]
     provisioner:
+      # grafana_user update not idempotent
       enforce_idempotency: false
       multiple_converge: 1
 

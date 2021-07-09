@@ -5,6 +5,8 @@ This file is used to list changes made in each version of grafana.
 ## Unreleased
 
 - Enable `unified_mode` for all resources
+- Deprecated `grafana_dashboard`, `grafana_dashboard_template`, and `grafana_dashboard_backup` resources
+  - These use the old dashboard name API which was removed in the latest 8.0 release of Grafana
 
 ## 9.6.2 - *2021-06-01*
 

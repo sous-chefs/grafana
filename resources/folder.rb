@@ -1,5 +1,8 @@
 unified_mode true
 
+deprecated 'The `grafana_folder` resource will be removed in the next major version of the grafana cookbook. ' \
+  'Use e.g. Terraform to interact with the Grafana API instead.'
+
 property :host,           String,   default: 'localhost'
 property :port,           Integer,  default: 3000
 property :url_path_prefix, String

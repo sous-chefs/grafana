@@ -2,7 +2,7 @@
 unified_mode true
 
 deprecated 'The `grafana_datasource` resources will be removed in the next major version of the grafana cookbook. ' \
-  'Use e.g. Terraform to interact with the Grafana API instead.'
+  'Use another tool such as Terraform to interact with the Grafana API instead.'
 
 property :host,               String,   default: 'localhost'
 property :port,               Integer,  default: 3000

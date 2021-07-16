@@ -20,7 +20,7 @@
 #
 
 deprecated 'The `grafana_organization` resource will be removed in the next major version of the grafana cookbook. ' \
-  'Use e.g. Terraform to interact with the Grafana API instead.'
+  'Use another tool such as Terraform to interact with the Grafana API instead.'
 
 unified_mode true
 

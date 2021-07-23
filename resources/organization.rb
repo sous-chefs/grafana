@@ -19,6 +19,11 @@
 # limitations under the License.
 #
 
+deprecated 'The `grafana_organization` resource will be removed in the next major version of the grafana cookbook. ' \
+  'Use another tool such as Terraform to interact with the Grafana API instead.'
+
+unified_mode true
+
 property :host,           String,   default: 'localhost'
 property :port,           Integer,  default: 3000
 property :url_path_prefix, String

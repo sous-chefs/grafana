@@ -1,7 +1,9 @@
 
 auth_header = 'X-WEBAUTH-USER'
 
-grafana_install 'grafana'
+grafana_install 'grafana' do
+  version '7.5.0' # last version to have old dashboard api
+end
 
 grafana_config 'Grafana'
 
@@ -20,6 +22,8 @@ grafana_config_dashboards 'Grafana' do
 end
 
 grafana_config_writer 'Grafana'
+
+include_recipe 'test::sleep'
 
 # Needed for some inspec tests
 package 'curl'

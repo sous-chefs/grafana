@@ -1,3 +1,8 @@
+unified_mode true
+
+deprecated 'The `grafana_dashboard` resources will be removed in the next major version of the grafana cookbook. ' \
+  'Grafana 8.0 removed support for the dashboard API these use. Use another tool such as Terraform to manage dashboards instead.'
+
 property :host,               String,   default: 'localhost'
 property :port,               Integer,  default: 3000
 property :url_path_prefix,    String

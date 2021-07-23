@@ -18,6 +18,8 @@
 #
 # Configures the installed grafana instance
 
+unified_mode true
+
 property  :instance_name,     String,         name_property: true
 # using session_provider due to: ArgumentError: Property `provider` of resource `` overwrites an existing method.
 property  :session_provider,  Symbol,         default: :file, equal_to: %i( memory file redis mysql postgres memcache )

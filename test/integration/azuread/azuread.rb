@@ -34,7 +34,7 @@ describe json(content: http('http://localhost:3000/api/admin/settings',
   its(['auth.azuread', 'name']) { should eq 'Test Azure AD' }
   its(['auth.azuread', 'allow_sign_up']) { should eq 'true' }
   its(['auth.azuread', 'client_id']) { should eq 'test_id' }
-  its(['auth.azuread', 'client_secret']) { should eq '************' }
+  its(['auth.azuread', 'client_secret']) { should eq '*********' }
   its(['auth.azuread', 'auth_url']) { should eq 'https://login.microsoftonline.com/12345/oauth2/authorize' }
   its(['auth.azuread', 'token_url']) { should eq 'https://login.microsoftonline.com/12345/oauth2/token' }
   its(['auth.azuread', 'scopes']) { should eq 'openid email name groups' }

@@ -18,6 +18,8 @@
 #
 # Configures the installed grafana instance
 
+unified_mode true
+
 property  :instance_name,           String,         name_property: true
 property  :external_enabled,        [true, false],  default: true
 property  :external_snapshot_url,   String,         default: 'https://snapshots-origin.raintank.io'

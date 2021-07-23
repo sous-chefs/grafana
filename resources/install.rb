@@ -19,6 +19,8 @@
 # limitations under the License.
 #
 
+unified_mode true
+
 property :version,          String, required: false
 property :repo,             String, default:  'https://packages.grafana.com/oss'
 property :key,              String, default:  'https://packages.grafana.com/gpg.key'

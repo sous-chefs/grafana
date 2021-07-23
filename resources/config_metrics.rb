@@ -18,6 +18,8 @@
 #
 # Configures the installed grafana instance
 
+unified_mode true
+
 property  :instance_name,       String,         name_property: true
 property  :enabled,             [true, false],  default: true
 property  :interval_seconds,    Integer,        default: 10

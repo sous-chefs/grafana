@@ -18,6 +18,8 @@
 #
 # Configures the installed grafana instance
 
+unified_mode true
+
 property  :instance_name,     String,   name_property: true
 property  :versions_to_keep,  Integer,  default: 20
 property  :min_refresh_interval, String, default: '5s'

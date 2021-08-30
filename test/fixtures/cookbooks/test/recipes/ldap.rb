@@ -36,8 +36,3 @@ grafana_config_ldap_group_mappings 'Grafana' do
   group_dn  'cn=readers,dc=grafana,dc=org'
   org_role  'Viewer'
 end
-
-grafana_config_writer 'Grafana' do
-  # In test we turn of sensitive so we can get better logs
-  sensitive false
-end

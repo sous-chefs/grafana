@@ -31,8 +31,3 @@ grafana_config_external_image_storage_s3 'Grafana' do
   bucket 'grafana-image-store'
   region 'us-east-1'
 end
-
-grafana_config_writer 'Grafana' do
-  # In test we turn of sensitive so we can get better logs
-  sensitive false
-end

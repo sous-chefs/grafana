@@ -19,8 +19,3 @@ grafana_config_auth_azuread 'Grafana' do
   allowed_domains 'test.local'
   allowed_groups '12345'
 end
-
-grafana_config_writer 'Grafana' do
-  # In test we turn of sensitive so we can get better logs
-  sensitive false
-end

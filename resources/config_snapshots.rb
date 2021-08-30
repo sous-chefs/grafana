@@ -28,14 +28,10 @@ property  :external_snapshot_url,   String,         default: 'https://snapshots-
 property  :external_snapshot_name,  String,         default: 'Publish to snapshot.raintank.io'
 property  :snapshot_remove_expired, [true, false],  default: true
 
-action_class do
-  include GrafanaCookbook::ConfigHelper
-end
-
 action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    run_state_config_set(rp.to_s, new_resource.send(rp))
+    accumulator_config_set(rp.to_s, new_resource.send(rp))
   end
 end

@@ -29,8 +29,6 @@ property :deb_distribution, String, default:  'stable'
 property :deb_components,   Array,  default:  ['main']
 
 action :install do
-  GrafanaCookbook::CookieHelper.grafana_version = new_resource.version if new_resource.version
-
   case node['platform_family']
   when 'debian'
     repository = "#{new_resource.repo}/deb"

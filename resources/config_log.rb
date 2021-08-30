@@ -43,8 +43,6 @@ property  :syslog_facility,     String,         default: ''
 property  :syslog_tag,          String,         default: ''
 
 action_class do
-  include GrafanaCookbook::ConfigHelper
-
   RESOURCE_PROPERTIES = {
     'log' => %i(mode level filters),
     'log_console' => %i(console_level console_format),
@@ -59,7 +57,7 @@ action :install do
       next if nil_or_empty?(new_resource.send(rp))
 
       property_prefix = "#{type.delete_prefix('log_')}_"
-      run_state_config_set(rp.to_s.delete_prefix(property_prefix), new_resource.send(rp), new_resource.instance_name, 'config', type)
+      accumulator_config_set(rp.to_s.delete_prefix(property_prefix), new_resource.send(rp), new_resource.instance_name, 'config', type)
     end
   end
 end

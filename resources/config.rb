@@ -31,10 +31,6 @@ property  :conf_directory,      String,                   default: '/etc/grafana
 property  :app_mode,            String,                   default: 'production', equal_to: %w(production development)
 property  :extra_options,       Hash
 
-action_class do
-  include GrafanaCookbook::ConfigHelper
-end
-
 action :install do
   directory new_resource.conf_directory do
     owner new_resource.owner
@@ -66,6 +62,6 @@ action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    run_state_config_set(rp.to_s, new_resource.send(rp))
+    accumulator_config_set(rp.to_s, new_resource.send(rp))
   end
 end

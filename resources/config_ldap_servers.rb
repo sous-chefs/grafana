@@ -41,14 +41,10 @@ property  :group_search_base_dns,               Array,                    defaul
 property  :group_search_filter,                 String
 property  :group_search_filter_user_attribute,  String
 
-action_class do
-  include GrafanaCookbook::ConfigHelper
-end
-
 action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    run_state_config_set(rp.to_s, new_resource.send(rp), new_resource.instance_name, 'ldap', 'servers', new_resource.host)
+    accumulator_config_set(rp.to_s, new_resource.send(rp), new_resource.instance_name, 'ldap', 'servers', new_resource.host)
   end
 end

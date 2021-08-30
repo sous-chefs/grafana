@@ -31,17 +31,13 @@ property  :servers_attributes_username,   String, default: 'cn'
 property  :servers_attributes_member_of,  String, default: 'memberOf'
 property  :servers_attributes_email,      String, default: 'email'
 
-action_class do
-  include GrafanaCookbook::ConfigHelper
-end
-
 action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    run_state_config_set(rp.to_s, new_resource.send(rp), new_resource.instance_name, 'ldap')
+    accumulator_config_set(rp.to_s, new_resource.send(rp), new_resource.instance_name, 'ldap')
   end
 
   # Log filters go in the main config file
-  run_state_config_set(rp.to_s, new_resource.log_filters, new_resource.instance_name, 'config', 'log') unless nil_or_empty?(new_resource.log_filters)
+  accumulator_config_set(rp.to_s, new_resource.log_filters, new_resource.instance_name, 'config', 'log') unless nil_or_empty?(new_resource.log_filters)
 end

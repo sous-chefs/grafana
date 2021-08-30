@@ -32,14 +32,10 @@ property  :session_life_time, Integer,        default: 86400
 property  :gc_interval_time,  Integer,        default: 86400
 property  :conn_max_lifetime, Integer,        default: 14400
 
-action_class do
-  include GrafanaCookbook::ConfigHelper
-end
-
 action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    run_state_config_set(rp.to_s, new_resource.send(rp))
+    accumulator_config_set(rp.to_s, new_resource.send(rp))
   end
 end

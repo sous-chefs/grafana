@@ -3,12 +3,6 @@
 # Do NOT modify this file by hand.
 #
 
-<% if @ldap['log_filters'] %>
-# To troubleshoot and get more log info enable ldap debug logging in grafana.ini
-[log]
-filters = <%= @ldap['log_filters'] %>
-<% end %>
-
 <% unless @ldap['servers'].nil? %>
 <% @ldap['servers'].each do | key, server | %>
 # Map ldap groups to grafana org roles

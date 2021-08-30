@@ -36,14 +36,10 @@ property  :enable_gzip,          [true, false],  default: false
 property  :cert_file,            String,         default: ''
 property  :cert_key,             String,         default: ''
 
-action_class do
-  include GrafanaCookbook::ConfigHelper
-end
-
 action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    run_state_config_set(rp.to_s, new_resource.send(rp))
+    accumulator_config_set(rp.to_s, new_resource.send(rp))
   end
 end

@@ -33,14 +33,10 @@ property  :token_url,                              String,         default: ''
 property  :allowed_domains,                        String,         default: ''
 property  :allowed_groups,                         String,         default: ''
 
-action_class do
-  include GrafanaCookbook::ConfigHelper
-end
-
 action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    run_state_config_set(rp.to_s, new_resource.send(rp), new_resource.instance_name, 'config', 'auth_azuread')
+    accumulator_config_set(rp.to_s, new_resource.send(rp), new_resource.instance_name, 'config', 'auth_azuread')
   end
 end

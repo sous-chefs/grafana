@@ -11,10 +11,6 @@ property  :source_ldap,         String,                   default: 'ldap.toml.er
 property  :service_name,        String,                   default: 'grafana-server'
 property  :service_enable,      [true, false],            default: true
 
-action_class do
-  include GrafanaCookbook::ConfigHelper
-end
-
 action :install do
   service new_resource.service_name do
     action [:enable]

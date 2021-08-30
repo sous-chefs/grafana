@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 # Configures the installed grafana instance
+
 unified_mode true
 
 use 'partial/_config_file'
@@ -28,14 +29,10 @@ property  :error_or_timeout,        String,         default: 'alerting'
 property  :nodata_or_nullvalues,    String,         default: 'no_data'
 property  :concurrent_render_limit, Integer,        default: 5
 
-action_class do
-  include GrafanaCookbook::ConfigHelper
-end
-
 action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    run_state_config_set(rp.to_s, new_resource.send(rp))
+    accumulator_config_set(rp.to_s, new_resource.send(rp))
   end
 end

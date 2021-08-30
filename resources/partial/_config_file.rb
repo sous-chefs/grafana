@@ -31,5 +31,5 @@ property  :group,               String,                   default: 'grafana'
 property  :filemode,            String,                   default: '0640'
 
 action_class do
-  include GrafanaCookbook::ConfigHelper
+  include Grafana::Cookbook::ConfigHelper
 end

@@ -103,8 +103,6 @@ property  :ldap_config_file,                               String,         defau
 property  :ldap_allow_sign_up,                             [true, false],  default: true
 
 action_class do
-  include GrafanaCookbook::ConfigHelper
-
   RESOURCE_PROPERTIES = {
     'auth' => %i(login_cookie_name disable_login_form disable_signout_menu signout_redirect_url oauth_auto_login login_maximum_lifetime_days),
     'auth_anonymous' => %i(anonymous_enabled anonymous_org_name anonymous_org_role),
@@ -192,7 +190,7 @@ action :install do
       next if nil_or_empty?(new_resource.send(rp))
 
       property_prefix = "#{type.delete_prefix('auth_')}_"
-      run_state_config_set(rp.to_s.delete_prefix(property_prefix), new_resource.send(rp), new_resource.instance_name, 'config', type)
+      accumulator_config_set(rp.to_s.delete_prefix(property_prefix), new_resource.send(rp), new_resource.instance_name, 'config', type)
     end
   end
 end

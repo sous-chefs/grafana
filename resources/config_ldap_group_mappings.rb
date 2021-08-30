@@ -30,10 +30,6 @@ property  :org_role,                      String,                   default: 'Vi
 property  :grafana_admin,                 [true, false],            default: false
 property  :org_id,                        Integer,                  default: 1
 
-action_class do
-  include GrafanaCookbook::ConfigHelper
-end
-
 action :install do
   mapping = {
     'group_dn' => new_resource.group_dn,
@@ -42,5 +38,5 @@ action :install do
     'org_id' => new_resource.org_id,
   }
 
-  run_state_config_push('group_mappings', mapping, new_resource.instance_name, 'ldap')
+  accumulator_config_push('group_mappings', mapping, new_resource.instance_name, 'ldap')
 end

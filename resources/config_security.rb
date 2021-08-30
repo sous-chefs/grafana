@@ -36,14 +36,10 @@ property  :allow_embedding,                       [true, false],  default: false
 property  :cookie_secure,                         [true, false],  default: false
 property  :cookie_samesite,                       String,         default: 'lax'
 
-action_class do
-  include GrafanaCookbook::ConfigHelper
-end
-
 action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    run_state_config_set(rp.to_s, new_resource.send(rp))
+    accumulator_config_set(rp.to_s, new_resource.send(rp))
   end
 end

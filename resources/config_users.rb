@@ -36,14 +36,10 @@ property  :external_manage_link_name, String,         default: ''
 property  :external_manage_info,      String,         default: ''
 property  :viewers_can_edit,          [true, false],  default: false
 
-action_class do
-  include GrafanaCookbook::ConfigHelper
-end
-
 action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    run_state_config_set(rp.to_s, new_resource.send(rp))
+    accumulator_config_set(rp.to_s, new_resource.send(rp))
   end
 end

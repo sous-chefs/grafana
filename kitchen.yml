@@ -8,8 +8,9 @@ provisioner:
   product_name: chef
   chef_license: accept-no-persist
   product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
-  install_strategy: always
-  chef_log_level: <%= ENV['CHEF_LOG_LEVEL'] || 'auto' %>
+  enforce_idempotency: true
+  multiple_converge: 2
+  log_level: <%= ENV['CHEF_LOG_LEVEL'] || 'auto' %>
 
 verifier:
   name: inspec

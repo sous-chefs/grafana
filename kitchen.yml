@@ -28,12 +28,10 @@ suites:
   - name: default
     run_list:
       - recipe[test::install]
-      - recipe[test::sleep]
 
   - name: ldap
     run_list:
       - recipe[test::ldap]
-      - recipe[test::sleep]
 
   - name: proxy
     run_list:
@@ -47,7 +45,6 @@ suites:
   - name: plugins
     run_list:
       - recipe[test::plugins]
-      - recipe[test::sleep]
     provisioner:
       # grafana_plugin with url not idempotent
       enforce_idempotency: false
@@ -68,7 +65,6 @@ suites:
   - name: azuread
     run_list:
       - recipe[test::azuread]
-      - recipe[test::sleep]
 
   - name: config_plugins
     run_list:

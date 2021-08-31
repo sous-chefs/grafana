@@ -161,7 +161,7 @@ action_class do
       google_allowed_domains
       google_hosted_domain
     ),
-    'auth_grafanacom' => %i(
+    'auth_grafana_com' => %i(
       grafanacom_enabled
       grafanacom_allow_sign_up
       grafanacom_client_id
@@ -169,7 +169,7 @@ action_class do
       grafanacom_scopes
       grafanacom_allowed_organizations
     ),
-    'auth_grafananet' => %i(
+    'auth_grafana_net' => %i(
       grafananet_enabled
       grafananet_allow_sign_up
       grafananet_client_id
@@ -188,8 +188,8 @@ action :install do
     properties.each do |rp|
       next if nil_or_empty?(new_resource.send(rp))
 
-      property_prefix = "#{type.delete_prefix('auth_')}_"
-      accumulator_config_set(rp.to_s.delete_prefix(property_prefix), new_resource.send(rp), new_resource.instance_name, 'config', type)
+      property_prefix = "#{type.delete_prefix('auth_')}"
+      accumulator_config_set(rp.to_s.delete_prefix("#{property_prefix}_"), new_resource.send(rp), "auth.#{property_prefix}")
     end
   end
 end

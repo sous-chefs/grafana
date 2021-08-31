@@ -16,3 +16,7 @@ supports 'fedora'
 supports 'amazon'
 supports 'scientific'
 supports 'oracle'
+
+gem 'deepsort'
+gem 'inifile'
+gem 'toml-rb'

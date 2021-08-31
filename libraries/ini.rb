@@ -13,7 +13,7 @@ module Grafana
       def inifile_string(content)
         raise ArgumentError, "Expected Hash got #{content.class}" unless content.is_a?(Hash)
 
-        ::IniFile.new(content: content.deep_sort).to_s
+        ::IniFile.new(content: content.deep_sort).to_s.delete_prefix("[global]\n")
       end
     end
   end

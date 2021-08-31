@@ -24,44 +24,27 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :instance_name,       String,                   name_property: true
-property  :env_directory,       String,                   default: '/etc/default'
-property  :restart_on_upgrade,  [true, false],            default: false
-property  :conf_directory,      String,                   default: '/etc/grafana'
-property  :app_mode,            String,                   default: 'production', equal_to: %w(production development)
-property  :extra_options,       Hash
+property :app_mode, String,
+          default: 'production',
+          equal_to: %w(production development)
+
+property :instance_name, String,
+          name_property: true
+
+action_class do
+  RESOURCE_CONFIG_PROPERTIES_SKIP = %i(env_directory restart_on_upgrade).freeze
+
+  def resource_config_properties_skip
+    RESOURCE_CONFIG_PROPERTIES_SKIP
+  end
+end
 
 action :install do
-  directory new_resource.conf_directory do
-    owner new_resource.owner
-    group new_resource.group
-    mode  '0750'
-  end
-
-  directory "/usr/share/#{new_resource.owner}" do
-    owner     new_resource.owner
-    group     new_resource.group
-    mode      '0750'
-    recursive true
-  end
-
-  template ::File.join(new_resource.env_directory, 'grafana-server') do
-    source new_resource.source_env
-    cookbook new_resource.cookbook
-    variables(
-      grafana_user: new_resource.owner,
-      grafana_group: new_resource.group,
-      grafana_home: "/usr/share/#{new_resource.owner}",
-      conf_dir: new_resource.conf_directory,
-      pid_dir: '/var/run/grafana',
-      restart_on_upgrade: new_resource.restart_on_upgrade.to_s
-    )
-    mode '0644'
-  end
-
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    accumulator_config_set(rp.to_s, new_resource.send(rp))
+    accumulator_config_set(rp.to_s, new_resource.send(rp), 'global')
   end
+
+  new_resource.extra_options.each { |key, value| accumulator_config_push(key, value, 'global') } if property_is_set?(new_resource.extra_options)
 end

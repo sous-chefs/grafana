@@ -1,8 +1,7 @@
 #
 # Cookbook:: grafana
-# Resource:: config_explore
-#
-# Copyright:: 2018, Sous Chefs
+# Resource:: config_unified_alerting
+# Copyright:: 2021, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,8 +21,7 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property :enabled, [true, false],
-         default: false
+property :admin_config_poll_interval_seconds, Integer
 
 action :install do
   resource_properties.each do |rp|
@@ -31,6 +29,4 @@ action :install do
 
     accumulator_config_set(rp.to_s, new_resource.send(rp))
   end
-
-  new_resource.extra_options.each { |key, value| accumulator_config_push(key, value) } if property_is_set?(:extra_options)
 end

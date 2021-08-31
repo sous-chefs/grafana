@@ -22,12 +22,21 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :enabled,             [true, false],  default: true
-property  :interval_seconds,    Integer,        default: 10
-property  :basic_auth_username, String,         default: ''
-property  :basic_auth_password, String,         default: ''
-property  :graphite_address,    String,         default: ''
-property  :graphite_prefix,     String,         default: 'prod.grafana.%(instance_name)s.'
+property :enabled, [true, false],
+         default: true
+
+property :interval_seconds, Integer,
+          default: 10
+
+property :basic_auth_username, String
+
+property :basic_auth_password, String
+
+property :disable_total_stats, [true, false]
+
+property :graphite_address, String
+
+property :graphite_prefix, String
 
 action_class do
   RESOURCE_PROPERTIES = {

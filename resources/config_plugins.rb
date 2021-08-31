@@ -22,7 +22,15 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :allow_loading_unsigned_plugins, Array, default: []
+property :enable_alpha, [true, false]
+
+property :allow_loading_unsigned_plugins, Array
+
+property :plugin_admin_enabled, [true, false]
+
+property :plugin_admin_external_manage_enabled, [true, false]
+
+property :plugin_catalog_url, String
 
 action_class do
   include Grafana::Cookbook::ConfigHelper

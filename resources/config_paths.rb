@@ -22,11 +22,15 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :data,                String, default: '/var/lib/grafana'
-property  :temp_data_lifetime,  String, default: '24h'
-property  :logs,                String, default: '/var/log/grafana'
-property  :plugins,             String, default: '/var/lib/grafana/plugins'
-property  :provisioning,        String, default: 'conf/provisioning'
+property :data, String
+
+property :temp_data_lifetime, String
+
+property :logs, String
+
+property :plugins, String
+
+property :provisioning, String
 
 action :install do
   resource_properties.each do |rp|

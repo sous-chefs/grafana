@@ -1,6 +1,6 @@
 #
 # Cookbook:: grafana
-# Resource:: config_explore
+# Resource:: config_external_image_storage_webdav
 #
 # Copyright:: 2018, Sous Chefs
 #
@@ -22,15 +22,18 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property :enabled, [true, false],
-         default: false
+property :url, String
+
+property :username, String
+
+property :password, String
+
+property :public_url, String
 
 action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    accumulator_config_set(rp.to_s, new_resource.send(rp))
+    accumulator_config_set(rp.to_s, new_resource.send(rp), 'external_image_storage.webdav')
   end
-
-  new_resource.extra_options.each { |key, value| accumulator_config_push(key, value) } if property_is_set?(:extra_options)
 end

@@ -22,7 +22,9 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :enable_alpha,    [true, false],  default: false
+property :enable_alpha, [true, false]
+
+property :disable_sanitize_html, [true, false]
 
 action :install do
   resource_properties.each do |rp|

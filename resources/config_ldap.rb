@@ -23,12 +23,12 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :log_filters,                   String
-property  :servers_attributes_name,       String, default: 'givenName'
-property  :servers_attributes_surname,    String, default: 'sn'
-property  :servers_attributes_username,   String, default: 'cn'
-property  :servers_attributes_member_of,  String, default: 'memberOf'
-property  :servers_attributes_email,      String, default: 'email'
+property :log_filters,                   String
+property :servers_attributes_name,       String, default: 'givenName'
+property :servers_attributes_surname,    String, default: 'sn'
+property :servers_attributes_username,   String, default: 'cn'
+property :servers_attributes_member_of,  String, default: 'memberOf'
+property :servers_attributes_email,      String, default: 'email'
 
 action :install do
   resource_properties.each do |rp|

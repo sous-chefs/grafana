@@ -22,8 +22,11 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :server_url,    String, default: 'http://localhost:8081/render'
-property  :callback_url,  String, default: 'http://localhost:3000/'
+property :server_url, String
+
+property :callback_url, String
+
+property :concurrent_render_request_limit, Integer
 
 action :install do
   resource_properties.each do |rp|

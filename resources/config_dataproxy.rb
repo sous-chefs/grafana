@@ -22,7 +22,26 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :logging,         [true, false],  default: false
+property :logging, [true, false],
+          default: false
+
+property :timeout, Integer
+
+property :keep_alive_seconds, Integer
+
+property :tls_handshake_timeout_seconds, Integer
+
+property :expect_continue_timeout_seconds, Integer
+
+property :max_conns_per_host, Integer
+
+property :max_idle_connections, Integer
+
+property :max_idle_connections_per_host, Integer
+
+property :idle_conn_timeout_seconds, Integer
+
+property :send_user_header, [true, false]
 
 action :install do
   resource_properties.each do |rp|

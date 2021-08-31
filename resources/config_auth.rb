@@ -21,85 +21,95 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :login_cookie_name,                              String
-property  :disable_login_form,                             [true, false],  default: false
-property  :disable_signout_menu,                           [true, false],  default: false
-property  :signout_redirect_url,                           String,         default: ''
-property  :oauth_auto_login,                               [true, false],  default: false
-property  :login_maximum_lifetime_days,                    Integer,        required: false
-property  :anonymous_enabled,                              [true, false],  default: false
-property  :anonymous_org_name,                             String,         default: 'Main Org.'
-property  :anonymous_org_role,                             String,         default: 'Viewer'
-property  :github_enabled,                                 [true, false],  default: false
-property  :github_allow_sign_up,                           [true, false],  default: true
-property  :github_client_id,                               String,         default: ''
-property  :github_client_secret,                           String,         default: ''
-property  :github_scopes,                                  String,         default: ''
-property  :github_auth_url,                                String,         default: 'https://github.com/login/oauth/authorize'
-property  :github_token_url,                               String,         default: 'https://github.com/login/oauth/access_token'
-property  :github_api_url,                                 String,         default: 'https://api.github.com/user'
-property  :github_team_ids,                                String,         default: ''
-property  :github_allowed_organizations,                   String,         default: ''
-property  :gitlab_enabled,                                 [true, false],  default: false
-property  :gitlab_allow_sign_up,                           [true, false],  default: true
-property  :gitlab_client_id,                               String,         default: ''
-property  :gitlab_client_secret,                           String,         default: ''
-property  :gitlab_scopes,                                  String,         default: ''
-property  :gitlab_auth_url,                                String,         default: 'https://gitlab.com/oauth/authorize'
-property  :gitlab_token_url,                               String,         default: 'https://gitlab.com/oauth/token'
-property  :gitlab_api_url,                                 String,         default: 'https://gitlab.com/api/v4'
-property  :gitlab_allowed_groups,                          String,         default: ''
-property  :google_enabled,                                 [true, false],  default: false
-property  :google_allow_sign_up,                           [true, false],  default: true
-property  :google_client_id,                               String,         default: ''
-property  :google_client_secret,                           String,         default: ''
-property  :google_scopes,                                  String,         default: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
-property  :google_auth_url,                                String,         default: 'https://accounts.google.com/o/oauth2/auth'
-property  :google_token_url,                               String,         default: 'https://accounts.google.com/o/oauth2/token'
-property  :google_api_url,                                 String,         default: 'https://www.googleapis.com/oauth2/v1/userinfo'
-property  :google_allowed_domains,                         String,         default: ''
-property  :google_hosted_domain,                           String,         default: ''
-property  :grafananet_enabled,                             [true, false],  default: false
-property  :grafananet_allow_sign_up,                       [true, false],  default: true
-property  :grafananet_client_id,                           String,         default: ''
-property  :grafananet_client_secret,                       String,         default: ''
-property  :grafananet_scopes,                              String,         default: 'user:email'
-property  :grafananet_allowed_organizations,               String,         default: ''
-property  :grafanacom_enabled,                             [true, false],  default: false
-property  :grafanacom_allow_sign_up,                       [true, false],  default: true
-property  :grafanacom_client_id,                           String,         default: ''
-property  :grafanacom_client_secret,                       String,         default: ''
-property  :grafanacom_scopes,                              String,         default: 'user:email'
-property  :grafanacom_allowed_organizations,               String,         default: ''
-property  :generic_oauth_name,                             String,         default: 'OAuth'
-property  :generic_oauth_enabled,                          [true, false],  default: false
-property  :generic_oauth_allow_sign_up,                    [true, false],  default: true
-property  :generic_oauth_client_id,                        String,         default: ''
-property  :generic_oauth_client_secret,                    String,         default: ''
-property  :generic_oauth_scopes,                           String,         default: 'user:email'
-property  :generic_oauth_email_attribute_name,             String,         default: 'email:primary'
-property  :generic_oauth_auth_url,                         String,         default: ''
-property  :generic_oauth_token_url,                        String,         default: ''
-property  :generic_oauth_api_url,                          String,         default: ''
-property  :generic_oauth_team_ids,                         String,         default: ''
-property  :generic_oauth_allowed_organizations,            String,         default: ''
-property  :generic_oauth_role_attribute_path,              String,         default: ''
-property  :generic_oauth_tls_skip_verify_insecure,         [true, false],  default: false
-property  :generic_oauth_tls_client_cert,                  String,         default: ''
-property  :generic_oauth_tls_client_key,                   String,         default: ''
-property  :generic_oauth_tls_client_ca,                    String,         default: ''
-property  :generic_oauth_send_client_credentials_via_post, [true, false],  default: false
-property  :basic_enabled,                                  [true, false],  default: true
-property  :proxy_enabled,                                  [true, false],  default: false
-property  :proxy_header_name,                              String,         default: 'X-WEBAUTH-USER'
-property  :proxy_header_property,                          String,         default: 'username'
-property  :proxy_auto_sign_up,                             [true, false],  default: true
-property  :proxy_ldap_sync_ttl,                            Integer,        default: 60
-property  :proxy_whitelist,                                String,         default: ''
-property  :proxy_headers,                                  String,         default: ''
-property  :ldap_enabled,                                   [true, false],  default: false
-property  :ldap_config_file,                               String,         default: '/etc/grafana/ldap.toml'
-property  :ldap_allow_sign_up,                             [true, false],  default: true
+property :login_cookie_name, String
+property :disable_login_form, [true, false], default: false
+property :disable_signout_menu, [true, false], default: false
+property :signout_redirect_url, String
+property :oauth_auto_login, [true, false], default: false
+property :login_maximum_lifetime_days, Integer, required: false
+
+property :anonymous_enabled, [true, false], default: false
+property :anonymous_org_name, String, default: 'Main Org.'
+property :anonymous_org_role, String, default: 'Viewer'
+
+property :github_enabled, [true, false], default: false
+property :github_allow_sign_up, [true, false], default: true
+property :github_client_id, String
+property :github_client_secret, String
+property :github_scopes, String
+property :github_auth_url, String, default: 'https://github.com/login/oauth/authorize'
+property :github_token_url, String, default: 'https://github.com/login/oauth/access_token'
+property :github_api_url, String, default: 'https://api.github.com/user'
+property :github_team_ids, String
+property :github_allowed_organizations, String
+
+property :gitlab_enabled, [true, false], default: false
+property :gitlab_allow_sign_up, [true, false], default: true
+property :gitlab_client_id, String
+property :gitlab_client_secret, String
+property :gitlab_scopes, String
+property :gitlab_auth_url, String, default: 'https://gitlab.com/oauth/authorize'
+property :gitlab_token_url, String, default: 'https://gitlab.com/oauth/token'
+property :gitlab_api_url, String, default: 'https://gitlab.com/api/v4'
+property :gitlab_allowed_groups, String
+
+property :google_enabled, [true, false], default: false
+property :google_allow_sign_up, [true, false], default: true
+property :google_client_id, String
+property :google_client_secret, String
+property :google_scopes, String, default: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+property :google_auth_url, String, default: 'https://accounts.google.com/o/oauth2/auth'
+property :google_token_url, String, default: 'https://accounts.google.com/o/oauth2/token'
+property :google_api_url, String, default: 'https://www.googleapis.com/oauth2/v1/userinfo'
+property :google_allowed_domains, String
+property :google_hosted_domain, String
+
+property :grafananet_enabled, [true, false], default: false
+property :grafananet_allow_sign_up, [true, false], default: true
+property :grafananet_client_id, String
+property :grafananet_client_secret, String
+property :grafananet_scopes, String, default: 'user:email'
+property :grafananet_allowed_organizations, String
+
+property :grafanacom_enabled, [true, false], default: false
+property :grafanacom_allow_sign_up, [true, false], default: true
+property :grafanacom_client_id, String
+property :grafanacom_client_secret, String
+property :grafanacom_scopes, String, default: 'user:email'
+property :grafanacom_allowed_organizations, String
+
+property :generic_oauth_name, String, default: 'OAuth'
+property :generic_oauth_enabled, [true, false], default: false
+property :generic_oauth_allow_sign_up, [true, false], default: true
+property :generic_oauth_client_id, String
+property :generic_oauth_client_secret, String
+property :generic_oauth_scopes, String, default: 'user:email'
+property :generic_oauth_email_attribute_name, String, default: 'email:primary'
+property :generic_oauth_auth_url, String
+property :generic_oauth_token_url, String
+property :generic_oauth_api_url, String
+property :generic_oauth_team_ids, String
+property :generic_oauth_allowed_organizations, String
+property :generic_oauth_role_attribute_path, String
+property :generic_oauth_tls_skip_verify_insecure, [true, false], default: false
+property :generic_oauth_tls_client_cert, String
+property :generic_oauth_tls_client_key, String
+property :generic_oauth_tls_client_ca, String
+property :generic_oauth_send_client_credentials_via_post, [true, false], default: false
+
+property :basic_enabled, [true, false], default: true
+
+property :proxy_enabled, [true, false], default: false
+property :proxy_header_name, String, default: 'X-WEBAUTH-USER'
+property :proxy_header_property, String, default: 'username'
+property :proxy_auto_sign_up, [true, false], default: true
+property :proxy_ldap_sync_ttl, Integer, default: 60
+property :proxy_whitelist, String
+property :proxy_headers, String
+
+property :ldap_enabled, [true, false], default: false
+property :ldap_config_file, String, default: '/etc/grafana/ldap.toml'
+property :ldap_allow_sign_up, [true, false], default: true
 
 action_class do
   RESOURCE_PROPERTIES = {

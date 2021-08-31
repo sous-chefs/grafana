@@ -22,24 +22,41 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :mode,                String,         default: 'console file'
-property  :level,               String,         default: 'info'
-property  :filters,             String,         default: ''
-property  :console_level,       String,         default: ''
-property  :console_format,      String,         default: 'console'
-property  :file_level,          String,         default: ''
-property  :file_format,         String,         default: 'text'
-property  :file_log_rotate,     [true, false],  default: true
-property  :file_max_lines,      Integer,        default: 1000000
-property  :file_max_size_shift, Integer,        default: 28
-property  :file_daily_rotate,   [true, false],  default: true
-property  :file_max_days,       Integer,        default: 7
-property  :syslog_level,        String,         default: ''
-property  :syslog_format,       String,         default: 'text'
-property  :syslog_network,      String,         default: ''
-property  :syslog_address,      String,         default: ''
-property  :syslog_facility,     String,         default: ''
-property  :syslog_tag,          String,         default: ''
+property  :mode, String
+
+property  :level, String
+
+property  :filters, String
+
+property  :console_level, String
+
+property  :console_format, String
+
+property  :file_level, String
+
+property  :file_format, String
+
+property  :file_log_rotate, [true, false]
+
+property  :file_max_lines, Integer
+
+property  :file_max_size_shift, Integer
+
+property  :file_daily_rotate, [true, false]
+
+property  :file_max_days, Integer
+
+property  :syslog_level, String
+
+property  :syslog_format, String
+
+property  :syslog_network, String
+
+property  :syslog_address, String
+
+property  :syslog_facility, String
+
+property  :syslog_tag, String
 
 action_class do
   RESOURCE_PROPERTIES = {

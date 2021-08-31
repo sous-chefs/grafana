@@ -21,17 +21,32 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :enabled,           [true, false],  default: false
-property  :org_user,          Integer,        default: 10
-property  :org_dashboard,     Integer,        default: 100
-property  :org_data_source,   Integer,        default: 10
-property  :org_api_key,       Integer,        default: 10
-property  :user_org,          Integer,        default: 10
-property  :global_user,       Integer,        default: -1
-property  :global_org,        Integer,        default: -1
-property  :global_dashboard,  Integer,        default: -1
-property  :global_api_key,    Integer,        default: -1
-property  :global_session,    Integer,        default: -1
+property :enabled, [true, false],
+          default: false
+
+property :org_user, Integer
+
+property :org_dashboard, Integer
+
+property :org_data_source, Integer
+
+property :org_api_key, Integer
+
+property :org_alert_rule, Integer
+
+property :user_org, Integer
+
+property :global_user, Integer
+
+property :global_org, Integer
+
+property :global_dashboard, Integer
+
+property :global_api_key, Integer
+
+property :global_session, Integer
+
+property :global_alert_rule, Integer
 
 action :install do
   resource_properties.each do |rp|

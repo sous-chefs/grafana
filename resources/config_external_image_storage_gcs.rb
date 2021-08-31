@@ -1,6 +1,6 @@
 #
 # Cookbook:: grafana
-# Resource:: config_explore
+# Resource:: config_external_image_storage_gcs
 #
 # Copyright:: 2018, Sous Chefs
 #
@@ -22,15 +22,20 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property :enabled, [true, false],
-         default: false
+property :key_file, String
+
+property :bucket, String
+
+property :path, String
+
+property :enable_signed_urls, [true, false]
+
+property :signed_url_expiration, String
 
 action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    accumulator_config_set(rp.to_s, new_resource.send(rp))
+    accumulator_config_set(rp.to_s, new_resource.send(rp), 'external_image_storage.gcs')
   end
-
-  new_resource.extra_options.each { |key, value| accumulator_config_push(key, value) } if property_is_set?(:extra_options)
 end

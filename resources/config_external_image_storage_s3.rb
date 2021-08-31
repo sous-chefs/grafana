@@ -1,6 +1,6 @@
 #
 # Cookbook:: grafana
-# Resource:: config_external_image_storage
+# Resource:: config_external_image_storage_s3
 #
 # Copyright:: 2018, Sous Chefs
 #
@@ -22,18 +22,30 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :storage_provider,        String,         default: 's3'
-property  :region,                  String,         required: true
-property  :bucket,                  String
-property  :bucket_url,              String
-property  :path,                    String
-property  :access_key,              String
-property  :secret_key,              String
+property :endpoint, String
+
+property :path_style_access, [true, false]
+
+property :storage_provider, String,
+          default: 's3'
+
+property :region, String,
+          required: true
+
+property :bucket, String
+
+property :bucket_url, String
+
+property :path, String
+
+property :access_key, String
+
+property :secret_key, String
 
 action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    accumulator_config_set(rp.to_s, new_resource.send(rp), 'external_image_storage')
+    accumulator_config_set(rp.to_s, new_resource.send(rp), 'external_image_storage.s3')
   end
 end

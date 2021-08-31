@@ -22,8 +22,10 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :welcome_email_on_sign_up,  [true, false],  default: false
-property  :templates_pattern,         String,         default: 'emails/*.html'
+property :welcome_email_on_sign_up, [true, false],
+          default: false
+
+property :templates_pattern, String
 
 action :install do
   resource_properties.each do |rp|

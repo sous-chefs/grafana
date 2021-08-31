@@ -22,8 +22,11 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :versions_to_keep,  Integer,  default: 20
-property  :min_refresh_interval, String, default: '5s'
+property :versions_to_keep, Integer
+
+property :min_refresh_interval, String
+
+property :default_home_dashboard_path, String
 
 action :install do
   resource_properties.each do |rp|

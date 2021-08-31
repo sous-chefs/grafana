@@ -22,11 +22,36 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :enabled,                 [true, false],  default: true
-property  :execute_alerts,          [true, false],  default: true
-property  :error_or_timeout,        String,         default: 'alerting'
-property  :nodata_or_nullvalues,    String,         default: 'no_data'
-property  :concurrent_render_limit, Integer,        default: 5
+property :enabled, [true, false],
+          default: true
+
+property :execute_alerts, [true, false],
+          default: true
+
+property :error_or_timeout, String,
+          default: 'alerting'
+
+property :nodata_or_nullvalues, String,
+          default: 'no_data'
+
+property :concurrent_render_limit, Integer,
+          default: 5
+
+property :evaluation_timeout_seconds, Integer,
+          default: 30
+
+property :notification_timeout_seconds, Integer,
+          default: 30
+
+property :max_attempts, Integer,
+          default: 30
+
+property :min_interval_seconds, Integer,
+          default: 30
+
+property :max_annotation_age, String
+
+property :max_annotations_to_keep, String
 
 action :install do
   resource_properties.each do |rp|
@@ -34,4 +59,6 @@ action :install do
 
     accumulator_config_set(rp.to_s, new_resource.send(rp))
   end
+
+  new_resource.extra_options.each { |key, value| accumulator_config_push(key, value) } if property_is_set?(:extra_options)
 end

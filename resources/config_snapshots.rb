@@ -16,16 +16,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Configures the installed grafana instance
 
 unified_mode true
 
 use 'partial/_config_file'
 
-property  :external_enabled,        [true, false],  default: true
-property  :external_snapshot_url,   String,         default: 'https://snapshots-origin.raintank.io'
-property  :external_snapshot_name,  String,         default: 'Publish to snapshot.raintank.io'
-property  :snapshot_remove_expired, [true, false],  default: true
+property :external_enabled, [true, false],
+          default: true
+
+property :external_snapshot_url, String,
+          default: 'https://snapshots-origin.raintank.io'
+
+property :external_snapshot_name, String,
+          default: 'Publish to snapshot.raintank.io'
+
+property :public_mode, [true, false],
+          default: false
+
+property :snapshot_remove_expired, [true, false],
+          default: true
 
 action :install do
   resource_properties.each do |rp|

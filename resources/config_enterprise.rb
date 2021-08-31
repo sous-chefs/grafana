@@ -16,13 +16,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Configures the installed grafana instance
 
 unified_mode true
 
 use 'partial/_config_file'
 
-property  :license_path,    String, default: ''
+property :license_path, String
 
 action :install do
   resource_properties.each do |rp|

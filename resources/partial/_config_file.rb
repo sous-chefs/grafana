@@ -18,17 +18,40 @@
 
 unified_mode true
 
-property  :sensitive,           [true, false],            default: true
-property  :conf_directory,      String,                   default: '/etc/grafana'
-property  :config_file,         String,                   default: lazy { ::File.join(conf_directory, 'grafana.ini') }
-property  :config_file_ldap,    String,                   default: lazy { ::File.join(conf_directory, 'ldap.toml') }
-property  :cookbook,            String,                   default: 'grafana'
-property  :source,              String,                   default: 'grafana.ini.erb'
-property  :source_ldap,         String,                   default: 'ldap.toml.erb'
-property  :source_env,          String,                   default: 'grafana-env.erb'
-property  :owner,               String,                   default: 'root'
-property  :group,               String,                   default: 'grafana'
-property  :filemode,            String,                   default: '0640'
+property :sensitive, [true, false],
+          default: true
+
+property :conf_directory, String,
+          default: '/etc/grafana'
+
+property :config_file, String,
+          default: lazy { ::File.join(conf_directory, 'grafana.ini') }
+
+property :config_file_ldap, String,
+          default: lazy { ::File.join(conf_directory, 'ldap.toml') }
+
+property :cookbook, String,
+          default: 'grafana'
+
+property :source, String,
+          default: 'grafana.ini.erb'
+
+property :source_ldap, String,
+          default: 'ldap.toml.erb'
+
+property :source_env, String,
+          default: 'grafana-env.erb'
+
+property :owner, String,
+          default: 'root'
+
+property :group, String,
+          default: 'grafana'
+
+property :filemode, String,
+          default: '0640'
+
+property :extra_options, Hash
 
 action_class do
   include Grafana::Cookbook::ConfigHelper

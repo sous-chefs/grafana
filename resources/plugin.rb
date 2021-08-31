@@ -20,7 +20,9 @@
 
 unified_mode true
 
-property :grafana_cli_bin, String, default: '/usr/sbin/grafana-cli'
+property :grafana_cli_bin, String,
+          default: '/usr/sbin/grafana-cli'
+
 property :plugin_url, String
 
 default_action :install

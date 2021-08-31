@@ -22,21 +22,47 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :type,              Symbol,                   default: :sqlite3, equal_to: %i( mysql postgres sqlite3 )
-property  :host,              String,                   default: '127.0.0.1:3306'
-property  :database_name,     String,                   default: 'grafana'
-property  :user,              String,                   default: 'root'
-property  :password,          String,                   default: ''
-property  :max_idle_conn,     Integer,                  default: 2
-property  :max_open_conn,     Integer,                  default: 0
-property  :conn_max_lifetime, Integer,                  default: 14400
-property  :log_queries,       [true, false],            default: false
-property  :ssl_mode,          [Symbol, TrueClass, FalseClass], default: :disable, equal_to: [ :disable, :require, :'verify-full', true, false, :'skip-verify' ]
-property  :ca_cert_path,      String,                   default: ''
-property  :client_key_path,   String,                   default: ''
-property  :client_cert_path,  String,                   default: ''
-property  :server_cert_name,  String,                   default: ''
-property  :path,              String,                   default: 'grafana.db'
+property :type, Symbol,
+          default: :sqlite3,
+          equal_to: %i(mysql postgres sqlite3)
+
+property :host, String
+
+property :database_name, String
+
+property :user, String
+
+property :password, String
+
+property :url, String
+
+property :max_idle_conn, Integer
+
+property :max_open_conn, Integer
+
+property :conn_max_lifetime, Integer
+
+property :log_queries, [true, false], default: false
+
+property :ssl_mode, [Symbol, true, false],
+          default: :disable,
+          equal_to: [ :disable, :require, :'verify-full', true, false, :'skip-verify' ]
+
+property :isolation_level, String,
+          equal_to: %w(READ-UNCOMMITTED READ-COMMITTED REPEATABLE-READ SERIALIZABLE)
+
+property :ca_cert_path, String
+
+property :client_key_path, String
+
+property :client_cert_path, String
+
+property :server_cert_name, String
+
+property :path, String,
+          default: 'grafana.db'
+
+property :cache_mode, String
 
 action :install do
   resource_properties.each do |rp|

@@ -24,10 +24,17 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :group_dn,                      String,                   required: true
-property  :org_role,                      String,                   default: 'Viewer'
-property  :grafana_admin,                 [true, false],            default: false
-property  :org_id,                        Integer,                  default: 1
+property :group_dn, String,
+          required: true
+
+property :org_role, String,
+          default: 'Viewer'
+
+property :grafana_admin, [true, false],
+          default: false
+
+property :org_id, Integer,
+          default: 1
 
 action :install do
   mapping = {
@@ -37,5 +44,5 @@ action :install do
     'org_id' => new_resource.org_id,
   }
 
-  accumulator_config_push('group_mappings', mapping, new_resource.instance_name, 'ldap')
+  accumulator_config_push('group_mappings', mapping, 'ldap')
 end

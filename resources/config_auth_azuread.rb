@@ -21,16 +21,29 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :auth_name,                              String,         default: 'AzureAD'
-property  :enabled,                                [true, false],  default: false
-property  :allow_sign_up,                          [true, false],  default: true
-property  :client_id,                              String,         default: ''
-property  :client_secret,                          String,         default: ''
-property  :scopes,                                 String,         default: 'openid email profile'
-property  :auth_url,                               String,         default: ''
-property  :token_url,                              String,         default: ''
-property  :allowed_domains,                        String,         default: ''
-property  :allowed_groups,                         String,         default: ''
+property :auth_name, String,
+          default: 'AzureAD'
+
+property :enabled, [true, false],
+          default: false
+
+property :allow_sign_up, [true, false],
+          default: true
+
+property :client_id, String
+
+property :client_secret, String
+
+property :scopes, String,
+          default: 'openid email profile'
+
+property :auth_url, String
+
+property :token_url, String
+
+property :allowed_domains, String
+
+property :allowed_groups, String
 
 action :install do
   resource_properties.each do |rp|

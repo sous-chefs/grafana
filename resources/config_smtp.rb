@@ -22,16 +22,32 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :enabled,         [true, false],  default: false
-property  :host,            String,         default: 'localhost:25'
-property  :user,            String,         default: ''
-property  :password,        String,         default: ''
-property  :cert_file,       String,         default: ''
-property  :key_file,        String,         default: ''
-property  :skip_verify,     [true, false],  default: false
-property  :from_address,    String,         default: "admin@grafana-#{node['hostname']}.#{node['domain'].nil? ? 'local' : node['domain']}"
-property  :from_name,       String,         default: 'Grafana'
-property  :ehlo_identity,   String,         default: ''
+property :enabled, [true, false],
+          default: false
+
+property :host, String
+
+property :user, String
+
+property :password, String
+
+property :cert_file, String
+
+property :key_file, String
+
+property :skip_verify, [true, false],
+          default: false
+
+property :from_address, String,
+          default: "admin@grafana-#{node['hostname']}.#{node['domain'].nil? ? 'local' : node['domain']}"
+
+property :from_name, String,
+          default: 'Grafana'
+
+property :ehlo_identity, String
+
+property :startTLS_policy, String,
+          equal_to: %w(OpportunisticStartTLS MandatoryStartTLS NoStartTLS)
 
 action :install do
   resource_properties.each do |rp|

@@ -24,21 +24,35 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :host,                                String,                   required: true
-property  :port,                                Integer,                  default: 389
-property  :use_ssl,                             [true, false],            default: false
-property  :start_tls,                           [true, false],            default: false
-property  :ssl_skip_verify,                     [true, false],            default: false
-property  :root_ca_cert,                        String
-property  :client_cert,                         String
-property  :client_key,                          String
-property  :bind_dn,                             String,                   default: 'cn=admin,dc=grafana,dc=org'
-property  :bind_password,                       String,                   default: 'grafana', sensitive: true
-property  :search_filter,                       String,                   default: '(cn=%s)'
-property  :search_base_dns,                     Array,                    default: []
-property  :group_search_base_dns,               Array,                    default: []
-property  :group_search_filter,                 String
-property  :group_search_filter_user_attribute,  String
+property :host, String, required: true
+
+property :port, Integer, default: 389
+
+property :use_ssl, [true, false], default: false
+
+property :start_tls, [true, false], default: false
+
+property :ssl_skip_verify, [true, false], default: false
+
+property :root_ca_cert, String
+
+property :client_cert, String
+
+property :client_key, String
+
+property :bind_dn, String, default: 'cn=admin,dc=grafana,dc=org'
+
+property :bind_password, String, default: 'grafana', sensitive: true
+
+property :search_filter, String, default: '(cn=%s)'
+
+property :search_base_dns, Array, default: []
+
+property :group_search_base_dns, Array, default: []
+
+property :group_search_filter, String
+
+property :group_search_filter_user_attribute, String
 
 action :install do
   resource_properties.each do |rp|

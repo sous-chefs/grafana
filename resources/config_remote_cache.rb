@@ -22,8 +22,11 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :remote_cache_type,   Symbol,         default: :database, equal_to: %i( redis memcached database )
-property  :remote_cache_config, String,         default: ''
+property :type, Symbol,
+          default: :database,
+          equal_to: %i(redis memcached database)
+
+property :connstr, String
 
 action :install do
   resource_properties.each do |rp|

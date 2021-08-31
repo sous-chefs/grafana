@@ -22,7 +22,6 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :instance_name,           String,         name_property: true
 property  :external_enabled,        [true, false],  default: true
 property  :external_snapshot_url,   String,         default: 'https://snapshots-origin.raintank.io'
 property  :external_snapshot_name,  String,         default: 'Publish to snapshot.raintank.io'

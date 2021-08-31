@@ -24,7 +24,6 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :instance_name,                       String,                   name_property: true
 property  :host,                                String,                   required: true
 property  :port,                                Integer,                  default: 389
 property  :use_ssl,                             [true, false],            default: false

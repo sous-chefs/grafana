@@ -22,7 +22,6 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :instance_name,           String,         name_property: true
 property  :storage_provider,        String,         default: 's3'
 property  :region,                  String,         required: true
 property  :bucket,                  String
@@ -35,6 +34,6 @@ action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    accumulator_config_set(rp.to_s, new_resource.send(rp), new_resource.instance_name, 'config', 'external_image_storage')
+    accumulator_config_set(rp.to_s, new_resource.send(rp), 'external_image_storage')
   end
 end

@@ -22,7 +22,6 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :instance_name,       String,         name_property: true
 property  :remote_cache_type,   Symbol,         default: :database, equal_to: %i( redis memcached database )
 property  :remote_cache_config, String,         default: ''
 
@@ -30,6 +29,6 @@ action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    accumulator_config_set(rp.to_s, new_resource.send(rp), new_resource.instance_name, 'config', 'remote_cache')
+    accumulator_config_set(rp.to_s, new_resource.send(rp), 'remote_cache')
   end
 end

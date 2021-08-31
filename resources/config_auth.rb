@@ -21,8 +21,7 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :instance_name,                                  String,         name_property: true
-property  :login_cookie_name,                              String,         default: lazy { GrafanaCookbook::CookieHelper.cookie_name }
+property  :login_cookie_name,                              String
 property  :disable_login_form,                             [true, false],  default: false
 property  :disable_signout_menu,                           [true, false],  default: false
 property  :signout_redirect_url,                           String,         default: ''

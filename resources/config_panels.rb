@@ -22,7 +22,6 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :instance_name,   String,         name_property: true
 property  :enable_alpha,    [true, false],  default: false
 
 action :install do

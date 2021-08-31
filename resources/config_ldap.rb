@@ -23,7 +23,6 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :instance_name,                 String, name_property: true
 property  :log_filters,                   String
 property  :servers_attributes_name,       String, default: 'givenName'
 property  :servers_attributes_surname,    String, default: 'sn'
@@ -39,5 +38,5 @@ action :install do
   end
 
   # Log filters go in the main config file
-  accumulator_config_set(rp.to_s, new_resource.log_filters, new_resource.instance_name, 'config', 'log') unless nil_or_empty?(new_resource.log_filters)
+  accumulator_config_set(rp.to_s, new_resource.log_filters, 'log') unless nil_or_empty?(new_resource.log_filters)
 end

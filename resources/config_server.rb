@@ -22,7 +22,6 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :instance_name,        String,         name_property: true
 property  :protocol,             Symbol,         default: :http, equal_to: %i( http https socket )
 property  :http_addr,            String,         default: ''
 property  :http_port,            Integer,        default: 3000

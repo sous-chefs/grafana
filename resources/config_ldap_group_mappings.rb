@@ -24,7 +24,6 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :instance_name,                 String,                   name_property: true
 property  :group_dn,                      String,                   required: true
 property  :org_role,                      String,                   default: 'Viewer'
 property  :grafana_admin,                 [true, false],            default: false

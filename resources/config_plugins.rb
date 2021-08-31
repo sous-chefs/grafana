@@ -22,7 +22,6 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :instance_name, String, name_property: true
 property  :allow_loading_unsigned_plugins, Array, default: []
 
 action_class do

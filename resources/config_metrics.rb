@@ -22,7 +22,6 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property  :instance_name,       String,         name_property: true
 property  :enabled,             [true, false],  default: true
 property  :interval_seconds,    Integer,        default: 10
 property  :basic_auth_username, String,         default: ''
@@ -43,7 +42,7 @@ action :install do
       next if nil_or_empty?(new_resource.send(rp))
 
       property_prefix = "#{type.delete_prefix('metrics_')}_"
-      accumulator_config_set(rp.to_s.delete_prefix(property_prefix), new_resource.send(rp), new_resource.instance_name, 'config', type)
+      accumulator_config_set(rp.to_s.delete_prefix(property_prefix), new_resource.send(rp), type)
     end
   end
 end

@@ -1,7 +1,7 @@
 module Grafana
   module Cookbook
     module ConfigHelper
-      GLOBAL_CONFIG_PROPERTIES_SKIP = %i(conf_directory config_file config_file_ldap cookbook source source_ldap source_env owner group filemode sensitive extra_options).freeze
+      GLOBAL_CONFIG_PROPERTIES_SKIP = %i(conf_directory config_file cookbook source source_ldap source_env owner group filemode sensitive extra_options).freeze
       private_constant :GLOBAL_CONFIG_PROPERTIES_SKIP
 
       private
@@ -44,24 +44,21 @@ module Grafana
         end
       end
 
-      def config_templates_exist?
-        Chef::Log.debug('config_templates_exist?: Checking for config')
-        config = !find_resource!(:template, ::File.join(new_resource.config_file)).nil?
+      def config_template_exist?
+        Chef::Log.debug("config_template_exist?: Checking for config file #{new_resource.config_file}")
+        config_resource = !find_resource!(:template, ::File.join(new_resource.config_file)).nil?
 
-        Chef::Log.debug('config_templates_exist?: Checking for ldap')
-        ldap = !find_resource!(:template, ::File.join(new_resource.config_file_ldap)).nil?
-
-        Chef::Log.debug("config_templates_exist?: config - #{config} | ldap - #{ldap}")
-        config && ldap
+        Chef::Log.debug("config_template_exist?: #{config_resource}")
+        config_resource
       rescue Chef::Exceptions::ResourceNotFound
-        Chef::Log.info('config_templates_exist?: Config writers ResourceNotFound')
+        Chef::Log.info("config_template_exist?: Config file #{new_resource.config_file} ResourceNotFound")
         false
       end
 
-      def init_config_templates
-        return false if config_templates_exist?
+      def init_config_template
+        return false if config_template_exist?
 
-        Chef::Log.debug('init_config_templates: Creating config templates')
+        Chef::Log.debug("init_config_template: Creating config template resource for #{new_resource.config_file}")
 
         with_run_context(:root) do
           declare_resource(:chef_gem, 'deepsort') { compile_time true } unless gem_installed?('deepsort')
@@ -82,27 +79,8 @@ module Grafana
               config: {}
             )
 
-            helpers(
-              Grafana::Cookbook::IniHelper
-            )
-
-            action :nothing
-            delayed_action :create
-          end
-
-          declare_resource(:template, ::File.join(new_resource.config_file_ldap)) do
-            source new_resource.source_ldap
-            cookbook new_resource.cookbook
-
-            owner new_resource.owner
-            group new_resource.group
-            mode new_resource.filemode
-
-            sensitive new_resource.sensitive
-
-            variables(
-              ldap: {}
-            )
+            helpers(Grafana::Cookbook::IniHelper)
+            helpers(Grafana::Cookbook::TomlHelper)
 
             action :nothing
             delayed_action :create
@@ -118,18 +96,9 @@ module Grafana
         false
       end
 
-      def toml_gem_installed?
-        !Gem::Specification.find_by_name('toml-rb').nil?
-      rescue Gem::LoadError
-        false
-      end
-
-      def grafana_config_variables
+      def config_file_template_variables
+        init_config_template unless config_template_exist?
         find_resource!(:template, ::File.join(new_resource.config_file)).variables[:config]
-      end
-
-      def ldap_config_variables
-        find_resource!(:template, ::File.join(new_resource.config_file_ldap)).variables[:ldap]
       end
 
       def resource_default_config_path
@@ -140,12 +109,13 @@ module Grafana
       end
 
       def accumulator_config_path_init(*path)
-        init_config_templates unless config_templates_exist?
+        init_config_template unless config_template_exist?
 
-        return grafana_config_variables.dig(*path) if grafana_config_variables.dig(*path).is_a?(Hash)
+        return config_file_template_variables if path.all? { |p| p.is_a?(NilClass) } # Root path specified
+        return config_file_template_variables.dig(*path) if config_file_template_variables.dig(*path).is_a?(Hash) # Return path if existing
 
-        Chef::Log.debug("accumulator_config_path_init: Initialising config path grafana_config_variables #{path.map { |p| "['#{p}']" }.join}")
-        config_hash = grafana_config_variables
+        Chef::Log.debug("accumulator_config_path_init: Initialising config file #{new_resource.config_file} path config#{path.map { |p| "['#{p}']" }.join}")
+        config_hash = config_file_template_variables
         path.each do |pn|
           config_hash[pn] ||= {}
           config_hash = config_hash[pn]

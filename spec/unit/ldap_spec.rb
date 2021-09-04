@@ -3,7 +3,7 @@ require 'spec_helper'
 platforms = %w(debian ubuntu centos)
 platforms.each do |platform|
   describe "grafana_ on #{platform}" do
-    step_into :grafana_config, :grafana_install, :grafana_config_ldap, :grafana_config_ldap_servers, :grafana_config_ldap_group_mappings, :grafana_config_writer
+    step_into :grafana_config, :grafana_install, :grafana_config_ldap_attributes, :grafana_config_ldap_server, :grafana_config_ldap_group_mapping, :grafana_config_writer
     platform platform
 
     context 'create ldap config' do
@@ -13,9 +13,7 @@ platforms.each do |platform|
         grafana_config 'Grafana' do
         end
 
-        grafana_config_ldap 'Grafana'
-
-        grafana_config_ldap_servers 'Grafana' do
+        grafana_config_ldap_server 'Grafana' do
           host            '127.0.0.1'
           port            389
           use_ssl         false
@@ -27,14 +25,20 @@ platforms.each do |platform|
           search_base_dns %w( dc=grafana,dc=org )
         end
 
-        grafana_config_ldap_group_mappings 'Grafana' do
+        grafana_config_ldap_attributes 'Grafana' do
+          host '127.0.0.1'
+        end
+
+        grafana_config_ldap_group_mapping 'admins' do
+          host '127.0.0.1'
           group_dn      'cn=admins,dc=grafana,dc=org'
           org_role      'Admin'
           grafana_admin true
           org_id        1
         end
 
-        grafana_config_ldap_group_mappings 'Grafana' do
+        grafana_config_ldap_group_mapping 'readers' do
+          host '127.0.0.1'
           group_dn  'cn=readers,dc=grafana,dc=org'
           org_role  'Viewer'
         end

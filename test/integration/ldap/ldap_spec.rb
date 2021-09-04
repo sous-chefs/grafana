@@ -39,15 +39,15 @@ describe toml('/etc/grafana/ldap.toml') do
   its(['servers', 0, 'attributes', 'member_of']) { should eq 'memberOf' }
   its(['servers', 0, 'attributes', 'email']) { should eq 'email' }
 
-  its(['servers', 0, 'group_mappings', 0, 'group_dn']) { should eq 'cn=admins,dc=grafana,dc=org' }
-  its(['servers', 0, 'group_mappings', 0, 'org_role']) { should eq 'Admin' }
-  its(['servers', 0, 'group_mappings', 0, 'org_id']) { should eq 1 }
-  its(['servers', 0, 'group_mappings', 0, 'grafana_admin']) { should eq true }
-
-  its(['servers', 0, 'group_mappings', 1, 'group_dn']) { should eq 'cn=readers,dc=grafana,dc=org' }
-  its(['servers', 0, 'group_mappings', 1, 'org_role']) { should eq 'Viewer' }
+  its(['servers', 0, 'group_mappings', 1, 'group_dn']) { should eq 'cn=admins,dc=grafana,dc=org' }
+  its(['servers', 0, 'group_mappings', 1, 'org_role']) { should eq 'Admin' }
   its(['servers', 0, 'group_mappings', 1, 'org_id']) { should eq 1 }
-  its(['servers', 0, 'group_mappings', 1, 'grafana_admin']) { should eq false }
+  its(['servers', 0, 'group_mappings', 1, 'grafana_admin']) { should eq true }
+
+  its(['servers', 0, 'group_mappings', 0, 'group_dn']) { should eq 'cn=readers,dc=grafana,dc=org' }
+  its(['servers', 0, 'group_mappings', 0, 'org_role']) { should eq 'Viewer' }
+  its(['servers', 0, 'group_mappings', 0, 'org_id']) { should eq 1 }
+  its(['servers', 0, 'group_mappings', 0, 'grafana_admin']) { should eq false }
 end
 
 describe service('grafana-server') do

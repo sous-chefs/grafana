@@ -1,19 +1,19 @@
 require 'deepsort'
-require 'inifile'
+require 'toml-rb'
 
 module Grafana
   module Cookbook
-    module IniHelper
-      def load_inifile(file)
+    module TomlHelper
+      def load_tomlfile(file)
         return unless File.exist?(file)
 
-        ::Inifile.load(file)
+        ::TomlRB.load_file(file)
       end
 
-      def inifile_string(content)
+      def tomlfile_string(content)
         raise ArgumentError, "Expected Hash got #{content.class}" unless content.is_a?(Hash)
 
-        ::IniFile.new(content: content).to_s.gsub("[global]\n", '')
+        ::TomlRB.dump(content.deep_sort)
       end
     end
   end

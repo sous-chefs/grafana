@@ -43,8 +43,8 @@ action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    accumulator_config_set(rp.to_s, new_resource.send(rp), 'global')
+    accumulator_config(:set, rp.to_s, new_resource.send(rp), 'global')
   end
 
-  new_resource.extra_options.each { |key, value| accumulator_config_push(key, value, 'global') } if property_is_set?(:extra_options)
+  new_resource.extra_options.each { |key, value| accumulator_config(:push, :push, key, value, 'global') } if property_is_set?(:extra_options)
 end

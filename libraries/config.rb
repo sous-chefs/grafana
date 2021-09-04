@@ -24,24 +24,24 @@ module Grafana
         properties
       end
 
-      def accumulator_config_set(key, value, *path_override)
+      def accumulator_config(action, key, value, *path_override)
         path = nil_or_empty?(path_override) ? resource_default_config_path : path_override
 
         config_hash = accumulator_config_path_init(*path)
-        Chef::Log.debug("Setting config key #{key}, value #{value} on path #{path.map { |p| "['#{p}']" }.join}")
+        Chef::Log.debug("Append to config key #{key}, value #{value} on path #{path.map { |p| "['#{p}']" }.join}")
 
-        config_hash[key] ||= ''
-        config_hash[key].concat(value.to_s)
-      end
-
-      def accumulator_config_push(key, value, *path_override)
-        path = nil_or_empty?(path_override) ? resource_default_config_path : path_override
-
-        config_hash = accumulator_config_path_init(*path)
-        Chef::Log.debug("Pushing config key #{key}, value #{value} on path #{path.map { |p| "['#{p}']" }.join}")
-
-        config_hash[key] ||= []
-        config_hash[key].push(value)
+        case action
+        when :set
+          config_hash[key] = value
+        when :append
+          config_hash[key] ||= ''
+          config_hash[key].concat(value.to_s)
+        when :push
+          config_hash[key] ||= []
+          config_hash[key].push(value)
+        else
+          raise ArgumentError, "Unsupported config action #{action}"
+        end
       end
 
       def config_templates_exist?

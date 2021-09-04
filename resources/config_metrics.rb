@@ -51,7 +51,7 @@ action :install do
       next if nil_or_empty?(new_resource.send(rp))
 
       property_prefix = "#{type.delete_prefix('metrics_')}_"
-      accumulator_config_set(rp.to_s.delete_prefix(property_prefix), new_resource.send(rp), type)
+      accumulator_config(:set, rp.to_s.delete_prefix(property_prefix), new_resource.send(rp), type)
     end
   end
 end

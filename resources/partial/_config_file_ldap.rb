@@ -1,8 +1,8 @@
 #
 # Cookbook:: grafana
-# Resource:: config_remote_cache
+# Resource:: _config_file_ldap
 #
-# Copyright:: 2018, Sous Chefs
+# Copyright:: 2021, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,22 +16,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Configures the installed grafana instance
 
-unified_mode true
+property :config_file, String,
+          default: lazy { ::File.join(conf_directory, 'ldap.toml') }
 
-use 'partial/_config_file'
-
-property :type, Symbol,
-          default: :database,
-          equal_to: %i(redis memcached database)
-
-property :connstr, String
-
-action :install do
-  resource_properties.each do |rp|
-    next if nil_or_empty?(new_resource.send(rp))
-
-    accumulator_config(:set, rp.to_s, new_resource.send(rp), 'remote_cache')
-  end
-end
+property :source, String,
+          default: 'ldap.toml.erb'

@@ -1,7 +1,8 @@
+#
 # Cookbook:: grafana
 # Resource:: _config_file
 #
-# Copyright:: 2018, Sous Chefs
+# Copyright:: 2021, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,20 +28,11 @@ property :conf_directory, String,
 property :config_file, String,
           default: lazy { ::File.join(conf_directory, 'grafana.ini') }
 
-property :config_file_ldap, String,
-          default: lazy { ::File.join(conf_directory, 'ldap.toml') }
-
 property :cookbook, String,
           default: 'grafana'
 
 property :source, String,
           default: 'grafana.ini.erb'
-
-property :source_ldap, String,
-          default: 'ldap.toml.erb'
-
-property :source_env, String,
-          default: 'grafana-env.erb'
 
 property :owner, String,
           default: 'root'

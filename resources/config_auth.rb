@@ -199,7 +199,7 @@ action :install do
       next if nil_or_empty?(new_resource.send(rp))
 
       property_prefix = "#{type.delete_prefix('auth_')}"
-      accumulator_config_set(rp.to_s.delete_prefix("#{property_prefix}_"), new_resource.send(rp), "auth.#{property_prefix}")
+      accumulator_config(:set, rp.to_s.delete_prefix("#{property_prefix}_"), new_resource.send(rp), "auth.#{property_prefix}")
     end
   end
 end

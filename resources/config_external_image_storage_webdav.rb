@@ -34,6 +34,6 @@ action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    accumulator_config_set(rp.to_s, new_resource.send(rp), 'external_image_storage.webdav')
+    accumulator_config(:set, rp.to_s, new_resource.send(rp), 'external_image_storage.webdav')
   end
 end

@@ -7,8 +7,7 @@ end
 
 grafana_config_log 'Grafana'
 
-grafana_config_auth_azuread 'Grafana' do
-  auth_name 'Test Azure AD'
+grafana_config_auth_azuread 'Test Azure AD' do
   enabled true
   allow_sign_up true
   client_id 'test_id'
@@ -18,4 +17,10 @@ grafana_config_auth_azuread 'Grafana' do
   scopes 'openid email name groups'
   allowed_domains 'test.local'
   allowed_groups '12345'
+end
+
+grafana_service 'grafana' do
+  delay_start true
+  action %i(enable start)
+  subscribes :restart, 'template[/etc/grafana/grafana.ini]', :delayed
 end

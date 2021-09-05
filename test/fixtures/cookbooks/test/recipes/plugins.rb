@@ -13,3 +13,8 @@ grafana_plugin 'yesoreyeram-boomtable-panel' do
   plugin_url 'https://raw.githubusercontent.com/sous-chefs/grafana/master/test/fixtures/cookbooks/test/files/plugin-test.zip'
   action :update
 end
+
+grafana_service 'grafana-server' do
+  action %i(enable start)
+  subscribes :restart, 'template[/etc/grafana/grafana.ini]', :delayed
+end

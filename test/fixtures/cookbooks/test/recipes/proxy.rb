@@ -16,21 +16,8 @@ grafana_config_auth 'Grafana' do
   login_cookie_name 'grafana_session'
 end
 
-grafana_service 'grafana' do
+grafana_service 'grafana-server' do
+  delay_start true
   action %i(enable start)
-  delay_start false
-end
-
-grafana_user 'j.smith' do
-  auth_proxy_header auth_header
-  user(
-    name: 'John Smith',
-    email: 'test@example.com',
-    password: 'test123',
-    isAdmin: true,
-    organizations: [
-      { name: 'Main Org.', role: 'Admin' },
-    ]
-  )
-  action %i(create update)
+  subscribes :restart, 'template[/etc/grafana/grafana.ini]', :delayed
 end

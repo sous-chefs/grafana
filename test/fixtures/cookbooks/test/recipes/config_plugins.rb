@@ -10,4 +10,5 @@ end
 
 grafana_service 'grafana' do
   action %i(enable start)
+  subscribes :restart, 'template[/etc/grafana/grafana.ini]', :delayed
 end

@@ -25,13 +25,10 @@ grafana_config_ldap_server 'Grafana' do
   search_base_dns %w( dc=grafana,dc=org )
 end
 
-grafana_config_ldap_attributes 'Grafana' do
-  host '127.0.0.1'
-end
+grafana_config_ldap_attributes '127.0.0.1'
 
-grafana_config_ldap_group_mapping 'admins' do
+grafana_config_ldap_group_mapping 'cn=admins,dc=grafana,dc=org' do
   host '127.0.0.1'
-  group_dn 'cn=admins,dc=grafana,dc=org'
   org_role 'Admin'
   grafana_admin true
   org_id 1

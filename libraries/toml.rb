@@ -4,6 +4,8 @@ require 'toml-rb'
 module Grafana
   module Cookbook
     module TomlHelper
+      private
+
       def load_tomlfile(file)
         return unless File.exist?(file)
 

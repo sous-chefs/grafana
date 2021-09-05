@@ -1,8 +1,8 @@
 #
 # Cookbook:: grafana
-# Resource:: config_alerting
+# Resource:: config_ldap_attributes
 #
-# Copyright:: 2019, Sous Chefs
+# Copyright:: 2021, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,8 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Configures the installed grafana instance's ldap settings
-# See https://raw.githubusercontent.com/grafana/grafana/master/conf/ldap.toml
 
 unified_mode true
 
@@ -25,7 +23,8 @@ use 'partial/_config_file'
 use 'partial/_config_file_ldap'
 
 property :host, String,
-          required: true,
+          name_property: true,
+          desired_state: false,
           description: 'The LDAP host to apply the attribute mapping to'
 
 property :attribute_name, String,
@@ -43,6 +42,20 @@ property :attribute_member_of, String,
 property :attribute_email, String,
           default: 'email'
 
+load_current_value do |new_resource|
+  server_attribute_config = load_file_ldap_config_host_attributes(new_resource.config_file, new_resource.host)
+
+  current_value_does_not_exist! unless server_attribute_config
+
+  if ::File.exist?(new_resource.config_file)
+    owner ::Etc.getpwuid(::File.stat(new_resource.config_file).uid).name
+    group ::Etc.getgrgid(::File.stat(new_resource.config_file).gid).name
+    filemode ::File.stat(new_resource.config_file).mode.to_s(8)[-4..-1]
+  end
+
+  %i(attribute_name attribute_surname attribute_username attribute_member_of attribute_email).each { |p| send(p, server_attribute_config.fetch(p.to_s, nil)) }
+end
+
 action_class do
   RESOURCE_CONFIG_PROPERTIES_SKIP = %i(host).freeze
 
@@ -52,6 +65,8 @@ action_class do
 end
 
 action :create do
+  converge_if_changed {}
+
   template_servers = config_file_template_variables.fetch('servers', nil)
   raise "No servers, got #{template_servers.class} #{template_servers}" unless template_servers
 

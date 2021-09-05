@@ -17,8 +17,12 @@
 # limitations under the License.
 #
 
+include Grafana::Cookbook::LdapConfigFile
+
 property :config_file, String,
-          default: lazy { ::File.join(conf_directory, 'ldap.toml') }
+          default: lazy { ::File.join(conf_directory, 'ldap.toml') },
+          desired_state: false
 
 property :source, String,
-          default: 'ldap.toml.erb'
+          default: 'ldap.toml.erb',
+          desired_state: false

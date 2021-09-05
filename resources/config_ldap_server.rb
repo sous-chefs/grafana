@@ -1,8 +1,8 @@
 #
 # Cookbook:: grafana
-# Resource:: config_alerting
+# Resource:: config_ldap_server
 #
-# Copyright:: 2019, Sous Chefs
+# Copyright:: 2021, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -52,7 +52,39 @@ property :group_search_filter, String
 
 property :group_search_filter_user_attribute, String
 
-action :install do
+load_current_value do |new_resource|
+  server_config = load_file_ldap_config_host(new_resource.config_file, new_resource.host)
+
+  current_value_does_not_exist! unless server_config
+
+  if ::File.exist?(new_resource.config_file)
+    owner ::Etc.getpwuid(::File.stat(new_resource.config_file).uid).name
+    group ::Etc.getgrgid(::File.stat(new_resource.config_file).gid).name
+    filemode ::File.stat(new_resource.config_file).mode.to_s(8)[-4..-1]
+  end
+
+  %i(
+    host
+    port
+    use_ssl
+    start_tls
+    ssl_skip_verify
+    root_ca_cert
+    client_cert
+    client_key
+    bind_dn
+    bind_password
+    search_filter
+    search_base_dns
+    group_search_base_dns
+    group_search_filter
+    group_search_filter_user_attribute
+  ).each { |p| send(p, server_config.fetch(p.to_s, nil)) }
+end
+
+action :create do
+  converge_if_changed {}
+
   ldap_server = resource_properties.map do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 

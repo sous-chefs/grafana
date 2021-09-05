@@ -1,14 +1,12 @@
 module Grafana
   module Cookbook
     module ConfigHelper
+      include Grafana::Cookbook::Utils
+
       GLOBAL_CONFIG_PROPERTIES_SKIP = %i(conf_directory config_file cookbook source source_ldap source_env owner group filemode sensitive extra_options).freeze
       private_constant :GLOBAL_CONFIG_PROPERTIES_SKIP
 
       private
-
-      def nil_or_empty?(*values)
-        values.any? { |v| v.nil? || (v.respond_to?(:empty?) && v.empty?) }
-      end
 
       def resource_properties
         properties = new_resource.class.properties(false).keys

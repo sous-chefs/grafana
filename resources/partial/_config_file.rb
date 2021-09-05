@@ -17,22 +17,29 @@
 # limitations under the License.
 #
 
+include Grafana::Cookbook::ConfigHelper
+
 unified_mode true
 
 property :sensitive, [true, false],
-          default: true
+          default: true,
+          desired_state: false
 
 property :conf_directory, String,
-          default: '/etc/grafana'
+          default: '/etc/grafana',
+          desired_state: false
 
 property :config_file, String,
-          default: lazy { ::File.join(conf_directory, 'grafana.ini') }
+          default: lazy { ::File.join(conf_directory, 'grafana.ini') },
+          desired_state: false
 
 property :cookbook, String,
-          default: 'grafana'
+          default: 'grafana',
+          desired_state: false
 
 property :source, String,
-          default: 'grafana.ini.erb'
+          default: 'grafana.ini.erb',
+          desired_state: false
 
 property :owner, String,
           default: 'root'

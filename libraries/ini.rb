@@ -4,6 +4,8 @@ require 'inifile'
 module Grafana
   module Cookbook
     module IniHelper
+      private
+
       def load_inifile(file)
         return unless File.exist?(file)
 

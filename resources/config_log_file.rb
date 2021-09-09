@@ -1,6 +1,6 @@
 #
 # Cookbook:: grafana
-# Resource:: config_log
+# Resource:: config_log_file
 #
 # Copyright:: 2021, Sous Chefs
 #
@@ -22,11 +22,19 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property :mode, String
-
 property :level, String
 
-property :filters, String
+property :format, String
+
+property :log_rotate, [true, false]
+
+property :max_lines, Integer
+
+property :max_size_shift, Integer
+
+property :daily_rotate, [true, false]
+
+property :max_days, Integer
 
 action :install do
   resource_properties.each do |rp|

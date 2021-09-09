@@ -1,6 +1,6 @@
 #
 # Cookbook:: grafana
-# Resource:: config_log
+# Resource:: config_log_console
 #
 # Copyright:: 2021, Sous Chefs
 #
@@ -22,11 +22,9 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property :mode, String
-
 property :level, String
 
-property :filters, String
+property :format, Strin
 
 action :install do
   resource_properties.each do |rp|

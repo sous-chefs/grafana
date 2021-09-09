@@ -15,6 +15,10 @@ grafana_config_external_image_storage_s3 'Grafana' do
   region 'us-east-1'
 end
 
+grafana_config_date_formats 'Grafana' do
+  use_browser_locale true
+end
+
 grafana_service 'grafana-server' do
   action %i(enable start)
   subscribes :restart, 'template[/etc/grafana/grafana.ini]', :delayed

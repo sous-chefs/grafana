@@ -36,7 +36,7 @@ property :oauth_auto_login, [true, false],
 property :login_maximum_lifetime_days, Integer,
           required: false
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

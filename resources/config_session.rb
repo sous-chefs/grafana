@@ -39,7 +39,7 @@ property :gc_interval_time, Integer, default: 86400
 
 property :conn_max_lifetime, Integer, default: 14400
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

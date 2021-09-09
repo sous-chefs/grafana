@@ -64,7 +64,7 @@ property :path, String,
 
 property :cache_mode, String
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

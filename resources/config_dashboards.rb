@@ -28,7 +28,7 @@ property :min_refresh_interval, String
 
 property :default_home_dashboard_path, String
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

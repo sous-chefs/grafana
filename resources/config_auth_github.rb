@@ -43,7 +43,7 @@ property :team_ids, String
 
 property :allowed_organizations, String
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

@@ -23,7 +23,7 @@ use 'partial/_config_file'
 
 property :admin_config_poll_interval_seconds, Integer
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

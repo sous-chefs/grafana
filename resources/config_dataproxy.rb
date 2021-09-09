@@ -43,7 +43,7 @@ property :idle_conn_timeout_seconds, Integer
 
 property :send_user_header, [true, false]
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

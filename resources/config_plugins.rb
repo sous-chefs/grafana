@@ -37,7 +37,7 @@ action_class do
   include Grafana::Cookbook::ConfigHelper
 end
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

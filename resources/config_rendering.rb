@@ -28,7 +28,7 @@ property :callback_url, String
 
 property :concurrent_render_request_limit, Integer
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

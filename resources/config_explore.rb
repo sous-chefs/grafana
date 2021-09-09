@@ -25,7 +25,7 @@ use 'partial/_config_file'
 property :enabled, [true, false],
          default: false
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

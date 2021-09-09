@@ -36,7 +36,7 @@ property :daily_rotate, [true, false]
 
 property :max_days, Integer
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

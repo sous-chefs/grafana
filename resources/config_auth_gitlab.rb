@@ -42,7 +42,7 @@ property :api_url, String,
 
 property :allowed_groups, String
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

@@ -57,7 +57,7 @@ property :tls_client_ca, String
 
 property :send_client_credentials_via_post, [true, false]
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

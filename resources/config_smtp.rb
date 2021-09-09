@@ -49,7 +49,7 @@ property :ehlo_identity, String
 property :startTLS_policy, String,
           equal_to: %w(OpportunisticStartTLS MandatoryStartTLS NoStartTLS)
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

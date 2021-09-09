@@ -36,7 +36,7 @@ property :public_mode, [true, false],
 property :snapshot_remove_expired, [true, false],
           default: true
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

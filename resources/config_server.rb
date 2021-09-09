@@ -35,7 +35,7 @@ property  :enable_gzip,          [true, false],  default: false
 property  :cert_file,            String,         default: ''
 property  :cert_key,             String,         default: ''
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

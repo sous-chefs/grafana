@@ -27,7 +27,7 @@ property :welcome_email_on_sign_up, [true, false],
 
 property :templates_pattern, String
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

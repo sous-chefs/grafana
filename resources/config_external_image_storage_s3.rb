@@ -56,7 +56,7 @@ load_current_value do |new_resource|
   resource_properties.each { |p| send(p, current_config.fetch(p.to_s, nil)) }
 end
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

@@ -83,7 +83,7 @@ property :content_security_policy, [true, false],
 
 property :content_security_policy_template, String
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

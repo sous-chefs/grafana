@@ -28,7 +28,7 @@ property :org_role, String
 
 property :hide_version, [true, false]
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

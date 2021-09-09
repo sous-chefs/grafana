@@ -67,7 +67,7 @@ property :user_invite_max_lifetime_duration, String
 property :hidden_users, [String, Array],
           coerce: proc { |p| Array(p).join(',') }
 
-action :install do
+action :create do
   converge_if_changed {}
 
   resource_properties.each do |rp|

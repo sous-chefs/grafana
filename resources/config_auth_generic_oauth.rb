@@ -1,7 +1,7 @@
 # Cookbook:: grafana
-# Resource:: config_auth_azuread
+# Resource:: config_auth_generic_oauth
 #
-# Copyright:: 2018, Sous Chefs
+# Copyright:: 2021, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,10 +21,9 @@ unified_mode true
 use 'partial/_config_file'
 
 property :name, String,
-          default: 'Azure AD'
+          default: 'Generic OAuth'
 
-property :enabled, [true, false],
-          default: false
+property :enabled, [true, false]
 
 property :allow_sign_up, [true, false]
 
@@ -32,21 +31,37 @@ property :client_id, String
 
 property :client_secret, String
 
-property :scopes, String,
-          default: 'openid email profile'
+property :scopes, String
+
+property :email_attribute_name, String
 
 property :auth_url, String
 
 property :token_url, String
 
-property :allowed_domains, String
+property :api_url, String
 
-property :allowed_groups, String
+property :team_ids, String
+
+property :allowed_organizations, String
+
+property :role_attribute_path, String
+
+property :tls_skip_verify_insecure, [true, false]
+
+property :tls_client_cert, String
+
+property :tls_client_key, String
+
+property :tls_client_ca, String
+
+property :send_client_credentials_via_post, [true, false]
+
 
 action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    accumulator_config(:set, rp.to_s, new_resource.send(rp), 'auth.azuread')
+    accumulator_config(:set, rp.to_s, new_resource.send(rp))
   end
 end

@@ -1,7 +1,7 @@
 # Cookbook:: grafana
-# Resource:: config_auth_azuread
+# Resource:: config_auth_basic
 #
-# Copyright:: 2018, Sous Chefs
+# Copyright:: 2021, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,33 +20,12 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property :name, String,
-          default: 'Azure AD'
-
-property :enabled, [true, false],
-          default: false
-
-property :allow_sign_up, [true, false]
-
-property :client_id, String
-
-property :client_secret, String
-
-property :scopes, String,
-          default: 'openid email profile'
-
-property :auth_url, String
-
-property :token_url, String
-
-property :allowed_domains, String
-
-property :allowed_groups, String
+property :enabled, [true, false], default: true
 
 action :install do
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    accumulator_config(:set, rp.to_s, new_resource.send(rp), 'auth.azuread')
+    accumulator_config(:set, rp.to_s, new_resource.send(rp))
   end
 end

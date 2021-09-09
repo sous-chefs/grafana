@@ -1,6 +1,6 @@
 #
 # Cookbook:: grafana
-# Resource:: config_metrics
+# Resource:: config_metrics_graphite
 #
 # Copyright:: 2021, Sous Chefs
 #
@@ -22,17 +22,9 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property :enabled, [true, false],
-         default: true
+property :address, String
 
-property :interval_seconds, Integer,
-          default: 10
-
-property :basic_auth_username, String
-
-property :basic_auth_password, String
-
-property :disable_total_stats, [true, false]
+property :prefix, String
 
 action :install do
   resource_properties.each do |rp|

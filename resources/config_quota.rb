@@ -49,6 +49,8 @@ property :global_session, Integer
 property :global_alert_rule, Integer
 
 action :install do
+  converge_if_changed {}
+
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 

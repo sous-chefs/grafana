@@ -44,6 +44,8 @@ property :idle_conn_timeout_seconds, Integer
 property :send_user_header, [true, false]
 
 action :install do
+  converge_if_changed {}
+
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 

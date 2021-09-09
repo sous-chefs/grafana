@@ -24,7 +24,8 @@ use 'partial/_config_file'
 
 property :enable_alpha, [true, false]
 
-property :allow_loading_unsigned_plugins, Array
+property :allow_loading_unsigned_plugins, [Array, String],
+          coerce: proc { |p| Array(p).join(',') }
 
 property :plugin_admin_enabled, [true, false]
 
@@ -37,6 +38,8 @@ action_class do
 end
 
 action :install do
+  converge_if_changed {}
+
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 

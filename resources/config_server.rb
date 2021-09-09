@@ -36,6 +36,8 @@ property  :cert_file,            String,         default: ''
 property  :cert_key,             String,         default: ''
 
 action :install do
+  converge_if_changed {}
+
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 

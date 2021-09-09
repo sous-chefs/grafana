@@ -28,7 +28,23 @@ property :account_key, String
 
 property :container_name, String
 
+load_current_value do |new_resource|
+  current_config = load_file_grafana_config_section(new_resource.config_file, 'external_image_storage.azure_blob')
+
+  current_value_does_not_exist! if nil_or_empty?(current_config)
+
+  if ::File.exist?(new_resource.config_file)
+    owner ::Etc.getpwuid(::File.stat(new_resource.config_file).uid).name
+    group ::Etc.getgrgid(::File.stat(new_resource.config_file).gid).name
+    filemode ::File.stat(new_resource.config_file).mode.to_s(8)[-4..-1]
+  end
+
+  resource_properties.each { |p| send(p, current_config.fetch(p.to_s, nil)) }
+end
+
 action :install do
+  converge_if_changed {}
+
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 

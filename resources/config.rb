@@ -31,15 +31,23 @@ property :app_mode, String,
 property :instance_name, String,
           name_property: true
 
-action_class do
-  RESOURCE_CONFIG_PROPERTIES_SKIP = %i(env_directory restart_on_upgrade).freeze
+load_current_value do |new_resource|
+  global_config = load_file_grafana_config_section(new_resource.config_file, 'global')
 
-  def resource_config_properties_skip
-    RESOURCE_CONFIG_PROPERTIES_SKIP
+  current_value_does_not_exist! unless global_config
+
+  if ::File.exist?(new_resource.config_file)
+    owner ::Etc.getpwuid(::File.stat(new_resource.config_file).uid).name
+    group ::Etc.getgrgid(::File.stat(new_resource.config_file).gid).name
+    filemode ::File.stat(new_resource.config_file).mode.to_s(8)[-4..-1]
   end
+
+  resource_properties.each { |p| send(p, global_config.fetch(p.to_s, nil)) }
 end
 
-action :install do
+action :create do
+  converge_if_changed {}
+
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 

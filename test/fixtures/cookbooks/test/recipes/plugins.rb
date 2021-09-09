@@ -1,8 +1,8 @@
 grafana_install 'Grafana'
 grafana_config 'Grafana'
-grafana_config_auth 'Grafana' do
-  # for api testing
-  anonymous_enabled true
+
+grafana_config_auth_anonymous 'Grafana' do
+  enabled true # for api testing
 end
 
 grafana_plugin 'grafana-clock-panel' do

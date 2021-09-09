@@ -18,6 +18,7 @@
 #
 
 include Grafana::Cookbook::ConfigHelper
+include Grafana::Cookbook::GrafanaConfigFile
 
 unified_mode true
 
@@ -51,6 +52,20 @@ property :filemode, String,
           default: '0640'
 
 property :extra_options, Hash
+
+load_current_value do |new_resource|
+  current_config = load_file_grafana_config_section(new_resource.config_file)
+
+  current_value_does_not_exist! if nil_or_empty?(current_config)
+
+  if ::File.exist?(new_resource.config_file)
+    owner ::Etc.getpwuid(::File.stat(new_resource.config_file).uid).name
+    group ::Etc.getgrgid(::File.stat(new_resource.config_file).gid).name
+    filemode ::File.stat(new_resource.config_file).mode.to_s(8)[-4..-1]
+  end
+
+  resource_properties.each { |p| send(p, current_config.fetch(p.to_s, nil)) }
+end
 
 action_class do
   include Grafana::Cookbook::ConfigHelper

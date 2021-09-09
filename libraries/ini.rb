@@ -9,7 +9,7 @@ module Grafana
       def load_inifile(file)
         return unless File.exist?(file)
 
-        ::Inifile.load(file)
+        ::IniFile.load(file).to_h
       end
 
       def inifile_string(content)

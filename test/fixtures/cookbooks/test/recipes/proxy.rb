@@ -9,11 +9,14 @@ end
 
 grafana_config_auth 'Grafana' do
   disable_login_form true
-  proxy_enabled true
-  proxy_header_name auth_header
-  proxy_header_property 'username'
-  proxy_whitelist '127.0.0.1, ::1'
   login_cookie_name 'grafana_session'
+end
+
+grafana_config_auth_proxy 'Grafana' do
+  enabled true
+  header_name auth_header
+  header_property 'username'
+  whitelist '127.0.0.1, ::1'
 end
 
 grafana_service 'grafana-server' do

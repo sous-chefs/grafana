@@ -65,6 +65,8 @@ property :path, String,
 property :cache_mode, String
 
 action :install do
+  converge_if_changed {}
+
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 

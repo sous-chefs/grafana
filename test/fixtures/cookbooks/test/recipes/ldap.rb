@@ -5,11 +5,26 @@ grafana_config 'Grafana' do
   sensitive false
 end
 
-grafana_config_auth 'Grafana' do
-  ldap_enabled true
+grafana_config_auth 'Grafana'
+
+grafana_config_auth_ldap 'Grafana' do
+  sensitive false
+
+  enabled true
 end
 
-grafana_config_log 'Grafana'
+grafana_config_log 'Grafana' do
+  sensitive false
+
+  level 'info'
+  mode 'console file'
+end
+
+grafana_config_log_file 'Grafana' do
+  sensitive false
+
+  daily_rotate true
+end
 
 grafana_config_ldap_server 'Grafana' do
   sensitive false

@@ -24,9 +24,11 @@ use 'partial/_config_file'
 
 property :level, String
 
-property :format, Strin
+property :format, String
 
 action :install do
+  converge_if_changed {}
+
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 

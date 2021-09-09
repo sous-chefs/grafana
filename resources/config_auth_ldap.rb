@@ -20,18 +20,34 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property :ldap_enabled, [true, false],
+property :enabled, [true, false],
           default: false
 
 property :ldap_config_file, String,
           default: '/etc/grafana/ldap.toml'
 
-property :ldap_allow_sign_up, [true, false]
+property :allow_sign_up, [true, false]
 
-action :install do
+load_current_value do |new_resource|
+  current_config = load_file_grafana_config_section(new_resource.config_file)
+
+  current_value_does_not_exist! if nil_or_empty?(current_config)
+
+  if ::File.exist?(new_resource.config_file)
+    owner ::Etc.getpwuid(::File.stat(new_resource.config_file).uid).name
+    group ::Etc.getgrgid(::File.stat(new_resource.config_file).gid).name
+    filemode ::File.stat(new_resource.config_file).mode.to_s(8)[-4..-1]
+  end
+
+  resource_properties.each { |p| send(p.to_s.delete_prefix('ldap_').to_sym, current_config.fetch(p.to_s.delete_prefix('ldap_'), nil)) }
+end
+
+action :create do
+  converge_if_changed {}
+
   resource_properties.each do |rp|
     next if nil_or_empty?(new_resource.send(rp))
 
-    accumulator_config(:set, rp.to_s, new_resource.send(rp))
+    accumulator_config(:set, rp.to_s.delete_prefix('ldap_'), new_resource.send(rp))
   end
 end

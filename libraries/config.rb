@@ -1,3 +1,5 @@
+require_relative '_utils'
+
 module Grafana
   module Cookbook
     module ConfigHelper
@@ -9,7 +11,7 @@ module Grafana
       private
 
       def resource_properties
-        properties = new_resource.class.properties(false).keys
+        properties = instance_variable_defined?(:@new_resource) ? new_resource.class.properties(false).keys : self.class.properties(false).keys
         Chef::Log.debug("resource_properties: Got properties from resource: #{properties.join(', ')}")
         properties.reject! { |p| GLOBAL_CONFIG_PROPERTIES_SKIP.include?(p) }
 
@@ -88,29 +90,16 @@ module Grafana
         true
       end
 
-      def gem_installed?(gem_name)
-        !Gem::Specification.find_by_name(gem_name).nil?
-      rescue Gem::LoadError
-        false
-      end
-
       def config_file_template_variables
         init_config_template unless config_template_exist?
         find_resource!(:template, ::File.join(new_resource.config_file)).variables[:config]
-      end
-
-      def resource_default_config_path
-        config_path = new_resource.declared_type.to_s.delete_prefix('grafana_config_').split('_')
-
-        Chef::Log.debug("resource_default_config_path: Generated config path #{config_path}")
-        config_path
       end
 
       def accumulator_config_path_init(*path)
         init_config_template unless config_template_exist?
 
         return config_file_template_variables if path.all? { |p| p.is_a?(NilClass) } # Root path specified
-        return config_file_template_variables.dig(*path) if config_file_template_variables.dig(*path).is_a?(Hash) # Return path if existing
+        return config_file_template_variables.dig(*path) if config_file_template_variables.dig(*path).is_a?(Hash) # Return path if it exists
 
         Chef::Log.debug("accumulator_config_path_init: Initialising config file #{new_resource.config_file} path config#{path.map { |p| "['#{p}']" }.join}")
         config_hash = config_file_template_variables

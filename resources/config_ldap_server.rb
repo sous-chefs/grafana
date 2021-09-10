@@ -70,6 +70,12 @@ load_current_value do |new_resource|
   resource_properties.each { |p| send(p, current_config.fetch(p.to_s, nil)) }
 end
 
+action_class do
+  def resource_config_path_override
+    [nil] # Add to the root path
+  end
+end
+
 action :create do
   converge_if_changed {}
 
@@ -79,5 +85,5 @@ action :create do
     [rp.to_s, new_resource.send(rp)]
   end.compact.to_h
 
-  accumulator_config(:push, 'servers', ldap_server, nil)
+  accumulator_config(:push, 'servers', ldap_server)
 end

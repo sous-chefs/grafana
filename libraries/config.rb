@@ -46,8 +46,13 @@ module Grafana
         properties
       end
 
-      def accumulator_config(action, key, value, *path_override)
-        path = nil_or_empty?(path_override) ? resource_default_config_path : path_override
+      def accumulator_config(action, key, value)
+        path = if respond_to?(:resource_config_path_override)
+                 raise ArgumentError, 'Path override should be specified as an Array' unless resource_config_path_override.is_a?(Array)
+                 resource_config_path_override
+               else
+                 resource_default_config_path
+               end
 
         config_hash = accumulator_config_path_init(*path)
         Chef::Log.debug("Append to config key #{key}, value #{value} on path #{path.map { |p| "['#{p}']" }.join}")

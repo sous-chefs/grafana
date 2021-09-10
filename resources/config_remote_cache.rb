@@ -28,12 +28,12 @@ property :type, Symbol,
 
 property :connstr, String
 
-action :create do
-  converge_if_changed {}
+def resource_config_path_override
+  %w(remote_cache)
+end
 
-  resource_properties.each do |rp|
-    next if nil_or_empty?(new_resource.send(rp))
-
-    accumulator_config(:set, rp.to_s, new_resource.send(rp), 'remote_cache')
+action_class do
+  def resource_config_path_override
+    %w(remote_cache)
   end
 end

@@ -43,12 +43,12 @@ property :allowed_domains, String
 
 property :allowed_groups, String
 
-action :create do
-  converge_if_changed {}
+def resource_config_path_override
+  %w(auth.azuread)
+end
 
-  resource_properties.each do |rp|
-    next if nil_or_empty?(new_resource.send(rp))
-
-    accumulator_config(:set, rp.to_s, new_resource.send(rp), 'auth.azuread')
+action_class do
+  def resource_config_path_override
+    %w(auth.azuread)
   end
 end

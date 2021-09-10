@@ -31,29 +31,12 @@ property :app_mode, String,
 property :instance_name, String,
           name_property: true
 
-load_current_value do |new_resource|
-  current_config = load_file_grafana_config_section(new_resource.config_file, 'global')
-
-  current_value_does_not_exist! unless current_config
-
-  if ::File.exist?(new_resource.config_file)
-    owner ::Etc.getpwuid(::File.stat(new_resource.config_file).uid).name
-    group ::Etc.getgrgid(::File.stat(new_resource.config_file).gid).name
-    filemode ::File.stat(new_resource.config_file).mode.to_s(8)[-4..-1]
-  end
-
-  current_config[:extra_options] = current_config.reject! { |k, _| resource_properties.include?(k) }
-  resource_properties.each { |p| send(p, current_config.fetch(p.to_s, nil)) }
+def resource_config_path_override
+  %w(global)
 end
 
-action :create do
-  converge_if_changed {}
-
-  resource_properties.each do |rp|
-    next if nil_or_empty?(new_resource.send(rp))
-
-    accumulator_config(:set, rp.to_s, new_resource.send(rp), 'global')
+action_class do
+  def resource_config_path_override
+    %w(global)
   end
-
-  new_resource.extra_options.each { |key, value| accumulator_config(:set, key, value, 'global') } if property_is_set?(:extra_options)
 end

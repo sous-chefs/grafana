@@ -32,7 +32,3 @@ property :plugin_admin_enabled, [true, false]
 property :plugin_admin_external_manage_enabled, [true, false]
 
 property :plugin_catalog_url, String
-
-action_class do
-  include Grafana::Cookbook::ConfigHelper
-end

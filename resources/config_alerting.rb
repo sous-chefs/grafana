@@ -44,15 +44,3 @@ property :min_interval_seconds, Integer
 property :max_annotation_age, String
 
 property :max_annotations_to_keep, String
-
-action :create do
-  converge_if_changed {}
-
-  resource_properties.each do |rp|
-    next if nil_or_empty?(new_resource.send(rp))
-
-    accumulator_config(:set, rp.to_s, new_resource.send(rp))
-  end
-
-  new_resource.extra_options.each { |key, value| accumulator_config(:set, key, value) } if property_is_set?(:extra_options)
-end

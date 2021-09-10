@@ -40,9 +40,9 @@ property :org_id, Integer,
           default: 1
 
 load_current_value do |new_resource|
-  group_mapping_config = load_file_ldap_config_host_group_mapping(new_resource.config_file, new_resource.host, new_resource.group_dn)
+  current_config = load_file_ldap_config_host_group_mapping(new_resource.config_file, new_resource.host, new_resource.group_dn)
 
-  current_value_does_not_exist! unless group_mapping_config
+  current_value_does_not_exist! unless current_config
 
   if ::File.exist?(new_resource.config_file)
     owner ::Etc.getpwuid(::File.stat(new_resource.config_file).uid).name
@@ -50,7 +50,10 @@ load_current_value do |new_resource|
     filemode ::File.stat(new_resource.config_file).mode.to_s(8)[-4..-1]
   end
 
-  %i(group_dn org_role grafana_admin org_id).each { |p| send(p, group_mapping_config.fetch(p.to_s, nil)) }
+  current_config[:extra_options] = current_config.reject! { |k, _| resource_properties.include?(k) }
+  properties = resource_properties
+  properties.delete(:host)
+  properties.each { |p| send(p, current_config.fetch(p.to_s, nil)) }
 end
 
 action_class do

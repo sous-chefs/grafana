@@ -39,6 +39,7 @@ load_current_value do |new_resource|
     filemode ::File.stat(new_resource.config_file).mode.to_s(8)[-4..-1]
   end
 
+  current_config[:extra_options] = current_config.reject! { |k, _| resource_properties.include?(k) }
   resource_properties.each { |p| send(p.to_s.delete_prefix('ldap_').to_sym, current_config.fetch(p.to_s.delete_prefix('ldap_'), nil)) }
 end
 

@@ -43,9 +43,9 @@ property :attribute_email, String,
           default: 'email'
 
 load_current_value do |new_resource|
-  server_attribute_config = load_file_ldap_config_host_attributes(new_resource.config_file, new_resource.host)
+  current_config = load_file_ldap_config_host_attributes(new_resource.config_file, new_resource.host)
 
-  current_value_does_not_exist! unless server_attribute_config
+  current_value_does_not_exist! unless current_config
 
   if ::File.exist?(new_resource.config_file)
     owner ::Etc.getpwuid(::File.stat(new_resource.config_file).uid).name
@@ -53,7 +53,10 @@ load_current_value do |new_resource|
     filemode ::File.stat(new_resource.config_file).mode.to_s(8)[-4..-1]
   end
 
-  %i(attribute_name attribute_surname attribute_username attribute_member_of attribute_email).each { |p| send(p, server_attribute_config.fetch(p.to_s, nil)) }
+  current_config[:extra_options] = current_config.reject! { |k, _| resource_properties.include?(k) }
+  properties = resource_properties
+  properties.delete(:host)
+  properties.each { |p| send(p, current_config.fetch(p.to_s, nil)) }
 end
 
 action_class do

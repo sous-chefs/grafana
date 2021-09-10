@@ -1,8 +1,30 @@
+# Cookbook:: grafana
+# Library:: _utils
+#
+# Copyright:: 2021, Sous Chefs
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 require_relative '_utils'
+require_relative 'ini'
+require_relative 'toml'
 
 module Grafana
   module Cookbook
     module ConfigHelper
+      include Grafana::Cookbook::IniHelper
+      include Grafana::Cookbook::TomlHelper
       include Grafana::Cookbook::Utils
 
       GLOBAL_CONFIG_PROPERTIES_SKIP = %i(conf_directory config_file cookbook source source_ldap source_env owner group filemode sensitive extra_options).freeze
@@ -39,8 +61,10 @@ module Grafana
         when :push
           config_hash[key] ||= []
           config_hash[key].push(value)
+        when :delete
+          config_hash.delete(key) if config_hash.key?(key)
         else
-          raise ArgumentError, "Unsupported config action #{action}"
+          raise ArgumentError, "Unsupported accumulator config action #{action}"
         end
       end
 
@@ -55,7 +79,7 @@ module Grafana
         false
       end
 
-      def init_config_template
+      def init_config_template(load_existing = false)
         return false if config_template_exist?
 
         Chef::Log.debug("init_config_template: Creating config template resource for #{new_resource.config_file}")
@@ -75,9 +99,15 @@ module Grafana
 
             sensitive new_resource.sensitive
 
-            variables(
-              config: {}
-            )
+            if load_existing
+              if new_resource.config_file.match?('grafana.ini')
+                variables(config: load_file_grafana_config(new_resource.config_file))
+              else
+                variables(config: load_file_ldap_config(new_resource.config_file))
+              end
+            else
+              variables(config: {})
+            end
 
             helpers(Grafana::Cookbook::IniHelper)
             helpers(Grafana::Cookbook::TomlHelper)

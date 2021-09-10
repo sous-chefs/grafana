@@ -47,13 +47,3 @@ property :global_api_key, Integer
 property :global_session, Integer
 
 property :global_alert_rule, Integer
-
-action :create do
-  converge_if_changed {}
-
-  resource_properties.each do |rp|
-    next if nil_or_empty?(new_resource.send(rp))
-
-    accumulator_config(:set, rp.to_s, new_resource.send(rp))
-  end
-end

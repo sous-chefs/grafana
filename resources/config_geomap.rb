@@ -25,13 +25,3 @@ require 'json'
 
 property :default_baselayer_config, Hash,
           coerce: proc { |p| "`#{JSON.pretty_generate(p)}`" }
-
-action :create do
-  converge_if_changed {}
-
-  resource_properties.each do |rp|
-    next if nil_or_empty?(new_resource.send(rp))
-
-    accumulator_config(:set, rp.to_s, new_resource.send(rp))
-  end
-end

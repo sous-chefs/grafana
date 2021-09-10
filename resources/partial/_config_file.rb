@@ -71,3 +71,27 @@ end
 action_class do
   include Grafana::Cookbook::ConfigHelper
 end
+
+action :create do
+  converge_if_changed {}
+
+  resource_properties.each do |rp|
+    next if nil_or_empty?(new_resource.send(rp))
+
+    accumulator_config(:set, rp.to_s, new_resource.send(rp))
+  end
+
+  new_resource.extra_options.each { |key, value| accumulator_config(:set, key, value) } if property_is_set?(:extra_options)
+end
+
+action :delete do
+  converge_if_changed {}
+
+  resource_properties.each do |rp|
+    next if nil_or_empty?(new_resource.send(rp))
+
+    accumulator_config(:delete, rp.to_s, new_resource.send(rp))
+  end
+
+  new_resource.extra_options.each { |key, value| accumulator_config(:delete, key, value) } if property_is_set?(:extra_options)
+end

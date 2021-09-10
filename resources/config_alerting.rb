@@ -62,5 +62,5 @@ action :create do
     accumulator_config(:set, rp.to_s, new_resource.send(rp))
   end
 
-  new_resource.extra_options.each { |key, value| accumulator_config(:push, key, value) } if property_is_set?(:extra_options)
+  new_resource.extra_options.each { |key, value| accumulator_config(:set, key, value) } if property_is_set?(:extra_options)
 end

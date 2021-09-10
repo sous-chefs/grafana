@@ -31,13 +31,13 @@ property :group_dn, String,
           name_property: true
 
 property :org_role, String,
-          default: 'Viewer'
+          required: true
 
 property :grafana_admin, [true, false],
-          default: false
+          required: true
 
 property :org_id, Integer,
-          default: 1
+          required: true
 
 load_current_value do |new_resource|
   current_config = load_file_ldap_config_host_group_mapping(new_resource.config_file, new_resource.host, new_resource.group_dn)

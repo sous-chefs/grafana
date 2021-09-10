@@ -2,7 +2,7 @@
 # Cookbook:: grafana
 # Resource:: config_users
 #
-# Copyright:: 2018, Sous Chefs
+# Copyright:: 2021, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,46 +21,35 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property :allow_sign_up, [true, false],
-          default: false
+property :allow_sign_up, [true, false]
 
-property :allow_org_create, [true, false], default: false
+property :allow_org_create, [true, false]
 
-property :auto_assign_org, [true, false],
-          default: true
+property :auto_assign_org, [true, false]
 
-property :auto_assign_org_id, Integer,
-          default: 1
+property :auto_assign_org_id, Integer
 
-property :auto_assign_org_role, String,
-          default: 'Viewer'
+property :auto_assign_org_role, String
 
-property :verify_email_enabled, [true, false],
-          default: false
+property :verify_email_enabled, [true, false]
 
-property :login_hint, String,
-          default: 'email or username'
+property :login_hint, String
 
-property :default_theme, Symbol,
-          default: :dark,
-          equal_to: %i( dark light )
+property :default_theme, [Symbol, String],
+          equal_to: [:dark, :light, 'dark', 'light'],
+          coerce: proc { |p| p.to_s }
 
 property :home_page, String
 
-property :external_manage_link_url, String,
-          default: ''
+property :external_manage_link_url, String
 
-property :external_manage_link_name, String,
-          default: ''
+property :external_manage_link_name, String
 
-property :external_manage_info, String,
-          default: ''
+property :external_manage_info, String
 
-property :viewers_can_edit, [true, false],
-          default: false
+property :viewers_can_edit, [true, false]
 
-property :editors_can_admin, [true, false],
-          default: false
+property :editors_can_admin, [true, false]
 
 property :user_invite_max_lifetime_duration, String
 

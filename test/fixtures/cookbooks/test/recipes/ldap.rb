@@ -53,6 +53,8 @@ grafana_config_ldap_group_mapping 'readers' do
   host '127.0.0.1'
   group_dn 'cn=readers,dc=grafana,dc=org'
   org_role 'Viewer'
+  grafana_admin false
+  org_id 1
 end
 
 grafana_service 'grafana-server' do

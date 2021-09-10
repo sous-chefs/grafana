@@ -22,15 +22,17 @@ unified_mode true
 use 'partial/_config_file'
 use 'partial/_config_file_ldap'
 
-property :host, String, required: true
+property :host, String,
+          required: true
 
-property :port, Integer, default: 389
+property :port, Integer,
+          default: 389
 
-property :use_ssl, [true, false], default: false
+property :use_ssl, [true, false]
 
-property :start_tls, [true, false], default: false
+property :start_tls, [true, false]
 
-property :ssl_skip_verify, [true, false], default: false
+property :ssl_skip_verify, [true, false]
 
 property :root_ca_cert, String
 
@@ -38,15 +40,16 @@ property :client_cert, String
 
 property :client_key, String
 
-property :bind_dn, String, default: 'cn=admin,dc=grafana,dc=org'
+property :bind_dn, String
 
-property :bind_password, String, default: 'grafana', sensitive: true
+property :bind_password, String,
+          sensitive: true
 
-property :search_filter, String, default: '(cn=%s)'
+property :search_filter, String
 
-property :search_base_dns, Array, default: []
+property :search_base_dns, Array
 
-property :group_search_base_dns, Array, default: []
+property :group_search_base_dns, Array
 
 property :group_search_filter, String
 

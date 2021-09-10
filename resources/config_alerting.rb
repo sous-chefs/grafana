@@ -2,7 +2,7 @@
 # Cookbook:: grafana
 # Resource:: config_alerting
 #
-# Copyright:: 2018, Sous Chefs
+# Copyright:: 2021, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,31 +23,23 @@ unified_mode true
 use 'partial/_config_file'
 
 property :enabled, [true, false],
-          default: true
+          default: false
 
-property :execute_alerts, [true, false],
-          default: true
+property :execute_alerts, [true, false]
 
-property :error_or_timeout, String,
-          default: 'alerting'
+property :error_or_timeout, String
 
-property :nodata_or_nullvalues, String,
-          default: 'no_data'
+property :nodata_or_nullvalues, String
 
-property :concurrent_render_limit, Integer,
-          default: 5
+property :concurrent_render_limit, Integer
 
-property :evaluation_timeout_seconds, Integer,
-          default: 30
+property :evaluation_timeout_seconds, Integer
 
-property :notification_timeout_seconds, Integer,
-          default: 30
+property :notification_timeout_seconds, Integer
 
-property :max_attempts, Integer,
-          default: 30
+property :max_attempts, Integer
 
-property :min_interval_seconds, Integer,
-          default: 30
+property :min_interval_seconds, Integer
 
 property :max_annotation_age, String
 

@@ -2,7 +2,7 @@
 # Cookbook:: grafana
 # Resource:: config_security
 #
-# Copyright:: 2018, Sous Chefs
+# Copyright:: 2021, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,64 +22,45 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property :admin_user, String,
-          default: 'admin'
+property :admin_user, String
 
-property :admin_password, String,
-          default: 'admin'
+property :admin_password, String
 
-property :secret_key, String,
-          default: 'SW2YcwTIb9zpOOhoPsMm'
+property :secret_key, String
 
-property :login_remember_days, Integer,
-          default: 7
+property :login_remember_days, Integer
 
-property :cookie_username, String,
-          default: 'grafana_user'
+property :cookie_username, String
 
-property :cookie_remember_name, String,
-          default: 'grafana_remember'
+property :cookie_remember_name, String
 
-property :disable_gravatar, [true, false],
-          default: false
+property :disable_gravatar, [true, false]
 
-property :data_source_proxy_whitelist, String,
-          default: ''
+property :data_source_proxy_whitelist, String
 
-property :disable_brute_force_login_protection, [true, false],
-          default: false
+property :disable_brute_force_login_protection, [true, false]
 
-property :allow_embedding, [true, false],
-          default: false
+property :allow_embedding, [true, false]
 
-property :cookie_secure, [true, false],
-          default: false
+property :cookie_secure, [true, false]
 
-property :cookie_samesite, String,
-          default: 'lax'
+property :cookie_samesite, String
 
-property :disable_initial_admin_creation, [true, false],
-          default: false
+property :disable_initial_admin_creation, [true, false]
 
-property :strict_transport_security, [true, false],
-          default: false
+property :strict_transport_security, [true, false]
 
 property :strict_transport_security_max_age_seconds, Integer
 
-property :strict_transport_security_preload, [true, false],
-          default: false
+property :strict_transport_security_preload, [true, false]
 
-property :strict_transport_security_subdomains, [true, false],
-          default: false
+property :strict_transport_security_subdomains, [true, false]
 
-property :x_content_type_options, [true, false],
-          default: false
+property :x_content_type_options, [true, false]
 
-property :x_xss_protection, [true, false],
-          default: false
+property :x_xss_protection, [true, false]
 
-property :content_security_policy, [true, false],
-          default: false
+property :content_security_policy, [true, false]
 
 property :content_security_policy_template, String
 

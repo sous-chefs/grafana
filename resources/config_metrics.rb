@@ -23,10 +23,9 @@ unified_mode true
 use 'partial/_config_file'
 
 property :enabled, [true, false],
-         default: true
+          default: false
 
-property :interval_seconds, Integer,
-          default: 10
+property :interval_seconds, Integer
 
 property :basic_auth_username, String
 

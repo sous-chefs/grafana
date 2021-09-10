@@ -2,7 +2,7 @@
 # Cookbook:: grafana
 # Resource:: config_snapshots
 #
-# Copyright:: 2018, Sous Chefs
+# Copyright:: 2021, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,19 +22,15 @@ unified_mode true
 use 'partial/_config_file'
 
 property :external_enabled, [true, false],
-          default: true
-
-property :external_snapshot_url, String,
-          default: 'https://snapshots-origin.raintank.io'
-
-property :external_snapshot_name, String,
-          default: 'Publish to snapshot.raintank.io'
-
-property :public_mode, [true, false],
           default: false
 
-property :snapshot_remove_expired, [true, false],
-          default: true
+property :external_snapshot_url, String
+
+property :external_snapshot_name, String
+
+property :public_mode, [true, false]
+
+property :snapshot_remove_expired, [true, false]
 
 action :create do
   converge_if_changed {}

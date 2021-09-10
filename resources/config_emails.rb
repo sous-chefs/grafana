@@ -2,7 +2,7 @@
 # Cookbook:: grafana
 # Resource:: config_emails
 #
-# Copyright:: 2018, Sous Chefs
+# Copyright:: 2021, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,8 +22,7 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property :welcome_email_on_sign_up, [true, false],
-          default: false
+property :welcome_email_on_sign_up, [true, false]
 
 property :templates_pattern, String
 

@@ -2,7 +2,7 @@
 # Cookbook:: grafana
 # Resource:: config_session
 #
-# Copyright:: 2018, Sous Chefs
+# Copyright:: 2021, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,17 +27,18 @@ property :session_provider, [String, Symbol],
           equal_to: [:memory, :file, :redis, :mysql, :postgres, :memcache, 'memory', 'file', 'redis', 'mysql', 'postgres', 'memcache'],
           coerce: proc { |p| p.to_s }
 
-property :provider_config, String, default: 'sessions'
+property :provider_config, String,
+          default: 'sessions'
 
-property :cookie_name, String, required: false
+property :cookie_name, String
 
-property :cookie_secure, [true, false], default: false
+property :cookie_secure, [true, false]
 
-property :session_life_time, Integer, default: 86400
+property :session_life_time, Integer
 
-property :gc_interval_time, Integer, default: 86400
+property :gc_interval_time, Integer
 
-property :conn_max_lifetime, Integer, default: 14400
+property :conn_max_lifetime, Integer
 
 action :create do
   converge_if_changed {}

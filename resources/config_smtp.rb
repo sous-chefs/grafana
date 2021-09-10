@@ -2,7 +2,7 @@
 # Cookbook:: grafana
 # Resource:: config_smtp
 #
-# Copyright:: 2018, Sous Chefs
+# Copyright:: 2021, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -38,11 +38,9 @@ property :key_file, String
 property :skip_verify, [true, false],
           default: false
 
-property :from_address, String,
-          default: "admin@grafana-#{node['hostname']}.#{node['domain'].nil? ? 'local' : node['domain']}"
+property :from_address, String
 
-property :from_name, String,
-          default: 'Grafana'
+property :from_name, String
 
 property :ehlo_identity, String
 

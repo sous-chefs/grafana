@@ -18,10 +18,13 @@
 
 require 'deepsort'
 require 'inifile'
+require_relative '_utils'
 
 module Grafana
   module Cookbook
     module IniHelper
+      include Grafana::Cookbook::Utils
+
       private
 
       def load_inifile(file)
@@ -33,7 +36,13 @@ module Grafana
       def inifile_string(content)
         raise ArgumentError, "Expected Hash got #{content.class}" unless content.is_a?(Hash)
 
-        ::IniFile.new(content: content).to_s.gsub("[global]\n", '')
+        content_compact = content.dup.compact
+        global_settings = content_compact.delete('global')
+
+        content_compact.deep_sort!
+        content_compact.delete_if { |_, v| nil_or_empty?(v) }
+
+        ::IniFile.new(content: { 'global' => global_settings }.merge(content_compact)).to_s.gsub("[global]\n", '')
       end
     end
   end

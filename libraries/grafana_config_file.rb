@@ -35,14 +35,15 @@ module Grafana
 
       def load_file_grafana_config_section(config_file)
         grafana_config = load_file_grafana_config(config_file)
+
+        return if nil_or_empty?(grafana_config)
+
         path = if respond_to?(:resource_config_path_override)
                  raise ArgumentError, 'Path override should be specified as an Array' unless resource_config_path_override.is_a?(Array)
                  resource_config_path_override
                else
                  resource_default_config_path
                end
-
-        return if nil_or_empty?(grafana_config)
 
         section_config = grafana_config.dig(*path)
         Chef::Log.debug("load_file_grafana_config_section: #{config_file} section #{path.join('|')} - [#{section_config.class}] #{section_config}")

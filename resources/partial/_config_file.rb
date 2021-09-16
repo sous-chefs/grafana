@@ -34,6 +34,10 @@ property :config_file, String,
           default: lazy { ::File.join(conf_directory, 'grafana.ini') },
           desired_state: false
 
+property :load_existing_config_file, true,
+          default: true,
+          desired_state: false
+
 property :cookbook, String,
           default: 'grafana',
           desired_state: false
@@ -73,15 +77,15 @@ action_class do
 end
 
 action :create do
-  converge_if_changed {}
+  converge_if_changed do
+    resource_properties.each do |rp|
+      next if nil_or_empty?(new_resource.send(rp))
 
-  resource_properties.each do |rp|
-    next if nil_or_empty?(new_resource.send(rp))
+      accumulator_config(:set, rp.to_s, new_resource.send(rp))
+    end
 
-    accumulator_config(:set, rp.to_s, new_resource.send(rp))
+    new_resource.extra_options.each { |key, value| accumulator_config(:set, key, value) } if property_is_set?(:extra_options)
   end
-
-  new_resource.extra_options.each { |key, value| accumulator_config(:set, key, value) } if property_is_set?(:extra_options)
 end
 
 action :delete do

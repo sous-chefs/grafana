@@ -17,17 +17,17 @@
 #
 
 require_relative '_utils'
-require_relative 'ini'
-require_relative 'toml'
+require_relative 'grafana_config_file'
+require_relative 'ldap_config_file'
 
 module Grafana
   module Cookbook
     module ConfigHelper
-      include Grafana::Cookbook::IniHelper
-      include Grafana::Cookbook::TomlHelper
+      include Grafana::Cookbook::GrafanaConfigFile
+      include Grafana::Cookbook::LdapConfigFile
       include Grafana::Cookbook::Utils
 
-      GLOBAL_CONFIG_PROPERTIES_SKIP = %i(conf_directory config_file cookbook source source_ldap source_env owner group filemode sensitive extra_options).freeze
+      GLOBAL_CONFIG_PROPERTIES_SKIP = %i(conf_directory config_file load_existing_config_file cookbook source source_ldap source_env owner group filemode sensitive extra_options).freeze
       private_constant :GLOBAL_CONFIG_PROPERTIES_SKIP
 
       private
@@ -74,20 +74,32 @@ module Grafana
       end
 
       def config_template_exist?
-        Chef::Log.debug("config_template_exist?: Checking for config file #{new_resource.config_file}")
+        Chef::Log.debug("config_template_exist?: Checking for config file template #{new_resource.config_file}")
         config_resource = !find_resource!(:template, ::File.join(new_resource.config_file)).nil?
 
         Chef::Log.debug("config_template_exist?: #{config_resource}")
         config_resource
       rescue Chef::Exceptions::ResourceNotFound
-        Chef::Log.info("config_template_exist?: Config file #{new_resource.config_file} ResourceNotFound")
+        Chef::Log.debug("config_template_exist?: Config file template #{new_resource.config_file} ResourceNotFound")
         false
       end
 
-      def init_config_template(load_existing = false)
+      def init_config_template
         return false if config_template_exist?
 
         Chef::Log.debug("init_config_template: Creating config template resource for #{new_resource.config_file}")
+
+        config_variables = if new_resource.load_existing_config_file
+                             load_method = new_resource.config_file.match?('grafana.ini') ? :load_file_grafana_config : :load_file_ldap_config
+                             Chef::Log.debug("init_config_template: Loading existing config file #{new_resource.config_file} into template variables via #{load_method}")
+
+                             existing_config_load = send(load_method, new_resource.config_file) || {}
+                             Chef::Log.debug("init_config_template: Existing config load data: #{existing_config_load}")
+
+                             existing_config_load
+                           else
+                             {}
+                           end
 
         with_run_context(:root) do
           declare_resource(:chef_gem, 'deepsort') { compile_time true } unless gem_installed?('deepsort')
@@ -104,15 +116,7 @@ module Grafana
 
             sensitive new_resource.sensitive
 
-            if load_existing
-              if new_resource.config_file.match?('grafana.ini')
-                variables(config: load_file_grafana_config(new_resource.config_file))
-              else
-                variables(config: load_file_ldap_config(new_resource.config_file))
-              end
-            else
-              variables(config: {})
-            end
+            variables(config: config_variables)
 
             helpers(Grafana::Cookbook::IniHelper)
             helpers(Grafana::Cookbook::TomlHelper)
@@ -123,11 +127,6 @@ module Grafana
         end
 
         true
-      end
-
-      def config_file_template_variables
-        init_config_template unless config_template_exist?
-        find_resource!(:template, ::File.join(new_resource.config_file)).variables[:config]
       end
 
       def accumulator_config_path_init(*path)
@@ -144,6 +143,21 @@ module Grafana
         end
 
         config_hash
+      end
+
+      def config_file_template_variables
+        init_config_template unless config_template_exist?
+        find_resource!(:template, ::File.join(new_resource.config_file)).variables[:config]
+      end
+
+      def ldap_server_config(host)
+        template_servers = config_file_template_variables.fetch('servers', nil)
+        raise "No server configuration found, got [#{template_servers.class}] #{template_servers}" unless template_servers
+
+        template_server_index = template_servers.find_index { |s| s['host'].eql?(host) }
+        raise "No index found for host #{host}, got [#{template_server_index.class}] #{template_server_index}" unless template_server_index
+
+        template_servers[template_server_index]
       end
     end
   end

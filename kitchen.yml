@@ -36,19 +36,10 @@ suites:
   - name: proxy
     run_list:
       - recipe[test::proxy]
-    provisioner:
-      # grafana_user update not idempotent
-      enforce_idempotency: false
-      multiple_converge: 1
-
 
   - name: plugins
     run_list:
       - recipe[test::plugins]
-    provisioner:
-      # grafana_plugin with url not idempotent
-      enforce_idempotency: false
-      multiple_converge: 1
 
   - name: basic
     run_list:
@@ -57,10 +48,6 @@ suites:
   - name: configure
     run_list:
       - recipe[test::configure]
-    provisioner:
-      # grafana_user update not idempotent
-      enforce_idempotency: false
-      multiple_converge: 1
 
   - name: azuread
     run_list:

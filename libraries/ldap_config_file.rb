@@ -36,7 +36,10 @@ module Grafana
       def load_file_ldap_config_host(config_file, host)
         return unless ::File.exist?(config_file)
 
-        load_file_ldap_config(config_file).fetch('servers', {}).select { |s| s['host'].eql?(host) }.first
+        host = load_file_ldap_config(config_file).fetch('servers', {}).select { |s| s['host'].eql?(host) }.first
+        Chef::Log.debug("load_file_ldap_config_host: #{config_file} host #{host} - [#{host.class}] #{host}")
+
+        host
       end
 
       def load_file_ldap_config_host_attributes(config_file, host)
@@ -44,7 +47,10 @@ module Grafana
 
         return if nil_or_empty?(host_config)
 
-        host_config.fetch('attributes')
+        attributes = host_config.fetch('attributes', nil)
+        Chef::Log.debug("load_file_ldap_config_host_attributes: #{config_file} host #{host} - [#{attributes.class}] #{attributes}")
+
+        attributes
       end
 
       def load_file_ldap_config_host_group_mapping(config_file, host, group_dn)
@@ -52,7 +58,10 @@ module Grafana
 
         return if nil_or_empty?(host_config)
 
-        host_config.fetch('group_mappings').select { |gm| gm['group_dn'].eql?(group_dn) }.first
+        group_mapping = host_config.fetch('group_mappings', []).select { |gm| gm['group_dn'].eql?(group_dn) }.first
+        Chef::Log.debug("load_file_ldap_config_host_group_mapping: #{config_file} host #{host} group #{group_dn} - [#{group_mapping.class}] #{group_mapping}")
+
+        group_mapping
       end
     end
   end

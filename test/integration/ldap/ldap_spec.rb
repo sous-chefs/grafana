@@ -50,6 +50,12 @@ describe toml('/etc/grafana/ldap.toml') do
   its(['servers', 0, 'group_mappings', 0, 'grafana_admin']) { should eq false }
 end
 
+describe file('/etc/grafana/ldap.toml') do
+  its('content') { should_not match /cn=admins,ou=groups,dc=grafana,dc=org/ }
+  its('content') { should_not match /cn=users,ou=groups,dc=grafana,dc=org/ }
+  its('content') { should_not match /group_dn = "\*"/ }
+end
+
 describe service('grafana-server') do
   it { should be_enabled }
   it { should be_running }

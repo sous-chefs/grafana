@@ -68,19 +68,19 @@ action_class do
 end
 
 action :create do
-  converge_if_changed {}
+  converge_if_changed do
+    attributes = resource_properties.map do |rp|
+      next if nil_or_empty?(new_resource.send(rp))
 
-  template_servers = config_file_template_variables.fetch('servers', nil)
-  raise "No servers, got #{template_servers.class} #{template_servers}" unless template_servers
+      [rp.to_s.delete_prefix('attribute_'), new_resource.send(rp)]
+    end.compact.to_h
 
-  template_server_index = template_servers.find_index { |s| s['host'].eql?(new_resource.host) }
-  raise "No index, got #{template_server_index.class} #{template_server_index}" unless template_server_index
+    ldap_server_config(new_resource.host)['attributes'] = attributes
+  end
+end
 
-  attributes = resource_properties.map do |rp|
-    next if nil_or_empty?(new_resource.send(rp))
-
-    [rp.to_s.delete_prefix('attribute_'), new_resource.send(rp)]
-  end.compact.to_h
-
-  template_servers[template_server_index]['attributes'] = attributes
+action :delete do
+  converge_by("Remove LDAP server #{new_resource.host} attribute mapping") do
+    ldap_server_config(new_resource.host).delete('attributes')
+  end if ldap_server_config(new_resource.host).key?('attributes')
 end

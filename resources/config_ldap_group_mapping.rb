@@ -31,13 +31,12 @@ property :group_dn, String,
           name_property: true
 
 property :org_role, String,
+          equal_to: %w(Admin Editor Viewer),
           required: true
 
-property :grafana_admin, [true, false],
-          required: true
+property :grafana_admin, [true, false]
 
-property :org_id, Integer,
-          required: true
+property :org_id, Integer
 
 load_current_value do |new_resource|
   current_config = load_file_ldap_config_host_group_mapping(new_resource.config_file, new_resource.host, new_resource.group_dn)
@@ -62,23 +61,40 @@ action_class do
   def resource_config_properties_skip
     RESOURCE_CONFIG_PROPERTIES_SKIP
   end
+
+  def group_mapping_exist?
+    group_mappings = ldap_server_config(new_resource.host).fetch('group_mappings', nil)
+
+    return unless group_mappings
+
+    group_mappings.any? { |gm| gm['group_dn'].eql?(new_resource.group_dn) && gm['org_role'].eql?(new_resource.org_role) }
+  end
+
+  def remove_group_mapping
+    group_mappings = ldap_server_config(new_resource.host).fetch('group_mappings', nil)
+
+    return unless group_mappings
+
+    group_mappings.delete_if { |gm| gm['group_dn'].eql?(new_resource.group_dn) && gm['org_role'].eql?(new_resource.org_role) }
+  end
 end
 
 action :create do
-  converge_if_changed {}
+  converge_if_changed do
+    mapping = resource_properties.map do |rp|
+      next if nil_or_empty?(new_resource.send(rp))
 
-  template_servers = config_file_template_variables.fetch('servers', nil)
-  raise "No servers, got #{template_servers.class} #{template_servers}" unless template_servers
+      [rp.to_s, new_resource.send(rp)]
+    end.compact.to_h
 
-  template_server_index = template_servers.find_index { |s| s['host'].eql?(new_resource.host) }
-  raise "No index, got #{template_server_index.class} #{template_server_index}" unless template_server_index
+    remove_group_mapping if group_mapping_exist?
 
-  mapping = resource_properties.map do |rp|
-    next if nil_or_empty?(new_resource.send(rp))
+    ldap_server_config(new_resource.host)['group_mappings'] ||= []
+    ldap_server_config(new_resource.host)['group_mappings'].push(mapping)
+    ldap_server_config(new_resource.host)['group_mappings'].sort_by! { |gm| gm['group_dn'] }
+  end
+end
 
-    [rp.to_s, new_resource.send(rp)]
-  end.compact.to_h
-
-  template_servers[template_server_index]['group_mappings'] ||= []
-  template_servers[template_server_index]['group_mappings'].push(mapping)
+action :delete do
+  converge_by("Remove LDAP server #{new_resource.host} group mapping for #{new_resource.group_dn}") { remove_group_mapping } if group_mapping_exist?
 end

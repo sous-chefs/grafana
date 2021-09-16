@@ -57,6 +57,27 @@ grafana_config_ldap_group_mapping 'readers' do
   org_id 1
 end
 
+grafana_config_ldap_group_mapping 'cn=admins,ou=groups,dc=grafana,dc=org' do
+  host '127.0.0.1'
+  org_role 'Admin'
+
+  action :delete
+end
+
+grafana_config_ldap_group_mapping 'cn=users,ou=groups,dc=grafana,dc=org' do
+  host '127.0.0.1'
+  org_role 'Editor'
+
+  action :delete
+end
+
+grafana_config_ldap_group_mapping '*' do
+  host '127.0.0.1'
+  org_role 'Viewer'
+
+  action :delete
+end
+
 grafana_service 'grafana-server' do
   action %i(enable start)
   subscribes :restart, 'template[/etc/grafana/grafana.ini]', :delayed

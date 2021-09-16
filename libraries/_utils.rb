@@ -21,16 +21,28 @@ module Grafana
     module Utils
       private
 
+      # Check if a given object(s) are either Nil or Empty
+      #
+      # @return [true, false] Nil or Empty check result
+      #
       def nil_or_empty?(*values)
         values.any? { |v| v.nil? || (v.respond_to?(:empty?) && v.empty?) }
       end
 
+      # Check if a given gem is installed and available for require
+      #
+      # @return [true, false] Gem installed result
+      #
       def gem_installed?(gem_name)
         !Gem::Specification.find_by_name(gem_name).nil?
       rescue Gem::LoadError
         false
       end
 
+      # Get the default configuration path for the relevant resource
+      #
+      # @return [String, Array<String>] Default configuration path for resource
+      #
       def resource_default_config_path
         type_string = instance_variable_defined?(:@new_resource) ? new_resource.declared_type.to_s : resource_name.to_s
         config_path = Array(type_string.gsub(/(grafana_)(config_)?/, '').split('_').join('.'))

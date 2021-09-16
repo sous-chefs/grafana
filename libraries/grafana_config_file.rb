@@ -27,12 +27,22 @@ module Grafana
 
       private
 
+      # Load the on disk Grafana configuration file
+      #
+      # @param config_file [String] The configuration file to load
+      # @return [Hash] Configuration file contents
+      #
       def load_file_grafana_config(config_file)
         return unless ::File.exist?(config_file)
 
         load_inifile(config_file)
       end
 
+      # Load a section from the on disk Grafana configuration file
+      #
+      # @param config_file [String] The configuration file to load
+      # @return [Hash] Configuration file contents
+      #
       def load_file_grafana_config_section(config_file)
         grafana_config = load_file_grafana_config(config_file)
 

@@ -32,6 +32,12 @@ module Grafana
 
       private
 
+      # Enumerate the properties of the including resource
+      # Properties are skipped globally via the constant GLOBAL_CONFIG_PROPERTIES_SKIP
+      # Properties are skipped per-resource via the :resource_config_properties_skip method if it is defined
+      #
+      # @return [Array] list of resource properties
+      #
       def resource_properties
         properties = instance_variable_defined?(:@new_resource) ? new_resource.class.properties(false).keys : self.class.properties(false).keys
         Chef::Log.debug("resource_properties: Got properties from resource: #{properties.join(', ')}")
@@ -46,6 +52,13 @@ module Grafana
         properties
       end
 
+      # Add/remove/overwrite/delete accumulator config values
+      #
+      # @param action [Symbol] Config action to perform
+      # @param key [String, Symbol] The key to manipulate
+      # @param value [any] Value to assign to key
+      # @return [nil]
+      #
       def accumulator_config(action, key, value)
         path = if respond_to?(:resource_config_path_override)
                  raise ArgumentError, 'Path override should be specified as an Array' unless resource_config_path_override.is_a?(Array)
@@ -73,6 +86,10 @@ module Grafana
         end
       end
 
+      # Check if a given configuration file template resource exists
+      #
+      # @return [true, false]
+      #
       def config_template_exist?
         Chef::Log.debug("config_template_exist?: Checking for config file template #{new_resource.config_file}")
         config_resource = !find_resource!(:template, ::File.join(new_resource.config_file)).nil?
@@ -84,6 +101,10 @@ module Grafana
         false
       end
 
+      # Initialise a configuration file template resource
+      #
+      # @return [true, false] Template creation result
+      #
       def init_config_template
         return false if config_template_exist?
 
@@ -129,6 +150,11 @@ module Grafana
         true
       end
 
+      # Initialise a Hash path for a configuration file template resources variables
+      #
+      # @param *path [String, Symbol, Array<String>, Array<Symbol>] The path to initialise
+      # @return [Hash] The initialised Hash object
+      #
       def accumulator_config_path_init(*path)
         init_config_template unless config_template_exist?
 
@@ -145,11 +171,19 @@ module Grafana
         config_hash
       end
 
+      # Return the relevant configuration file template resources variables configuration key
+      #
+      # @return [Hash] Config template variables
+      #
       def config_file_template_variables
         init_config_template unless config_template_exist?
         find_resource!(:template, ::File.join(new_resource.config_file)).variables[:config]
       end
 
+      # Return a configured LDAP host from the on-disk file
+      #
+      # @return [Hash] The LDAP server configuration Hash
+      #
       def ldap_server_config(host)
         template_servers = config_file_template_variables.fetch('servers', nil)
         raise "No server configuration found, got [#{template_servers.class}] #{template_servers}" unless template_servers

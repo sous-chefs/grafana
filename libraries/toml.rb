@@ -24,12 +24,22 @@ module Grafana
     module TomlHelper
       private
 
+      # Load an toml file from disk
+      #
+      # @param file [String] The file to load
+      # @return [Hash] File contents
+      #
       def load_tomlfile(file)
         return unless File.exist?(file)
 
         ::TomlRB.load_file(file)
       end
 
+      # Create a toml file output as a String from a Hash
+      #
+      # @param content [Hash] The file contents as a Hash
+      # @return [String] Formatted toml output
+      #
       def tomlfile_string(content)
         raise ArgumentError, "Expected Hash got #{content.class}" unless content.is_a?(Hash)
 

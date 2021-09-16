@@ -27,12 +27,22 @@ module Grafana
 
       private
 
+      # Load an ini file from disk
+      #
+      # @param file [String] The file to load
+      # @return [Hash] File contents
+      #
       def load_inifile(file)
         return unless File.exist?(file)
 
         ::IniFile.load(file).to_h
       end
 
+      # Create an ini file output as a String from a Hash
+      #
+      # @param content [Hash] The file contents as a Hash
+      # @return [String] Formatted ini output
+      #
       def inifile_string(content)
         raise ArgumentError, "Expected Hash got #{content.class}" unless content.is_a?(Hash)
 

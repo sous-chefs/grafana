@@ -27,12 +27,23 @@ module Grafana
 
       private
 
+      # Load the on disk LDAP configuration file
+      #
+      # @param config_file [String] The configuration file to load
+      # @return [Hash] Configuration file contents
+      #
       def load_file_ldap_config(config_file)
         return unless ::File.exist?(config_file)
 
         load_tomlfile(config_file)
       end
 
+      # Load a host from the on disk LDAP configuration file
+      #
+      # @param config_file [String] The configuration file to load
+      # @param host [String] The host to return configuration for
+      # @return [Hash] Host configuration
+      #
       def load_file_ldap_config_host(config_file, host)
         return unless ::File.exist?(config_file)
 
@@ -42,6 +53,12 @@ module Grafana
         host
       end
 
+      # Load a hosts configured attributes from the on disk LDAP configuration file
+      #
+      # @param config_file [String] The configuration file to load
+      # @param host [String] The host to return configuration for
+      # @return [Hash] Host attribute configuration
+      #
       def load_file_ldap_config_host_attributes(config_file, host)
         host_config = load_file_ldap_config_host(config_file, host)
 
@@ -53,6 +70,13 @@ module Grafana
         attributes
       end
 
+      # Load a hosts configured attributes from the on disk LDAP configuration file
+      #
+      # @param config_file [String] The configuration file to load
+      # @param host [String] The host to return configuration for
+      # @param group_dn [String] The group DN to return configuration for
+      # @return [Hash] Host attribute configuration
+      #
       def load_file_ldap_config_host_group_mapping(config_file, host, group_dn)
         host_config = load_file_ldap_config_host(config_file, host)
 

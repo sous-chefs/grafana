@@ -6,12 +6,12 @@ grafana_config_auth_anonymous 'Grafana' do
 end
 
 grafana_plugin 'grafana-clock-panel' do
-  action :install
+  action %i(install update)
 end
 
 grafana_plugin 'yesoreyeram-boomtable-panel' do
   plugin_url 'https://raw.githubusercontent.com/sous-chefs/grafana/master/test/fixtures/cookbooks/test/files/plugin-test.zip'
-  action :update
+  action :install
 end
 
 grafana_service 'grafana-server' do

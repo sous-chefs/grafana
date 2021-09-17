@@ -20,47 +20,48 @@
 
 unified_mode true
 
+property :plugin_name, String,
+          name_property: true
+
 property :grafana_cli_bin, String,
           default: '/usr/sbin/grafana-cli'
 
 property :plugin_url, String
 
-default_action :install
+action_class do
+  include Grafana::Cookbook::PluginHelper
+end
 
 action :install do
-  plugin_name = new_resource.name
-  binary = new_resource.grafana_cli_bin
-  plugin_url = new_resource.plugin_url
+  directory '/var/lib/grafana/plugins' do
+    recursive true
+    owner 'grafana'
+    group 'grafana'
+    mode '0755'
 
-  raise "#{plugin_name} is not available" unless ::Grafana::Cookbook::Plugin.available?(plugin_name, binary) || plugin_url
+    action :create
+  end unless ::Dir.exist?('/var/lib/grafana/plugins')
 
-  execute "Installing plugin #{plugin_name}" do
-    command ::Grafana::Cookbook::Plugin.build_cli_cmd(plugin_name, 'install', binary, plugin_url)
-    not_if { ::Grafana::Cookbook::Plugin.installed?(plugin_name, binary) }
-  end
+  raise "#{new_resource.plugin_name} is not available" unless plugin_available?(new_resource.plugin_name) || new_resource.plugin_url
+
+  converge_by("Installing plugin #{new_resource.plugin_name}") do
+    plugin_action(action: :install, name: new_resource.plugin_name, plugin_url: new_resource.plugin_url)
+  end unless plugin_installed?(new_resource.plugin_name)
 end
 
 action :update do
-  plugin_name = new_resource.name
-  binary = new_resource.grafana_cli_bin
-  plugin_url = new_resource.plugin_url
-
-  if ::Grafana::Cookbook::Plugin.installed?(plugin_name, binary)
-    execute "Updating plugin #{plugin_name}" do
-      command ::Grafana::Cookbook::Plugin.build_cli_cmd(plugin_name, 'update', binary, plugin_url)
-    end
+  if plugin_installed?(new_resource.plugin_name)
+    converge_by("Updating plugin #{new_resource.plugin_name}") do
+      plugin_action(action: :update, name: new_resource.plugin_name, plugin_url: new_resource.plugin_url)
+    end if plugin_update_available?(new_resource.plugin_name)
   else
-    Chef::Log.warn "Impossible to upgrade plugin #{plugin_name} because it is not installed. We will install it."
+    Chef::Log.warn "Impossible to upgrade plugin #{new_resource.plugin_name} because it is not installed. We will install it."
     run_action(:install)
   end
 end
 
 action :remove do
-  plugin_name = new_resource.name
-  binary = new_resource.grafana_cli_bin
-
-  execute "Removing plugin #{name}" do
-    command ::Grafana::Cookbook::Plugin.build_cli_cmd(plugin_name, 'remove', binary)
-    only_if { ::Grafana::Cookbook::Plugin.installed?(plugin_name, binary) }
-  end
+  converge_by("Removing plugin #{name}") do
+    plugin_action(action: :remove, name: new_resource.plugin_name)
+  end if plugin_installed?(new_resource.plugin_name)
 end

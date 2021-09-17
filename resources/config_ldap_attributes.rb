@@ -60,10 +60,8 @@ load_current_value do |new_resource|
 end
 
 action_class do
-  RESOURCE_CONFIG_PROPERTIES_SKIP = %i(host).freeze
-
   def resource_config_properties_skip
-    RESOURCE_CONFIG_PROPERTIES_SKIP
+    %i(host).freeze
   end
 end
 

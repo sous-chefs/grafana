@@ -10,6 +10,9 @@ This file is used to list changes made in each version of grafana.
 - Automatic config template resource generation
 - Add service resource
 - Add LDAP log filters to the main config file
+- Split log resource into seperate resources
+- Split auth resource into seperate resources
+- Update for Grafana v8.0 configuration
 
 ## 9.7.1 - *2021-08-30*
 

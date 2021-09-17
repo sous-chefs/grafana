@@ -1,5 +1,20 @@
 # Upgrading
 
+## 10.0.0
+
+### Version 10 is a major internal rewrite
+
+- All API resource have been removed
+- All resource have been refactored around an abstract common base resource `_config_file`
+  - LDAP resources extend this via `_config_file_ldap`
+- Resource properties are automatically enumerated and added to the accumulator configuration file
+- The accumulator templates for the configuration files are now persistent via the loading of the current config state during creation
+  - Configuration is no longer automatically removed when the resource falls out of scope
+  - To remove configuration elements an explicit resource with `:delete` action is required
+  - Configuration files will not be overwritten with a blank or partial configuration when a run `raises`
+- The auth resource has been split into seperate resources
+- The log resource has been split into seperate resources
+
 ## 9.0.0
 
 Ensure you are on chef 15.5 or greater as we are now using `chef_sleep` in tests

@@ -33,3 +33,13 @@ property :scopes, String,
           default: 'user:email'
 
 property :allowed_organizations, String
+
+def resource_config_path_override
+  %w(auth.grafana_com)
+end
+
+action_class do
+  def resource_config_path_override
+    %w(auth.grafana_com)
+  end
+end

@@ -20,7 +20,8 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property :enabled, [true, false], default: false
+property :enabled, [true, false],
+          default: false
 
 property :org_name, String
 

@@ -23,7 +23,8 @@ use 'partial/_config_file'
 property :name, String,
           default: 'Generic OAuth'
 
-property :enabled, [true, false]
+property :enabled, [true, false],
+          default: false
 
 property :allow_sign_up, [true, false]
 

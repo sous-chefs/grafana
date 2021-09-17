@@ -21,9 +21,10 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property :type, Symbol,
+property :type, [Symbol, String],
           default: :sqlite3,
-          equal_to: %i(mysql postgres sqlite3)
+          equal_to: [ :mysql, :postgres, :sqlite3, 'mysql', 'postgres', 'sqlite3' ],
+          coerce: proc { |p| p.to_s }
 
 property :host, String
 
@@ -44,7 +45,6 @@ property :conn_max_lifetime, Integer
 property :log_queries, [true, false], default: false
 
 property :ssl_mode, [Symbol, true, false],
-          default: :disable,
           equal_to: [ :disable, :require, :'verify-full', true, false, :'skip-verify' ]
 
 property :isolation_level, String,

@@ -20,4 +20,5 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property :enabled, [true, false], default: true
+property :enabled, [true, false],
+          default: false

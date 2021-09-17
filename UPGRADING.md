@@ -11,9 +11,11 @@
 - The accumulator templates for the configuration files are now persistent via the loading of the current config state during creation
   - Configuration is no longer automatically removed when the resource falls out of scope
   - To remove configuration elements an explicit resource with `:delete` action is required
+    - If no properties are specified with the `:delete` action then the whole configuration section will be removed
+    - If properties are specified with the `:delete` action then only the specified properties will be removed
   - Configuration files will not be overwritten with a blank or partial configuration when a run `raises`
-- The auth resource has been split into seperate resources
-- The log resource has been split into seperate resources
+- The auth resource has been split into separate resources
+- The log resource has been split into separate resources
 
 ## 9.0.0
 
@@ -27,7 +29,7 @@ Remove any `source`, `cookbook`, `config_file` and `config_directory` overrides 
 Remove any `cookbook` and `config_directory` overrides from the `grafana_config` resource
 Add the `grafana_config_writer` to the end of your config resources, this will create the config file on disk and restart grafana to allow any api calls to work straight after
 Change `ldap_config_servers` `host` property from the name property to a normal property (required)
-Change `ldap_config_group_mappings` `group_dn` property fromthe name property to a normal property (required)
+Change `ldap_config_group_mappings` `group_dn` property from the name property to a normal property (required)
 Added `instance_name` to above resources as name property, this should line up across all config resources
 Change `grafana_config_database` property `type` to a symbol
 Change `grafana_config_database` property `ssl_mode` to a symbol or true/false

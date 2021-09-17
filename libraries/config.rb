@@ -59,7 +59,7 @@ module Grafana
       # @param value [any] Value to assign to key
       # @return [nil]
       #
-      def accumulator_config(action, key, value)
+      def accumulator_config(action, key, value = nil)
         path = if respond_to?(:resource_config_path_override)
                  raise ArgumentError, 'Path override should be specified as an Array' unless resource_config_path_override.is_a?(Array)
                  resource_config_path_override
@@ -68,19 +68,19 @@ module Grafana
                end
 
         config_hash = accumulator_config_path_init(*path)
-        Chef::Log.debug("Append to config key #{key}, value #{value} on path #{path.map { |p| "['#{p}']" }.join}")
+        Chef::Log.debug("Perfoming action #{action} on config key #{key}, value [#{value.class}] #{value} on path #{path.map { |p| "['#{p}']" }.join}")
 
         case action
         when :set
-          config_hash[key] = value
+          config_hash[key.to_s] = value
         when :append
-          config_hash[key] ||= ''
-          config_hash[key].concat(value.to_s)
+          config_hash[key.to_s] ||= ''
+          config_hash[key.to_s].concat(value.to_s)
         when :push
-          config_hash[key] ||= []
-          config_hash[key].push(value)
+          config_hash[key.to_s] ||= []
+          config_hash[key.to_s].push(value)
         when :delete
-          config_hash.delete(key) if config_hash.key?(key)
+          config_hash.delete(key.to_s) if config_hash.key?(key.to_s)
         else
           raise ArgumentError, "Unsupported accumulator config action #{action}"
         end
@@ -108,7 +108,7 @@ module Grafana
       def init_config_template
         return false if config_template_exist?
 
-        Chef::Log.debug("init_config_template: Creating config template resource for #{new_resource.config_file}")
+        Chef::Log.info("init_config_template: Creating config template resource for #{new_resource.config_file}")
 
         config_variables = if new_resource.load_existing_config_file
                              load_method = new_resource.config_file.match?('grafana.ini') ? :load_file_grafana_config : :load_file_ldap_config

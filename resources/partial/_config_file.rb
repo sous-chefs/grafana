@@ -55,7 +55,8 @@ property :group, String,
 property :filemode, String,
           default: '0640'
 
-property :extra_options, Hash
+property :extra_options, Hash,
+          coerce: proc { |p| p.transform_keys(&:to_s) }
 
 load_current_value do |new_resource|
   current_config = load_file_grafana_config_section(new_resource.config_file)
@@ -68,12 +69,21 @@ load_current_value do |new_resource|
     filemode ::File.stat(new_resource.config_file).mode.to_s(8)[-4..-1]
   end
 
-  current_config[:extra_options] = current_config.reject! { |k, _| resource_properties.include?(k) }
-  resource_properties.each { |p| send(p, current_config.fetch(p.to_s, nil)) }
+  extra_options_filtered = current_config.reject { |k, _| resource_properties.include?(k.to_sym) }
+  current_config.reject! { |k, _| extra_options_filtered.keys.include?(k) }
+
+  resource_properties.each do |p|
+    next unless current_config.fetch(p.to_s, nil)
+
+    send(p, current_config.fetch(p.to_s))
+  end
+
+  extra_options(extra_options_filtered) unless nil_or_empty?(extra_options_filtered)
 end
 
 action_class do
   include Grafana::Cookbook::ConfigHelper
+  include Grafana::Cookbook::GrafanaConfigFile
 end
 
 action :create do
@@ -81,7 +91,7 @@ action :create do
     resource_properties.each do |rp|
       next if nil_or_empty?(new_resource.send(rp))
 
-      accumulator_config(:set, rp.to_s, new_resource.send(rp))
+      accumulator_config(:set, rp, new_resource.send(rp))
     end
 
     new_resource.extra_options.each { |key, value| accumulator_config(:set, key, value) } if property_is_set?(:extra_options)
@@ -89,13 +99,20 @@ action :create do
 end
 
 action :delete do
-  converge_if_changed {}
+  set_properties = resource_properties.push(:extra_options).filter { |rp| property_is_set?(rp) }
+  delete_properties = if nil_or_empty?(set_properties)
+                        resource_properties
+                      else
+                        set_properties
+                      end
+  diff_properties = delete_properties.filter { |dp| load_file_grafana_config_section(new_resource.config_file).key?(dp.to_s) }
 
-  resource_properties.each do |rp|
-    next if nil_or_empty?(new_resource.send(rp))
-
-    accumulator_config(:delete, rp.to_s, new_resource.send(rp))
+  if property_is_set?(:extra_options)
+    extra_options_diff = new_resource.extra_options.keys.filter { |eo| load_file_grafana_config_section(new_resource.config_file).key?(eo) }
+    diff_properties.concat(extra_options_diff) unless nil_or_empty?(extra_options_diff)
   end
 
-  new_resource.extra_options.each { |key, value| accumulator_config(:delete, key, value) } if property_is_set?(:extra_options)
+  converge_by("Deleting configuration for #{diff_properties.join(', ')}") do
+    diff_properties.each { |rp| accumulator_config(:delete, rp) }
+  end unless diff_properties.empty?
 end

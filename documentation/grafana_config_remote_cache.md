@@ -10,14 +10,15 @@ Introduced: v6.2.0
 
 ## Actions
 
-`:install`
+- `:create`
+- `:delete`
 
 ## Properties
 
-| Name                | Type        |  Default                                  | Description                                             | Allowed Values
-| ------------------- | ----------- | ----------------------------------------- | ------------------------------------------------------- | --------------- |
-| `remote_cache_type` | Symbol      | `database`                                | Provider to use                                         |redis memcached database
-| `remote_cache_config`   | String      |                                       | See <https://grafana.com/docs/installation/configuration/#connstr> |
+| Name      | Type   | Default    | Description                                                        | Allowed Values           |
+| --------- | ------ | ---------- | ------------------------------------------------------------------ | ------------------------ |
+| `type`    | Symbol | `database` | Provider to use                                                    | redis memcached database |
+| `connstr` | String |            | See <https://grafana.com/docs/installation/configuration/#connstr> |
 
 ## Examples
 

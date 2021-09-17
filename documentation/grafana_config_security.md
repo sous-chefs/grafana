@@ -10,22 +10,32 @@ Introduced: v4.0.0
 
 ## Actions
 
-`:install`
+- `:create`
+- `:delete`
 
 ## Properties
 
-| Name                                    | Type        |  Default                    | Description                                             | Allowed Values
-| --------------------------------------- | ----------- | --------------------------- | ------------------------------------------------------- | --------------- |
-| `admin_user`                            | String      | `admin`                     | default admin user, created on startup                  |
-| `admin_password`                        | String      | `admin`                     | default admin password                                  |
-| `secret_key`                            | String      | `SW2YcwTIb9zpOOhoPsMm`      | used for signing.                                       |
-| `login_remember_days`                   | Integer     | `7`                         | The number of days the keep me logged in / remember me cookie lasts.|
-| `disable_gravatar`                      | true, false | `false`                     | disable gravatar profile images.                        | true, false
-| `data_source_proxy_whitelist`           | String      |                             | data source proxy whitelist                      |ip_or_domain:port separated by spaces
-| `disable_brute_force_login_protection`  | true, false | `false`                     | disable protection against brute force login attempts.  | true, false
-| `allow_embedding`                       | true, false | `false`                     | Allows grafana to be embedded in an iframe              | true, false
-| `cookie_secure`                         | true, false | `false`                     | Secures cookies if running behind https                 | true, false
-| `cookie_samesite`                       | String      | `lax`                       | Sets `SameSite` cookie and Prevents the browser from sending this cookie along with CSS attacks.|
+| Name                                        | Type        | Default | Description                                                                                      | Allowed Values                        |
+| ------------------------------------------- | ----------- | ------- | ------------------------------------------------------------------------------------------------ | ------------------------------------- |
+| `admin_user`                                | String      |         | default admin user, created on startup                                                           |
+| `admin_password`                            | String      |         | default admin password                                                                           |
+| `secret_key`                                | String      |         | used for signing.                                                                                |
+| `login_remember_days`                       | Integer     |         | The number of days the keep me logged in / remember me cookie lasts.                             |
+| `disable_gravatar`                          | true, false |         | disable gravatar profile images.                                                                 | true, false                           |
+| `data_source_proxy_whitelist`               | String      |         | data source proxy whitelist                                                                      | ip_or_domain:port separated by spaces |
+| `disable_brute_force_login_protection`      | true, false |         | disable protection against brute force login attempts.                                           | true, false                           |
+| `allow_embedding`                           | true, false |         | Allows grafana to be embedded in an iframe                                                       | true, false                           |
+| `cookie_secure`                             | true, false |         | Secures cookies if running behind https                                                          | true, false                           |
+| `cookie_samesite`                           | String      |         | Sets `SameSite` cookie and Prevents the browser from sending this cookie along with CSS attacks. |
+| `disable_initial_admin_creation`            | True, False |         |                                                                                                  |
+| `strict_transport_security`                 | True, False |         |                                                                                                  |
+| `strict_transport_security_max_age_seconds` | Integer     |         |                                                                                                  |
+| `strict_transport_security_preload`         | True, False |        |                                                                                                  |
+| `strict_transport_security_subdomains`      | True, False |         |                                                                                                  |
+| `x_content_type_options`                    | True, False |         |                                                                                                  |
+| `x_xss_protection`                          | True, False |         |                                                                                                  |
+| `content_security_policy`                   | True, False |         |                                                                                                  |
+| `content_security_policy_template`          | String      |         |                                                                                                  |
 
 ## Examples
 

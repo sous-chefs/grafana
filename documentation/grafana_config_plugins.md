@@ -10,18 +10,23 @@ Introduced: v9.6.0
 
 ## Actions
 
-`:install`
+- `:create`
+- `:delete`
 
 ## Properties
 
-| Name                      | Type          |  Default                    | Description                                                               |
-| ------------------------- | ------------- | --------------------------- | ------------------------------------------------------------------------- |
-| `allow_loading_unsigned_plugins` | Array | `[]` | <https://grafana.com/docs/grafana/latest/administration/configuration/#allow_loading_unsigned_plugins> |
+| Name                                   | Type          | Default | Description |
+| -------------------------------------- | ------------- | ------- | ----------- |
+| `enable_alpha`                         | True, False   |         |             |
+| `allow_loading_unsigned_plugins`       | Array, String |         |             |
+| `plugin_admin_enabled`                 | True, False   |         |             |
+| `plugin_admin_external_manage_enabled` | True, False   |         |             |
+| `plugin_catalog_url`                   | String        |         |             |
 
 ## Examples
 
 ```ruby
 grafana_config_plugins 'grafana' do
-  allow_loading_unsigned_plugins %w( plugin_name )
+  allow_loading_unsigned_plugins %w(plugin_name)
 end
 ```

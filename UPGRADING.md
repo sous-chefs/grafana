@@ -16,6 +16,7 @@
   - Configuration files will not be overwritten with a blank or partial configuration when a run `raises`
 - The auth resource has been split into separate resources
 - The log resource has been split into separate resources
+- The LDAP configuration resource have been split and renamed to singular forms
 
 ## 9.0.0
 

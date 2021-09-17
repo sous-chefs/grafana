@@ -4,7 +4,6 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
-- Set resource configuration Hash programmatically
 - Automatic config Hash path creation
 - Automatic resource property fetching
 - Automatic config template resource generation
@@ -13,6 +12,7 @@ This file is used to list changes made in each version of grafana.
 - Split log resource into seperate resources
 - Split auth resource into seperate resources
 - Update for Grafana v8.0 configuration
+- Config accumulators are now persistent (explicit delete action required to remove)
 
 ## 9.7.1 - *2021-08-30*
 

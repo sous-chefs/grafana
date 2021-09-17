@@ -10,17 +10,24 @@ Introduced: v4.0.0
 
 ## Actions
 
-`:install`
+- `:create`
+- `:delete`
 
 ## Properties
 
-| Name                      | Type          |  Default                    | Description                                                               | Allowed Values
-| ------------------------- | ------------- | --------------------------- | ------------------------------------------------------------------------- | --------------- |
-| `enabled`                 |  True, False  | `true`                      | Set to false to disable alerting engine and hide Alerting from UI.        | true, false
-| `execute_alerts`          |  True, False  | `true`                      | Makes it possible to turn off alert rule execution.                       | true, false
-| `error_or_timeout`        |  String       | `alerting`                  | Default setting for new alert rules                                       |
-| `nodata_or_nullvalues`    |  String       | `no_data`                   | Default setting for how Grafana handles nodata or null values in alerting |
-| `concurrent_render_limit` |  Integer      | `5`                         | Maximum nuqmber of renders at the same time                               |
+| Name                           | Type        | Default | Description                                                                                                            | Allowed Values |
+| ------------------------------ | ----------- | ------- | ---------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `enabled`                      | True, False | `false` | Set to false to disable alerting engine and hide Alerting from UI.                                                     | true, false    |
+| `execute_alerts`               | True, False | `nil`   | Makes it possible to turn off alert rule execution.                                                                    | true, false    |
+| `error_or_timeout`             | String      | `nil`   | Default setting for new alert rules                                                                                    |                |
+| `nodata_or_nullvalues`         | String      | `nil`   | Default setting for how Grafana handles nodata or null values in alerting                                              |                |
+| `concurrent_render_limit`      | Integer     | `nil`   | Maximum number of renders at the same time                                                                             |                |
+| `evaluation_timeout_seconds`   | Integer     | `nil`   | Sets the alert calculation timeout. Default value is 30.                                                               |                |
+| `notification_timeout_seconds` | Integer     | `nil`   | Sets the alert notification timeout. Default value is 30.                                                              |                |
+| `max_attempts`                 | Integer     | `nil`   | Sets a maximum limit on attempts to sending alert notifications. Default value is 3.                                   |                |
+| `min_interval_seconds`         | Integer     | `nil`   | Sets the minimum interval between rule evaluations. Default value is 1.                                                |                |
+| `max_annotation_age`           | String      | `nil`   | Configures for how long alert annotations are stored. Default is 0, which keeps them forever.                          |                |
+| `max_annotations_to_keep`      | String      | `nil`   | Configures max number of alert annotations that Grafana stores. Default value is 0, which keeps all alert annotations. |                |
 
 ## Examples
 

@@ -193,6 +193,30 @@ module Grafana
 
         template_servers[template_server_index]
       end
+
+      # Check if a resource property translation alias is defined and return the original property name
+      # If an alias is not defined return the original property name
+      #
+      # @return [String] The (translated if required) property name
+      #
+      def translate_property_key(value)
+        return resource_config_properties_translate.key(value) if respond_to?(:resource_config_properties_translate) &&
+                                                                  resource_config_properties_translate.value?(value)
+
+        value.to_s
+      end
+
+      # Check if a resource property translation alias is defined and return the translated config property name
+      # If an alias is not defined return the original property name
+      #
+      # @return [String] The (translated if required) config property name
+      #
+      def translate_property_value(key)
+        return resource_config_properties_translate.fetch(key) if respond_to?(:resource_config_properties_translate) &&
+                                                                  resource_config_properties_translate.key?(key)
+
+        key.to_s
+      end
     end
   end
 end

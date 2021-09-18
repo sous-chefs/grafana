@@ -33,7 +33,7 @@ See a pre-existing resource for an example of this pattern.
 
 ### Overiding the automatic path
 
-If the name of the resource cannot match the name of the configuration section or a nested configuration section is in use such as `section.subsection` then the automatic configuration path can be overriden by the addition of the `resource_config_path_override` method. Due to needed to override the path in both the action class and the outer resource class this method must be added to both sections of the resource declaration.
+If the name of the resource cannot match the name of the configuration section or a nested configuration section is in use such as `section.subsection` then the automatic configuration path can be overriden by the addition of the `:resource_config_path_override` method. Due to needed to override the path in both the action class and the outer resource class this method must be added to both sections of the resource declaration.
 
 Below the last property add the following with the array contents set to the config Hash path set as you would path to [Hash#dig](https://ruby-doc.org/core-3.0.2/Hash.html#method-i-dig) to create the (nested if required) configuration path.
 
@@ -51,10 +51,32 @@ end
 
 ### Excluding properties from the configuration
 
-If an additional property must be added for the resource to operation but the property is not relevant for the Grafana config file then these properties can be marked to be skipped by the enumerator method but the creation of a `resource_config_properties_skip` method. This method should be added to the action class only.
+If an additional property must be added for the resource to operation but the property is not relevant for the Grafana config file then these properties can be marked to be skipped by the enumerator method but the creation of a `:resource_config_properties_skip` method. This method should be added to the action class only.
 
 ```ruby
 def resource_config_properties_skip
   %i(host)
+end
+```
+
+### Property/configuration item name translation
+
+There are some cases where a Grafana configuration property name either conflicts with one of the base properties (`config_auth_ldap` property `:config_file`) or is a name that is disallowed by Chef (`config_external_image_storage` property `:provider`). To work around this issue there is a property translation mechanism implemented that can be used to alias the chef property name to the Grafana property name and vice-versa.
+
+This is performed by the creation of a `:resource_config_properties_translate` method. Due to needed to override the path in both the action class and the outer resource class this method must be added to both sections of the resource declaration.
+
+```ruby
+def resource_config_properties_translate
+  {
+    storage_provider: 'provider',
+  }.freeze
+end
+
+action_class do
+  def resource_config_properties_translate
+    {
+      storage_provider: 'provider',
+    }.freeze
+  end
 end
 ```

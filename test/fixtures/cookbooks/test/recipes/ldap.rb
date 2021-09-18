@@ -5,7 +5,9 @@ grafana_config 'Grafana' do
   sensitive false
 end
 
-grafana_config_auth 'Grafana'
+grafana_config_auth 'Grafana' do
+  sensitive false
+end
 
 grafana_config_auth_ldap 'Grafana' do
   sensitive false
@@ -40,9 +42,13 @@ grafana_config_ldap_server 'Grafana' do
   search_base_dns %w( dc=grafana,dc=org )
 end
 
-grafana_config_ldap_attributes '127.0.0.1'
+grafana_config_ldap_attributes '127.0.0.1' do
+  sensitive false
+end
 
 grafana_config_ldap_group_mapping 'cn=admins,dc=grafana,dc=org' do
+  sensitive false
+
   host '127.0.0.1'
   org_role 'Admin'
   grafana_admin true
@@ -50,6 +56,8 @@ grafana_config_ldap_group_mapping 'cn=admins,dc=grafana,dc=org' do
 end
 
 grafana_config_ldap_group_mapping 'readers' do
+  sensitive false
+
   host '127.0.0.1'
   group_dn 'cn=readers,dc=grafana,dc=org'
   org_role 'Viewer'
@@ -58,6 +66,8 @@ grafana_config_ldap_group_mapping 'readers' do
 end
 
 grafana_config_ldap_group_mapping 'cn=admins,ou=groups,dc=grafana,dc=org' do
+  sensitive false
+
   host '127.0.0.1'
   org_role 'Admin'
 
@@ -65,6 +75,8 @@ grafana_config_ldap_group_mapping 'cn=admins,ou=groups,dc=grafana,dc=org' do
 end
 
 grafana_config_ldap_group_mapping 'cn=users,ou=groups,dc=grafana,dc=org' do
+  sensitive false
+
   host '127.0.0.1'
   org_role 'Editor'
 
@@ -72,6 +84,8 @@ grafana_config_ldap_group_mapping 'cn=users,ou=groups,dc=grafana,dc=org' do
 end
 
 grafana_config_ldap_group_mapping '*' do
+  sensitive false
+
   host '127.0.0.1'
   org_role 'Viewer'
 

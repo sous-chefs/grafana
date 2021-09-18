@@ -59,8 +59,12 @@ property :extra_options, Hash,
           coerce: proc { |p| p.transform_keys(&:to_s) }
 
 load_current_value do |new_resource|
-  current_config = load_file_grafana_config_section(new_resource.config_file)
+  if resource_properties.all? { |rp| nil_or_empty?(new_resource.send(rp)) }
+    Chef::Log.warn('No properties are set, skipping load_current_value. Should this resource exist?')
+    return
+  end
 
+  current_config = load_file_grafana_config_section(new_resource.config_file)
   current_value_does_not_exist! if nil_or_empty?(current_config)
 
   if ::File.exist?(new_resource.config_file)
@@ -69,13 +73,13 @@ load_current_value do |new_resource|
     filemode ::File.stat(new_resource.config_file).mode.to_s(8)[-4..-1]
   end
 
-  extra_options_filtered = current_config.reject { |k, _| resource_properties.include?(k.to_sym) }
+  extra_options_filtered = current_config.reject { |k, _| resource_properties.include?(translate_property_key(k).to_sym) }
   current_config.reject! { |k, _| extra_options_filtered.keys.include?(k) }
 
   resource_properties.each do |p|
-    next unless current_config.fetch(p.to_s, nil)
+    next if current_config.fetch(translate_property_value(p), nil).nil?
 
-    send(p, current_config.fetch(p.to_s))
+    send(p, current_config.fetch(translate_property_value(p)))
   end
 
   extra_options(extra_options_filtered) unless nil_or_empty?(extra_options_filtered)
@@ -91,7 +95,7 @@ action :create do
     resource_properties.each do |rp|
       next if nil_or_empty?(new_resource.send(rp))
 
-      accumulator_config(:set, rp, new_resource.send(rp))
+      accumulator_config(:set, translate_property_value(rp), new_resource.send(rp))
     end
 
     new_resource.extra_options.each { |key, value| accumulator_config(:set, key, value) } if property_is_set?(:extra_options)
@@ -105,7 +109,9 @@ action :delete do
                       else
                         set_properties
                       end
-  diff_properties = delete_properties.filter { |dp| load_file_grafana_config_section(new_resource.config_file).key?(dp.to_s) }
+
+  diff_properties = delete_properties.filter { |dp| load_file_grafana_config_section(new_resource.config_file).key?(translate_property_value(dp)) }
+  diff_properties.map! { |dp| translate_property_value(dp) } if respond_to?(:resource_config_properties_translate)
 
   if property_is_set?(:extra_options)
     extra_options_diff = new_resource.extra_options.keys.filter { |eo| load_file_grafana_config_section(new_resource.config_file).key?(eo) }

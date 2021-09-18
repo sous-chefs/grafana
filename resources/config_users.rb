@@ -35,6 +35,8 @@ property :verify_email_enabled, [true, false]
 
 property :login_hint, String
 
+property :password_hint, String
+
 property :default_theme, [Symbol, String],
           equal_to: [:dark, :light, 'dark', 'light'],
           coerce: proc { |p| p.to_s }

@@ -22,16 +22,22 @@ use 'partial/_config_file'
 
 property :login_cookie_name, String
 
-property :disable_login_form, [true, false],
-          default: false
+property :login_maximum_inactive_lifetime_duration, String
 
-property :disable_signout_menu, [true, false],
-          default: false
+property :login_maximum_lifetime_duration, String
+
+property :token_rotation_interval_minutes, Integer
+
+property :disable_login_form, [true, false]
+
+property :disable_signout_menu, [true, false]
 
 property :signout_redirect_url, String
 
-property :oauth_auto_login, [true, false],
-          default: false
+property :oauth_auto_login, [true, false]
 
-property :login_maximum_lifetime_days, Integer,
-          required: false
+property :oauth_state_cookie_max_age, Integer
+
+property :api_key_max_seconds_to_live, Integer
+
+property :sigv4_auth_enabled, [true, false]

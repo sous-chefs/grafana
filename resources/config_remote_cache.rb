@@ -21,9 +21,9 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property :type, Symbol,
+property :type, [Symbol, String],
           default: :database,
-          equal_to: %i(redis memcached database)
+          equal_to: [ :redis, :memcached, :database, 'redis', 'memcached', 'database' ]
 
 property :connstr, String
 

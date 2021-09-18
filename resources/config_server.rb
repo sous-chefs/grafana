@@ -21,8 +21,8 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property :protocol, Symbol,
-          equal_to: %i(http https socket)
+property :protocol, [Symbol, String],
+          equal_to: [ :http, :https, :socket, 'http', 'https', 'socket' ]
 
 property :http_addr, String,
           default: ''
@@ -49,3 +49,9 @@ property :enable_gzip, [true, false]
 property :cert_file, String
 
 property :cert_key, String
+
+property :socket, String
+
+property :cdn_url, String
+
+property :read_timeout, String

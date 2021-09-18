@@ -21,5 +21,19 @@ unified_mode true
 
 use 'partial/_config_file'
 
-property :provider, String,
+property :storage_provider, String,
           equal_to: %w(azure_blob local gcs s3 webdav)
+
+def resource_config_properties_translate
+  {
+    storage_provider: 'provider',
+  }.freeze
+end
+
+action_class do
+  def resource_config_properties_translate
+    {
+      storage_provider: 'provider',
+    }.freeze
+  end
+end

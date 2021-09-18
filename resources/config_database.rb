@@ -44,8 +44,8 @@ property :conn_max_lifetime, Integer
 
 property :log_queries, [true, false], default: false
 
-property :ssl_mode, [Symbol, true, false],
-          equal_to: [ :disable, :require, :'verify-full', true, false, :'skip-verify' ]
+property :ssl_mode, [String, Symbol, true, false],
+          equal_to: [ 'disable', :disable, 'require', :require, 'verify-full', :'verify-full', true, false, 'skip-verify', :'skip-verify' ]
 
 property :isolation_level, String,
           equal_to: %w(READ-UNCOMMITTED READ-COMMITTED REPEATABLE-READ SERIALIZABLE)

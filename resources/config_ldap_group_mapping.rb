@@ -60,7 +60,13 @@ action_class do
     %i(host).freeze
   end
 
+  def ldap_server_exist?
+    !ldap_server_config(new_resource.host).nil?
+  end
+
   def group_mapping_exist?
+    return unless ldap_server_exist?
+
     group_mappings = ldap_server_config(new_resource.host).fetch('group_mappings', nil)
 
     return unless group_mappings
@@ -69,6 +75,8 @@ action_class do
   end
 
   def remove_group_mapping
+    return unless ldap_server_exist?
+
     group_mappings = ldap_server_config(new_resource.host).fetch('group_mappings', nil)
 
     return unless group_mappings
@@ -78,6 +86,8 @@ action_class do
 end
 
 action :create do
+  raise "No configuration found for LDAP server #{new_resource.host}, unable to apply group mapping" unless ldap_server_config(new_resource.host)
+
   converge_if_changed do
     mapping = resource_properties.map do |rp|
       next if nil_or_empty?(new_resource.send(rp))

@@ -63,9 +63,15 @@ action_class do
   def resource_config_properties_skip
     %i(host).freeze
   end
+
+  def ldap_server_exist?
+    !ldap_server_config(new_resource.host).nil?
+  end
 end
 
 action :create do
+  raise "No configuration found for LDAP server #{new_resource.host}, unable to apply attributes" unless ldap_server_exist?
+
   converge_if_changed do
     attributes = resource_properties.map do |rp|
       next if nil_or_empty?(new_resource.send(rp))
@@ -80,5 +86,5 @@ end
 action :delete do
   converge_by("Remove LDAP server #{new_resource.host} attribute mapping") do
     ldap_server_config(new_resource.host).delete('attributes')
-  end if ldap_server_config(new_resource.host).key?('attributes')
+  end if ldap_server_exist? && ldap_server_config(new_resource.host).key?('attributes')
 end

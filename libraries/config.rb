@@ -186,10 +186,14 @@ module Grafana
       #
       def ldap_server_config(host)
         template_servers = config_file_template_variables.fetch('servers', nil)
-        raise "No server configuration found, got [#{template_servers.class}] #{template_servers}" unless template_servers
+        template_server_index = template_servers.find_index { |s| s['host'].eql?(host) } if template_servers
 
-        template_server_index = template_servers.find_index { |s| s['host'].eql?(host) }
-        raise "No index found for host #{host}, got [#{template_server_index.class}] #{template_server_index}" unless template_server_index
+        unless template_servers && template_server_index
+          Chef::Log.info("No server configuration found, got [#{template_servers.class}] #{template_servers}") unless template_servers
+          Chef::Log.info("No index found for host #{host}, got [#{template_server_index.class}] #{template_server_index}") unless template_server_index
+
+          return
+        end
 
         template_servers[template_server_index]
       end

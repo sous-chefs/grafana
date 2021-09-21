@@ -50,6 +50,7 @@ For any core configuration resources, the base config resource is: `grafana_conf
 - [grafana_config_auth_grafanacom](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_auth_grafanacom.md)
 - [grafana_config_auth_grafananet](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_auth_grafananet.md)
 - [grafana_config_auth_ldap](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_auth_ldap.md)
+- [grafana_config_auth_okta](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_auth_okta.md)
 - [grafana_config_auth_proxy](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_auth_proxy.md)
 - [grafana_config_dashboards](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_dashboards.md)
 - [grafana_config_database](https://github.com/sous-chefs/grafana/tree/master/documentation/grafana_config_database.md)

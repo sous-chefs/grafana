@@ -1,5 +1,5 @@
 def sys_dir
-  os[:family] =~ /redhat/ ? 'sysconfig' : 'default'
+  os[:family] =~ /redhat|fedora/ ? 'sysconfig' : 'default'
 end
 
 describe file('/usr/sbin/grafana-server') do

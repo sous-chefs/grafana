@@ -43,12 +43,14 @@ property :deb_components, Array,
           default: ['main']
 
 action :install do
-  case node['platform_family']
-  when 'debian'
-    repository = "#{new_resource.repo}/deb"
-  when 'rhel', 'amazon'
-    repository = "#{new_resource.repo}/rpm"
-  end
+  repository = case node['platform_family']
+               when 'debian'
+                 "#{new_resource.repo}/deb"
+               when 'rhel', 'amazon', 'fedora'
+                 "#{new_resource.repo}/rpm"
+               else
+                 raise ArgumentError, "Unsupported installation platform family #{node['platform_family']}"
+               end
 
   case node['platform_family']
   when 'debian'
@@ -72,7 +74,7 @@ action :install do
       options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --allow-unauthenticated'
       version new_resource.version if new_resource.version
     end
-  when 'rhel', 'amazon'
+  when 'rhel', 'amazon', 'fedora'
     yum_repository 'grafana' do
       description   'Grafana Repo'
       baseurl       repository

@@ -21,6 +21,10 @@
 
 unified_mode true
 
+property :package, [String, Array],
+          default: ['grafana'],
+          coerce: proc { |p| Array(p) }
+
 property :version, String
 
 property :repo, String,
@@ -63,7 +67,8 @@ action :install do
     # There is an issue on debian based systems which causes the error:
     # There were unauthenticated packages and -y was used without --allow-unauthenticated
     # this will allow grafana to be installed on 16.04 without compromising security of other systems
-    package 'grafana' do
+    package 'Grafana' do
+      package_name new_resource.package
       options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --allow-unauthenticated'
       version new_resource.version if new_resource.version
     end
@@ -75,9 +80,9 @@ action :install do
       gpgcheck      true
     end
 
-    package 'grafana' do
+    package 'Grafana' do
+      package_name new_resource.package
       version new_resource.version if new_resource.version
     end
-
   end
 end

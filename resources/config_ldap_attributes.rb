@@ -56,7 +56,7 @@ load_current_value do |new_resource|
   current_config[:extra_options] = current_config.reject! { |k, _| resource_properties.include?(k) }
   properties = resource_properties
   properties.delete(:host)
-  properties.each { |p| send(p, current_config.fetch(p.to_s, nil)) }
+  properties.each { |p| send(p, current_config.fetch(p.to_s.delete_prefix('attribute_'), nil)) }
 end
 
 action_class do

@@ -104,11 +104,7 @@ end
 
 action :delete do
   set_properties = resource_properties.push(:extra_options).filter { |rp| property_is_set?(rp) }
-  delete_properties = if nil_or_empty?(set_properties)
-                        resource_properties
-                      else
-                        set_properties
-                      end
+  delete_properties = nil_or_empty?(set_properties) ? resource_properties : set_properties
 
   diff_properties = delete_properties.filter { |dp| load_file_grafana_config_section(new_resource.config_file).key?(translate_property_value(dp)) }
   diff_properties.map! { |dp| translate_property_value(dp) } if respond_to?(:resource_config_properties_translate)

@@ -1,6 +1,6 @@
 # Developing
 
-The refactor of the cookbooks in v10 makes some major changes to the underlying method of operation of the cookbook to improve operation and maintainabilty.
+The refactor for version 10 of this cookbook makes some major changes to the underlying method of operation of the cookbook to improve operation and maintainability.
 
 In summary:
 
@@ -31,31 +31,33 @@ At the top of the resource declaration above the first property.
 
 See a pre-existing resource for an example of this pattern.
 
-### Overiding the automatic path
+### Overriding the automatic path
 
-If the name of the resource cannot match the name of the configuration section or a nested configuration section is in use such as `section.subsection` then the automatic configuration path can be overriden by the addition of the `:resource_config_path_override` method. Due to needed to override the path in both the action class and the outer resource class this method must be added to both sections of the resource declaration.
+If the name of the resource with the `'grafana_config_` prefix removed does not match the name of the configuration section or a nested configuration section is in use such as `section.subsection` then the automatic configuration path can be overridden by the addition of the `:resource_config_path_override` method.
 
-Below the last property add the following with the array contents set to the config Hash path set as you would path to [Hash#dig](https://ruby-doc.org/core-3.0.2/Hash.html#method-i-dig) to create the (nested if required) configuration path.
+Due to needing to override the path in both the action class and the outer resource class this method must be added to both sections of the resource declaration.
+
+After the last resource property declaration, add the following code with the array contents set to the config Hash path set as you would pass to [Hash#dig](https://ruby-doc.org/core-3.0.2/Hash.html#method-i-dig) to create the required configuration path. Multiple nested Hashes are supported.
 
 ```ruby
 def resource_config_path_override
-  %w(external_image_storage.s3)
+  %w(external_image_storage.s3).freeze
 end
 
 action_class do
   def resource_config_path_override
-    %w(external_image_storage.s3)
+    %w(external_image_storage.s3).freeze
   end
 end
 ```
 
 ### Excluding properties from the configuration
 
-If an additional property must be added for the resource to operation but the property is not relevant for the Grafana config file then these properties can be marked to be skipped by the enumerator method but the creation of a `:resource_config_properties_skip` method. This method should be added to the action class only.
+If an additional property must be added for the resource to function but the property is not relevant for the Grafana config file then these properties can be marked to be skipped by the enumerator by the creation of a `:resource_config_properties_skip` method. This method should be added to the action class only.
 
 ```ruby
 def resource_config_properties_skip
-  %i(host)
+  %i(host).freeze
 end
 ```
 

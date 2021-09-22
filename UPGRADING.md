@@ -4,8 +4,8 @@
 
 ### Version 10 is a major internal rewrite
 
-- All API resource have been removed
-- All resource have been refactored around an abstract common base resource `_config_file`
+- All API resources have been removed
+- All resources have been refactored around an abstracted common base resource `_config_file`
   - LDAP resources extend this via `_config_file_ldap`
 - Resource properties are automatically enumerated and added to the accumulator configuration file
 - The accumulator templates for the configuration files are now persistent via the loading of the current config state during creation
@@ -13,10 +13,10 @@
   - To remove configuration elements an explicit resource with `:delete` action is required
     - If no properties are specified with the `:delete` action then the whole configuration section will be removed
     - If properties are specified with the `:delete` action then only the specified properties will be removed
-  - Configuration files will not be overwritten with a blank or partial configuration when a run `raises`
+  - Configuration files will not be overwritten with a blank or partial configuration when a run fails
 - The auth resource has been split into separate resources
 - The log resource has been split into separate resources
-- The LDAP configuration resource have been split and renamed to singular forms
+- The LDAP configuration resource has been split and renamed to singular forms
 
 ## 9.0.0
 

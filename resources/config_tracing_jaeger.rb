@@ -38,9 +38,3 @@ property :disable_shared_zipkin_spans, String
 def resource_config_path_override
   %w(tracing.jaeger)
 end
-
-action_class do
-  def resource_config_path_override
-    %w(tracing.jaeger)
-  end
-end

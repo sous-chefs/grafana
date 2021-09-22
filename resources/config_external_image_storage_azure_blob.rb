@@ -30,9 +30,3 @@ property :container_name, String
 def resource_config_path_override
   %w(external_image_storage.azure_blob)
 end
-
-action_class do
-  def resource_config_path_override
-    %w(external_image_storage.azure_blob)
-  end
-end

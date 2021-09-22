@@ -70,10 +70,8 @@ load_current_value do |new_resource|
   resource_properties.each { |p| send(p, current_config.fetch(p.to_s, nil)) }
 end
 
-action_class do
-  def resource_config_path_override
-    [nil] # Add to the root path
-  end
+def resource_config_path_override
+  [nil] # Add to the root path
 end
 
 action :create do

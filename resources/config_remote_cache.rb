@@ -30,9 +30,3 @@ property :connstr, String
 def resource_config_path_override
   %w(remote_cache)
 end
-
-action_class do
-  def resource_config_path_override
-    %w(remote_cache)
-  end
-end

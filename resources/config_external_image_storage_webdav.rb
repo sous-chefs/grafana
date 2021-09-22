@@ -32,9 +32,3 @@ property :public_url, String
 def resource_config_path_override
   %w(external_image_storage.webdav)
 end
-
-action_class do
-  def resource_config_path_override
-    %w(external_image_storage.webdav)
-  end
-end

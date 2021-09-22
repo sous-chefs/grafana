@@ -46,9 +46,3 @@ property :allowed_groups, String
 def resource_config_path_override
   %w(auth.azuread)
 end
-
-action_class do
-  def resource_config_path_override
-    %w(auth.azuread)
-  end
-end

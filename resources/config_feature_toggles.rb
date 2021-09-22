@@ -27,9 +27,3 @@ property :enable, [String, Array],
 def resource_config_path_override
   %w(feature_toggles)
 end
-
-action_class do
-  def resource_config_path_override
-    %w(feature_toggles)
-  end
-end

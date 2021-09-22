@@ -42,9 +42,3 @@ property :default_timezone, String
 def resource_config_path_override
   %w(date_formats)
 end
-
-action_class do
-  def resource_config_path_override
-    %w(date_formats)
-  end
-end

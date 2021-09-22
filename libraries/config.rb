@@ -43,8 +43,14 @@ module Grafana
         Chef::Log.debug("resource_properties: Got properties from resource: #{properties.join(', ')}")
         properties.reject! { |p| GLOBAL_CONFIG_PROPERTIES_SKIP.include?(p) }
 
-        if respond_to?(:resource_config_properties_skip)
-          Chef::Log.debug("resource_properties: Resourced defined skip properties: #{resource_config_properties_skip.join(', ')}")
+        skip_properties = if !action_class? && respond_to?(:resource_config_properties_skip)
+                            resource_config_properties_skip
+                          elsif action_class? && new_resource.respond_to?(:resource_config_properties_skip)
+                            new_resource.resource_config_properties_skip
+                          end
+
+        if skip_properties
+          Chef::Log.debug("resource_properties: Resourced defined skip properties: #{skip_properties.join(', ')}")
           properties.reject! { |p| resource_config_properties_skip.include?(p) }
         end
 
@@ -60,14 +66,9 @@ module Grafana
       # @return [nil]
       #
       def accumulator_config(action, key, value = nil)
-        path = if respond_to?(:resource_config_path_override)
-                 raise ArgumentError, 'Path override should be specified as an Array' unless resource_config_path_override.is_a?(Array)
-                 resource_config_path_override
-               else
-                 resource_default_config_path
-               end
-
+        path = resource_config_path
         config_hash = accumulator_config_path_init(*path)
+
         Chef::Log.debug("Perfoming action #{action} on config key #{key}, value [#{value.class}] #{value} on path #{path.map { |p| "['#{p}']" }.join}")
 
         case action
@@ -204,8 +205,8 @@ module Grafana
       # @return [String] The (translated if required) property name
       #
       def translate_property_key(value)
-        return resource_config_properties_translate.key(value) if respond_to?(:resource_config_properties_translate) &&
-                                                                  resource_config_properties_translate.value?(value)
+        return resource_translation_matrix.key(value) if resource_translation_matrix &&
+                                                         resource_translation_matrix.value?(value)
 
         value.to_s
       end
@@ -216,8 +217,8 @@ module Grafana
       # @return [String] The (translated if required) config property name
       #
       def translate_property_value(key)
-        return resource_config_properties_translate.fetch(key) if respond_to?(:resource_config_properties_translate) &&
-                                                                  resource_config_properties_translate.key?(key)
+        return resource_translation_matrix.fetch(key) if resource_translation_matrix &&
+                                                         resource_translation_matrix.key?(key)
 
         key.to_s
       end

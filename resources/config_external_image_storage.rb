@@ -29,11 +29,3 @@ def resource_config_properties_translate
     storage_provider: 'provider',
   }.freeze
 end
-
-action_class do
-  def resource_config_properties_translate
-    {
-      storage_provider: 'provider',
-    }.freeze
-  end
-end

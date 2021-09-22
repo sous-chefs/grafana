@@ -33,9 +33,3 @@ property :instance_name, String,
 def resource_config_path_override
   %w(global)
 end
-
-action_class do
-  def resource_config_path_override
-    %w(global)
-  end
-end

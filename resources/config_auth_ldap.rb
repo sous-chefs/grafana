@@ -33,11 +33,3 @@ def resource_config_properties_translate
     ldap_config_file: 'config_file',
   }.freeze
 end
-
-action_class do
-  def resource_config_properties_translate
-    {
-      ldap_config_file: 'config_file',
-    }.freeze
-  end
-end

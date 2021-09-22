@@ -59,11 +59,11 @@ load_current_value do |new_resource|
   properties.each { |p| send(p, current_config.fetch(p.to_s.delete_prefix('attribute_'), nil)) }
 end
 
-action_class do
-  def resource_config_properties_skip
-    %i(host).freeze
-  end
+def resource_config_properties_skip
+  %i(host).freeze
+end
 
+action_class do
   def ldap_server_exist?
     !ldap_server_config(new_resource.host).nil?
   end

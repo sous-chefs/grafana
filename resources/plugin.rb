@@ -36,19 +36,10 @@ action :install do
   end
 end
 
-action :update do
-  plugin_name = new_resource.name
-  binary = new_resource.grafana_cli_bin
-  plugin_url = new_resource.plugin_url
-  if GrafanaCookbook::Plugin.installed?(plugin_name, binary)
-    execute "Updating plugin #{plugin_name}" do
-      command ::GrafanaCookbook::Plugin.build_cli_cmd(plugin_name, 'update', binary, plugin_url)
-    end
-  else
-    Chef::Log.warn "Impossible to upgrade plugin #{plugin_name} because it is not installed. We will install it."
-    run_action(:install)
-  end
-end
+# Resource properties
+attribute :name, name_attribute: true, kind_of: String, required: true
+attribute :plugin_url, kind_of: String, required: false, default: nil
+attribute :grafana_cli_bin, kind_of: String, required: false, default: '/usr/sbin/grafana-cli'
 
 action :remove do
   plugin_name = new_resource.name

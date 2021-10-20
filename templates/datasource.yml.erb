@@ -1,0 +1,55 @@
+# config file version
+apiVersion: 1
+
+<% if @is_delete %>
+# list of datasources that should be deleted from the database
+deleteDatasources:
+  - name: <%= @datasource_name %>
+
+    orgId: <%= @organization_id %>
+<% else %>
+# list of datasources to insert/update depending
+# whats available in the database
+datasources:
+  # <string, required> name of the datasource. Required
+- name: <%= @datasource_name %>
+  # <string, required> datasource type. Required
+  type: <%= @datasource_type %>
+  # <string, required> access mode. direct or proxy. Required
+  access: <%= @access %>
+  # <int> org id. will default to orgId 1 if not specified
+  <% if @organization_id %>
+  orgId: <%= @organization_id %>
+  <% else %>
+  orgId: 1
+  <% end %>
+  # <string> url
+  url: <%= @datasource_url %>
+  # <string> database password, if used
+  password: <%= @password %>
+  # <string> database user, if used
+  user: <%= @user %>
+  # <string> database name, if used
+  database: <%= @database %>
+  # <bool> enable/disable basic auth
+  basicAuth: <%= @basic_auth_enabled %>
+  # <string> basic auth username
+  basicAuthUser: <%= @basic_auth_user %>
+  # <string> basic auth password
+  basicAuthPassword: <%= @basic_auth_password %>
+  # <bool> enable/disable with credentials headers
+  withCredentials: <%= @with_credentials %>
+  # <bool> mark as default datasource. Max one per org
+  isDefault: <%= @is_default %>
+  # <map> fields that will be converted to json and stored in json_data
+  jsonData: <%= @json_data %>
+  # <string> json object of data that will be encrypted.
+  secureJsonData: <%= @secure_json_data %>
+  <% if defined?(@version) %>
+  version: <%= @version %>
+  <% else %>
+  version: 1
+  <% end %>
+  # <bool> allow users to edit datasources from the UI.
+  editable: <%= @editable %>
+  <% end %>

@@ -2,6 +2,8 @@ source 'https://supermarket.chef.io'
 
 metadata
 
-group :integration do
-  cookbook 'test', path: 'test/fixtures/cookbooks/test'
-end
+cookbook 'git'
+cookbook 'java'
+cookbook 'build-essential'
+cookbook 'curl'
+cookbook 'yum-epel'

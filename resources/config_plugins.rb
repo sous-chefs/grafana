@@ -20,11 +20,15 @@
 
 unified_mode true
 
-property  :instance_name, String, name_property: true
-property  :allow_loading_unsigned_plugins, Array, default: []
+use 'partial/_config_file'
 
-action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins']['allow_loading_unsigned_plugins'] ||= '' unless new_resource.allow_loading_unsigned_plugins.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins']['allow_loading_unsigned_plugins'] << new_resource.allow_loading_unsigned_plugins.join(',') unless new_resource.allow_loading_unsigned_plugins.nil?
-end
+property :enable_alpha, [true, false]
+
+property :allow_loading_unsigned_plugins, [Array, String],
+          coerce: proc { |p| Array(p).join(',') }
+
+property :plugin_admin_enabled, [true, false]
+
+property :plugin_admin_external_manage_enabled, [true, false]
+
+property :plugin_catalog_url, String

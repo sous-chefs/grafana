@@ -10,13 +10,15 @@ Introduced: v4.0.0
 
 ## Actions
 
-`:install`
+- `:create`
+- `:delete`
 
 ## Properties
 
-| Name                      | Type          |  Default                    | Description                                                               | Allowed Values
-| ------------------------- | ------------- | --------------------------- | ------------------------------------------------------------------------- | --------------- |
-| `enable_alpha`            | true, false   | `false`                     | Set to true if you want to test panels that are not yet ready for general usage.| true, false
+| Name                    | Type        | Default | Description                                                                                                                        | Allowed Values |
+| ----------------------- | ----------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `enable_alpha`          | true, false | `false` | Set to true if you want to test panels that are not yet ready for general usage.                                                   | true, false    |
+| `disable_sanitize_html` | true, false | `false` | If set to true Grafana will allow script tags in text panels. Not recommended as it enables XSS vulnerabilities. Default is false. | true, false    |
 
 ## Examples
 

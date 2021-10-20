@@ -10,17 +10,18 @@ Introduced: v4.0.0
 
 ## Actions
 
-`:install`
+- `:create`
+- `:delete`
 
 ## Properties
 
-| Name                      | Type     |  Default                    | Description                                                               | Allowed Values
-| ------------------------- | -------- | --------------------------- | ------------------------------------------------------------------------- | --------------- |
-| `data`                    | String   | `/var/lib/grafana`          | Path to where Grafana stores it's data                                    | Valid Directory
-| `temp_data_lifetime`      | String   | `24h`                       | How long temporary images in data directory should be kept                |
-| `logs`                    | String   | `/var/log/grafana`          | Path to where Grafana will store logs                                     |
-| `plugins`                 | String   | `/var/lib/grafana/plugins`  | Directory where grafana will automatically scan and look for plugins      |
-| `provisioning`            | String   | `conf/provisioning`         | Folder that contains provisioning config files that grafana will apply on startup|
+| Name                 | Type   | Default                    | Description                                                                       | Allowed Values  |
+| -------------------- | ------ | -------------------------- | --------------------------------------------------------------------------------- | --------------- |
+| `data`               | String | `/var/lib/grafana`         | Path to where Grafana stores it's data                                            | Valid Directory |
+| `temp_data_lifetime` | String | `24h`                      | How long temporary images in data directory should be kept                        |                 |
+| `logs`               | String | `/var/log/grafana`         | Path to where Grafana will store logs                                             |                 |
+| `plugins`            | String | `/var/lib/grafana/plugins` | Directory where grafana will automatically scan and look for plugins              |                 |
+| `provisioning`       | String | `conf/provisioning`        | Folder that contains provisioning config files that grafana will apply on startup |                 |
 
 ## Examples
 

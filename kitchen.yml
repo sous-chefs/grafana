@@ -4,13 +4,13 @@ driver:
 
 provisioner:
   name: chef_zero
+  deprecations_as_errors: true
   product_name: chef
   chef_license: accept-no-persist
   product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
-  install_strategy: once
   enforce_idempotency: true
   multiple_converge: 2
-  deprecations_as_errors: true
+  log_level: <%= ENV['CHEF_LOG_LEVEL'] || 'auto' %>
 
 verifier:
   name: inspec
@@ -28,30 +28,18 @@ suites:
   - name: default
     run_list:
       - recipe[test::install]
-      - recipe[test::sleep]
 
   - name: ldap
     run_list:
       - recipe[test::ldap]
-      - recipe[test::sleep]
 
   - name: proxy
     run_list:
       - recipe[test::proxy]
-    provisioner:
-      # grafana_user update not idempotent
-      enforce_idempotency: false
-      multiple_converge: 1
-
 
   - name: plugins
     run_list:
       - recipe[test::plugins]
-      - recipe[test::sleep]
-    provisioner:
-      # grafana_plugin with url not idempotent
-      enforce_idempotency: false
-      multiple_converge: 1
 
   - name: basic
     run_list:
@@ -60,15 +48,10 @@ suites:
   - name: configure
     run_list:
       - recipe[test::configure]
-    provisioner:
-      # grafana_user update not idempotent
-      enforce_idempotency: false
-      multiple_converge: 1
 
   - name: azuread
     run_list:
       - recipe[test::azuread]
-      - recipe[test::sleep]
 
   - name: config_plugins
     run_list:

@@ -2,7 +2,7 @@
 # Cookbook:: grafana
 # Resource:: config_paths
 #
-# Copyright:: 2018, Sous Chefs
+# Copyright:: 2021, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,27 +16,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Configures the installed grafana instance
 
 unified_mode true
 
-property  :instance_name,       String, name_property: true
-property  :data,                String, default: '/var/lib/grafana'
-property  :temp_data_lifetime,  String, default: '24h'
-property  :logs,                String, default: '/var/log/grafana'
-property  :plugins,             String, default: '/var/lib/grafana/plugins'
-property  :provisioning,        String, default: 'conf/provisioning'
+use 'partial/_config_file'
 
-action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['data'] ||= '' unless new_resource.data.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['data'] << new_resource.data.to_s unless new_resource.data.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['temp_data_lifetime'] ||= '' unless new_resource.temp_data_lifetime.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['temp_data_lifetime'] << new_resource.temp_data_lifetime.to_s unless new_resource.temp_data_lifetime.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['logs'] ||= '' unless new_resource.logs.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['logs'] << new_resource.logs.to_s unless new_resource.logs.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['plugins'] ||= '' unless new_resource.plugins.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['plugins'] << new_resource.plugins.to_s unless new_resource.plugins.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['provisioning'] ||= '' unless new_resource.provisioning.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['paths']['provisioning'] << new_resource.provisioning.to_s unless new_resource.provisioning.nil?
-end
+property :data, String
+
+property :temp_data_lifetime, String
+
+property :logs, String
+
+property :plugins, String
+
+property :provisioning, String

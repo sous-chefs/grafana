@@ -14,20 +14,23 @@ Introduced: v4.0.0
 
 ## Properties
 
-| Name                      | Type        |  Default                    | Description                                               | Allowed Values
-| ------------------------- | ----------- | --------------------------- | --------------------------------------------------------- | --------------- |
-| `allow_sign_up`           | true, false | `false`                     | Set to false to prohibit users from being able to sign up / create user accounts| true, false
-| `allow_org_create`        | true, false | `false`                     | Set to false to prohibit users from creating new organizations | true, false
-| `auto_assign_org`         | true, false | `true`                      | Set to true to automatically add new users to the main organization (id 1).| true, false
-| `auto_assign_org_id`      | Integer     | `1`                         | Set this value to automatically add new users to the provided org. This requires auto_assign_org to be set to true. |
-| `auto_assign_org_role`    | String      | `Viewer`                    | The role new users will be assigned for the main organization|
-| `verify_email_enabled`    | true, false | `false`                     |  Require email validation before sign up completes        | true, false
-| `login_hint`              | String      | `email or username`         | Login hint text                                           |
-| `default_theme`           | Symbol      | `dark`                      | Default user theme                                        | dark light
-| `external_manage_link_url`| String      |                             | External user management                                  |
-| `external_manage_link_name`|String      |                             | External user management                                  |
-| `external_manage_info`    | String      |                             | External user management                                  |
-| `viewers_can_edit`        | true, false | `false`                     | Viewers can edit/inspect dashboard settings in the browser| true, false
+| Name                                | Type          | Default | Description                                                                                                         | Allowed Values |
+| ----------------------------------- | ------------- | ------- | ------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `allow_sign_up`                     | true, false   |         | Set to false to prohibit users from being able to sign up / create user accounts                                    | true, false    |
+| `allow_org_create`                  | true, false   |         | Set to false to prohibit users from creating new organizations                                                      | true, false    |
+| `auto_assign_org`                   | true, false   |         | Set to true to automatically add new users to the main organization (id 1).                                         | true, false    |
+| `auto_assign_org_id`                | Integer       |         | Set this value to automatically add new users to the provided org. This requires auto_assign_org to be set to true. |
+| `auto_assign_org_role`              | String        |         | The role new users will be assigned for the main organization                                                       |
+| `verify_email_enabled`              | true, false   |         | Require email validation before sign up completes                                                                   | true, false    |
+| `login_hint`                        | String        |         | Login hint text                                                                                                     |
+| `default_theme`                     | Symbol        |         | Default user theme                                                                                                  | dark light     |
+| `external_manage_link_url`          | String        |         | External user management                                                                                            |
+| `external_manage_link_name`         | String        |         | External user management                                                                                            |
+| `external_manage_info`              | String        |         | External user management                                                                                            |
+| `viewers_can_edit`                  | true, false   |         | Viewers can edit/inspect dashboard settings in the browser                                                          | true, false    |
+| `editors_can_admin`                 | true, false   |         |                                                                                                                     | true, false    |
+| `user_invite_max_lifetime_duration` | String        |         |                                                                                                                     | true, false    |
+| `hidden_users`                      | String, Array |         |                                                                                                                     | true, false    |
 
 ## Examples
 

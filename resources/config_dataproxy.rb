@@ -2,7 +2,7 @@
 # Cookbook:: grafana
 # Resource:: config_dataproxy
 #
-# Copyright:: 2018, Sous Chefs
+# Copyright:: 2021, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,15 +16,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Configures the installed grafana instance
 
 unified_mode true
 
-property  :instance_name,   String,         name_property: true
-property  :logging,         [true, false],  default: false
+use 'partial/_config_file'
 
-action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['dataproxy'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['dataproxy']['logging'] ||= '' unless new_resource.logging.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['dataproxy']['logging'] << new_resource.logging.to_s unless new_resource.logging.nil?
-end
+property :logging, [true, false],
+          default: false
+
+property :timeout, Integer
+
+property :keep_alive_seconds, Integer
+
+property :tls_handshake_timeout_seconds, Integer
+
+property :expect_continue_timeout_seconds, Integer
+
+property :max_conns_per_host, Integer
+
+property :max_idle_connections, Integer
+
+property :max_idle_connections_per_host, Integer
+
+property :idle_conn_timeout_seconds, Integer
+
+property :send_user_header, [true, false]

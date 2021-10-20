@@ -2,24 +2,26 @@
 
 ---
 
-# grafana_config_ldap_group_mappings
+# grafana_config_ldap_group_mapping
 
 Configures ldap group mappings <http://docs.grafana.org/auth/ldap/#group-mappings>
 
-Introduced: v4.0.0
+Introduced: v10.0.0
 
 ## Actions
 
-`:install`
+- `:create`
+- `:delete`
 
 ## Properties
 
-| Name              | Type          |  Default                 | Description                                                               | Allowed Values
-| ----------------- | ------------- | ------------------------ | ------------------------------------------------------------------------- | --------------- |
-| `group_dn`        | String        |                          | LDAP distinguished name (DN) of LDAP group. If you want to match all (or no LDAP groups) then you can use wildcard ("*") |
-| `org_role`        | String        | `Viewer`                 | Assign users of group_dn the organization role | Admin Editor Viewer
-| `grafana_admin`   | true, false   | `false`                  | When true makes user of group_dn Grafana server admin. A Grafana server admin has admin access over all organizations and users. Available in Grafana v5.3 and above|
-| `org_id`          | Integer       | `1`                      | The Grafana organization database id. Setting this allows for multiple group_dn’s to be assigned to the same org_role provided the org_id differs |
+| Name            | Type        | Default | Description                                 | Allowed Values        |
+| --------------- | ----------- | ------- | ------------------------------------------- | --------------------- |
+| `host`          | String      |         | The LDAP host to apply the group mapping to |                       |
+| `group_dn`      | String      |         |                                             |                       |
+| `org_role`      | String      |         |                                             | `Admin Editor Viewer` |
+| `grafana_admin` | True, False |         |                                             | true false            |
+| `org_id`        | Integer     |         |                                             |                       |
 
 ## Examples
 

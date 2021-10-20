@@ -1,5 +1,5 @@
 def sys_dir
-  os[:family] =~ /redhat/ ? 'sysconfig' : 'default'
+  os[:family] =~ /redhat|fedora/ ? 'sysconfig' : 'default'
 end
 
 describe file('/usr/sbin/grafana-server') do
@@ -39,5 +39,5 @@ describe json(content: http('http://localhost:3000/api/admin/settings',
   its(['auth.azuread', 'token_url']) { should eq 'https://login.microsoftonline.com/12345/oauth2/token' }
   its(['auth.azuread', 'scopes']) { should eq 'openid email name groups' }
   its(['auth.azuread', 'allowed_domains']) { should eq 'test.local' }
-  its(['auth.azuread', 'allowed_groups']) { should eq '12345' }
+  its(['auth.azuread', 'allowed_groups']) { should eq '8bab1c86-8fba-33e5-2089-1d1c80ec267e' }
 end

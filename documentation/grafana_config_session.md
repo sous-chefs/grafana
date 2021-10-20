@@ -11,7 +11,8 @@ Removed: v6.2.0
 
 ## Actions
 
-`:install`
+- `:create`
+- `:delete`
 
 ## Properties
 

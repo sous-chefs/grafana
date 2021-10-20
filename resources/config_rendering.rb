@@ -16,18 +16,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Configures the installed grafana instance
 
 unified_mode true
 
-property  :instance_name, String, name_property: true
-property  :server_url,    String, default: 'http://localhost:8081/render'
-property  :callback_url,  String, default: 'http://localhost:3000/'
+use 'partial/_config_file'
 
-action :install do
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['rendering'] ||= {}
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['rendering']['server_url'] ||= '' unless new_resource.server_url.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['rendering']['server_url'] << new_resource.server_url.to_s unless new_resource.server_url.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['rendering']['callback_url'] ||= '' unless new_resource.callback_url.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['rendering']['callback_url'] << new_resource.callback_url.to_s unless new_resource.callback_url.nil?
-end
+property :server_url, String
+
+property :callback_url, String
+
+property :concurrent_render_request_limit, Integer

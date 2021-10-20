@@ -3,7 +3,8 @@
 This file is used to list changes made in each version of grafana.
 
 ## Unreleased
-- Fix wrong key naming in log.file section   
+
+- Fix wrong key naming in log.file section
 
 ## 9.7.1 - *2021-08-30*
 

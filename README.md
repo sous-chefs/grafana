@@ -16,7 +16,7 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 ## Requirements
 
-- Chef Client 13+
+- Chef Infra 16+
 
 ### Platforms
 
@@ -27,15 +27,6 @@ This cookbook officially supports and is tested against the following platforms:
 - CentOS/Redhat >= 6
 
 PRs are welcome to add support for additional platforms.
-
-## Configuration Resource Features
-
-We supply many different configuration resources, these all rely on the base config resource being called
-
-For any LDAP the base config resource is: `grafana_config_ldap`
-For any core configuration resources, the base config resource is: `grafana_config`
-
-**NOTE**: Inorder to write the above configuration resources to the disk use [grafana_config_writer](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_writer.md) at the end.
 
 ## Resources
 

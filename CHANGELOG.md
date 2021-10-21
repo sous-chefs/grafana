@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
 ## 10.0.1 - *2021-10-21*
 
 - Remove redundant conflicting config_writer notice from README

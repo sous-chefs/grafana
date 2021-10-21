@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+- Remove redundant conflicting config_writer notice from README
+
 ## 10.0.0 - *2021-10-20*
 
 - Automatic config Hash path creation

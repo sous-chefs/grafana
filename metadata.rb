@@ -6,7 +6,7 @@ description      'Installs/Configures Grafana Server'
 source_url       'https://github.com/sous-chefs/grafana'
 issues_url       'https://github.com/sous-chefs/grafana/issues'
 chef_version     '>= 16.0'
-version          '10.0.0'
+version          '10.0.1'
 
 supports 'debian'
 supports 'ubuntu'

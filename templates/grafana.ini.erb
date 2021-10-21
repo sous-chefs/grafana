@@ -849,22 +849,22 @@ format = <%= @grafana['log_file']['format'] %>
 
 # This enables automated log rotate(switch of following options), default is true
 <% if @grafana['log_file']['log_rotate'] %>
-format = <%= @grafana['log_file']['log_rotate'] %>
+log_rotate = <%= @grafana['log_file']['log_rotate'] %>
 <% end %>
 
 # Max line number of single file, default is 1000000
 <% if @grafana['log_file']['max_lines'] %>
-format = <%= @grafana['log_file']['max_lines'] %>
+max_lines = <%= @grafana['log_file']['max_lines'] %>
 <% end %>
 
 # Max size shift of single file, default is 28 means 1 << 28, 256MB
 <% if @grafana['log_file']['max_size_shift'] %>
-format = <%= @grafana['log_file']['max_size_shift'] %>
+max_size_shift = <%= @grafana['log_file']['max_size_shift'] %>
 <% end %>
 
 # Segment log daily, default is true
 <% if @grafana['log_file']['daily_rotate'] %>
-format = <%= @grafana['log_file']['daily_rotate'] %>
+daily_rotate = <%= @grafana['log_file']['daily_rotate'] %>
 <% end %>
 
 # Expired days of log file(delete after max days), default is 7

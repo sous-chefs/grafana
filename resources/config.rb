@@ -28,6 +28,9 @@ property  :restart_on_upgrade,  [true, false],            default: false
 property  :conf_directory,      String,                   default: '/etc/grafana'
 property  :app_mode,            String,                   default: 'production', equal_to: %w(production development)
 property  :cookbook,            String,                   default: 'grafana'
+property  :proxy_http,          String,                   default: ''
+property  :proxy_https,         String,                   default: ''
+property  :proxy_noproxy,       String,                   default: ''
 
 action :install do
   user new_resource.owner
@@ -55,7 +58,10 @@ action :install do
       grafana_home: "/usr/share/#{new_resource.owner}",
       conf_dir: new_resource.conf_directory,
       pid_dir: '/var/run/grafana',
-      restart_on_upgrade: new_resource.restart_on_upgrade.to_s
+      restart_on_upgrade: new_resource.restart_on_upgrade.to_s,
+      proxy_http: new_resource.proxy_http,
+      proxy_https: new_resource.proxy_https,
+      proxy_noproxy: new_resource.proxy_noproxy
     )
     cookbook new_resource.cookbook
     mode '0644'

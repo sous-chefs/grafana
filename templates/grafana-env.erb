@@ -10,3 +10,17 @@ CONF_FILE=<%= @conf_dir %>/grafana.ini
 PID_FILE_DIR=<%= @pid_dir %>
 RESTART_ON_UPGRADE=<%= @restart_on_upgrade %>
 LOG_DIR=/var/log/grafana
+<% unless @proxy_http.empty? %>
+HTTP_PROXY=<%= @proxy_http %>
+<% end %>
+<% unless @proxy_https.empty? %>
+HTTPS_PROXY=<%= @proxy_https %>
+<% end %>
+<% unless @proxy_noproxy.empty? %>
+NO_PROXY=<%= @proxy_noproxy %>
+<% end %>
+DATA_DIR=/var/lib/grafana
+MAX_OPEN_FILES=10000
+PLUGINS_DIR=/var/lib/grafana/plugins
+PROVISIONING_CFG_DIR=/etc/grafana/provisioning
+

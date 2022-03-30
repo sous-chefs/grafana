@@ -5,6 +5,7 @@ This file is used to list changes made in each version of grafana.
 ## Unreleased
 
 - Remove delivery folder
+- Fix resource_config_path for generic_oauth
 
 ## 10.0.1 - *2021-10-21*
 

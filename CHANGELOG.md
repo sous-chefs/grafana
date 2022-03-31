@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
 ## 10.0.2 - *2022-03-31*
 
 - Swithc to using reuable workflows

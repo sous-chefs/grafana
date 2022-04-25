@@ -6,7 +6,13 @@ This file is used to list changes made in each version of grafana.
 
 Standardise files with files in sous-chefs/repo-management
 
-Standardise files with files in sous-chefs/repo-management
+## 10.0.3 - *2022-04-02*
+
+## 10.0.2 - *2022-03-31*
+
+- Swithc to using reuable workflows
+- Remove delivery folder
+- Fix resource_config_path for generic_oauth
 
 ## 10.0.1 - *2021-10-21*
 

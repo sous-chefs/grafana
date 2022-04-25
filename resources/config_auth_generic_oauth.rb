@@ -67,3 +67,7 @@ action :create do
     accumulator_config(:set, rp.to_s.delete_prefix('oauth_'), new_resource.send(rp))
   end
 end
+
+def resource_config_path_override
+  %w(auth.generic_oauth)
+end

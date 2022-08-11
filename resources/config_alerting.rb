@@ -24,6 +24,8 @@ property  :execute_alerts,          [true, false],  default: true
 property  :error_or_timeout,        String,         default: 'alerting'
 property  :nodata_or_nullvalues,    String,         default: 'no_data'
 property  :concurrent_render_limit, Integer,        default: 5
+property  :max_annotation_age,      String,         default: '0'
+property  :max_annotations_to_keep, Integer,        default: 0
 
 action :install do
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting'] ||= {}
@@ -37,4 +39,8 @@ action :install do
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting']['nodata_or_nullvalues'] << new_resource.nodata_or_nullvalues.to_s unless new_resource.nodata_or_nullvalues.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting']['concurrent_render_limit'] ||= '' unless new_resource.concurrent_render_limit.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting']['concurrent_render_limit'] << new_resource.concurrent_render_limit.to_s unless new_resource.concurrent_render_limit.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting']['max_annotation_age'] ||= '' unless new_resource.max_annotation_age.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting']['max_annotation_age'] << new_resource.max_annotation_age.to_s unless new_resource.max_annotation_age.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting']['max_annotations_to_keep'] ||= '' unless new_resource.max_annotations_to_keep.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['alerting']['max_annotations_to_keep'] << new_resource.max_annotations_to_keep.to_s unless new_resource.max_annotations_to_keep.nil?
 end

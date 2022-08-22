@@ -32,8 +32,6 @@ action :install do
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins']['enable_alpha'] << new_resource.enable_alpha.to_s unless new_resource.enable_alpha.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins']['allow_loading_unsigned_plugins'] ||= '' unless new_resource.allow_loading_unsigned_plugins.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins']['allow_loading_unsigned_plugins'] << new_resource.allow_loading_unsigned_plugins.to_s unless new_resource.allow_loading_unsigned_plugins.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins']['allow_loading_unsigned_plugins'] ||= '' unless new_resource.allow_loading_unsigned_plugins.nil?
-  node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins']['allow_loading_unsigned_plugins'] << new_resource.allow_loading_unsigned_plugins.to_s unless new_resource.allow_loading_unsigned_plugins.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins']['plugin_admin_enabled'] ||= '' unless new_resource.plugin_admin_enabled.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins']['plugin_admin_enabled'] << new_resource.plugin_admin_enabled.to_s unless new_resource.plugin_admin_enabled.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['plugins']['plugin_admin_external_manage_enabled'] ||= '' unless new_resource.plugin_admin_external_manage_enabled.nil?

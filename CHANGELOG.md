@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## Unreleased
+## 10.0.5 - *2022-10-12*
 
 - Set grafana_config_database `database_name` to translate to `name`
 

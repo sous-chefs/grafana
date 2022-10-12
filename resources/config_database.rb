@@ -62,3 +62,9 @@ property :path, String,
           default: 'grafana.db'
 
 property :cache_mode, String
+
+def resource_config_properties_translate
+  {
+    database_name: 'name',
+  }.freeze
+end

@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+- Set grafana_config_database `database_name` to translate to `name`
+
 ## 10.0.4 - *2022-08-23*
 
 Standardise files with files in sous-chefs/repo-management

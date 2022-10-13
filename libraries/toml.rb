@@ -40,10 +40,13 @@ module Grafana
       # @param content [Hash] The file contents as a Hash
       # @return [String] Formatted toml output
       #
-      def tomlfile_string(content)
+      def tomlfile_string(content, deep_sort: false)
         raise ArgumentError, "Expected Hash got #{content.class}" unless content.is_a?(Hash)
 
-        ::TomlRB.dump(content.deep_sort)
+        file_content = content
+        file_content.deep_sort! if deep_sort
+
+        ::TomlRB.dump(file_content)
       end
     end
   end

@@ -80,7 +80,7 @@ action :create do
       next if nil_or_empty?(new_resource.send(rp))
 
       [rp.to_s, new_resource.send(rp)]
-    end.compact.to_h
+    end.compact.sort.to_h
 
     if ldap_server_config(new_resource.host)
       ldap_server_config(new_resource.host).merge!(ldap_server)

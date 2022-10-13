@@ -77,7 +77,7 @@ action :create do
       next if nil_or_empty?(new_resource.send(rp))
 
       [rp.to_s.delete_prefix('attribute_'), new_resource.send(rp)]
-    end.compact.to_h
+    end.compact.sort.to_h
 
     ldap_server_config(new_resource.host)['attributes'] = attributes
   end

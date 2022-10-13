@@ -55,6 +55,35 @@ grafana_config_ldap_group_mapping 'cn=admins,dc=grafana,dc=org' do
   org_id 1
 end
 
+grafana_config_ldap_group_mapping 'editors' do
+  sensitive false
+
+  host '127.0.0.1'
+  group_dn 'cn=editors,dc=grafana,dc=org'
+  org_role 'Viewer'
+  grafana_admin false
+  org_id 1
+end
+
+grafana_config_ldap_group_mapping 'readers' do
+  sensitive false
+
+  host '127.0.0.1'
+  group_dn 'cn=readers,dc=grafana,dc=org'
+  org_role 'Viewer'
+  grafana_admin false
+  org_id 1
+end
+
+grafana_config_ldap_group_mapping 'everyone' do
+  sensitive false
+
+  host '127.0.0.1'
+  group_dn '*'
+  org_role 'Viewer'
+  grafana_admin false
+  org_id 1
+end
 grafana_config_ldap_group_mapping 'readers' do
   sensitive false
 
@@ -79,15 +108,6 @@ grafana_config_ldap_group_mapping 'cn=users,ou=groups,dc=grafana,dc=org' do
 
   host '127.0.0.1'
   org_role 'Editor'
-
-  action :delete
-end
-
-grafana_config_ldap_group_mapping '*' do
-  sensitive false
-
-  host '127.0.0.1'
-  org_role 'Viewer'
 
   action :delete
 end

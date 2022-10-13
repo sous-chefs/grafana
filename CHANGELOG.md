@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
 ## 10.1.0 - *2022-10-13*
 
 - Remove deep_sort on ldap group_mappings (#417)

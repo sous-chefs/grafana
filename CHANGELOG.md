@@ -4,6 +4,9 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+- Add `enabled` property to `config_unified_alerting` resource [grafana docs](https://grafana.com/docs/grafana/latest/alerting/migrating-alerts/roll-back/)
+- Add `force_migration` property to `config` resource to allow unified alerting to be rolled back
+
 ## 10.1.0 - *2022-10-13*
 
 - Remove deep_sort on ldap group_mappings (#417)

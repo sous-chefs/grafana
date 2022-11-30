@@ -30,6 +30,8 @@ property :app_mode, String,
 property :instance_name, String,
           name_property: true
 
+property :force_migration, [true, false]
+
 def resource_config_path_override
   %w(global)
 end

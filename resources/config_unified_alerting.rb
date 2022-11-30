@@ -21,3 +21,9 @@ unified_mode true
 use 'partial/_config_file'
 
 property :admin_config_poll_interval_seconds, Integer
+# It is enabled by default on Grafana >=9.0: https://grafana.com/docs/grafana/v9.0/alerting/migrating-alerts/opt-out/.
+property :enabled, [true, false], default: true
+
+def resource_config_path_override
+  %w(unified_alerting)
+end

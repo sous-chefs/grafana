@@ -19,6 +19,10 @@ grafana_config_dashboards 'Grafana' do
   min_refresh_interval '3s'
 end
 
+grafana_config_unified_alerting 'Grafana' do
+  enabled false
+end
+
 grafana_service 'grafana' do
   action %i(enable start)
   subscribes :restart, 'template[/etc/grafana/grafana.ini]', :delayed

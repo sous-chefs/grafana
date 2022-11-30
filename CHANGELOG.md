@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+* Add `enabled` property to `config_unified_alerting` resource; this permits opting out of unified alerting that was [introduced](https://grafana.com/docs/grafana/v9.0/alerting/migrating-alerts/opt-out/) in v9.0.
+
 ## 10.1.0 - *2022-10-13*
 
 - Remove deep_sort on ldap group_mappings (#417)

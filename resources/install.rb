@@ -21,6 +21,8 @@
 
 unified_mode true
 
+include Grafana::Cookbook::Helpers
+
 property :package, [String, Array],
           default: ['grafana'],
           coerce: proc { |p| Array(p) }
@@ -28,13 +30,10 @@ property :package, [String, Array],
 property :version, String
 
 property :repo, String,
-          default: 'https://packages.grafana.com/oss'
+          default: lazy { default_repo_url }
 
 property :key, String,
-          default: 'https://packages.grafana.com/gpg.key'
-
-property :rpm_key, String,
-          default: 'https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana'
+          default: lazy { default_key_url }
 
 property :deb_distribution, String,
           default: 'stable'
@@ -43,22 +42,13 @@ property :deb_components, Array,
           default: ['main']
 
 action :install do
-  repository = case node['platform_family']
-               when 'debian'
-                 "#{new_resource.repo}/deb"
-               when 'rhel', 'amazon', 'fedora'
-                 "#{new_resource.repo}/rpm"
-               else
-                 raise ArgumentError, "Unsupported installation platform family #{node['platform_family']}"
-               end
-
   case node['platform_family']
   when 'debian'
     package 'apt-transport-https' do
     end
 
     apt_repository 'grafana' do
-      uri           repository
+      uri           new_resource.repo
       distribution  new_resource.deb_distribution
       components    new_resource.deb_components
       key           new_resource.key
@@ -77,8 +67,8 @@ action :install do
   when 'rhel', 'amazon', 'fedora'
     yum_repository 'grafana' do
       description   'Grafana Repo'
-      baseurl       repository
-      gpgkey        "#{new_resource.key} #{new_resource.rpm_key}"
+      baseurl       new_resource.repo
+      gpgkey        new_resource.key
       gpgcheck      true
     end
 

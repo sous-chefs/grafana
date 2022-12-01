@@ -84,6 +84,7 @@ grafana_config_ldap_group_mapping 'everyone' do
   grafana_admin false
   org_id 1
 end
+
 grafana_config_ldap_group_mapping 'readers' do
   sensitive false
 
@@ -103,7 +104,7 @@ grafana_config_ldap_group_mapping 'cn=admins,ou=groups,dc=grafana,dc=org' do
   action :delete
 end
 
-grafana_config_ldap_group_mapping 'cn=users,ou=groups,dc=grafana,dc=org' do
+grafana_config_ldap_group_mapping 'cn=editors,ou=groups,dc=grafana,dc=org' do
   sensitive false
 
   host '127.0.0.1'

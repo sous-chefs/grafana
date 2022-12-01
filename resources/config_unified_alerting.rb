@@ -20,4 +20,11 @@ unified_mode true
 
 use 'partial/_config_file'
 
+property :enabled, [true, false],
+          default: false
+
 property :admin_config_poll_interval_seconds, Integer
+
+def resource_config_path_override
+  %w(unified_alerting)
+end

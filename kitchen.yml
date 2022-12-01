@@ -16,13 +16,18 @@ verifier:
   name: inspec
 
 platforms:
-  - name: debian-9
   - name: debian-10
-  - name: ubuntu-18.04
+  - name: debian-11
   - name: ubuntu-20.04
+  - name: ubuntu-22.04
   - name: centos-7
-  - name: centos-8
+  - name: centos-stream-8
+  - name: centos-stream-9
   - name: amazonlinux-2
+  - name: rockylinux-8
+  - name: rockylinux-9
+  - name: almalinux-8
+  - name: almalinux-9
 
 suites:
   - name: default

@@ -19,6 +19,7 @@ Introduced: v4.0.0
 | -------------------- | ----------- | -------------- | ----------------------------------------------------- | ---------------------- |
 | `instance_name`      | String      |                | Name Property, name of the instance                   |                        |
 | `env_directory`      | String      | `/etc/default` | Environment settings directory                        | Valid directory        |
+| `force_migration`    | true, false | nil            | Used to roll back to legacy alerting                  |                        |
 | `owner`              | String      | `grafana`      | User to run as                                        |                        |
 | `group`              | String      | `grafana`      | Group to run as                                       |                        |
 | `restart_on_upgrade` | true, false | `false`        | Restart the server on package upgrade                 |                        |

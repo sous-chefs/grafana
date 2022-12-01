@@ -30,8 +30,11 @@ PRs are welcome to add support for additional platforms.
 
 ## Resources
 
+- [README](https://github.com/sous-chefs/grafana/tree/main/documentation/README.md)
+
 - [grafana_config](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config.md)
 - [grafana_config_alerting](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_alerting.md)
+- [grafana_config_auth](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_auth.md)
 - [grafana_config_auth_anonymous](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_auth_anonymous.md)
 - [grafana_config_auth_azuread](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_auth_azuread.md)
 - [grafana_config_auth_basic](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_auth_basic.md)
@@ -43,6 +46,7 @@ PRs are welcome to add support for additional platforms.
 - [grafana_config_auth_ldap](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_auth_ldap.md)
 - [grafana_config_auth_okta](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_auth_okta.md)
 - [grafana_config_auth_proxy](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_auth_proxy.md)
+- [grafana_config_date_formats](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_date_formats.md)
 - [grafana_config_dashboards](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_dashboards.md)
 - [grafana_config_database](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_database.md)
 - [grafana_config_dataproxy](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_dataproxy.md)
@@ -50,10 +54,13 @@ PRs are welcome to add support for additional platforms.
 - [grafana_config_enterprise](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_enterprise.md)
 - [grafana_config_explore](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_explore.md)
 - [grafana_config_expressions](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_expressions.md)
+- [grafana_config_external_image_storage](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_external_image_storage.md)
 - [grafana_config_external_image_storage_azure_blob](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_external_image_storage_azure_blob.md)
 - [grafana_config_external_image_storage_gcs](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_external_image_storage_gcs.md)
 - [grafana_config_external_image_storage_s3](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_external_image_storage_s3.md)
 - [grafana_config_external_image_storage_webdav](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_external_image_storage_webdav.md)
+- [grafana_config_feature_toggles](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_feature_toggles.md)
+- [grafana_config_geomap](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_geomap.md)
 - [grafana_config_ldap_attributes](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_ldap_attributes.md)
 - [grafana_config_ldap_group_mapping](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_ldap_group_mapping.md)
 - [grafana_config_ldap_server](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_ldap_server.md)
@@ -74,9 +81,12 @@ PRs are welcome to add support for additional platforms.
 - [grafana_config_session](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_session.md)
 - [grafana_config_smtp](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_smtp.md)
 - [grafana_config_snapshots](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_snapshots.md)
+- [grafana_config_tracing_jaeger](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_tracing_jaeger.md)
+- [grafana_config_unified_alerting](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_unified_alerting.md)
 - [grafana_config_users](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_users.md)
 - [grafana_install](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_install.md)
 - [grafana_plugin](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_plugin.md)
+- [grafana_service](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_service.md)
 
 ## Note on default session cookie name change
 

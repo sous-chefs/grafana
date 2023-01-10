@@ -351,7 +351,7 @@ secret_key = <%= @grafana['external_image_storage']['secret_key'] %>
 <% end %>
 <% end %>
 
-#################################### Dashboards ##################
+#################################### Plugins ##################
 <% if @grafana['plugins'] %>
 [plugins]
 <% if @grafana['plugins']['enable_alpha'] %>
@@ -391,10 +391,18 @@ plugin_catalog_hidden_plugins = <%= @grafana['plugins']['plugin_catalog_hidden_p
 #################################### Dashboards ##################
 <% if @grafana['dashboards'] %>
 [dashboards]
+
 # Number dashboard versions to keep (per dashboard). Default: 20, Minimum: 1+
 <% if @grafana['dashboards']['versions_to_keep'] %>
 versions_to_keep = <%= @grafana['dashboards']['versions_to_keep'] %>
 <% end %>
+
+# Minimum dashboard refresh interval. When set, this will restrict users to set the refresh interval of a dashboard lower than given interval.
+# The interval string is a possibly signed sequence of decimal numbers, followed by a unit suffix (ms, s, m, h, d), e.g. 30s or 1m.
+<% if @grafana['dashboards']['min_refresh_interval'] %>
+min_refresh_interval = <%= @grafana['dashboards']['min_refresh_interval'] %>
+<% end %>
+
 <% end %>
 #################################### Users ###############################
 <% if @grafana['users'] %>

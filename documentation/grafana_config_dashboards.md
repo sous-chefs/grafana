@@ -16,7 +16,8 @@ Introduced: v4.0.0
 
 | Name                      | Type          |  Default                    | Description                                        | Allowed Values  |
 | ------------------------- | ------------- | --------------------------- | -------------------------------------------------- | --------------- |
-| `versions_to_keep`        |  Integer      | `5`                         | Number dashboard versions to keep (per dashboard). | |
+| `versions_to_keep`        |  Integer      | `5`                         | Number dashboard versions to keep (per dashboard). |                 |
+| `min_refresh_interval`    |  Integer      | ``                          | Minimum dashboard refresh interval.                | Xs, Xm, Xh, Xd  |
 
 ## Examples
 

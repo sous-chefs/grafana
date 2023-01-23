@@ -18,8 +18,9 @@
 #
 # Configures the installed grafana instance
 
-property  :instance_name,     String,   name_property: true
-property  :versions_to_keep,  Integer,  default: 20
+property  :instance_name,         String,   name_property: true
+property  :versions_to_keep,      Integer,  default: 20
+property  :min_refresh_interval,  String
 
 action :install do
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['dashboards'] ||= {}

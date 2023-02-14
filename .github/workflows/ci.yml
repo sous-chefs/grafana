@@ -24,37 +24,37 @@ jobs:
     strategy:
       matrix:
         os:
-          - 'almalinux-8'
+          - "almalinux-8"
           # - 'almalinux-9'
           # - 'amazonlinux-2'
-          - 'debian-10'
-          - 'debian-11'
-          - 'centos-7'
-          - 'centos-stream-8'
+          - "debian-10"
+          - "debian-11"
+          - "centos-7"
+          - "centos-stream-8"
           # - 'centos-stream-9'
-          - 'fedora-latest'
-          - 'rockylinux-8'
+          - "fedora-latest"
+          - "rockylinux-8"
           # - 'rockylinux-9'
-          - 'ubuntu-2004'
-          - 'ubuntu-2204'
+          - "ubuntu-2004"
+          - "ubuntu-2204"
         suite:
-          - 'default'
-          - 'ldap'
-          - 'proxy'
-          - 'plugins'
-          - 'basic'
-          - 'configure'
-          - 'azuread'
-          - 'config-plugins'
+          - "default"
+          - "ldap"
+          - "proxy"
+          - "plugins"
+          - "basic"
+          - "configure"
+          - "azuread"
+          - "config-plugins"
       fail-fast: false
 
     steps:
       - name: Check out code
         uses: actions/checkout@v2
       - name: Install Chef
-        uses: actionshub/chef-install@main
+        uses: actionshub/chef-install@2.0.4
       - name: Dokken
-        uses: actionshub/test-kitchen@main
+        uses: actionshub/test-kitchen@2.1.0
         env:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml

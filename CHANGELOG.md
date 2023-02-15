@@ -4,6 +4,9 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+- Remove PID1 commands. They should be taken care of by the CMD block
+- Fix the wrong platform in dokken
+
 ## 10.2.3 - *2023-02-15*
 
 ## 10.2.2 - *2023-02-14*

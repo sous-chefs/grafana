@@ -28,13 +28,19 @@ property :enabled, [true, false],
 
 property :allow_sign_up, [true, false]
 
+property :auto_login, [true, false]
+
 property :client_id, String
 
 property :client_secret, String
 
 property :scopes, String
 
-property :email_attribute_name, String
+property :email_attribute_path, String
+
+property :login_attribute_path, String
+
+property :name_attribute_path, String
 
 property :auth_url, String
 

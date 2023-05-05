@@ -64,16 +64,6 @@ property :tls_client_ca, String
 
 property :send_client_credentials_via_post, [true, false]
 
-action :create do
-  converge_if_changed {}
-
-  resource_properties.each do |rp|
-    next if nil_or_empty?(new_resource.send(rp))
-
-    accumulator_config(:set, rp.to_s.delete_prefix('oauth_'), new_resource.send(rp))
-  end
-end
-
 def resource_config_path_override
   %w(auth.generic_oauth)
 end

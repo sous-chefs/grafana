@@ -28,13 +28,19 @@ property :enabled, [true, false],
 
 property :allow_sign_up, [true, false]
 
+property :auto_login, [true, false]
+
 property :client_id, String
 
 property :client_secret, String
 
 property :scopes, String
 
-property :email_attribute_name, String
+property :email_attribute_path, String
+
+property :login_attribute_path, String
+
+property :name_attribute_path, String
 
 property :auth_url, String
 
@@ -57,16 +63,6 @@ property :tls_client_key, String
 property :tls_client_ca, String
 
 property :send_client_credentials_via_post, [true, false]
-
-action :create do
-  converge_if_changed {}
-
-  resource_properties.each do |rp|
-    next if nil_or_empty?(new_resource.send(rp))
-
-    accumulator_config(:set, rp.to_s.delete_prefix('oauth_'), new_resource.send(rp))
-  end
-end
 
 def resource_config_path_override
   %w(auth.generic_oauth)

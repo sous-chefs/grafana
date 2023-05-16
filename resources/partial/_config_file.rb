@@ -82,6 +82,10 @@ load_current_value do |new_resource|
     send(p, current_config.fetch(translate_property_value(p)))
   end
 
+  unless nil_or_empty?(new_resource.extra_options)
+    conflict = new_resource.extra_options.keys.select { |k| resource_properties.include?(k.to_sym) }
+    Chef::Log.warn("The following extra_option keys conflict with the resource properties: #{conflict.join(', ')}") unless conflict.empty?
+  end
   extra_options(extra_options_filtered) unless nil_or_empty?(extra_options_filtered)
 end
 

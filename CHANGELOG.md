@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## Unreleased
+## 10.3.0 - *2023-05-16*
 
 - Add more properties to generic oath resource
 - Add warning when extra_options conflict with resource properties

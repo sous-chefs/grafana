@@ -61,7 +61,7 @@ Standardise files with files in sous-chefs/repo-management
 
 ## 10.2.0 - *2022-12-01*
 
-- Add `enabled` property to `config_unified_alerting` resource [grafana docs](https://grafana.com/docs/grafana/latest/alerting/migrating-alerts/roll-back/)
+- Add `enabled` property to `config_unified_alerting` resource
 - Add `force_migration` property to `config` resource to allow unified alerting to be rolled back
 - Migrate install resource to use new default repo URLs
 

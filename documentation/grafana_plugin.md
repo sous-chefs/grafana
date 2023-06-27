@@ -1,8 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/grafana#resources)
-
----
-
 # grafana_plugin
+
+[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 This ressource will help you to manage grafana plugins.
 

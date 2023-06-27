@@ -1,8 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/grafana#resources)
-
----
-
 # grafana_install
+
+[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 Installs Grafana from the repositories, this will setup the correct apt/yum repo and install it, allows you to supply your own custom repository.
 

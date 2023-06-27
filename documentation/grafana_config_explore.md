@@ -1,8 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/grafana#resources)
-
----
-
 # grafana_config_explore
+
+[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 Configures the core explore section of the configuration <http://docs.grafana.org/installation/configuration/>
 

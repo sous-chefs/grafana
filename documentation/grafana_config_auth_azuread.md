@@ -1,8 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/grafana#resources)
-
----
-
 # grafana_config_auth_azuread
+
+[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 Configures the auth.azuread section of the configuration <https://grafana.com/docs/grafana/latest/auth/azuread/>
 

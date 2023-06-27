@@ -1,8 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/grafana#resources)
-
----
-
 # grafana_config_external_image_storage_gcs
+
+[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 Configures the external_image_storage.gcs section of the configuration <https://grafana.com/docs/grafana/latest/administration/configuration/#external_image_storagegcs>.
 

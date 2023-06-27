@@ -1,8 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/grafana#resources)
-
----
-
 # grafana_config_tracing_jaeger
+
+[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 ## Uses
 

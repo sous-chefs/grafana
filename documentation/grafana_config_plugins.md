@@ -1,8 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/grafana#resources)
-
----
-
 # grafana_config_plugins
+
+[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 Configures the core plugins section of the configuration <https://grafana.com/docs/grafana/latest/administration/configuration/#plugins-1>
 

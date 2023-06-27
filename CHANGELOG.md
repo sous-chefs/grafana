@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
 ## 10.3.1 - *2023-06-27*
 
 Standardise files with files in sous-chefs/repo-management

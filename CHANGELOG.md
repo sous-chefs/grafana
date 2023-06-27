@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+- Add `oauth_allow_insecure_email_lookup` auth option ([Grafana Docs](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/#enable-email-lookup))
+
 ## 10.3.1 - *2023-06-27*
 
 Standardise files with files in sous-chefs/repo-management

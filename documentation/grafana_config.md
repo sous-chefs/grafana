@@ -1,8 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/grafana#resources)
-
----
-
 # grafana_config
+
+[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 Configures the core config section of the configuration <http://docs.grafana.org/installation/configuration/>
 This must be called before any other config resources

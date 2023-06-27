@@ -41,3 +41,5 @@ property :oauth_state_cookie_max_age, Integer
 property :api_key_max_seconds_to_live, Integer
 
 property :sigv4_auth_enabled, [true, false]
+
+property :oauth_allow_insecure_email_lookup, [true, false]

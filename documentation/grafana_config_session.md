@@ -1,8 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/grafana#resources)
-
----
-
 # grafana_config_session
+
+[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 Configures the core session section of the configuration <http://docs.grafana.org/installation/configuration/#session>. Note, if you're using Grafana v6.2 or newer, cookie/session settings are in Remote Cache and Security. See <https://grafana.com/docs/installation/configuration/#remote-cache> and <https://grafana.com/docs/installation/configuration/#security>.
 

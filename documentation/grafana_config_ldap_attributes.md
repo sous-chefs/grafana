@@ -1,8 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/grafana#resources)
-
----
-
 # grafana_config_ldap_attributes
+
+[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 Configures ldap group mappings <https://grafana.com/docs/grafana/latest/auth/ldap/#grafana-ldap-configuration>
 

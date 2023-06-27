@@ -1,8 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/grafana#resources)
-
----
-
 # grafana_service
+
+[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 [Back to resource list](../README.md#resources)
 

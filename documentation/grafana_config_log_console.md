@@ -1,8 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/grafana#resources)
-
----
-
 # grafana_config_log_console
+
+[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 Configures the log.console section of the configuration <https://grafana.com/docs/grafana/latest/administration/configuration/#logconsole>
 

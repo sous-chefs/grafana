@@ -1,8 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/grafana#resources)
-
----
-
 # grafana_config_paths
+
+[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 Configures the core paths section of the configuration <http://docs.grafana.org/installation/configuration/#paths>
 

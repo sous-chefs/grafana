@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+- Add `oauth_allow_insecure_email_lookup` auth option ([Grafana Docs](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/#enable-email-lookup))
+
 ## 10.3.1 - *2023-06-27*
 
 Standardise files with files in sous-chefs/repo-management
@@ -59,7 +61,7 @@ Standardise files with files in sous-chefs/repo-management
 
 ## 10.2.0 - *2022-12-01*
 
-- Add `enabled` property to `config_unified_alerting` resource [grafana docs](https://grafana.com/docs/grafana/latest/alerting/migrating-alerts/roll-back/)
+- Add `enabled` property to `config_unified_alerting` resource
 - Add `force_migration` property to `config` resource to allow unified alerting to be rolled back
 - Migrate install resource to use new default repo URLs
 

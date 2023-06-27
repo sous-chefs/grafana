@@ -1,8 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/grafana#resources)
-
----
-
 # grafana_config_external_image_storage
+
+[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 ## Uses
 

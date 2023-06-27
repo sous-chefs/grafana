@@ -1,8 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/grafana#resources)
-
----
-
 # grafana_config_metrics
+
+[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 Configures the core metrics section of the configuration <http://docs.grafana.org/installation/configuration/#metrics>
 

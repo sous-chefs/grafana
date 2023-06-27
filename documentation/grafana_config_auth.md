@@ -1,8 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/grafana#resources)
-
----
-
 # grafana_config_auth
+
+[back to resource list](https://github.com/sous-chefs/grafana#resources)
 
 ## Uses
 

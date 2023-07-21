@@ -38,7 +38,7 @@ PRs are welcome to add support for additional platforms.
 - [grafana_config_auth_anonymous](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_auth_anonymous.md)
 - [grafana_config_auth_azuread](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_auth_azuread.md)
 - [grafana_config_auth_basic](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_auth_basic.md)
-- [grafana_config_auth_generic](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_auth_generic.md)
+- [grafana_config_auth_generic_oauth](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_auth_generic_oauth.md)
 - [grafana_config_auth_github](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_auth_github.md)
 - [grafana_config_auth_google](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_auth_google.md)
 - [grafana_config_auth_grafanacom](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_auth_grafanacom.md)
@@ -83,6 +83,7 @@ PRs are welcome to add support for additional platforms.
 - [grafana_config_snapshots](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_snapshots.md)
 - [grafana_config_tracing_jaeger](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_tracing_jaeger.md)
 - [grafana_config_unified_alerting](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_unified_alerting.md)
+- [grafana_config_unified_alerting_screenshots](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_unified_alerting_screenshots.md)
 - [grafana_config_users](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_config_users.md)
 - [grafana_install](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_install.md)
 - [grafana_plugin](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_plugin.md)
@@ -90,7 +91,7 @@ PRs are welcome to add support for additional platforms.
 
 ## Note on default session cookie name change
 
-The default cookie name changed from Grafana [5.4.5](https://github.com/grafana/grafana/blob/v5.4.5/pkg/setting/setting.go#L743) to [6.0.0](https://github.com/grafana/grafana/blob/v6.0.0/pkg/setting/setting.go#L664).  The name change was from `grafana_sess` to `grafana_session`.  This cookbook now defaults to `grafana_session`.  This can be a breaking change, so please be aware of this.  Please see the [`grafana_cookie_name` documentation](https://github.com/sous-chefs/grafana/tree/main/documentation/grafana_cookie_name.md) for details
+The default cookie name changed from Grafana [5.4.5](https://github.com/grafana/grafana/blob/v5.4.5/pkg/setting/setting.go#L743) to [6.0.0](https://github.com/grafana/grafana/blob/v6.0.0/pkg/setting/setting.go#L664).  The name change was from `grafana_sess` to `grafana_session`.  This cookbook now defaults to `grafana_session`.  This can be a breaking change, so please be aware of this.
 
 ## Contributors
 

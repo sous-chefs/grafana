@@ -1,5 +1,5 @@
 # Cookbook:: grafana
-# Resource:: config_auth_otka
+# Resource:: config_auth_okta
 #
 # Copyright:: 2021, Sous Chefs
 #

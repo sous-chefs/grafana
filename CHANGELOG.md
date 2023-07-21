@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+- Add `config_unified_alerting_screenshots` resource ([Grafana Docs](([Grafana Docs](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/#enable-email-lookup))))
+
 ## 10.4.1 - *2023-07-10*
 
 ## 10.4.0 - *2023-06-27*

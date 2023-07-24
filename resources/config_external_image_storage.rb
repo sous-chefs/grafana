@@ -29,3 +29,7 @@ def resource_config_properties_translate
     storage_provider: 'provider',
   }.freeze
 end
+
+def resource_config_path_override
+  %w(external_image_storage)
+end

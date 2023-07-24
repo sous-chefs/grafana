@@ -4,6 +4,8 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+- Fix `config_external_image_storage` config path override ([Grafana Docs](https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#external_image_storage))
+
 ## 10.5.0 - *2023-07-21*
 
 - Add `config_unified_alerting_screenshots` resource ([Grafana Docs](([Grafana Docs](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/#enable-email-lookup))))

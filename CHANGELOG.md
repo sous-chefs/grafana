@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
 ## 10.5.1 - *2023-07-24*
 
 - Fix `config_external_image_storage` config path override ([Grafana Docs](https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#external_image_storage))

@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
 ## 10.6.0 - *2023-08-17*
 
  - Add alerting high availability to unified_alerting ([Grafana Docs](https://grafana.com/docs/grafana/latest/alerting/set-up/configure-high-availability))

@@ -25,6 +25,16 @@ property :enabled, [true, false],
 
 property :admin_config_poll_interval_seconds, Integer
 
+property :ha_listen_address, String,
+          default: '0.0.0.0:9094'
+
+property :ha_peers, String
+
+property :ha_advertise_address, String
+
+property :ha_peer_timeout, String,
+          default: '15s'
+
 def resource_config_path_override
   %w(unified_alerting)
 end

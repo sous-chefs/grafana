@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## Unreleased
+## 10.6.1 - *2023-09-29*
 
 ## 10.6.0 - *2023-08-17*
 

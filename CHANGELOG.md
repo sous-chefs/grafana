@@ -5,6 +5,7 @@ This file is used to list changes made in each version of grafana.
 ## Unreleased
 
 - Ensure we don't use newer toml-rb which requires a compiler
+- CI: Update sous-chefs/.github action to v3.1.0
 
 ## 10.6.4 - *2023-12-21*
 

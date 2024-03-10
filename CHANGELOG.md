@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of grafana.
 
+## Unreleased
+
 ## 10.7.0 - *2024-03-10*
 
 - Ensure we don't use newer toml-rb which requires a compiler

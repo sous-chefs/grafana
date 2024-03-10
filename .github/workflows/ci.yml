@@ -25,16 +25,16 @@ jobs:
       matrix:
         os:
           - "almalinux-8"
-          # - 'almalinux-9'
-          # - 'amazonlinux-2'
+          - 'almalinux-9'
+          - 'amazonlinux-2'
           - "debian-10"
           - "debian-11"
           - "centos-7"
           - "centos-stream-8"
-          # - 'centos-stream-9'
+          - 'centos-stream-9'
           - "fedora-latest"
           - "rockylinux-8"
-          # - 'rockylinux-9'
+          - 'rockylinux-9'
           - "ubuntu-2004"
           - "ubuntu-2204"
         suite:

@@ -14,15 +14,15 @@ Removed: v6.2.0
 
 ## Properties
 
-| Name                | Type        |  Default                                  | Description                                             | Allowed Values
-| ------------------- | ----------- | ------------ | ------------------------------------------------------- | --------------- |
-| `session_provider`  | Symbol      | `file`       | Provider to use                                         |memory file redis mysql postgres memcache
-| `provider_config`   | String      | `sessions`   | See <http://docs.grafana.org/installation/configuration/#session> |
-| `cookie_name`       | String      | `nil`        | Session cookie name,  default changed at Grafana 6.0.0 so programatically determining default in install action |
-| `cookie_secure`     | true, false | `false`      | Set to true if you host Grafana behind HTTPS only. Defaults to false. | true, false
-| `session_life_time` | Integer     | `86400`      | How long sessions lasts in seconds. Defaults to 86400 (24 hours).|
-| `gc_interval_time`  | Integer     | `86400`      | How often to garbase collect                            |
-| `conn_max_lifetime` | Integer     | `14400`      | Connection Max Lifetime (seconds, 14400 = 4 hours)      |
+| Name                | Type        |  Default     | Description                                                                                                     | Allowed Values                            |
+| ------------------- | ----------- | ------------ | --------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| `session_provider`  | Symbol      | `file`       | Provider to use                                                                                                 | memory file redis mysql postgres memcache |
+| `provider_config`   | String      | `sessions`   | See <http://docs.grafana.org/installation/configuration/#session>                                               |                                           |
+| `cookie_name`       | String      | `nil`        | Session cookie name,  default changed at Grafana 6.0.0 so programatically determining default in install action |                                           |
+| `cookie_secure`     | true, false | `false`      | Set to true if you host Grafana behind HTTPS only. Defaults to false.                                           | true, false                               |
+| `session_life_time` | Integer     | `86400`      | How long sessions lasts in seconds. Defaults to 86400 (24 hours).                                               |                                           |
+| `gc_interval_time`  | Integer     | `86400`      | How often to garbase collect                                                                                    |                                           |
+| `conn_max_lifetime` | Integer     | `14400`      | Connection Max Lifetime (seconds, 14400 = 4 hours)                                                              |                                           |
 
 ## Examples
 

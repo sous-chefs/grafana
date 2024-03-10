@@ -16,7 +16,7 @@ Introduced: v6.2.0
 | Name      | Type   | Default    | Description                                                        | Allowed Values           |
 | --------- | ------ | ---------- | ------------------------------------------------------------------ | ------------------------ |
 | `type`    | Symbol | `database` | Provider to use                                                    | redis memcached database |
-| `connstr` | String |            | See <https://grafana.com/docs/installation/configuration/#connstr> |
+| `connstr` | String |            | See <https://grafana.com/docs/installation/configuration/#connstr> |                          |
 
 ## Examples
 

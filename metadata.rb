@@ -19,4 +19,4 @@ supports 'oracle'
 
 gem 'deepsort'
 gem 'inifile'
-gem 'toml-rb'
+gem 'toml-rb', '~> 2.2'

@@ -26,7 +26,7 @@ jobs:
         os:
           - "almalinux-8"
           - 'almalinux-9'
-          - 'amazonlinux-2'
+          # - 'amazonlinux-2023'
           - "debian-11"
           - "debian-12"
           - "centos-7"

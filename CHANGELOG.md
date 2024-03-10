@@ -9,6 +9,7 @@ This file is used to list changes made in each version of grafana.
 - CI: Update actionshub/chef-install action to v3
 - CI: Add testing to EL9 platforms
 - CI: Add Debian 12 and remove Debian 10 testing
+- CI: Comment AmazonLinux 2023 and remove AmazonLinux 2 testing
 - MDL fixes
 
 ## 10.6.4 - *2023-12-21*

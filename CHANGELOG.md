@@ -8,6 +8,7 @@ This file is used to list changes made in each version of grafana.
 - CI: Update sous-chefs/.github action to v3.1.0
 - CI: Update actionshub/chef-install action to v3
 - CI: Add testing to EL9 platforms
+- CI: Add Debian 12 and remove Debian 10 testing
 - MDL fixes
 
 ## 10.6.4 - *2023-12-21*

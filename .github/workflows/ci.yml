@@ -27,8 +27,8 @@ jobs:
           - "almalinux-8"
           - 'almalinux-9'
           - 'amazonlinux-2'
-          - "debian-10"
           - "debian-11"
+          - "debian-12"
           - "centos-7"
           - "centos-stream-8"
           - 'centos-stream-9'

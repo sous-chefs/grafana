@@ -13,9 +13,9 @@ Introduced: v4.0.0
 
 ## Properties
 
-| Name                      | Type          |  Default                    | Description                                                               | Allowed Values
+| Name                      | Type          |  Default                    | Description                                                               | Allowed Values  |
 | ------------------------- | ------------- | --------------------------- | ------------------------------------------------------------------------- | --------------- |
-| `enabled`                 | true, false   | `false`                     | Enable the Explore section                                                | true, false
+| `enabled`                 | true, false   | `false`                     | Enable the Explore section                                                | true, false     |
 
 ## Examples
 

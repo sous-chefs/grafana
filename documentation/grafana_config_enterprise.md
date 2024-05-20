@@ -13,9 +13,9 @@ Introduced: v4.0.0
 
 ## Properties
 
-| Name                      | Type          |  Default                    | Description                                                               | Allowed Values
+| Name                      | Type          |  Default                    | Description                                                               | Allowed Values  |
 | ------------------------- | ------------- | --------------------------- | ------------------------------------------------------------------------- | --------------- |
-| `license_path`            | String        |                             | License File Path                                                         | Valid file path
+| `license_path`            | String        |                             | License File Path                                                         | Valid file path |
 
 ## Examples
 

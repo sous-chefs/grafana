@@ -6,7 +6,19 @@ This file is used to list changes made in each version of grafana.
 
 Standardise files with files in sous-chefs/repo-management
 
-Standardise files with files in sous-chefs/repo-management
+## 10.7.2 - *2024-05-01*
+
+## 10.7.1 - *2024-05-01*
+
+## 10.7.0 - *2024-03-10*
+
+- Ensure we don't use newer toml-rb which requires a compiler
+- CI: Update sous-chefs/.github action to v3.1.0
+- CI: Update actionshub/chef-install action to v3
+- CI: Add testing to EL9 platforms
+- CI: Add Debian 12 and remove Debian 10 testing
+- CI: Comment AmazonLinux 2023 and remove AmazonLinux 2 testing
+- MDL fixes
 
 ## 10.6.4 - *2023-12-21*
 
@@ -18,7 +30,7 @@ Standardise files with files in sous-chefs/repo-management
 
 ## 10.6.0 - *2023-08-17*
 
- - Add alerting high availability to unified_alerting ([Grafana Docs](https://grafana.com/docs/grafana/latest/alerting/set-up/configure-high-availability))
+- Add alerting high availability to unified_alerting ([Grafana Docs](https://grafana.com/docs/grafana/latest/alerting/set-up/configure-high-availability))
 
 ## 10.5.1 - *2023-07-24*
 

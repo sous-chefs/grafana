@@ -1196,3 +1196,10 @@ enable_alpha = <%= @grafana['panels']['enable_alpha'] %>
 license_path = <%= @grafana['enterprise']['license_path'] %>
 <% end %>
 <% end %>
+
+<% if @grafana['feature_toggles'] %>
+[feature_toggles]
+<% if @grafana['feature_toggles']['alertingPreviewUpgrade'] %>
+alertingPreviewUpgrade = <%= @grafana['feature_toggles']['alertingPreviewUpgrade'] %>
+<% end %>
+<% end %>

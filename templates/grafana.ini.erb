@@ -1199,7 +1199,19 @@ license_path = <%= @grafana['enterprise']['license_path'] %>
 
 <% if @grafana['feature_toggles'] %>
 [feature_toggles]
+<% if @grafana['feature_toggles']['enable'] %>
+enable = <%= @grafana['feature_toggles']['enable'].join(', ') %>
+<% end %>
+
 <% if @grafana['feature_toggles']['alertingPreviewUpgrade'] %>
 alertingPreviewUpgrade = <%= @grafana['feature_toggles']['alertingPreviewUpgrade'] %>
+<% end %>
+
+<% if @grafana['feature_toggles']['angularDeprecationUI'] %>
+angularDeprecationUI = <%= @grafana['feature_toggles']['angularDeprecationUI'] %>
+<% end %>
+
+<% if @grafana['feature_toggles']['panelTitleSearch'] %>
+panelTitleSearch = <%= @grafana['feature_toggles']['panelTitleSearch'] %>
 <% end %>
 <% end %>

@@ -19,11 +19,23 @@
 #Configures the installed grafana instance
 
 
-property  :instance_name,           String,         name_property: true
-property  :alertingPreviewUpgrade,  [true, false],  default: true
+property  :instance_name,           String,          name_property: true
+property  :enable,                  [String, Array], default: ''
+property  :alertingPreviewUpgrade,  [true, false],   default: true
+property  :angularDeprecationUI,    [true, false],   default: false
+property  :panelTitleSearch,        [true, false],   default: true
 
 action :install do
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['feature_toggles'] ||= {}
+  if new_resource.enable.is_a?(Array)
+    node.run_state['sous-chefs'][new_resource.instance_name]['config']['feature_toggles']['enable'] = new_resource.enable
+  else
+    node.run_state['sous-chefs'][new_resource.instance_name]['config']['feature_toggles']['enable'] = [new_resource.enable] unless new_resource.enable.empty?
+  end
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['feature_toggles']['alertingPreviewUpgrade'] ||= '' unless new_resource.alertingPreviewUpgrade.nil?
   node.run_state['sous-chefs'][new_resource.instance_name]['config']['feature_toggles']['alertingPreviewUpgrade'] << new_resource.alertingPreviewUpgrade.to_s unless new_resource.alertingPreviewUpgrade.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['feature_toggles']['angularDeprecationUI'] ||= '' unless new_resource.angularDeprecationUI.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['feature_toggles']['angularDeprecationUI'] << new_resource.angularDeprecationUI.to_s unless new_resource.angularDeprecationUI.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['feature_toggles']['panelTitleSearch'] ||= '' unless new_resource.panelTitleSearch.nil?
+  node.run_state['sous-chefs'][new_resource.instance_name]['config']['feature_toggles']['panelTitleSearch'] << new_resource.panelTitleSearch.to_s unless new_resource.panelTitleSearch.nil?
 end

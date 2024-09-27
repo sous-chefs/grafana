@@ -1,9 +1,10 @@
 # CHANGELOG for grafana
+
 This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
-Added org_ids to ldap_mapping functions
+- Added org_ids to ldap_mapping functions
 
 ## 10.7.4 - *2024-07-15*
 

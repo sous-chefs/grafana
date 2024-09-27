@@ -71,7 +71,7 @@ action_class do
 
     return unless group_mappings
 
-    group_mappings.any? { |gm| gm['group_dn'].eql?(new_resource.group_dn) && gm['org_role'].eql?(new_resource.org_role) && gm['org_role'].eql?(new_resource.org_role)}
+    group_mappings.any? { |gm| gm['group_dn'].eql?(new_resource.group_dn) && gm['org_role'].eql?(new_resource.org_role) && gm['org_id'].eql?(new_resource.org_id)}
   end
 
   def remove_group_mapping

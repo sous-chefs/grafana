@@ -71,7 +71,7 @@ action_class do
 
     return unless group_mappings
 
-    group_mappings.any? { |gm| gm['group_dn'].eql?(new_resource.group_dn) && gm['org_role'].eql?(new_resource.org_role) }
+    group_mappings.any? { |gm| gm['group_dn'].eql?(new_resource.group_dn) && gm['org_role'].eql?(new_resource.org_role) && gm['org_role'].eql?(new_resource.org_role)}
   end
 
   def remove_group_mapping
@@ -81,7 +81,7 @@ action_class do
 
     return unless group_mappings
 
-    group_mappings.delete_if { |gm| gm['group_dn'].eql?(new_resource.group_dn) && gm['org_role'].eql?(new_resource.org_role) }
+    group_mappings.delete_if { |gm| gm['group_dn'].eql?(new_resource.group_dn) && gm['org_role'].eql?(new_resource.org_role) && gm['org_id'].eql?(new_resource.org_id) }
   end
 end
 
@@ -103,5 +103,5 @@ action :create do
 end
 
 action :delete do
-  converge_by("Remove LDAP server #{new_resource.host} group mapping for #{new_resource.group_dn}") { remove_group_mapping } if group_mapping_exist?
+  converge_by("Remove LDAP server #{new_resource.host} group mapping for #{new_resource.group_dn} from OrgID #{new_resource.org_id}") { remove_group_mapping } if group_mapping_exist?
 end

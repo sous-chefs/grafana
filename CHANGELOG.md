@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of grafana.
 
-## Unreleased
+## 10.8.0 - *2024-09-27*
 
 - Added org_ids to ldap_mapping functions
 

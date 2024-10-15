@@ -91,24 +91,15 @@ action :create do
   converge_if_changed do
     mapping = resource_properties.map do |rp|
       next if nil_or_empty?(new_resource.send(rp))
-
       [rp.to_s, new_resource.send(rp)]
     end.compact.to_h
 
-    # Fjern eksisterende gruppemapping om den finnes
     remove_group_mapping if group_mapping_exist?
-
-    # Hent eksisterende group_mappings eller opprett en tom liste hvis ingen finnes
     ldap_server_config(new_resource.host)['group_mappings'] ||= []
-
-    # Legg til den nye gruppemappingen
     ldap_server_config(new_resource.host)['group_mappings'].push(mapping)
-
-    # Sorter group_mappings etter org_role
     ldap_server_config(new_resource.host)['group_mappings'].sort_by! { |gm| gm['org_role'] }
   end
 end
-
 
 action :delete do
   converge_by("Remove LDAP server #{new_resource.host} group mapping for #{new_resource.group_dn} from OrgID #{new_resource.org_id}") { remove_group_mapping } if group_mapping_exist?

@@ -39,7 +39,7 @@ property :grafana_admin, [true, false]
 property :org_id, Integer
 
 load_current_value do |new_resource|
-  current_config = load_file_ldap_config_host_group_mapping(new_resource.config_file, new_resource.host, new_resource.org_role)
+  current_config = load_file_ldap_config_host_group_mapping(new_resource.config_file, new_resource.host, new_resource.group_dn)
 
   current_value_does_not_exist! unless current_config
 
@@ -97,7 +97,7 @@ action :create do
     remove_group_mapping if group_mapping_exist?
     ldap_server_config(new_resource.host)['group_mappings'] ||= []
     ldap_server_config(new_resource.host)['group_mappings'].push(mapping)
-    ldap_server_config(new_resource.host)['group_mappings'].sort_by! { |gm| gm['org_role'] }
+    ldap_server_config(new_resource.host)['group_mappings'].sort_by! { |gm| gm['org_id'] }
   end
 end
 

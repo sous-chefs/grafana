@@ -77,13 +77,13 @@ module Grafana
       # @param group_dn [String] The group DN to return configuration for
       # @return [Hash] Host attribute configuration
       #
-      def load_file_ldap_config_host_group_mapping(config_file, host, org_role)
+      def load_file_ldap_config_host_group_mapping(config_file, host, org_id)
         host_config = load_file_ldap_config_host(config_file, host)
 
         return if nil_or_empty?(host_config)
 
-        group_mapping = host_config.fetch('group_mappings', []).select { |gm| gm['org_role'].eql?(org_role) }.first
-        Chef::Log.debug("load_file_ldap_config_host_group_mapping: #{config_file} host #{host} group #{group_dn} - [#{group_mapping.class}] #{group_mapping}")
+        group_mapping = host_config.fetch('group_mappings', []).select { |gm| gm['org_id'].eql?(org_id) }.first
+        Chef::Log.debug("load_file_ldap_config_host_group_mapping: #{config_file} host #{host} group #{org_id} - [#{group_mapping.class}] #{group_mapping}")
 
         group_mapping
       end

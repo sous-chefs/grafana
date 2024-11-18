@@ -4,6 +4,10 @@ This file is used to list changes made in each version of grafana.
 
 ## Unreleased
 
+Standardise files with files in sous-chefs/repo-management
+
+Standardise files with files in sous-chefs/repo-management
+
 ## 10.8.0 - *2024-09-27*
 
 - Added org_ids to ldap_mapping functions

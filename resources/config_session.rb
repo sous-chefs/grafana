@@ -24,7 +24,7 @@ use 'partial/_config_file'
 property :session_provider, [String, Symbol],
           default: :file,
           equal_to: [:memory, :file, :redis, :mysql, :postgres, :memcache, 'memory', 'file', 'redis', 'mysql', 'postgres', 'memcache'],
-          coerce: proc { |p| p.to_s }
+          coerce: proc(&:to_s)
 
 property :provider_config, String,
           default: 'sessions'

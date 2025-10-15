@@ -5,6 +5,13 @@ This file is used to list changes made in each version of grafana.
 Standardise files with files in sous-chefs/repo-management
 Standardise files with files in sous-chefs/repo-management
 
+## [10.8.4](https://github.com/sous-chefs/grafana/compare/10.8.3...v10.8.4) (2025-10-15)
+
+
+### Bug Fixes
+
+* **ci:** Update workflows to use release pipeline ([#479](https://github.com/sous-chefs/grafana/issues/479)) ([06244ff](https://github.com/sous-chefs/grafana/commit/06244ff0a1eaef14cdda7ebeca4234f11194252a))
+
 ## 10.8.1 - *2024-11-18*
 
 Standardise files with files in sous-chefs/repo-management

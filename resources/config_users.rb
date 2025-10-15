@@ -39,7 +39,7 @@ property :password_hint, String
 
 property :default_theme, [Symbol, String],
           equal_to: [:dark, :light, 'dark', 'light'],
-          coerce: proc { |p| p.to_s }
+          coerce: proc(&:to_s)
 
 property :home_page, String
 

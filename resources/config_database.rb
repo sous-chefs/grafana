@@ -24,7 +24,7 @@ use 'partial/_config_file'
 property :type, [Symbol, String],
           default: :sqlite3,
           equal_to: [ :mysql, :postgres, :sqlite3, 'mysql', 'postgres', 'sqlite3' ],
-          coerce: proc { |p| p.to_s }
+          coerce: proc(&:to_s)
 
 property :host, String
 

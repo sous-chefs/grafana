@@ -24,7 +24,7 @@ property :plugin_name, String,
           name_property: true
 
 property :grafana_cli_bin, String,
-          default: '/usr/sbin/grafana-cli'
+          default: '/usr/sbin/grafana cli'
 
 property :plugin_url, String
 

@@ -2,6 +2,40 @@
 
 This file is used to list changes made in each version of grafana.
 
+## [10.9.0](https://github.com/sous-chefs/grafana/compare/grafana-v10.8.4...grafana-v10.9.0) (2026-04-15)
+
+
+### Features
+
+* add config_writer update to unreleased ([1b4d322](https://github.com/sous-chefs/grafana/commit/1b4d3221181581a01c269f2782c1c6595627a3f9))
+* add new property service restart ([d9cb04d](https://github.com/sous-chefs/grafana/commit/d9cb04d9c359733508ab3c85224b387c43538956))
+* add service_enable to properties ([7c0503e](https://github.com/sous-chefs/grafana/commit/7c0503e2dd98256dc6fbd16f4b9d95b0e92a24c8))
+* add spec tests for service_enable ([78842a6](https://github.com/sous-chefs/grafana/commit/78842a60c40d76e59819b59266f864e63249d5da))
+* rename from service restart&gt; service enable ([5ac5806](https://github.com/sous-chefs/grafana/commit/5ac58061d173f7a7edf0adaa18bb20cc4e047cf6))
+
+
+### Bug Fixes
+
+* add Grafana 13.0 compatibility ([#483](https://github.com/sous-chefs/grafana/issues/483)) ([5880b36](https://github.com/sous-chefs/grafana/commit/5880b367b7a8c0cd7be2bdbe70e1d4c9cb65e352))
+* added org_id to ldap group mapping functions ([#466](https://github.com/sous-chefs/grafana/issues/466)) ([c69b263](https://github.com/sous-chefs/grafana/commit/c69b2631280cd06264af2683ec3e1f27eba8ca54))
+* **ci:** Update workflows to use release pipeline ([#479](https://github.com/sous-chefs/grafana/issues/479)) ([06244ff](https://github.com/sous-chefs/grafana/commit/06244ff0a1eaef14cdda7ebeca4234f11194252a))
+* docs/config_ext_img_storage_s3 header name ([d45fae2](https://github.com/sous-chefs/grafana/commit/d45fae2ac0432ee7847d04846d40d14a4d5d5739))
+* docs/config_ext_img_storage_s3 header name ([f44a132](https://github.com/sous-chefs/grafana/commit/f44a1325734be11220ca941eb0f578a5c3fc4b27))
+* documentation/config_smtp ([784844a](https://github.com/sous-chefs/grafana/commit/784844a9b3392d1eb1a78c88c1e919825cd34bc6))
+* documentation/config_smtp ([f80cdeb](https://github.com/sous-chefs/grafana/commit/f80cdebfca9e8311aec9e40c333ba59ddf9b6e4e))
+* documentation/grafana_config_auth.md ([c5d4c91](https://github.com/sous-chefs/grafana/commit/c5d4c9150c8694ecdf9f6a5c601cd33c4fb1cb2e))
+* documentation/grafana_config_metrics.md ([479ffc0](https://github.com/sous-chefs/grafana/commit/479ffc02ffa4b3471bf7b6a2af53fa03a7aee770))
+* documentation/grafana_config_metrics.md ([ee02394](https://github.com/sous-chefs/grafana/commit/ee02394fc0051b813a5706e47fb59c42d1c5c266))
+* documentation/grafana_confog_auth.md ([6b5b955](https://github.com/sous-chefs/grafana/commit/6b5b9559e731a43048c3ad5b17c65cb0bbc3d3e5))
+* link to official docs in docs/organisation ([bcd673a](https://github.com/sous-chefs/grafana/commit/bcd673acfb87bd3eadafa00d1a230656a3a94c17))
+* link to official docs in docs/organisation ([0bd856a](https://github.com/sous-chefs/grafana/commit/0bd856a4223512b791344c4e0f8668bc438ace13))
+* name documentation/grafana_config_quota.md ([#289](https://github.com/sous-chefs/grafana/issues/289)) ([f9376e8](https://github.com/sous-chefs/grafana/commit/f9376e88de15c10d4adf03613752e2600c6a76ba))
+* resources/config_server bad property ([18e2fbc](https://github.com/sous-chefs/grafana/commit/18e2fbc61d693a526f7b1a312fd4e39b0cf1e0b5))
+* resources/config_server bad property ([9d0eabb](https://github.com/sous-chefs/grafana/commit/9d0eabbb1c9ed121a73cda828e115cb486bd9211))
+* typo in CHANGELOG.md ([92c2c0a](https://github.com/sous-chefs/grafana/commit/92c2c0aa4a454d40f0f813733973eac487fdc95c))
+* version selection for Debian-based install ([94b996f](https://github.com/sous-chefs/grafana/commit/94b996f6509080bbd81adae655c8914afd94a5fd))
+* version selection for Debian-based install ([d466c96](https://github.com/sous-chefs/grafana/commit/d466c96aec72a9d9800f2fcb1bd5c96e0e2f484e))
+
 ## [10.8.4](https://github.com/sous-chefs/grafana/compare/10.8.3...v10.8.4) (2025-10-15)
 
 

@@ -1,11 +1,11 @@
 {
   "packages": {
     ".": {
-      "package-name": "grafana",
+      "component": "grafana",
       "changelog-path": "CHANGELOG.md",
-      "release-type": "ruby",
-      "include-component-in-tag": false,
-      "version-file": "metadata.rb"
+      "release-type": "simple",
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": true
     }
   },
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"

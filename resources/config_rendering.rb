@@ -26,3 +26,5 @@ property :server_url, String
 property :callback_url, String
 
 property :concurrent_render_request_limit, Integer
+
+property :renderer_token, String

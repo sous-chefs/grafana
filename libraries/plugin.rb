@@ -39,6 +39,7 @@ module Grafana
         raise "Invalid action [#{action.class}] #{action}" unless %i(install update upgrade remove list-remote ls).include?(action)
 
         plugin_cmd = new_resource.grafana_cli_bin.dup
+        plugin_cmd.concat(' --homepath /usr/share/grafana')
         plugin_cmd.concat(" --pluginUrl #{plugin_url}") if plugin_url
         plugin_cmd.concat(" plugins #{action}")
         plugin_cmd.concat(" #{name}") if name

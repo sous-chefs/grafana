@@ -91,14 +91,13 @@ action :create do
   converge_if_changed do
     mapping = resource_properties.map do |rp|
       next if nil_or_empty?(new_resource.send(rp))
-
       [rp.to_s, new_resource.send(rp)]
-    end.compact.sort.to_h
+    end.compact.to_h
 
     remove_group_mapping if group_mapping_exist?
-
     ldap_server_config(new_resource.host)['group_mappings'] ||= []
     ldap_server_config(new_resource.host)['group_mappings'].push(mapping)
+    ldap_server_config(new_resource.host)['group_mappings'].sort_by! { |gm| gm['org_id'] }
   end
 end
 

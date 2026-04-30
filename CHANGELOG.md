@@ -49,7 +49,7 @@ Standardise files with files in sous-chefs/repo-management
 
 Standardise files with files in sous-chefs/repo-management
 
-- Fix: Sorts group mappings in ldap.toml by org_role
+* Fix: Sorts group mappings in ldap.toml by org_role
 
 ## 10.8.0 - *2024-09-27*
 

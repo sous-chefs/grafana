@@ -30,7 +30,7 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[test::install]
+      - recipe[test::default]
 
   - name: ldap
     run_list:
@@ -56,6 +56,6 @@ suites:
     run_list:
       - recipe[test::azuread]
 
-  - name: config_plugins
+  - name: config-plugins
     run_list:
-      - recipe[test::config_plugins]
+      - recipe[test::config-plugins]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def sys_dir
   os[:family] =~ /redhat|fedora/ ? 'sysconfig' : 'default'
 end

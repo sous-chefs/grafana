@@ -22,11 +22,14 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 This cookbook officially supports and is tested against the following platforms:
 
-- Ubuntu >= 16.04
-- Debian >= 8
-- CentOS/Redhat >= 6
+- AlmaLinux 8/9
+- Amazon Linux 2023
+- CentOS Stream 9
+- Debian 11/12
+- Rocky Linux 8/9
+- Ubuntu 22.04/24.04
 
-PRs are welcome to add support for additional platforms.
+For more details on supported platforms and architectures, see [LIMITATIONS.md](LIMITATIONS.md).
 
 ## Resources
 

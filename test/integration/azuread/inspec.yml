@@ -1,0 +1,4 @@
+---
+name: azuread
+title: Grafana azuread integration tests
+version: 0.1.0

@@ -1,4 +1,6 @@
-describe command('grafana cli plugins ls') do
+# frozen_string_literal: true
+
+describe command('grafana-cli plugins ls') do
   its(:stdout) { should include 'grafana-clock-panel' }
   its(:stdout) { should include 'yesoreyeram-boomtable-panel' }
 end

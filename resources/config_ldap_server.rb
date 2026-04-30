@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Cookbook:: grafana
 # Resource:: config_ldap_server
@@ -18,6 +20,7 @@
 #
 
 unified_mode true
+provides :grafana_config_ldap_server
 
 use 'partial/_config_file'
 use 'partial/_config_file_ldap'

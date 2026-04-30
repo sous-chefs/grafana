@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Cookbook:: grafana
 # Resource:: service
@@ -18,6 +20,7 @@
 #
 
 unified_mode true
+provides :grafana_service
 
 property :service_name, String,
           default: 'grafana-server'

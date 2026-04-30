@@ -1,0 +1,4 @@
+---
+name: plugins
+title: Grafana plugins integration tests
+version: 0.1.0

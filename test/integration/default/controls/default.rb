@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def sys_dir
   os[:family] =~ /redhat|fedora/ ? 'sysconfig' : 'default'
 end
@@ -31,6 +33,10 @@ describe service('grafana-server') do
   it { should be_running }
 end
 
-describe port(3000) do
-  it { should be_listening }
+describe json(content: http('http://localhost:3000/api/admin/settings',
+              auth: { user: 'admin', pass: 'admin' },
+              params: { format: 'html' },
+              method: 'GET',
+              headers: { 'Content-Type' => 'application/json' }).body) do
+  its(['external_image_storage.s3', 'bucket']) { should eq 'grafana-image-store' }
 end

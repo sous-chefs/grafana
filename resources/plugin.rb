@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Cookbook:: grafana
 # Resource:: plugin
@@ -19,12 +21,13 @@
 # limitations under the License.
 
 unified_mode true
+provides :grafana_plugin
 
 property :plugin_name, String,
           name_property: true
 
 property :grafana_cli_bin, String,
-          default: '/usr/sbin/grafana cli'
+          default: '/usr/sbin/grafana-cli'
 
 property :plugin_url, String
 

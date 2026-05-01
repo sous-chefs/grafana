@@ -2,6 +2,17 @@
 
 This file is used to list changes made in each version of grafana.
 
+## [11.0.0](https://github.com/sous-chefs/grafana/compare/grafana-v10.9.0...grafana-v11.0.0) (2026-05-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* modernize cookbook and align with custom resource standards ([#488](https://github.com/sous-chefs/grafana/issues/488))
+
+### Features
+
+* modernize cookbook and align with custom resource standards ([#488](https://github.com/sous-chefs/grafana/issues/488)) ([3ebcfc6](https://github.com/sous-chefs/grafana/commit/3ebcfc694335c6fe548f3e507b476f5f297bbbb9))
+
 ## [10.9.0](https://github.com/sous-chefs/grafana/compare/grafana-v10.8.4...grafana-v10.9.0) (2026-04-15)
 
 

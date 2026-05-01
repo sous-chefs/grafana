@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 grafana_install 'grafana'
 
 grafana_config 'Grafana' do

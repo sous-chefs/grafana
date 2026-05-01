@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Cookbook:: grafana
 # Resource:: _config_file_ldap
@@ -16,6 +18,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+unified_mode true
 
 include Grafana::Cookbook::LdapConfigFile
 

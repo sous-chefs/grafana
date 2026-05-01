@@ -1,0 +1,4 @@
+---
+name: config-plugins
+title: Grafana config-plugins integration tests
+version: 0.1.0

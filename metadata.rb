@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 name             'grafana'
 maintainer       'Sous Chefs'
 maintainer_email 'help@sous-chefs.org'
@@ -16,6 +18,8 @@ supports 'fedora'
 supports 'amazon'
 supports 'scientific'
 supports 'oracle'
+supports 'rocky'
+supports 'almalinux'
 
 gem 'deepsort'
 gem 'inifile'

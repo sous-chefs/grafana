@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Cookbook:: grafana
 # Resource:: config_rendering
@@ -18,6 +20,7 @@
 #
 
 unified_mode true
+provides :grafana_config_rendering
 
 use 'partial/_config_file'
 
@@ -26,5 +29,3 @@ property :server_url, String
 property :callback_url, String
 
 property :concurrent_render_request_limit, Integer
-
-property :renderer_token, String

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 auth_header = 'X-WEBAUTH-USER'
 
 grafana_install 'grafana'

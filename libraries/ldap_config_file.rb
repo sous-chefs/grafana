@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Cookbook:: grafana
 # Library:: ldap_config_file
 #

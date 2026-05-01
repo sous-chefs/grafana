@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Cookbook:: grafana
 # Resource:: config_ldap_group_mapping
@@ -18,6 +20,7 @@
 #
 
 unified_mode true
+provides :grafana_config_ldap_group_mapping
 
 use 'partial/_config_file'
 use 'partial/_config_file_ldap'
@@ -71,7 +74,7 @@ action_class do
 
     return unless group_mappings
 
-    group_mappings.any? { |gm| gm['group_dn'].eql?(new_resource.group_dn) && gm['org_role'].eql?(new_resource.org_role) && gm['org_id'].eql?(new_resource.org_id) }
+    group_mappings.any? { |gm| gm['group_dn'].eql?(new_resource.group_dn) }
   end
 
   def remove_group_mapping
@@ -81,7 +84,7 @@ action_class do
 
     return unless group_mappings
 
-    group_mappings.delete_if { |gm| gm['group_dn'].eql?(new_resource.group_dn) && gm['org_role'].eql?(new_resource.org_role) && gm['org_id'].eql?(new_resource.org_id) }
+    group_mappings.delete_if { |gm| gm['group_dn'].eql?(new_resource.group_dn) }
   end
 end
 
@@ -91,14 +94,13 @@ action :create do
   converge_if_changed do
     mapping = resource_properties.map do |rp|
       next if nil_or_empty?(new_resource.send(rp))
-
       [rp.to_s, new_resource.send(rp)]
-    end.compact.sort.to_h
+    end.compact.to_h
 
     remove_group_mapping if group_mapping_exist?
-
     ldap_server_config(new_resource.host)['group_mappings'] ||= []
     ldap_server_config(new_resource.host)['group_mappings'].push(mapping)
+    ldap_server_config(new_resource.host)['group_mappings'].sort_by! { |gm| gm['org_id'].to_i }
   end
 end
 

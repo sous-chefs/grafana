@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Cookbook:: grafana
 # Resource:: install
@@ -20,6 +22,7 @@
 #
 
 unified_mode true
+provides :grafana_install
 
 include Grafana::Cookbook::Helpers
 

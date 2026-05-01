@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Cookbook:: grafana
 # Resource:: config_metrics_graphite
@@ -18,6 +20,7 @@
 #
 
 unified_mode true
+provides :grafana_config_metrics_graphite
 
 use 'partial/_config_file'
 

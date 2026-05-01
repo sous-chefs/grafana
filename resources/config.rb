@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Cookbook:: grafana
 # Resource:: config
@@ -20,6 +22,7 @@
 #
 
 unified_mode true
+provides :grafana_config
 
 use 'partial/_config_file'
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Cookbook:: grafana
 # Resource:: config_auth_google
 #
@@ -17,6 +19,7 @@
 #
 
 unified_mode true
+provides :grafana_config_auth_google
 
 use 'partial/_config_file'
 

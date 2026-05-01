@@ -1,0 +1,4 @@
+---
+name: ldap
+title: Grafana ldap integration tests
+version: 0.1.0

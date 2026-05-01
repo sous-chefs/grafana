@@ -47,7 +47,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install Cinc Workstation
         uses: sous-chefs/.github/.github/actions/install-workstation@6.0.0
       - name: Dokken

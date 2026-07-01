@@ -5,8 +5,6 @@ name 'grafana'
 run_list 'test::default'
 
 cookbook 'grafana', path: '.'
-cookbook 'apt', git: 'https://github.com/sous-chefs/apt.git', branch: 'main'
-cookbook 'curl', git: 'https://github.com/sous-chefs/curl.git', branch: 'main'
 cookbook 'test', path: './test/fixtures/cookbooks/test'
 
 named_run_list :azuread, 'test::azuread'

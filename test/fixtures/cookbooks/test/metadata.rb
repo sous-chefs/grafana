@@ -7,6 +7,3 @@ license           'Apache-2.0'
 description       'Testing cookbook for grafana'
 version           '0.0.1'
 depends           'grafana'
-
-depends 'apt'
-depends 'curl'

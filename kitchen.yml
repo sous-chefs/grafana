@@ -29,33 +29,41 @@ platforms:
 
 suites:
   - name: default
+    named_run_list: default
     run_list:
       - recipe[test::default]
 
   - name: ldap
+    named_run_list: ldap
     run_list:
       - recipe[test::ldap]
 
   - name: proxy
+    named_run_list: proxy
     run_list:
       - recipe[test::proxy]
 
   - name: plugins
+    named_run_list: plugins
     run_list:
       - recipe[test::plugins]
 
   - name: basic
+    named_run_list: basic
     run_list:
       - recipe[test::basic]
 
   - name: configure
+    named_run_list: configure
     run_list:
       - recipe[test::configure]
 
   - name: azuread
+    named_run_list: azuread
     run_list:
       - recipe[test::azuread]
 
   - name: config-plugins
+    named_run_list: config_plugins
     run_list:
       - recipe[test::config-plugins]

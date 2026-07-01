@@ -18,12 +18,14 @@
 # limitations under the License.
 #
 
-require 'deepsort'
 require 'toml-rb'
+require_relative '_utils'
 
 module Grafana
   module Cookbook
     module TomlHelper
+      include Grafana::Cookbook::Utils
+
       private
 
       # Load an toml file from disk
@@ -45,8 +47,7 @@ module Grafana
       def tomlfile_string(content, deep_sort: false)
         raise ArgumentError, "Expected Hash got #{content.class}" unless content.is_a?(Hash)
 
-        file_content = content
-        file_content.deep_sort! if deep_sort
+        file_content = deep_sort ? deep_sort(content) : content
 
         ::TomlRB.dump(file_content)
       end

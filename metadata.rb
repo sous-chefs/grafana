@@ -21,6 +21,5 @@ supports 'oracle'
 supports 'rocky'
 supports 'almalinux'
 
-gem 'deepsort'
 gem 'inifile'
 gem 'toml-rb', '~> 2.2'

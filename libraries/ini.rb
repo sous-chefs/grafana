@@ -18,7 +18,6 @@
 # limitations under the License.
 #
 
-require 'deepsort'
 require 'inifile'
 require_relative '_utils'
 
@@ -51,7 +50,7 @@ module Grafana
         content_compact = content.dup.compact
         global_settings = content_compact.delete('global')
 
-        content_compact.deep_sort!
+        content_compact = deep_sort(content_compact)
         content_compact.delete_if { |_, v| nil_or_empty?(v) }
 
         ::IniFile.new(content: { 'global' => global_settings }.merge(content_compact)).to_s.gsub("[global]\n", '')

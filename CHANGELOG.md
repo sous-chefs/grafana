@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of grafana.
 
+## [11.0.1](https://github.com/sous-chefs/grafana/compare/grafana-v11.0.0...grafana-v11.0.1) (2026-07-09)
+
+
+### Bug Fixes
+
+* migrate to Policyfile and map Kitchen suites ([#494](https://github.com/sous-chefs/grafana/issues/494)) ([b4ffe4d](https://github.com/sous-chefs/grafana/commit/b4ffe4dca0f03243946744d5cecb7c50b2f00d12))
+
 ## [11.0.0](https://github.com/sous-chefs/grafana/compare/grafana-v10.9.0...grafana-v11.0.0) (2026-05-01)
 
 

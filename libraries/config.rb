@@ -126,7 +126,6 @@ module Grafana
                            end
 
         with_run_context(:root) do
-          declare_resource(:chef_gem, 'deepsort') { compile_time true } unless gem_installed?('deepsort')
           declare_resource(:chef_gem, 'inifile') { compile_time true } unless gem_installed?('inifile')
           declare_resource(:chef_gem, 'toml-rb') { compile_time true } unless gem_installed?('toml-rb')
 
@@ -161,7 +160,7 @@ module Grafana
       def accumulator_config_path_init(*path)
         init_config_template unless config_template_exist?
 
-        return config_file_template_variables if path.all? { |p| p.is_a?(NilClass) } # Root path specified
+        return config_file_template_variables if path.all?(NilClass) # Root path specified
         return config_file_template_variables.dig(*path) if config_file_template_variables.dig(*path).is_a?(Hash) # Return path if it exists
 
         Chef::Log.debug("accumulator_config_path_init: Initialising config file #{new_resource.config_file} path config#{path.map { |p| "['#{p}']" }.join}")

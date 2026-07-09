@@ -31,6 +31,22 @@ module Grafana
         values.any? { |v| v.nil? || (v.respond_to?(:empty?) && v.empty?) }
       end
 
+      # Recursively sort Hash keys for deterministic generated config output.
+      #
+      # @param value [Object] Value to sort
+      # @return [Object] Sorted value
+      #
+      def deep_sort(value)
+        case value
+        when Hash
+          value.sort_by { |key, _| key.to_s }.to_h { |key, nested_value| [key, deep_sort(nested_value)] }
+        when Array
+          value.map { |nested_value| deep_sort(nested_value) }
+        else
+          value
+        end
+      end
+
       # Check if a given gem is installed and available for require
       #
       # @return [true, false] Gem installed result
